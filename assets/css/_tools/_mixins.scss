@@ -1,0 +1,99 @@
+/* variables */
+@import "./variable";
+
+/* font family weight */
+
+@mixin inter($weight) {
+    font-family: $default-font;
+ 	font-optical-sizing: auto;
+  	font-weight: $weight;
+  	font-style: normal;
+}
+
+
+/* media query */
+@mixin media($breakpoint) {
+    @media screen and (max-width: $breakpoint) {
+        @content;
+    }
+}
+
+// box sizing
+@mixin box-sizing($box-model) {
+	-webkit-box-sizing: $box-model; // Safari <= 5
+	   -moz-box-sizing: $box-model; // Firefox <= 19
+			box-sizing: $box-model;
+}
+
+// transform scale
+@mixin transform-scale($scale){
+	transform: none;
+	-moz-transform: scale($scale);
+	-webkit-transform: scale($scale);
+	transform: scale($scale);
+}
+
+// transform rotate ( degree angle )
+@mixin transform-rotate($rotate){
+	transform: rotate($rotate+deg);
+	-webkit-transform: rotate($rotate+deg);
+	-moz-transform: rotate($rotate+deg);
+	-ms-transform: rotate($rotate+deg);
+	-o-transform: rotate($rotate+deg);
+	transform: rotate($rotate+deg);
+}
+
+// transition
+@mixin transition($animation,$delay){
+	-webkit-animation: $animation $delay+s linear;
+	animation: $animation $delay+s linear;
+}
+
+// transition - fade
+@mixin transition-fade( $delay ){
+	transition: all $delay+s ease 0s;
+}
+
+@mixin transition-slide( $delay ){
+	transition: all $delay+s ease-in-out;
+}
+
+@mixin vertical-flip {
+	-webkit-transform: scale(-1, -1);
+	transform: scale(-1, -1);
+}
+
+@mixin keyframe-fadeIn($elemnt){
+	@keyframes $elemnt {
+		0%,100% { opacity: 1 }
+		50% { opacity: 0 }
+	}
+}
+
+//- circle radius, width and height size
+@mixin circle($size){
+	height: $size+px;
+	width: $size+px;
+	overflow: hidden;
+	text-align: center;
+	border-radius: $size+px;
+}
+
+// ellipsis -
+@mixin ellipsis($number){
+	display: -webkit-box !important;
+	-webkit-line-clamp: $number;
+	-webkit-box-orient: vertical;  
+	overflow: hidden;
+}
+
+// spin rotation
+@mixin spin($speed,$rotate){
+	-webkit-animation:spin $speed+s linear infinite;
+	-moz-animation:spin $speed+s linear infinite;
+	animation:spin $speed+s linear infinite;
+	@-moz-keyframes spin { 100% { -moz-transform: rotate($rotate+deg); } }
+	@-webkit-keyframes spin { 100% { -webkit-transform: rotate($rotate+deg); } }
+	@keyframes spin { 100% { -webkit-transform: rotate($rotate+deg); transform:rotate($rotate+deg); } }
+}
+

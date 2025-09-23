@@ -1,0 +1,39 @@
+@import "variable";
+@import "mixins";
+
+.button{
+    margin: 0;
+    border: 0;
+    display: inline;
+    cursor: pointer;
+    font-size: $fsize14;
+    font-weight: $fSemiBold;
+    border-radius: $corners;
+    font-family: $default-font;
+    padding: $base-fsize - 7 $base-fsize;
+    text-decoration: none;
+    
+
+    &.blue{
+        color: $white;
+        background: $blue300;
+        border: 1px solid $blue300;
+        @include transition-fade(0.3);
+        &:hover{
+            background: $blue200;
+        }
+    }
+
+    &.white{
+        color: $blue300;
+        background: $white;
+        border: 1px solid $blue300;
+        @include transition-fade(0.3);
+        &:hover{
+            background: $blue50;
+            
+        }
+    }
+
+
+}

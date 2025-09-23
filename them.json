@@ -1,0 +1,29 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/theme.json",
+	"version": 2,
+	"settings": {
+		"border": {
+			"color": true,
+			"radius": true,
+			"style": true,
+			"width": true
+		},
+		"color": {
+			"link": true
+		},
+		"dimensions": {
+			"minHeight": true
+		},
+		"position": {
+			"sticky": true
+		},
+		"spacing": {
+			"blockGap": true,
+			"margin": true,
+			"padding": true
+		},
+		"typography": {
+			"lineHeight": true
+		}
+	}
+}

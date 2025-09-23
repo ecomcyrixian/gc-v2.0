@@ -1,0 +1,119 @@
+@import "./mixins";
+.articles{
+        
+    &.latest{
+        margin:  calc( 5 * var(--gap)) auto !important;
+    }
+
+    h5{
+        display: flex;
+        span{
+            flex: 1;
+            font-weight: bold;
+            font-size: 16px;
+            text-align: right;
+        };
+    }
+
+    &.wrap{
+        padding: 0 var(--gap);
+        margin-bottom:  calc( 2 * var(--gap));
+    }
+
+    [class*="-items"]{
+        
+        font-size: 1.6rem;
+        a{
+            &.title{
+                color: var(--black) !important;
+                font-size: 18px;
+                @include transition-fade(.5);
+                &:hover{
+                    color: var(--primary-blue) !important;;
+                }
+
+                
+            }
+            
+            &.readmore{
+                transition: 0.5s;
+                position: relative;
+                font-size: 18px;
+                font-weight: 600;
+
+                svg{
+                    width: 14px;
+                    fill: #4f51fd;
+                }
+
+                span{
+                    top: -2px;
+                    left: 103px;
+                    position: absolute;    
+                    transition: 0.5s;
+                }
+                
+                &:hover{
+                    span{
+                        left: 113px;
+                    }
+                }
+            }
+        }
+
+        img{
+            height: auto;
+            width: 100%;
+        }
+
+        .category{
+            font-size: 1.2rem;
+            text-transform: uppercase;
+        }
+     
+        .featImg-art{
+            display: block;
+            margin-bottom: var(--gap);
+            border-radius: 16px;
+            overflow: hidden;
+            height: 180px;
+        }
+
+        .date-read{
+            gap: 5px;
+            color: var(--gray);
+            display: flex;
+            font-size: 12px;
+            margin-bottom: 18px;
+        }
+
+        &>div{
+            gap: var(--gap);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+
+            section{
+                text-align: left;
+                width: 31.6%;
+
+                @include media($tablet){
+                    width: 48.3%;
+                }
+    
+                @include media($mobile){
+                    width: 100%;
+                }
+            }
+
+        }
+
+    }
+
+    &.recent{
+        margin-bottom:  calc( 5 * var(--gap)) !important;
+        section{
+            border-bottom: 1px solid var(--lightest-gray);
+        }
+    }
+}
