@@ -1,6 +1,4 @@
-<?php //get_header(); ?>
-<?php get_header('home'); ?>
-
+<?php get_header(); ?>
 <div id="content">
     <?php
     if ( have_posts() ) :

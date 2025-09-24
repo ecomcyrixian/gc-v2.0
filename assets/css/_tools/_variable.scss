@@ -35,9 +35,13 @@ $red                    : #CC2900;
 
 
 
-$base-fsize             : 16px;
+$base-fsize             : 16px;     /* base */
+$fsize14                : 0.875em;  /* 14 px */
 $fsize18                : 1.125rem; /* 18 px*/
-$fsize14                : 0.875em; /* 14 px */
+$fsize20                : 1.25em;   /* 20 px */
+$fsize40                : 2.5em;    /* 40 px */
+$fsize56                : 3.5em;    /* 56 px */
+
 $default-font           : "Inter", sans-serif;
 $fThin                   : 100;
 $fExtraLight             : 200;

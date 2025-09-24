@@ -7,8 +7,6 @@
             <span></span>
         </label>
     </span>
-   
-
     <div id="desktop-nav">
         <?php 
             wp_nav_menu( array(

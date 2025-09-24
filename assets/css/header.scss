@@ -10,8 +10,107 @@
 header{
     background: url(../images/home-header-bg.jpg) no-repeat top center $blue500;
     background-size: cover;
-    height: 820px;
+    height: 1330px;
     width: 100%;
+
+    @include media($tablet){
+        height: 100%;
+        padding-bottom: $gap * 4;
+    }
+
+    &>.container>div{
+        color: $white;
+        margin: $gap * 5 auto;
+        max-width: 984px;
+        text-align: center;
+
+        @include media($mobile){
+            padding: 0 $gap * 2;
+        }
+
+        h1{
+            display: block;
+            margin: 0 auto $gap + 6  auto;
+            font-size: $fsize56;
+            font-weight: $fRegular;
+
+            &>i{
+                font-weight: $fSemiBold;
+                &:last-child{
+                    font-weight: $fBold;
+                    background-image: linear-gradient(to right, #3FC5FD, #D20DF5); /* Red to Blue gradient */
+                    -webkit-background-clip: text; /* For WebKit browsers */
+                    background-clip: text;
+                    -webkit-text-fill-color: transparent; /* For WebKit browsers */
+                    color: transparent; /* Fallback for browsers that don't support -webkit-text-fill-color */
+                }
+
+            }
+
+            @include media($mobile){
+                font-size: $fsize40;
+            }
+        }
+
+        p{
+            font-size: $fsize20;
+            margin-bottom: $gap * 4;
+        }
+
+        span{
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+             @include media($mobile){
+                display: none;
+                flex-wrap: wrap;
+                &>p{
+                    width: 100%;
+                    padding: $gap;
+                    margin: 0;
+                    display: flex;
+                    justify-items: center;
+                     @include media($mobile){
+                        flex-wrap: wrap;
+                        justify-content: center;
+                     }
+                }
+             }
+            
+            &>p{
+                gap: $gap;
+                display: flex;
+                flex-wrap: nowrap;
+                align-items: center;
+                font-size: $fsize14;
+            }
+        }
+
+        .buttons{
+            gap: $gap;
+            display: flex;
+            margin-bottom: $gap * 2 + 4;
+            justify-content: center;
+            @include media($mobile){
+                flex-wrap: wrap;
+                &>a{
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .screenshot>img{
+        margin: 0 auto;
+        max-width: 1080px;
+        @include media($tablet){
+            padding: 0 $gap * 5 $gap * 5;
+        }
+        @include media($mobile){
+            display: none;
+        }
+    }
+
 }
 
 
@@ -24,16 +123,29 @@ header{
     width: 100%;    
     background: transparent;
     padding: $gap * 2;
-    @include transition-fade(0.9);
+    // @include transition-fade(0.5);
+
+    position: relative;
     
+    &>em{
+        z-index: 1;
+        width: 100%; height: 96px;
+        display: block;
+        top:-100px; left: 0;
+        background: $white;
+        position: absolute;
+        
+    }
 
     @include media($mobile){
         padding: $gap;
     }
 
-    &>.wrap{
+    &>.container{
         display: flex;
         align-items: center;
+        z-index: 999;
+        position: relative;
     }
     
     #gCheck-logo{
@@ -46,8 +158,9 @@ header{
         }
     }
 
-    &.active,
-    &.scroll{
+    &.scroll,
+    &.active{
+        top:0;
         background: $white;
           
         a{
@@ -79,7 +192,7 @@ header{
         
     }
     &.active{
-        height: 100vh;
+        
         @include media($mobile){
             position: fixed !important;
         }
@@ -189,9 +302,14 @@ nav{
     }
 
     #mobile-nav{
-        display: none;
+        top:70px;
+        display:none;
         width: 100%;
-        @include transition-fade(0.9);
+        height: 100%;
+        position: fixed;
+        padding: 0 $gap * 2 $gap * 10;
+        background: $white;
+        overflow-y: auto;
 
         &.active{
             display: block;
@@ -225,16 +343,16 @@ nav{
        }
 
        label{
-        display: block;
+            display: block;
             position: relative;
             border-bottom: 1px solid $gray75;
             
             svg{
                 z-index: 10;
-                width: 24px;
-                height: 24px;
+                width: 20px;
+                height: 20px;
                 margin: auto;
-                right: 0; left: auto;
+                right: $gap; left: auto;
                 top:0; bottom: 0;
                 position: absolute;
 
@@ -242,7 +360,7 @@ nav{
             }
 
             a{
-                width: 90%;
+                width: 80%;
                 display: block;
                 color: $gray300;
                 position: relative;
@@ -260,7 +378,7 @@ nav{
             }
             
             img{
-                top: 0; 
+                top: $gap + 2; 
                 left: 0;
                 width: 40px;
                 position: absolute;
@@ -269,6 +387,7 @@ nav{
                 padding: $gap 0;
                 position: relative;
                 &>a{
+                    color: $Black;
                     display: block !important;
                     margin-left: 60px;
                 }
@@ -303,8 +422,6 @@ nav{
             @include vertical-flip;
         }
         
-        
-
     }
 
     &>.button{
