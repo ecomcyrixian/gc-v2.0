@@ -1,0 +1,109 @@
+/* variables */
+/*
+* Template variables and Revised Article
+* Last update of 05.19.25
+*/
+/* base */
+/* 14 px */
+/* 18 px*/
+/* 20 px */
+/* 40 px */
+/* 56 px */
+/* font family weight */
+/* media query */
+.articles.latest {
+  margin: calc(5 * var(--gap)) auto !important;
+}
+.articles h5 {
+  display: flex;
+}
+.articles h5 span {
+  flex: 1;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: right;
+}
+.articles.wrap {
+  padding: 0 var(--gap);
+  margin-bottom: calc(2 * var(--gap));
+}
+.articles [class*=-items] {
+  font-size: 1.6rem;
+}
+.articles [class*=-items] a.title {
+  color: var(--black) !important;
+  font-size: 18px;
+  transition: all 0.5s ease 0s;
+}
+.articles [class*=-items] a.title:hover {
+  color: var(--primary-blue) !important;
+}
+.articles [class*=-items] a.readmore {
+  transition: 0.5s;
+  position: relative;
+  font-size: 18px;
+  font-weight: 600;
+}
+.articles [class*=-items] a.readmore svg {
+  width: 14px;
+  fill: #4f51fd;
+}
+.articles [class*=-items] a.readmore span {
+  top: -2px;
+  left: 103px;
+  position: absolute;
+  transition: 0.5s;
+}
+.articles [class*=-items] a.readmore:hover span {
+  left: 113px;
+}
+.articles [class*=-items] img {
+  height: auto;
+  width: 100%;
+}
+.articles [class*=-items] .category {
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+.articles [class*=-items] .featImg-art {
+  display: block;
+  margin-bottom: var(--gap);
+  border-radius: 16px;
+  overflow: hidden;
+  height: 180px;
+}
+.articles [class*=-items] .date-read {
+  gap: 5px;
+  color: var(--gray);
+  display: flex;
+  font-size: 12px;
+  margin-bottom: 18px;
+}
+.articles [class*=-items] > div {
+  gap: var(--gap);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.articles [class*=-items] > div section {
+  text-align: left;
+  width: 31.6%;
+}
+@media screen and (max-width: 1023px) {
+  .articles [class*=-items] > div section {
+    width: 48.3%;
+  }
+}
+@media screen and (max-width: 767px) {
+  .articles [class*=-items] > div section {
+    width: 100%;
+  }
+}
+.articles.recent {
+  margin-bottom: calc(5 * var(--gap)) !important;
+}
+.articles.recent section {
+  border-bottom: 1px solid var(--lightest-gray);
+}
+
+/*# sourceMappingURL=articles.css.map */

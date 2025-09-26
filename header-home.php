@@ -44,7 +44,6 @@
                 </p>
             </span>
         </div>
-        
     </div>
 
     <span class="screenshot">

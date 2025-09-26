@@ -7,7 +7,7 @@
 <?php get_header('home'); ?>
 
 <div class="container">
-  
+    <?php get_template_part('partials/home/grid-layout') ?>
 </div>
 
 <?php get_footer(); ?>
