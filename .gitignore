@@ -3,14 +3,14 @@
 /build/
 
 # Ignore log files
-*.log
+*.log 
 
 # Ignore temporary files
 *.tmp
 temp/
 
 # Ignore dependency directories
-node_modules/
+node_modules/ 
 vendor/
 
 # Ignore local configuration files
