@@ -172,7 +172,7 @@ header{
         border-bottom: 1px solid $gray75;
           
         a{
-            color:$Black;
+            color:$black;
         }
 
         .button{
@@ -186,7 +186,7 @@ header{
 
         #gCheck-logo{
             .gcText{
-                fill: $Black;
+                fill: $black;
             }
         }
 
@@ -281,7 +281,7 @@ nav{
                 display: block;
                 font-size: $fsize14;
                 position: relative;
-                color: $Black;
+                color: $black;
                 font-weight: $fSemiBold;
                 padding-left: $gap * 4 +  4;
                 
@@ -400,7 +400,7 @@ nav{
                 padding: $gap 0;
                 position: relative;
                 &>a{
-                    color: $Black;
+                    color: $black;
                     display: block !important;
                     margin-left: 60px;
                 }

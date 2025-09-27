@@ -54,11 +54,12 @@ p, h1, h2, h3, h4, h5, h6 {
 
 body{
     
-    color: $Black;
+    color: $black;
     line-height: 1.5;
     position: relative;
     font-family: $default-font;
     font-size: $base-fsize;
+    background: $white75;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }

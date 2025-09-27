@@ -1,13 +1,18 @@
-<div class="container">
-    <div class="grid wrap">
-        <div class="grid-item1">
-             1
-        </div>
-        <div class="grid-item2">
-            <img src="<?php echo get_template_directory_uri() . '/assets/images/grid-photo1.jpg' ?>" alt="gceck">
-        </div>
-        <div class="grid-item3"> 3</div>
-        <div class="grid-item4"> 4</div>
-        <div class="grid-item5"> 5</div>
+
+<div class="grid set1">
+    <div class="grid-item">
+        <?php get_template_part('partials/home/grid-layout/card-2') ?>
+    </div>
+    <div class="grid-item">
+        <img src="<?php echo get_template_directory_uri() . '/assets/images/card-vertical-photo.jpg' ?>" alt="gceck">
+    </div>
+    <div class="grid-item">
+        <?php get_template_part('partials/home/grid-layout/card-3') ?>
+    </div>
+    <div class="grid-item"> 
+        <?php get_template_part('partials/home/grid-layout/card-4') ?>
+    </div>
+    <div class="grid-item">
+        <img src="<?php echo get_template_directory_uri() . '/assets/images/card-horizontal-photo.jpg' ?>" alt="gceck">
     </div>
 </div>
