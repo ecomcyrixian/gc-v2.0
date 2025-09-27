@@ -167,12 +167,14 @@
           
         </div>
         
-        <a href="" target="_parent" class="button blue">
-            Get Started Today
-        </a>
-        <a href="" target="_parent" class="button white">
-            Get Volume Pricing
-        </a>
+        <div id="buttons">
+            <a href="" target="_parent" class="button blue">
+                Get Started Today
+            </a>
+            <a href="" target="_parent" class="button white">
+                Get Volume Pricing
+            </a>
+        </div>
     
     </div>
 </nav>

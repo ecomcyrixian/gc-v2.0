@@ -2,7 +2,7 @@
 @import '../css/_tools/variable';
 @import '../css/_tools/mixins';
 @import '../css/_tools/buttons';
-@import '../../partials/home/grid-layout';
+@import '../../partials/home/grid-layout/grid-layout';
 @import 'header';
 
 
@@ -158,13 +158,14 @@ span[Class*=icon-]{
     cursor: pointer;    
 }
 
-.wrap,
 .container{
     margin: 0 auto;
-    max-width: 1440px;
+    padding: 0 $gap * 6;
+    max-width: 1320px;
+
+    @include media($tablet){
+      padding: 0 $gap + 6;
+    }
 }
 
-.fixed{
-    position: fixed
-}
 

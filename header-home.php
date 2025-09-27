@@ -46,9 +46,9 @@
         </div>
     </div>
 
-    <span class="screenshot">
+    <div class="container screenshot">
         <img src="<?php echo get_template_directory_uri() . '/assets/images/screenshot-img.png' ?>" alt="gceck">
-    </span>
+    </div>
     
 </header>
 
