@@ -19,6 +19,10 @@ header{
         padding-bottom: $gap * 4;
     }
 
+     @include media($mobile){
+        margin-bottom: $gap * 6;
+    }
+
     &>.container>div{
         color: $white;
         margin: $gap * 5 auto;
@@ -128,9 +132,9 @@ header{
     position: relative;
     
     @include media($mobile){
-        padding: $gap;
-        position: sticky;
         top:0;
+        padding: $gap $gap * 2;
+        position: sticky;
         border-color: 1px solid $white50;
     }
     
@@ -207,7 +211,7 @@ header{
     }
     &.scroll{
         top: 0;
-        position: sticky;
+        position: fixed;
     }
    
 
@@ -310,6 +314,7 @@ nav{
     }
 
     #mobile-nav{
+        z-index: 10;
         top:70px;
         display:none;
         width: 100%;
