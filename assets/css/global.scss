@@ -173,4 +173,19 @@ span[Class*=icon-]{
     }
 }
 
+.fine-print{
+  gap: $gap;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: $fsize14;
+  padding: $gap * 2 0;
+
+  @include media($mobile){
+    padding: 0;
+    justify-content: center;
+  }
+  
+}
+
 
