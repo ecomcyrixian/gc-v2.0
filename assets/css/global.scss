@@ -167,6 +167,10 @@ span[Class*=icon-]{
     @include media($tablet){
       padding: 0 $gap + 6;
     }
+
+    @include media($mobile){
+      max-width: 370px;
+    }
 }
 
 

@@ -61,6 +61,9 @@ header{
         p{
             font-size: $fsize20;
             margin-bottom: $gap * 4;
+             @include media($mobile){
+                font-size: $base-fsize;
+            }
         }
 
         span{
@@ -133,7 +136,7 @@ header{
     
     @include media($mobile){
         top:0;
-        padding: $gap $gap * 2;
+        padding: $gap $gap + 6;
         position: sticky;
         border-color: 1px solid $white50;
     }

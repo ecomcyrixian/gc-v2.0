@@ -123,6 +123,8 @@
 @media screen and (max-width: 767px) {
   #grid-cont {
     overflow-y: inherit;
+    max-width: 370px;
+    margin: 0 auto;
   }
 }
 
@@ -495,6 +497,11 @@ header > .container > div p {
   font-size: 1.25em;
   margin-bottom: 40px;
 }
+@media screen and (max-width: 767px) {
+  header > .container > div p {
+    font-size: 16px;
+  }
+}
 header > .container > div span {
   display: flex;
   flex-wrap: nowrap;
@@ -568,7 +575,7 @@ header .screenshot > img {
 @media screen and (max-width: 767px) {
   #header-cont {
     top: 0;
-    padding: 10px 20px;
+    padding: 10px 16px;
     position: sticky;
     border-color: 1px solid #f9f9f9;
   }
@@ -1070,6 +1077,11 @@ span[Class*=icon-] {
 @media screen and (max-width: 1023px) {
   .container {
     padding: 0 16px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .container {
+    max-width: 370px;
   }
 }
 

@@ -8,7 +8,9 @@
         overflow-y: auto;
     }
     @include media($mobile){
-        overflow-y:inherit;     
+        overflow-y:inherit;
+        max-width: 370px;
+        margin: 0 auto;
     }
 }
 
