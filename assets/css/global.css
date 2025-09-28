@@ -7,6 +7,7 @@
 /* 14 px */
 /* 18 px*/
 /* 20 px */
+/* 28 px */
 /* 32 px */
 /* 40 px */
 /* 56 px */
@@ -19,6 +20,7 @@
 /* 14 px */
 /* 18 px*/
 /* 20 px */
+/* 28 px */
 /* 32 px */
 /* 40 px */
 /* 56 px */
@@ -32,6 +34,7 @@
 /* 14 px */
 /* 18 px*/
 /* 20 px */
+/* 28 px */
 /* 32 px */
 /* 40 px */
 /* 56 px */
@@ -44,6 +47,7 @@
 /* 14 px */
 /* 18 px*/
 /* 20 px */
+/* 28 px */
 /* 32 px */
 /* 40 px */
 /* 56 px */
@@ -88,6 +92,7 @@
 /* 14 px */
 /* 18 px*/
 /* 20 px */
+/* 28 px */
 /* 32 px */
 /* 40 px */
 /* 56 px */
@@ -100,6 +105,7 @@
 /* 14 px */
 /* 18 px*/
 /* 20 px */
+/* 28 px */
 /* 32 px */
 /* 40 px */
 /* 56 px */
@@ -204,7 +210,7 @@
   .grid.set1 {
     width: 100%;
     margin: 0 auto;
-    padding: 0;
+    padding: 20px 0;
     display: block;
   }
   .grid.set1 > .grid-item {
@@ -303,17 +309,18 @@
 }
 #card-item-1 .card-front,
 #card-item-1 .card-back {
-  font-size: 2em;
   color: #FFFFFF;
 }
 #card-item-1 .card-front span,
 #card-item-1 .card-back span {
   width: 390px;
+  font-size: 2em;
 }
 @media screen and (max-width: 767px) {
   #card-item-1 .card-front span,
   #card-item-1 .card-back span {
     width: 100%;
+    font-size: 1.75em;
   }
 }
 
@@ -351,6 +358,7 @@
 /* 14 px */
 /* 18 px*/
 /* 20 px */
+/* 28 px */
 /* 32 px */
 /* 40 px */
 /* 56 px */
@@ -363,6 +371,7 @@
 /* 14 px */
 /* 18 px*/
 /* 20 px */
+/* 28 px */
 /* 32 px */
 /* 40 px */
 /* 56 px */
@@ -376,6 +385,7 @@
 /* 14 px */
 /* 18 px*/
 /* 20 px */
+/* 28 px */
 /* 32 px */
 /* 40 px */
 /* 56 px */
@@ -388,6 +398,7 @@
 /* 14 px */
 /* 18 px*/
 /* 20 px */
+/* 28 px */
 /* 32 px */
 /* 40 px */
 /* 56 px */
