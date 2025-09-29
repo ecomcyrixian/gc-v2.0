@@ -49,6 +49,8 @@
 #pricing #boxes {
   gap: 40px;
   display: flex;
+  margin: 0 auto;
+  max-width: 1094px;
   flex-wrap: nowrap;
   padding: 40px;
   background: #282981;
@@ -97,6 +99,7 @@
   width: 1094px;
   display: flex;
   flex-wrap: nowrap;
+  margin: 0 auto;
 }
 #pricing #price-boxes .price-box {
   width: 33.33%;

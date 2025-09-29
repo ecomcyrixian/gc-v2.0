@@ -28,6 +28,8 @@
     #boxes{
         gap: $gap * 4;
         display: flex;
+        margin: 0 auto;
+        max-width: 1094px;
         flex-wrap: nowrap;
         padding: $gap * 4;
         background: $blue600;
@@ -81,6 +83,7 @@
             width: 1094px;
             display: flex;
             flex-wrap: nowrap;
+            margin: 0 auto;
         }
 
         .price-box{
