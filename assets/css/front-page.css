@@ -1,0 +1,400 @@
+/*
+* Template variables and Revised Article
+* Last update of 05.19.25
+*/
+/* base */
+/* 14 px */
+/* 18 px*/
+/* 20 px */
+/* 28 px */
+/* 32 px */
+/* 40 px */
+/* 56 px */
+/* variables */
+/*
+* Template variables and Revised Article
+* Last update of 05.19.25
+*/
+/* base */
+/* 14 px */
+/* 18 px*/
+/* 20 px */
+/* 28 px */
+/* 32 px */
+/* 40 px */
+/* 56 px */
+/* font family weight */
+/* media query */
+#grid-cont {
+  width: 100%;
+  padding-bottom: 0 10px 60px;
+  margin-bottom: 100px;
+}
+@media screen and (max-width: 1023px) {
+  #grid-cont {
+    overflow-y: auto;
+  }
+}
+@media screen and (max-width: 767px) {
+  #grid-cont {
+    overflow-y: inherit;
+    max-width: 370px;
+    margin: 0 auto;
+    margin-bottom: 80px;
+  }
+}
+
+.grid {
+  margin: 0 auto;
+  max-width: 1320px;
+  display: grid;
+}
+@media screen and (max-width: 1023px) {
+  .grid {
+    overflow-y: auto;
+    padding-top: 20px;
+  }
+}
+.grid.set1 {
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 16px;
+  grid-row-gap: 16px;
+}
+.grid.set1 .grid-item:nth-child(1) {
+  grid-area: 1/2/2/5;
+}
+.grid.set1 .grid-item:nth-child(2) {
+  grid-area: 1/1/3/2;
+  width: 320px;
+  height: 690px;
+}
+.grid.set1 .grid-item:nth-child(3) {
+  grid-area: 1/5/2/6;
+  width: 310px;
+}
+.grid.set1 .grid-item:nth-child(4) {
+  grid-area: 2/2/3/3;
+  width: 312px;
+}
+.grid.set1 .grid-item:nth-child(5) {
+  grid-area: 2/3/3/6;
+}
+.grid.set1 .desktop {
+  display: block;
+}
+.grid.set1 .mobile {
+  display: none;
+}
+@media screen and (max-width: 1350px) {
+  .grid.set1 {
+    display: flex;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    padding: 0 60px;
+  }
+  .grid.set1 .desktop {
+    display: none;
+  }
+  .grid.set1 .mobile {
+    display: block;
+  }
+  .grid.set1 > .grid-item {
+    flex: 1;
+    height: 280px !important;
+    width: 33.33%;
+  }
+  .grid.set1 > .grid-item img {
+    width: auto;
+    height: 280px;
+  }
+  .grid.set1 > .grid-item:nth-child(2), .grid.set1 > .grid-item:nth-child(5) {
+    display: none;
+  }
+  .grid.set1 > .grid-item label {
+    height: 280px !important;
+    display: block;
+    width: 100% !important;
+  }
+}
+@media screen and (max-width: 1290px) {
+  .grid.set1 {
+    width: 1290px;
+  }
+  .grid.set1 > .grid-item {
+    width: 370px !important;
+  }
+}
+@media screen and (max-width: 767px) {
+  .grid.set1 {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 0;
+    display: block;
+  }
+  .grid.set1 > .grid-item {
+    margin: 0 auto;
+    margin-bottom: 24px;
+  }
+}
+.grid.set1 {
+  /*
+   @include media(480px){
+      &>.grid-item{
+         width: 100% !important;
+         img{
+             width: 100% !important;
+             height: auto;       
+         }
+      } 
+   }
+
+   */
+}
+
+/* grid set 1 */
+.set1 [class*=grid-] {
+  height: 330px;
+  border-radius: 8px;
+}
+.set1 [class*=grid-] i {
+  bottom: 40px;
+  right: 40px;
+  position: absolute;
+}
+
+/* Each card container */
+.card {
+  width: 200px;
+  height: 130px;
+  perspective: 1000px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+/* Hide the checkbox */
+.card input {
+  display: none;
+}
+
+/* Inner wrapper */
+.card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
+
+/* Flip on toggle */
+.card input:checked ~ .card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Front & Back common styles */
+.card-front,
+.card-back {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  backface-visibility: hidden;
+  color: white;
+  overflow: hidden;
+  position: absolute;
+}
+.card-front > span,
+.card-back > span {
+  top: 0;
+  left: 0;
+  display: block;
+  position: absolute;
+  padding: 40px;
+}
+.card-front > span strong,
+.card-back > span strong {
+  color: #3FC5FD;
+}
+
+/* Back (new element) */
+.card-back {
+  transform: rotateY(180deg);
+}
+
+#card-item-1 {
+  width: 658px;
+  height: 330px;
+  line-height: 39px;
+}
+#card-item-1 .card-front,
+#card-item-1 .card-back {
+  color: #FFFFFF;
+}
+#card-item-1 .card-front span,
+#card-item-1 .card-back span {
+  width: 390px;
+  font-size: 2em;
+}
+@media screen and (max-width: 767px) {
+  #card-item-1 .card-front span,
+  #card-item-1 .card-back span {
+    width: 100%;
+    font-size: 1.75em;
+  }
+}
+
+#card-item-3,
+#card-item-4 {
+  width: 310px;
+  height: 330px;
+}
+
+#card-item-3 .card-front,
+#card-item-3 .card-back {
+  color: #1A1C1E;
+  font-size: 1.25em;
+  background: #FFFFFF;
+  font-weight: 400;
+}
+
+#card-item-4 .card-front,
+#card-item-4 .card-back {
+  color: #1A1C1E;
+  font-size: 1.25em;
+  background: #FEEBB6;
+  font-weight: 400;
+}
+#card-item-4 .card-front strong,
+#card-item-4 .card-back strong {
+  color: #FF4D00;
+}
+
+/*
+* Template variables and Revised Article
+* Last update of 05.19.25
+*/
+/* base */
+/* 14 px */
+/* 18 px*/
+/* 20 px */
+/* 28 px */
+/* 32 px */
+/* 40 px */
+/* 56 px */
+/* variables */
+/*
+* Template variables and Revised Article
+* Last update of 05.19.25
+*/
+/* base */
+/* 14 px */
+/* 18 px*/
+/* 20 px */
+/* 28 px */
+/* 32 px */
+/* 40 px */
+/* 56 px */
+/* font family weight */
+/* media query */
+@media screen and (max-width: 1320px) {
+  .banner {
+    padding: 0 10px;
+  }
+}
+.banner > .container {
+  padding: 0;
+  color: #FFFFFF;
+  overflow: hidden;
+  background: #1A1C1E;
+  border-radius: 8px;
+  display: flex;
+  flex-wrap: nowrap;
+}
+@media screen and (max-width: 1023px) {
+  .banner > .container {
+    flex-wrap: wrap;
+  }
+  .banner > .container [class*=-info] {
+    order: 2;
+    width: 100%;
+    flex: no;
+  }
+  .banner > .container span {
+    order: 1;
+    width: 100%;
+  }
+}
+.banner [class*=-info] {
+  flex: 1;
+  display: flex;
+  padding: 40px;
+  align-items: center;
+  position: relative;
+}
+@media screen and (max-width: 1023px) {
+  .banner [class*=-info] {
+    flex-wrap: wrap;
+  }
+  .banner [class*=-info] [class*=-info] {
+    order: 2;
+    width: 100%;
+    flex: none;
+  }
+}
+.banner [class*=-info] > em {
+  z-index: 1;
+  bottom: 0;
+  right: 82px;
+  position: absolute;
+}
+.banner [class*=-info] > div {
+  display: block;
+  max-width: 550px;
+}
+.banner [class*=-info] .buttons {
+  z-index: 10;
+  gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 50px;
+  position: relative;
+}
+@media screen and (max-width: 1320px) {
+  .banner [class*=-info] .buttons {
+    margin-top: 0;
+  }
+}
+@media screen and (max-width: 767px) {
+  .banner [class*=-info] .buttons {
+    margin-top: 20px;
+  }
+  .banner [class*=-info] .buttons > a {
+    width: 100%;
+    display: block;
+  }
+}
+.banner [class*=-info] h2 {
+  color: #3FC5FD;
+  font-size: 2.5em;
+  padding-bottom: 24px;
+}
+@media screen and (max-width: 767px) {
+  .banner [class*=-info] h2 {
+    font-size: 2em;
+  }
+}
+.banner span {
+  max-width: 673px;
+}
+@media screen and (max-width: 1320px) {
+  .banner span {
+    max-width: 50%;
+  }
+}
+@media screen and (max-width: 1023px) {
+  .banner span {
+    order: 1;
+    max-width: 100%;
+  }
+}
+
+/*# sourceMappingURL=front-page.css.map */

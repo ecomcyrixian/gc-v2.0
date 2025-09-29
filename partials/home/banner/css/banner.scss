@@ -1,0 +1,102 @@
+@import '../../../../assets/css/_tools/variable';
+@import '../../../../assets/css/_tools/mixins';
+
+
+.banner{
+    @include media(1320px){
+        padding: 0 $gap;
+    }
+    &>.container{
+        padding: 0;
+        color: $white;
+        overflow: hidden;
+        background: $gray300;
+        border-radius: $corners * 2;
+
+        display: flex;
+        flex-wrap: nowrap;
+        
+        @include media($tablet){
+            flex-wrap: wrap;
+            [class*="-info"]{
+                order: 2;
+                width: 100%;
+                flex: no;
+            }
+            span{
+                order: 1;
+                width: 100%;
+            }
+        }
+    }
+
+    [class*="-info"]{
+        flex: 1;
+        display: flex;
+        padding: $gap * 4;
+        align-items: center;
+        position: relative;
+        
+        @include media($tablet){
+            flex-wrap: wrap;
+            [class*="-info"]{
+                order: 2;
+                width: 100%;
+                flex: none;
+            }           
+        }
+
+        &>em{
+            z-index: 1;
+            bottom: 0;
+            right: $gap * 8 + 2;
+            position: absolute;
+        }
+
+        &>div{
+            display: block;
+            max-width: 550px;
+        }
+
+        .buttons{
+            z-index: 10;
+            gap: $gap;
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: $gap * 5;
+            position: relative;
+
+            @include media(1320px){
+                margin-top: 0;
+            }
+
+            @include media($mobile){
+                margin-top: $gap * 2;
+                &>a{
+                    width: 100%;
+                    display: block;
+                }
+            }
+        }
+
+        h2{
+            color: $cyan;
+            font-size: $fsize40;
+            padding-bottom: $gap * 2 + 4;
+            @include media($mobile){
+                font-size: $fsize32;
+            }
+        }
+    }
+
+    span{
+        max-width: 673px;
+        @include media(1320px){
+            max-width: 50%;
+        }
+         @include media($tablet){
+            order: 1;
+            max-width: 100%;   
+        }
+    }
+}

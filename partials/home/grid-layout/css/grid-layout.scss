@@ -1,5 +1,5 @@
-@import '../../../assets/css/_tools/variable';
-@import '../../../assets/css/_tools/mixins';
+@import '../../../../assets/css/_tools/variable';
+@import '../../../../assets/css/_tools/mixins';
 
 #grid-cont{
     width: 100%;
@@ -137,7 +137,6 @@
     [class*="grid-"]{
         height: 330px;
         border-radius: 8px;
-        overflow: hidden;
         i{
             bottom:$gap * 4; right: $gap * 4;
             position: absolute;            
