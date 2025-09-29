@@ -1,4 +1,4 @@
-<div class="banner set1">
+<div class="banner img-right">
     <div class="container">
         <div class="banner-info">
             <div>

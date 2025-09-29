@@ -1,7 +1,7 @@
 
-@import "../css/_tools/variable";
-@import "../css/_tools/mixins";
-@import "../css/_tools/buttons";
+@import "../_tools/variable";
+@import "../_tools/mixins";
+@import "../_tools/buttons";
 
 /*
 * header
@@ -41,7 +41,7 @@ header{
             font-weight: $fRegular;
 
             &>i{
-                font-weight: $fSemiBold;
+                font-weight: $fBold;
                 &:last-child{
                     font-weight: $fBold;
                     background-image: linear-gradient(to right, #3FC5FD, #D20DF5); /* Red to Blue gradient */
@@ -55,6 +55,7 @@ header{
 
             @include media($mobile){
                 font-size: $fsize40;
+                padding: 0 $gap - 2;
             }
         }
 

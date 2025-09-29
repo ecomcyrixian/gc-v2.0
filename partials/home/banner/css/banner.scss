@@ -4,8 +4,37 @@
 
 .banner{
     @include media(1320px){
-        padding: 0 $gap;
+        padding: 0 $gap + 6;
     }
+
+    @include media($mobile){
+        padding: 0;
+        width: 370px;
+        margin: 0 auto;
+    }
+
+    &.img-left{
+        &>.container{
+             [class*="-info"]{
+                order: 2;
+            }
+            span{
+                order: 1;                
+            }
+        }
+    }
+
+    &.img-right{
+        &>.container{
+             [class*="-info"]{
+                order: 1;
+            }
+            span{
+                order: 2;                
+            }
+        }
+    }
+
     &>.container{
         padding: 0;
         color: $white;
@@ -19,15 +48,16 @@
         @include media($tablet){
             flex-wrap: wrap;
             [class*="-info"]{
-                order: 2;
+                order: 2 !important;
                 width: 100%;
-                flex: no;
+                flex: none;
             }
             span{
-                order: 1;
+                order: 1 !important;
                 width: 100%;
             }
         }
+        
     }
 
     [class*="-info"]{
