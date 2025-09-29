@@ -1,7 +1,7 @@
 
-@import "../css/_tools/variable";
-@import "../css/_tools/mixins";
-@import "../css/_tools/buttons";
+@import "../_tools/variable";
+@import "../_tools/mixins";
+@import "../_tools/buttons";
 
 /*
 * header
@@ -17,6 +17,10 @@ header{
     @include media($tablet){
         height: 100%;
         padding-bottom: $gap * 4;
+    }
+
+     @include media($mobile){
+        margin-bottom: $gap * 6;
     }
 
     &>.container>div{
@@ -37,7 +41,7 @@ header{
             font-weight: $fRegular;
 
             &>i{
-                font-weight: $fSemiBold;
+                font-weight: $fBold;
                 &:last-child{
                     font-weight: $fBold;
                     background-image: linear-gradient(to right, #3FC5FD, #D20DF5); /* Red to Blue gradient */
@@ -51,12 +55,16 @@ header{
 
             @include media($mobile){
                 font-size: $fsize40;
+                padding: 0 $gap - 2;
             }
         }
 
         p{
             font-size: $fsize20;
             margin-bottom: $gap * 4;
+             @include media($mobile){
+                font-size: $base-fsize;
+            }
         }
 
         span{
@@ -128,9 +136,9 @@ header{
     position: relative;
     
     @include media($mobile){
-        padding: $gap;
-        position: sticky;
         top:0;
+        padding: $gap $gap + 6;
+        position: sticky;
         border-color: 1px solid $white50;
     }
     
@@ -207,7 +215,7 @@ header{
     }
     &.scroll{
         top: 0;
-        position: sticky;
+        position: fixed;
     }
    
 
@@ -310,6 +318,7 @@ nav{
     }
 
     #mobile-nav{
+        z-index: 10;
         top:70px;
         display:none;
         width: 100%;

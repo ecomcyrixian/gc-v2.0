@@ -1,10 +1,14 @@
+/* supported font family */
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* styles tools */
 @import '../css/_tools/variable';
 @import '../css/_tools/mixins';
 @import '../css/_tools/buttons';
-@import '../../partials/home/grid-layout/grid-layout';
-@import 'header';
 
+/* global styles */
+@import 'cards/cards';
+@import 'header/header';
 
 /*
 * Global
@@ -94,7 +98,7 @@ input[type="email"]{
         }
 }
 
-input[type="text"],
+input[type="text"], 
 input[type="email"],
 input[type="search"]{
         width: 100%;
@@ -124,6 +128,11 @@ h1 {
 h2 {
   font-size: 2.5em; /* 40 px */
   @include inter($fSemiBold);
+
+  @include media($mobile){
+      font-size: $fsize32;
+  }
+
 }
 
 h3 {
@@ -141,9 +150,10 @@ h5 {
   @include inter($fRegular);
 }S
 
-h6 {
-  font-size: 0.875em; /* 18 px */
-
+h1,h2,h3,h4,h5,h6{
+  @include media($mobile){
+    line-height: normal;
+  }
 }
 
 .fine-print{
@@ -164,9 +174,46 @@ span[Class*=icon-]{
     padding: 0 $gap * 6;
     max-width: 1320px;
 
-    @include media($tablet){
+    @include media($mobile){
       padding: 0 $gap + 6;
     }
+
+
+}
+
+.fine-print{
+  gap: $gap;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: $fsize14;
+  padding: $gap * 2 0;
+
+  @include media($mobile){
+    padding: 0;
+    justify-content: center;
+  }
+  
+}
+
+.heading{
+  margin-top: $gap * 10 + 2;
+  margin-bottom: $gap * 8;
+
+  h2{
+    text-align: center;
+    line-height: normal;
+    span{
+      color: $blue300;
+      display: block;
+      font-weight: $fSemiBold;
+      font-size: $base-fsize;
+
+      @include media($mobile){
+        font-size: $fsize14;
+      }
+    }
+  }
 }
 
 
