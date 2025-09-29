@@ -150,10 +150,6 @@ h5 {
   @include inter($fRegular);
 }S
 
-h6 {
-  font-size: 0.875em; /* 18 px */
-}
-
 h1,h2,h3,h4,h5,h6{
   @include media($mobile){
     line-height: normal;
