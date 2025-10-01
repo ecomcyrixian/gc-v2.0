@@ -10,6 +10,7 @@
 @import 'cards/cards';
 @import 'columns/columns';
 @import 'header/header';
+@import 'footer/footer';
 
 /*
 * Global
@@ -40,8 +41,8 @@
 }
 
 html {
-        line-height: 1.5;
-        font-size: $base-fsize;
+    line-height: 1.5;
+    font-size: $base-fsize;
 }
 
 img, picture, video, canvas, svg {
@@ -220,5 +221,4 @@ span[Class*=icon-]{
     }
   }
 }
-
 

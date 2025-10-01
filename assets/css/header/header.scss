@@ -1,11 +1,9 @@
-
 @import "../_tools/variable";
 @import "../_tools/mixins";
 @import "../_tools/buttons";
 
 /*
 * header
-* 09.19.20 last modified - carl
 */
 header{
     background: url(../images/home-header-bg.jpg) no-repeat top center $blue500;
@@ -162,7 +160,7 @@ header{
           }
     }
     
-    #gCheck-logo{
+    .gCheck-logo{
         flex: 1;
         z-index: 99;
         position: relative;
@@ -192,7 +190,7 @@ header{
             }
         }
 
-        #gCheck-logo{
+        .gCheck-logo{
             .gcText{
                 fill: $black;
             }

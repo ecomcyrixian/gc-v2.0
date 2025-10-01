@@ -30,11 +30,6 @@
                 'menu_class'     => 'main-menu',
             ) );
             wp_nav_menu( array(
-                'menu' => 'GCv2.0 : Contact',
-                'walker'         => new Walker_Nav_Menu_With_Description(),
-                'menu_class'     => 'main-menu',
-            ) );
-            wp_nav_menu( array(
                 'menu' => 'GCv2.0 : Pricing',
                 'walker'         => new Walker_Nav_Menu_With_Description(),
                 'menu_class'     => 'main-menu',

@@ -1,1 +1,100 @@
-#hiring h4{font-weight:400;margin-bottom:40px}@media screen and (max-width: 767px){#hiring h4{text-align:center}}#hiring strong{color:#cc2900}#hiring .boxes{gap:16px;color:#fff;display:flex;flex-direction:column}@media screen and (max-width: 767px){#hiring .boxes{margin-bottom:16px}}#hiring .boxes>.box{flex:1;padding:20px;background:#cc2900;border-radius:8px;display:flex;gap:16px;align-items:center}#hiring .boxes>.box span{width:56px;height:56px;display:block}#hiring .boxes>.box p{flex:1;margin:0;padding:0}#hiring .gray-box,#hiring .blue-box{border-radius:8px;padding:20px}#hiring .gray-box h4,#hiring .blue-box h4{margin:0;padding-bottom:16px}#hiring .gray-box{background:#cdd6e0;margin-bottom:16px}#hiring .blue-box{color:#fff;background:#30319a}#hiring .blue-box h4{color:#3fc5fd}#hiring .blue-box ul{margin:0;padding:0 20px}#hiring .blue-box li{list-style:disc outside;padding-bottom:16px}
+/*
+* Template variables and Revised Article
+* Last update of 05.19.25
+*/
+/* base */
+/* 14 px */
+/* 18 px*/
+/* 20 px */
+/* 28 px */
+/* 32 px */
+/* 40 px */
+/* 56 px */
+/* variables */
+/*
+* Template variables and Revised Article
+* Last update of 05.19.25
+*/
+/* base */
+/* 14 px */
+/* 18 px*/
+/* 20 px */
+/* 28 px */
+/* 32 px */
+/* 40 px */
+/* 56 px */
+/* font family weight */
+/* media query */
+#hiring h4 {
+  font-weight: 400;
+  margin-bottom: 40px;
+}
+@media screen and (max-width: 767px) {
+  #hiring h4 {
+    text-align: center;
+  }
+}
+#hiring strong {
+  color: #CC2900;
+}
+#hiring .boxes {
+  gap: 16px;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (max-width: 767px) {
+  #hiring .boxes {
+    margin-bottom: 16px;
+  }
+}
+#hiring .boxes > .box {
+  flex: 1;
+  padding: 20px;
+  background: #CC2900;
+  border-radius: 8px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+#hiring .boxes > .box span {
+  width: 56px;
+  height: 56px;
+  display: block;
+}
+#hiring .boxes > .box p {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+}
+#hiring .gray-box,
+#hiring .blue-box {
+  border-radius: 8px;
+  padding: 20px;
+}
+#hiring .gray-box h4,
+#hiring .blue-box h4 {
+  margin: 0;
+  padding-bottom: 16px;
+}
+#hiring .gray-box {
+  background: #CDD6E0;
+  margin-bottom: 16px;
+}
+#hiring .blue-box {
+  color: #FFFFFF;
+  background: #30319A;
+}
+#hiring .blue-box h4 {
+  color: #3FC5FD;
+}
+#hiring .blue-box ul {
+  margin: 0;
+  padding: 0 20px;
+}
+#hiring .blue-box li {
+  list-style: disc outside;
+  padding-bottom: 16px;
+}
+
+/*# sourceMappingURL=hiring.css.map */
