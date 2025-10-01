@@ -134,7 +134,7 @@
   }
   .grid.set1 > .grid-item {
     margin: 0 auto;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
   }
 }
 .grid.set1 {
@@ -295,6 +295,33 @@
 /* 56 px */
 /* font family weight */
 /* media query */
+.banner .photo {
+  width: 528px;
+}
+.banner ul {
+  padding: 0;
+  margin-top: 40px;
+}
+@media screen and (max-width: 767px) {
+  .banner ul {
+    margin-top: 16px;
+  }
+}
+.banner ul li {
+  gap: 8px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  padding-bottom: 16px;
+}
+.banner ul li > span:first-child {
+  height: 20px;
+  width: 20px;
+  display: block;
+}
+.banner ul li > span:first-child:last-child {
+  flex: 1;
+}
 @media screen and (max-width: 1320px) {
   .banner {
     padding: 0 16px;
@@ -352,6 +379,7 @@
 @media screen and (max-width: 1023px) {
   .banner [class*=-info] {
     flex-wrap: wrap;
+    padding: 20px;
   }
   .banner [class*=-info] [class*=-info] {
     order: 2;
@@ -367,7 +395,6 @@
 }
 .banner [class*=-info] > div {
   display: block;
-  max-width: 550px;
 }
 .banner [class*=-info] .buttons {
   z-index: 10;
@@ -394,7 +421,8 @@
 .banner [class*=-info] h2 {
   color: #3FC5FD;
   font-size: 2.5em;
-  padding-bottom: 24px;
+  padding-bottom: 16px;
+  line-height: 120%;
 }
 @media screen and (max-width: 767px) {
   .banner [class*=-info] h2 {
@@ -504,7 +532,7 @@
   padding: 40px;
   background: #282981;
   border-radius: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 @media screen and (max-width: 767px) {
   #pricing #boxes {
@@ -593,8 +621,8 @@
 }
 #pricing #price-boxes .what-is-included {
   font-size: 14px;
-  margin: 24px 0;
-  padding-top: 24px;
+  margin: 16px 0;
+  padding-top: 16px;
   border-top: 1px solid #CDD6E0;
   min-height: 320px;
 }
@@ -643,6 +671,142 @@
 #pricing .snippet a {
   color: #3FC5FD;
   text-decoration: underline;
+}
+
+/*
+* Template variables and Revised Article
+* Last update of 05.19.25
+*/
+/* base */
+/* 14 px */
+/* 18 px*/
+/* 20 px */
+/* 28 px */
+/* 32 px */
+/* 40 px */
+/* 56 px */
+/* variables */
+/*
+* Template variables and Revised Article
+* Last update of 05.19.25
+*/
+/* base */
+/* 14 px */
+/* 18 px*/
+/* 20 px */
+/* 28 px */
+/* 32 px */
+/* 40 px */
+/* 56 px */
+/* font family weight */
+/* media query */
+#hiring h4 {
+  font-weight: 400;
+  margin-bottom: 40px;
+}
+@media screen and (max-width: 767px) {
+  #hiring h4 {
+    text-align: center;
+  }
+}
+#hiring strong {
+  color: #CC2900;
+}
+#hiring .boxes {
+  gap: 16px;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (max-width: 767px) {
+  #hiring .boxes {
+    margin-bottom: 16px;
+  }
+}
+#hiring .boxes > .box {
+  flex: 1;
+  padding: 20px;
+  background: #CC2900;
+  border-radius: 8px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+#hiring .boxes > .box span {
+  width: 56px;
+  height: 56px;
+  display: block;
+}
+#hiring .boxes > .box p {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+}
+#hiring .gray-box,
+#hiring .blue-box {
+  border-radius: 8px;
+  padding: 20px;
+}
+#hiring .gray-box h4,
+#hiring .blue-box h4 {
+  margin: 0;
+  padding-bottom: 16px;
+}
+#hiring .gray-box {
+  background: #CDD6E0;
+  margin-bottom: 16px;
+}
+#hiring .blue-box {
+  color: #FFFFFF;
+  background: #30319A;
+}
+#hiring .blue-box h4 {
+  color: #3FC5FD;
+}
+#hiring .blue-box ul {
+  margin: 0;
+  padding: 0 20px;
+}
+#hiring .blue-box li {
+  list-style: disc outside;
+  padding-bottom: 16px;
+}
+
+/*
+* Template variables and Revised Article
+* Last update of 05.19.25
+*/
+/* base */
+/* 14 px */
+/* 18 px*/
+/* 20 px */
+/* 28 px */
+/* 32 px */
+/* 40 px */
+/* 56 px */
+/* variables */
+/*
+* Template variables and Revised Article
+* Last update of 05.19.25
+*/
+/* base */
+/* 14 px */
+/* 18 px*/
+/* 20 px */
+/* 28 px */
+/* 32 px */
+/* 40 px */
+/* 56 px */
+/* font family weight */
+/* media query */
+#faq {
+  margin-bottom: 120px;
+}
+#faq h4 {
+  margin: 0;
+}
+#faq.cards p {
+  font-size: 16px;
 }
 
 /*# sourceMappingURL=front-page.css.map */

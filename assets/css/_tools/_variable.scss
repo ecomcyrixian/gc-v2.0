@@ -4,9 +4,22 @@
 * Last update of 05.19.25
 */
 
-$gap                    : 10px;
-$widgetgap              : 100px;
-$corners                 : 4px;
+$gap8                   : 8px;
+$gap10                  : 10px;
+$gap16                  : 16px;
+$gap20                  : 20px;
+$gap24                  : 16px;
+$gap40                  : 40px;
+$gap44                  : 44px;
+$gap50                  : 50px;
+$gap60                  : 60px;
+$gap80                  : 80px;
+$gap100                 : 100px;
+$gap120                 : 120px;
+$gap200                 : 200px;
+
+$corners4               : 4px;
+$corners8               : 8px;
 
 $tablet                 : 1023px;
 $custom                 : 1230px;
@@ -34,6 +47,7 @@ $green300               : #5DC567;
 $pink                   : #D20DF5;
 $orange                 : #FF4D00;
 $red                    : #CC2900;
+$red300                 : #CC2900;
 
 $lineColor              :#4B4C96;
 

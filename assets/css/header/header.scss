@@ -12,20 +12,20 @@ header{
     background-size: cover;
     height: 1330px;
     width: 100%;
-    margin-bottom: $gap * 10;
+    margin-bottom: $gap100;
 
     @include media($tablet){
         height: 100%;
-        padding-bottom: $gap * 4;
+        padding-bottom: $gap40;
     }
 
      @include media($mobile){
-        margin-bottom: $gap * 6;
+        margin-bottom: $gap60;
     }
 
     &>.container>div{
         color: $white;
-        margin: $gap * 5 auto;
+        margin: $gap50 auto;
         max-width: 984px;
         text-align: center;
 
@@ -36,7 +36,7 @@ header{
 
         h1{
             display: block;
-            margin: 0 auto $gap + 6  auto;
+            margin: 0 auto $gap16  auto;
             font-size: $fsize56;
             font-weight: $fRegular;
 
@@ -55,13 +55,13 @@ header{
 
             @include media($mobile){
                 font-size: $fsize40;
-                padding: 0 $gap - 2;
+                padding: 0 $gap8;
             }
         }
 
         p{
             font-size: $fsize20;
-            margin-bottom: $gap * 4;
+            margin-bottom: $gap40;
              @include media($mobile){
                 font-size: $base-fsize;
             }
@@ -76,7 +76,7 @@ header{
                 flex-wrap: wrap;
                 &>p{
                     width: 100%;
-                    padding: $gap;
+                    padding: $gap10;
                     margin: 0;
                     display: flex;
                     justify-items: center;
@@ -88,7 +88,7 @@ header{
              }
             
             &>p{
-                gap: $gap;
+                gap: $gap10;
                 display: flex;
                 flex-wrap: nowrap;
                 align-items: center;
@@ -97,9 +97,9 @@ header{
         }
 
         .buttons{
-            gap: $gap;
+            gap: $gap10;
             display: flex;
-            margin-bottom: $gap * 2 + 4;
+            margin-bottom: $gap24;
             justify-content: center;
             @include media($mobile){
                 flex-wrap: wrap;
@@ -114,7 +114,7 @@ header{
         margin: 0 auto;
         max-width: 1080px;
         @include media($tablet){
-            padding: 0 $gap * 5 $gap * 5;
+            padding: 0 $gap50 $gap50;
         }
         @include media($mobile){
             display: none;
@@ -132,12 +132,12 @@ header{
 #header-cont{
     width: 100%;    
     background: transparent;
-    padding: $gap * 2 0;
+    padding: $gap20 0;
     position: relative;
     
     @include media($mobile){
         top:0;
-        padding: $gap $gap + 6;
+        padding: $gap10 $gap16;
         position: sticky;
         border-color: 1px solid $white50;
     }
@@ -222,7 +222,7 @@ header{
 }
 
 nav{
-    gap: $gap * 2;
+    gap: $gap20;
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
@@ -236,14 +236,14 @@ nav{
         }
 
          ul{
-            gap: $gap * 2;
+            gap: $gap20;
             display: flex;
             flex-wrap: nowrap;
             align-items: center;
         }
 
         li{
-            padding: $gap;
+            padding: $gap10;
             position: relative;
             display: inline-block;
             
@@ -261,15 +261,15 @@ nav{
 
         .sub-menu{
             z-index: 1;
-            left: -$gap * 20;
-            top: $gap * 4.5;
+            left: -$gap20;
+            top: $gap10 * 4.5;
             position: absolute;
             background: $white50;
             width: 700px;
-            border-radius: $corners * 2;
-            padding: $gap * 2;
+            border-radius: $corners8;
+            padding: $gap20;
 
-            gap:$gap;
+            gap:$gap10;
             display: none;
             flex-wrap: wrap;
             align-items: flex-start;
@@ -291,13 +291,13 @@ nav{
                 position: relative;
                 color: $black;
                 font-weight: $fSemiBold;
-                padding-left: $gap * 4 +  4;
+                padding-left: $gap44;
                 
                 @include transition-fade(0.3);
                 
                 &:hover{
                     background: $white75;
-                    border-radius: $corners;                
+                    border-radius: $corners4;
                 }
 
                 img{
@@ -326,7 +326,7 @@ nav{
         position: fixed;
         background: $white;
         overflow-y: auto;
-        padding-bottom: $gap * 20;
+        padding-bottom: $gap200;
         
         &.active{
             display: block;
@@ -341,13 +341,13 @@ nav{
             bottom: 0;
             z-index: 99;
             position: fixed;
-            padding: 0 $gap;
+            padding: 0 $gap10;
             background: $white;
         }
        .button{
             display: block;
             text-align: center;
-            margin-bottom: $gap;
+            margin-bottom: $gap10;
 
             &.blue{
                 color: $white;
@@ -374,7 +374,7 @@ nav{
                 width: 20px;
                 height: 20px;
                 margin: auto;
-                right: $gap; left: auto;
+                right: $gap10; left: auto;
                 top:0; bottom: 0;
                 position: absolute;
 
@@ -388,25 +388,25 @@ nav{
                 position: relative;
                 font-size: $fsize18;
                 font-weight: $fSemiBold;
-                padding: $gap * 2 + 4  $gap + 6;                
+                padding: $gap24  $gap16;                
             }
        }
 
        .sub-menu{
-            padding: $gap * 2 0 ;
+            padding: $gap20 $gap10;
 
             p{
                 padding: 0;
             }
             
             img{
-                top: $gap + 2; 
+                top: $gap20; 
                 left: 0;
                 width: 40px;
                 position: absolute;
             }
             li{
-                padding: $gap 0;
+                padding: $gap10 0;
                 position: relative;
                 &>a{
                     color: $black;

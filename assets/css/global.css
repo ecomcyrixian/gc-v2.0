@@ -183,25 +183,31 @@
     padding: 0 16px;
   }
 }
-.cards .card-cont > div {
+.cards .card-cont.cols2 > div {
+  width: 48.4%;
+  background: #FFFFFF;
+  padding: 40px;
+}
+.cards .card-cont.cols3 > div {
   width: 31.3%;
   background: #FFFFFF;
   padding: 40px;
 }
 @media screen and (max-width: 1311px) {
-  .cards .card-cont > div {
+  .cards .card-cont.cols2 > div, .cards .card-cont.cols3 > div {
     width: 47.2%;
   }
 }
 @media screen and (max-width: 767px) {
-  .cards .card-cont > div {
+  .cards .card-cont.cols2 > div, .cards .card-cont.cols3 > div {
     width: 100%;
   }
 }
 .cards h4 {
+  gap: 16px;
   display: flex;
   align-items: flex-start;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 .cards h4 > span:first-child {
   flex: 1;
@@ -213,6 +219,100 @@
 }
 .cards p {
   font-size: 14px;
+}
+
+/* variables */
+/*
+* Template variables and Revised Article
+* Last update of 05.19.25
+*/
+/* base */
+/* 14 px */
+/* 18 px*/
+/* 20 px */
+/* 28 px */
+/* 32 px */
+/* 40 px */
+/* 56 px */
+/* font family weight */
+/* media query */
+/*
+* Template variables and Revised Article
+* Last update of 05.19.25
+*/
+/* base */
+/* 14 px */
+/* 18 px*/
+/* 20 px */
+/* 28 px */
+/* 32 px */
+/* 40 px */
+/* 56 px */
+/* variables */
+/*
+* Template variables and Revised Article
+* Last update of 05.19.25
+*/
+/* base */
+/* 14 px */
+/* 18 px*/
+/* 20 px */
+/* 28 px */
+/* 32 px */
+/* 40 px */
+/* 56 px */
+/* font family weight */
+/* media query */
+.button {
+  margin: 0;
+  border: 0;
+  text-align: center;
+  display: inline;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 4px;
+  font-family: "Inter", sans-serif;
+  padding: 9px 16px;
+  text-decoration: none;
+}
+.button.blue {
+  color: #FFFFFF;
+  background: #4F51FD;
+  border: 1px solid #4F51FD;
+  transition: all 0.3s ease 0s;
+}
+.button.blue:hover {
+  background: #6D6FFD;
+}
+.button.white {
+  color: #4F51FD;
+  background: #FFFFFF;
+  border: 1px solid #4F51FD;
+  transition: all 0.3s ease 0s;
+}
+.button.white:hover {
+  background: #F2F3FF;
+}
+
+.cols {
+  gap: 40px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+@media screen and (max-width: 767px) {
+  .cols {
+    display: block;
+  }
+}
+.cols > div {
+  padding: 0;
+  margin: 0;
+}
+.cols.cols2 > div {
+  flex: 1;
 }
 
 /*
@@ -401,7 +501,7 @@ header > .container > div span > p {
 header > .container > div .buttons {
   gap: 10px;
   display: flex;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   justify-content: center;
 }
 @media screen and (max-width: 767px) {
@@ -546,7 +646,7 @@ nav #desktop-nav li:hover .sub-menu {
 }
 nav #desktop-nav .sub-menu {
   z-index: 1;
-  left: -200px;
+  left: -20px;
   top: 45px;
   position: absolute;
   background: #f9f9f9;
@@ -658,16 +758,16 @@ nav #mobile-nav label a {
   position: relative;
   font-size: 1.125rem;
   font-weight: 600;
-  padding: 24px 16px;
+  padding: 16px 16px;
 }
 nav #mobile-nav .sub-menu {
-  padding: 20px 0;
+  padding: 20px 10px;
 }
 nav #mobile-nav .sub-menu p {
   padding: 0;
 }
 nav #mobile-nav .sub-menu img {
-  top: 12px;
+  top: 20px;
   left: 0;
   width: 40px;
   position: absolute;
@@ -971,6 +1071,11 @@ span[Class*=icon-] {
 .heading {
   margin-top: 102px;
   margin-bottom: 80px;
+}
+@media screen and (max-width: 767px) {
+  .heading {
+    margin-bottom: 40px;
+  }
 }
 .heading h2 {
   text-align: center;

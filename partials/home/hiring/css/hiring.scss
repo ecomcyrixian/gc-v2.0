@@ -1,0 +1,86 @@
+@import '../../../../assets/css/_tools/variable';
+@import '../../../../assets/css/_tools/mixins';
+
+#hiring{
+    
+    h4{
+        font-weight:$fRegular;
+        margin-bottom: $gap40;
+        
+        @include media($mobile){
+            text-align: center;
+        }
+    }
+
+    strong{
+        color:$red300;
+    }
+
+    .boxes{
+        gap: $gap16;
+        color: $white;
+        display: flex;
+        flex-direction: column;
+
+        @include media($mobile){
+            margin-bottom: $gap16;
+        }
+
+        &>.box{
+            flex: 1;
+            padding: $gap20;
+            background: $red300;
+            border-radius: $corners8;
+
+            display: flex;
+            gap: $gap24;
+            align-items: center;
+
+            span{
+                width: 56px;
+                height: 56px;
+                display: block;
+            }
+            p{
+                flex: 1;
+                margin: 0;
+                padding: 0;                
+            }
+            
+        }
+    }
+
+    .gray-box,
+    .blue-box{
+        border-radius: $corners8;
+        padding: $gap20;
+
+        h4{
+           margin: 0;
+           padding-bottom: $gap16;
+        }
+    }
+    .gray-box{
+        background: $gray75;
+        margin-bottom: $gap16;
+    }
+
+    .blue-box{
+        color: $white;
+        background: $blue500;
+
+        h4{
+            color: $cyan;
+        }
+        ul{
+            margin: 0;
+            padding: 0 $gap20;
+        }
+        li{
+            list-style: disc outside;
+            padding-bottom: $gap16;
+        }
+    }
+
+    
+}

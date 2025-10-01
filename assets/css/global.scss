@@ -8,6 +8,7 @@
 
 /* global styles */
 @import 'cards/cards';
+@import 'columns/columns';
 @import 'header/header';
 
 /*
@@ -162,7 +163,7 @@ h1,h2,h3,h4,h5,h6{
 
 p {
   font-size: 1em;
-  padding-bottom: $gap;
+  padding-bottom: $gap10;
 }
 
 span[Class*=icon-]{
@@ -171,23 +172,23 @@ span[Class*=icon-]{
 
 .container{
     margin: 0 auto;
-    padding: 0 $gap * 6;
+    padding: 0 $gap60;
     max-width: 1320px;
 
     @include media($mobile){
-      padding: 0 $gap + 6;
+      padding: 0 $gap16;
     }
 
 
 }
 
 .fine-print{
-  gap: $gap;
+  gap: $gap10;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   font-size: $fsize14;
-  padding: $gap * 2 0;
+  padding: $gap20 0;
 
   @include media($mobile){
     padding: 0;
@@ -197,8 +198,12 @@ span[Class*=icon-]{
 }
 
 .heading{
-  margin-top: $gap * 10 + 2;
-  margin-bottom: $gap * 8;
+  margin-top: $gap100 + 2;
+  margin-bottom: $gap80;
+
+  @include media($mobile){
+  margin-bottom: $gap40;
+  }
 
   h2{
     text-align: center;
