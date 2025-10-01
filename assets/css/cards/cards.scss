@@ -13,34 +13,56 @@
     }    
 
     .card-cont{
-        gap: $gap * 4;
+        gap: $gap40;
         display: flex;
         flex-wrap: wrap;
 
         @include media(1311px){
-            padding: 0 $gap + 6;
+            padding: 0 $gap16;
         }
 
-        &>div{
-            width: 31.3%;
-            background: $white;
-            padding: $gap * 4;
-
-            @include media(1311px){
-                width: 47.2%;
+        &.cols2{
+            &>div{
+                width: 48.4%;
+                background: $white;
+                padding: $gap40;
             }
-
-            @include media($mobile){
-                width: 100%;
-            }
-
         }
+
+        &.cols3{
+            &>div{
+                width: 31.3%;
+                background: $white;
+                padding: $gap40;
+            }
+        }
+
+        &.cols2,
+        &.cols3{
+            &>div{
+                @include media(1311px){
+                    width: 47.2%;
+                }
+                @include media($mobile){
+                    width: 100%;
+                }
+            }
+        }
+         
+
+        
+            
+        
+
+
+        
     }
 
     h4{
+        gap: $gap24;
         display: flex;
         align-items: flex-start;
-        margin-bottom: $gap * 2 + 4;
+        margin-bottom: $gap24;
         
         &>span:first-child{
             flex: 1;

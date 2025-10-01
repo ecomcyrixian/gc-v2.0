@@ -25,6 +25,33 @@
 /* 56 px */
 /* font family weight */
 /* media query */
+.banner .photo {
+  width: 528px;
+}
+.banner ul {
+  padding: 0;
+  margin-top: 40px;
+}
+@media screen and (max-width: 767px) {
+  .banner ul {
+    margin-top: 16px;
+  }
+}
+.banner ul li {
+  gap: 8px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  padding-bottom: 16px;
+}
+.banner ul li > span:first-child {
+  height: 20px;
+  width: 20px;
+  display: block;
+}
+.banner ul li > span:first-child:last-child {
+  flex: 1;
+}
 @media screen and (max-width: 1320px) {
   .banner {
     padding: 0 16px;
@@ -82,6 +109,7 @@
 @media screen and (max-width: 1023px) {
   .banner [class*=-info] {
     flex-wrap: wrap;
+    padding: 20px;
   }
   .banner [class*=-info] [class*=-info] {
     order: 2;
@@ -97,7 +125,6 @@
 }
 .banner [class*=-info] > div {
   display: block;
-  max-width: 550px;
 }
 .banner [class*=-info] .buttons {
   z-index: 10;
@@ -124,7 +151,8 @@
 .banner [class*=-info] h2 {
   color: #3FC5FD;
   font-size: 2.5em;
-  padding-bottom: 24px;
+  padding-bottom: 16px;
+  line-height: 120%;
 }
 @media screen and (max-width: 767px) {
   .banner [class*=-info] h2 {

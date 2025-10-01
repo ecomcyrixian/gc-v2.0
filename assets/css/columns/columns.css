@@ -72,63 +72,24 @@
   background: #F2F3FF;
 }
 
-.cards {
-  color: #1A1C1E;
-}
-@media screen and (max-width: 767px) {
-  .cards {
-    margin: 0 auto;
-  }
-}
-.cards > .container {
-  padding: 0;
-}
-.cards .card-cont {
+.cols {
   gap: 40px;
   display: flex;
-  flex-wrap: wrap;
-}
-@media screen and (max-width: 1311px) {
-  .cards .card-cont {
-    padding: 0 16px;
-  }
-}
-.cards .card-cont.cols2 > div {
-  width: 48.4%;
-  background: #FFFFFF;
-  padding: 40px;
-}
-.cards .card-cont.cols3 > div {
-  width: 31.3%;
-  background: #FFFFFF;
-  padding: 40px;
-}
-@media screen and (max-width: 1311px) {
-  .cards .card-cont.cols2 > div, .cards .card-cont.cols3 > div {
-    width: 47.2%;
-  }
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 @media screen and (max-width: 767px) {
-  .cards .card-cont.cols2 > div, .cards .card-cont.cols3 > div {
-    width: 100%;
+  .cols {
+    display: block;
   }
 }
-.cards h4 {
-  gap: 16px;
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 16px;
+.cols > div {
+  padding: 0;
+  margin: 0;
 }
-.cards h4 > span:first-child {
+.cols.cols2 > div {
   flex: 1;
 }
-@media screen and (max-width: 1311px) {
-  .cards h4 br {
-    display: none;
-  }
-}
-.cards p {
-  font-size: 14px;
-}
 
-/*# sourceMappingURL=cards.css.map */
+/*# sourceMappingURL=columns.css.map */

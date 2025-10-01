@@ -49,11 +49,13 @@
 #pricing #boxes {
   gap: 40px;
   display: flex;
+  margin: 0 auto;
+  max-width: 1094px;
   flex-wrap: nowrap;
   padding: 40px;
   background: #282981;
   border-radius: 8px;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 @media screen and (max-width: 767px) {
   #pricing #boxes {
@@ -97,6 +99,7 @@
   width: 1094px;
   display: flex;
   flex-wrap: nowrap;
+  margin: 0 auto;
 }
 #pricing #price-boxes .price-box {
   width: 33.33%;
@@ -141,8 +144,8 @@
 }
 #pricing #price-boxes .what-is-included {
   font-size: 14px;
-  margin: 24px 0;
-  padding-top: 24px;
+  margin: 16px 0;
+  padding-top: 16px;
   border-top: 1px solid #CDD6E0;
   min-height: 320px;
 }

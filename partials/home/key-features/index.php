@@ -8,7 +8,7 @@
             </h2>
         </div>
 
-        <div class="card-cont">
+        <div class="card-cont cols3">
             
             <div>
                 <h4>

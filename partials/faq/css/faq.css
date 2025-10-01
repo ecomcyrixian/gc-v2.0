@@ -1,0 +1,38 @@
+/*
+* Template variables and Revised Article
+* Last update of 05.19.25
+*/
+/* base */
+/* 14 px */
+/* 18 px*/
+/* 20 px */
+/* 28 px */
+/* 32 px */
+/* 40 px */
+/* 56 px */
+/* variables */
+/*
+* Template variables and Revised Article
+* Last update of 05.19.25
+*/
+/* base */
+/* 14 px */
+/* 18 px*/
+/* 20 px */
+/* 28 px */
+/* 32 px */
+/* 40 px */
+/* 56 px */
+/* font family weight */
+/* media query */
+#faq {
+  margin-bottom: 120px;
+}
+#faq h4 {
+  margin: 0;
+}
+#faq.cards p {
+  font-size: 16px;
+}
+
+/*# sourceMappingURL=faq.css.map */
