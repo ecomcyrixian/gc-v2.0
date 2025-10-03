@@ -34,6 +34,7 @@ $gray75                 : #CDD6E0;
 $gray100                : #777E8C;
 $gray300                : #1A1C1E;
 
+$blue10                 : #EDEEFF;
 $blue50                 : #F2F3FF;
 $blue200                : #6D6FFD;
 $blue300                : #4F51FD;
@@ -54,12 +55,14 @@ $lineColor              :#4B4C96;
 
 
 $base-fsize             : 16px;     /* base */
-$fsize14                : 14px;  /* 14 px */
+$fsize14                : 14px;     /* 14 px */
 $fsize18                : 1.125rem; /* 18 px*/
 $fsize20                : 1.25em;   /* 20 px */
+$fsize24                : 1.5em;    /* 24 px */
 $fsize28                : 1.75em;   /* 28 px */
 $fsize32                : 2em;      /* 32 px */
 $fsize40                : 2.5em;    /* 40 px */
+$fsize48                : 3em;      /* 48 px */
 $fsize56                : 3.5em;    /* 56 px */
 
 $default-font           : "Inter", sans-serif;

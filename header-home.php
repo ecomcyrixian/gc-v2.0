@@ -1,5 +1,5 @@
 <?php get_template_part('head') ?>
-<header>
+<header id="home">
     <div id="header-cont">
         <div class="container">
             <?php get_template_part('partials/gcheck-logo') ?>

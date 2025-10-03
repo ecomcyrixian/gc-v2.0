@@ -6,119 +6,144 @@
 * header
 */
 header{
-    background: url(../images/home-header-bg.jpg) no-repeat top center $blue500;
-    background-size: cover;
-    height: 1330px;
+    top:0;
+    z-index: 99;
     width: 100%;
-    margin-bottom: $gap100;
+    color: $black;
+    background: $white;
+    border-bottom: 1px solid $gray75;
 
-    @include media($tablet){
-        height: 100%;
-        padding-bottom: $gap40;
+    &#typical{
+
+        .gCheck-logo{
+        .gcText{
+                fill: $black;
+            }
+        }
+            
+        nav #desktop-nav li > a{
+            color:$black;
+        }
+
+        nav .hamburger-icon span{
+            background: $black !important;            
+        }
     }
+    
 
-     @include media($mobile){
-        margin-bottom: $gap60;
-    }
-
-    &>.container>div{
-        color: $white;
-        margin: $gap50 auto;
-        max-width: 984px;
-        text-align: center;
+    &#home{
+        height: 1330px;
+        background: url(../images/home-header-bg.jpg) no-repeat top center $blue500;
+        background-size: cover;
+        
+        @include media($tablet){
+            height: 100%;
+            padding-bottom: $gap40;
+        }
 
         @include media($mobile){
-            max-width: 100%;
-            width: 100%;
+            margin-bottom: $gap60;
         }
 
-        h1{
-            display: block;
-            margin: 0 auto $gap16  auto;
-            font-size: $fsize56;
-            font-weight: $fRegular;
-
-            &>i{
-                font-weight: $fBold;
-                &:last-child{
-                    font-weight: $fBold;
-                    background-image: linear-gradient(to right, #3FC5FD, #D20DF5); /* Red to Blue gradient */
-                    -webkit-background-clip: text; /* For WebKit browsers */
-                    background-clip: text;
-                    -webkit-text-fill-color: transparent; /* For WebKit browsers */
-                    color: transparent; /* Fallback for browsers that don't support -webkit-text-fill-color */
-                }
-
-            }
+        &>.container>div{
+            color: $white;
+            margin: $gap50 auto;
+            max-width: 984px;
+            text-align: center;
 
             @include media($mobile){
-                font-size: $fsize40;
-                padding: 0 $gap8;
+                max-width: 100%;
+                width: 100%;
             }
-        }
 
-        p{
-            font-size: $fsize20;
-            margin-bottom: $gap40;
-             @include media($mobile){
-                font-size: $base-fsize;
-            }
-        }
+            h1{
+                display: block;
+                margin: 0 auto $gap16  auto;
+                font-size: $fsize56;
+                font-weight: $fRegular;
 
-        span{
-            display: flex;
-            flex-wrap: nowrap;
-            justify-content: center;
-             @include media($mobile){
-                display: none;
-                flex-wrap: wrap;
-                &>p{
-                    width: 100%;
-                    padding: $gap10;
-                    margin: 0;
-                    display: flex;
-                    justify-items: center;
-                     @include media($mobile){
-                        flex-wrap: wrap;
-                        justify-content: center;
-                     }
+                &>i{
+                    font-weight: $fBold;
+                    &:last-child{
+                        font-weight: $fBold;
+                        background-image: linear-gradient(to right, #3FC5FD, #D20DF5); /* Red to Blue gradient */
+                        -webkit-background-clip: text; /* For WebKit browsers */
+                        background-clip: text;
+                        -webkit-text-fill-color: transparent; /* For WebKit browsers */
+                        color: transparent; /* Fallback for browsers that don't support -webkit-text-fill-color */
+                    }
+
                 }
-             }
-            
-            &>p{
-                gap: $gap10;
+
+                @include media($mobile){
+                    font-size: $fsize40;
+                    padding: 0 $gap8;
+                }
+            }
+
+            p{
+                font-size: $fsize20;
+                margin-bottom: $gap40;
+                @include media($mobile){
+                    font-size: $base-fsize;
+                }
+            }
+
+            span{
                 display: flex;
                 flex-wrap: nowrap;
-                align-items: center;
-                font-size: $fsize14;
+                justify-content: center;
+                @include media($mobile){
+                    display: none;
+                    flex-wrap: wrap;
+                    &>p{
+                        width: 100%;
+                        padding: $gap10;
+                        margin: 0;
+                        display: flex;
+                        justify-items: center;
+                        @include media($mobile){
+                            flex-wrap: wrap;
+                            justify-content: center;
+                        }
+                    }
+                }
+                
+                &>p{
+                    gap: $gap10;
+                    display: flex;
+                    flex-wrap: nowrap;
+                    align-items: center;
+                    font-size: $fsize14;
+                }
             }
-        }
 
-        .buttons{
-            gap: $gap10;
-            display: flex;
-            margin-bottom: $gap24;
-            justify-content: center;
-            @include media($mobile){
-                flex-wrap: wrap;
-                &>a{
-                    width: 100%;
+            .buttons{
+                gap: $gap10;
+                display: flex;
+                margin-bottom: $gap24;
+                justify-content: center;
+                @include media($mobile){
+                    flex-wrap: wrap;
+                    &>a{
+                        width: 100%;
+                    }
                 }
             }
         }
-    }
 
-    .screenshot>img{
-        margin: 0 auto;
-        max-width: 1080px;
-        @include media($tablet){
-            padding: 0 $gap50 $gap50;
+        .screenshot>img{
+            margin: 0 auto;
+            max-width: 1080px;
+            @include media($tablet){
+                padding: 0 $gap50 $gap50;
+            }
+            @include media($mobile){
+                display: none;
+            }
         }
-        @include media($mobile){
-            display: none;
-        }
-    }
 
+    }
 }
 
 
@@ -135,8 +160,8 @@ header{
     
     @include media($mobile){
         top:0;
-        padding: $gap10 $gap16;
         position: sticky;
+        padding: $gap10 $gap16;
         border-color: 1px solid $white50;
     }
     
@@ -149,15 +174,20 @@ header{
         position: absolute;
         
     }
-
+ 
     &>.container{
         display: flex;
         align-items: center;
         z-index: 999;
         position: relative;
-          @include media($mobile){
-            padding: 0;
-          }
+        padding: 0;
+        
+        @include media(1320px){
+            padding: 0 $gap16;
+        }
+        @include media($mobile){
+        padding: 0;
+        }
     }
     
     .gCheck-logo{
@@ -200,6 +230,10 @@ header{
             color:$gray100;
         }
 
+        nav .icon-menu{
+            color: $black;
+        }
+
         nav .hamburger-icon span{
             background:$gray300;
         }
@@ -229,6 +263,7 @@ nav{
         z-index: 99;
         display: flex;
         position: relative;
+
         @include media($custom){
             display: none;
         }
@@ -462,7 +497,6 @@ nav{
 
     .icon-menu{
         display: none;
-        color:$white;
         @include media($custom){
             display:block;
         }

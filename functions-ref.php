@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Specific script and styles per page
  */
@@ -7,13 +8,38 @@ function theme_styles_script() {
     global $post;
     
 	if ( is_front_page() ) {
-    	wp_enqueue_style( 'homepage-style', get_template_directory_uri() . '/assets/css/front-page.css', array(), '1', 'screen' );
+
+		wp_enqueue_style( 'homepage-style', get_template_directory_uri() . '/assets/css/front-page.css', array(), '1', 'screen' );
         //wp_register_script( 'homepage-script', get_template_directory_uri() . '/assets/js/front-page.js', '', '', true );
     	//wp_enqueue_script( 'homepage-script' );
-
-    } elseif ( is_page() ) {
-        wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/core-page.css', array(), '1', 'screen' );
-    }
+        
+	} elseif (is_home()) {
+    
+    } elseif ( is_category() || is_tag() || is_search() ) {
+    
+    } elseif ( $post->post_parent == 69 ) {
+    
+    } elseif ( $post->post_parent == 65 ) {
+    
+    } elseif ( is_page('about-us') ) {
+    
+    } elseif ( is_page('contact-us') ) {
+    
+	// } elseif ( is_page(2516) ) { -- specific pahe
+	
+	} elseif ( is_single() ) {
+		if (is_singular('case_study')) {
+		} else {
+		}
+    } elseif ( is_404() ) {
+        
+    } elseif ( is_author() ) {
+    
+    } else {
+		if (is_page()) {
+			wp_enqueue_style( 'homepage-style', get_template_directory_uri() . '/assets/css/global.css');
+		}
+	}
 	
 }
 add_action( 'wp_enqueue_scripts', 'theme_styles_script' );
@@ -23,7 +49,7 @@ add_action( 'wp_enqueue_scripts', 'theme_styles_script' );
  * Enqueue jQuery (WordPress's built-in version)
  */
     
-function gcheck_scripts() {
+function my_theme_scripts() {
     // Enqueue jQuery (WordPress's built-in version)
     wp_enqueue_script('jquery');
 
@@ -36,7 +62,7 @@ function gcheck_scripts() {
         true // Load in the footer (true) or header (false)
     );
 }
-add_action('wp_enqueue_scripts', 'gcheck_scripts');
+add_action('wp_enqueue_scripts', 'my_theme_scripts');
 
 
 /*

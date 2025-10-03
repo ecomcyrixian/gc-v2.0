@@ -83,8 +83,15 @@
             gap: $gap20;
             width: 1094px;
             display: flex;
-            flex-wrap: nowrap;
+            // flex-wrap: nowrap;
             margin: 0 auto;
+            flex-direction: row;
+            
+            @include media($tablet){
+                padding-left: $gap10;
+            }
+          
+
         }
 
         .price-box{

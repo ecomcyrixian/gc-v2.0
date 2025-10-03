@@ -21,19 +21,24 @@
             padding: 0 $gap16;
         }
 
+        &>div{
+            padding: $gap40;
+            @include media($mobile){
+                padding: $gap20;
+            }
+        }
+
         &.cols2{
             &>div{
                 width: 48.4%;
-                background: $white;
-                padding: $gap40;
+                background: $white;                
             }
         }
 
         &.cols3{
             &>div{
                 width: 31.3%;
-                background: $white;
-                padding: $gap40;
+                background: $white;                
             }
         }
 
@@ -63,6 +68,7 @@
         display: flex;
         align-items: flex-start;
         margin-bottom: $gap24;
+        align-items: center;
         
         &>span:first-child{
             flex: 1;
@@ -77,5 +83,19 @@
 
     p{
         font-size: $fsize14;
+    }
+
+    ul{
+        margin: 0;
+        padding: 0;
+        li{
+            gap: $gap8;
+            display: flex;
+            align-items: center;
+            margin-bottom: $gap8;
+        }
+        span{
+            display: block;
+        }
     }
 }
