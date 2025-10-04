@@ -1,4 +1,10 @@
 <?php
+
+/*
+ * featured image
+ */
+add_theme_support( 'post-thumbnails' );
+
 /*
  * Specific script and styles per page
  */
