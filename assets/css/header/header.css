@@ -349,6 +349,7 @@ nav #desktop-nav li {
   padding: 10px;
   position: relative;
   display: inline-block;
+  cursor: pointer;
 }
 nav #desktop-nav li > a {
   color: #FFFFFF;

@@ -9,13 +9,13 @@
 <?php
 
 	// Background Checks
-	if ( is_page( 'background-checks' ) ) {
-		get_template_part('core-pages/background-checks');	
+	if ( is_page( 'criminal-background-checks' ) ) {
+		get_template_part('core-pages/background-checks/criminal-background-checks');	
 	}
 
 	// Industries
 	elseif ( is_page( 'industries' ) ) {
-		//get_template_part('core-pages/industries');	
+		get_template_part('core-pages/industries');	
 	}
 
 ?>

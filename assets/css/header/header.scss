@@ -279,7 +279,7 @@ nav{
             padding: $gap10;
             position: relative;
             display: inline-block;
-            
+            cursor: pointer;
             &>a{
                 color: $white;
                 text-decoration: none;

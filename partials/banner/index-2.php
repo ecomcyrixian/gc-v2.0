@@ -33,10 +33,10 @@
                     </a>
                 </div>
             </div>
-            <em><img src="<?php echo get_template_directory_uri() . '/partials/home/banner/images/dotted-img.png' ?>" alt="gceck"></em>
+            <em><img src="<?php echo get_template_directory_uri() . '/partials/banner/images/dotted-img.png' ?>" alt="gceck"></em>
         </div>
         <span>
-            <img class="photo" src="<?php echo get_template_directory_uri() . '/partials/home/banner/images/close-up-adult-working-his-laptop-office-photo-2.jpg' ?>" alt="gceck">
+            <img class="photo" src="<?php echo get_template_directory_uri() . '/partials/banner/images/close-up-adult-working-his-laptop-office-photo-2.jpg' ?>" alt="gceck">
         </span>
     </div>
 </div>

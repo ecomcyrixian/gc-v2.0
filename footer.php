@@ -5,7 +5,11 @@
                 
                 <!-- gcheck info  -->
                 <div>
-                    <?php get_template_part('partials/gcheck-logo') ?>
+                    <span class="gCheck-logo">
+                        <a href="<?php echo site_url(); ?>" aria-label="GCheck">
+                            <?php get_template_part('partials/gcheck-logo') ?>
+                        </a>
+                    </span>
                     <p>8335 W Sunset Blvd Ste 240 <br>Los Angeles, CA 90069</p>
                     <span>
                         <p>Talk to an Expert</p>

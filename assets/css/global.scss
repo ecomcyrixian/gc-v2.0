@@ -11,6 +11,9 @@
 @import 'columns/columns';
 @import 'header/header';
 @import 'footer/footer'; 
+@import '../../partials/banner/css/banner.scss';
+@import '../../partials/faq/css/faq'; 
+
 
 /*
 * Global
@@ -199,6 +202,7 @@ span[Class*=icon-]{
 }
 
 .heading{
+  text-align: center;
   margin-top: $gap100 + 2;
   margin-bottom: $gap80;
 
@@ -208,7 +212,6 @@ span[Class*=icon-]{
   }
 
   h2{
-    text-align: center;
     line-height: normal;
     span{
       color: $blue300;
@@ -223,3 +226,14 @@ span[Class*=icon-]{
   }
 }
 
+.txtWhite{
+  color: $white;
+}
+
+.txtBlack{
+  color: $black;
+}
+
+.txtCyan{
+  color: $cyan;
+}

@@ -29,6 +29,9 @@ footer{
     .gCheck-logo{
         width: 110px;
         display: block;
+        .gcText{
+            fill: $white;
+        }
     }
 
     .cols{

@@ -2,7 +2,11 @@
 <header id="home">
     <div id="header-cont">
         <div class="container">
-            <?php get_template_part('partials/gcheck-logo') ?>
+            <span class="gCheck-logo">
+                <a href="<?php echo site_url(); ?>" aria-label="GCheck">
+                    <?php get_template_part('partials/gcheck-logo') ?>
+                </a>
+            </span>
             <?php get_template_part('partials/desktop-menu') ?>
         </div>
     </div>

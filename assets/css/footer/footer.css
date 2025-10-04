@@ -120,6 +120,9 @@ footer .gCheck-logo {
   width: 110px;
   display: block;
 }
+footer .gCheck-logo .gcText {
+  fill: #FFFFFF;
+}
 footer .cols {
   gap: 40px;
   display: flex;
