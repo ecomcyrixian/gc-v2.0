@@ -26,7 +26,6 @@
                 <h2>Why Employers Trust Our Criminal Background Checks</h2>
                 <p>Employers nationwide rely on our criminal background checks for their thoroughness, legal compliance, and fast turnaround. From identifying potential risks to reinforcing workplace safety, background checks are an essential part of any hiring strategy.</p>
             </div>
-
             <div class="cards">
                     <div class="card-cont cols2">
                         
@@ -59,18 +58,17 @@
                         </div>
                         
                     </div>
-            </div>
+            </div>            
         </div>    
     </div>
 
     <div class="fundamentals cards">
-
         <div class="container">
         
             <div class="heading">
                 <h2>
                     <span>FUNDAMENTALS</span>
-                    Best Practices for Conducting ThoroughBackground Checks                
+                    Best Practices for Conducting Thorough <br> Background Checks                
                 </h2>
             </div>
 
@@ -120,6 +118,99 @@
 
             </div>
         
+        </div>
+    </div>
+
+    <div class="latest-articles">
+        <div class="container">
+            <div class="heading">
+                <h2>
+                    <span>FROM THE BLOG</span>
+                    Explore the GCheck Content Hub
+                </h2>
+            </div>
+            <div class="cards">
+                    <div class="card-cont cols3">
+                        <div>
+                            <span class="featured-thumbs">
+                                <img src="<?php echo get_template_directory_uri() . '/core-pages/background-checks/images/business-person-looking-finance-graphs-photo-1.jpg' ?>" alt="gceck">
+                            </span>
+
+                            <div class="articles-info">
+                                <span class="category">
+                                    <a href="">INDUSTRY GUIDES</a>                                    
+                                </span>
+                                <h4> <a href="">New Jersey Casino Background Check: Complete Guide for Atlantic City Employment</a></h4>
+                                <span class="read-time">
+                                    Sep. 10, 2025 • 20 min read
+                                </span>
+                                <div class="description">
+                                    Learn about the New Jersey casino background check enforced by the Division of Gaming Enforcement to ensure a secure gaming environment.
+                                </div>
+                                <span class="btn">
+                                    <a class="button readmore" href=""> Read More</a>
+                                </span>
+                            </div>
+                            
+                        </div>
+
+                        <div>
+                            <span class="featured-thumbs">
+                                <img src="<?php echo get_template_directory_uri() . '/core-pages/background-checks/images/business-person-looking-finance-graphs-photo-1.jpg' ?>" alt="gceck">
+                            </span>
+
+                            <div class="articles-info">
+                                <span class="category">
+                                    <a href="">INDUSTRY GUIDES</a>                                    
+                                </span>
+                                <h4> <a href="">New Jersey Casino Background Check: Complete Guide for Atlantic City Employment</a></h4>
+                                <span class="read-time">
+                                    Sep. 10, 2025 • 20 min read
+                                </span>
+                                <div class="description">
+                                    Learn about the New Jersey casino background check enforced by the Division of Gaming Enforcement to ensure a secure gaming environment.
+                                </div>
+                                <span class="btn">
+                                    <a class="button readmore" href=""> Read More</a>
+                                </span>
+                            </div>
+                            
+                        </div>
+
+                        <div>
+                            <span class="featured-thumbs">
+                                <img src="<?php echo get_template_directory_uri() . '/core-pages/background-checks/images/business-person-looking-finance-graphs-photo-1.jpg' ?>" alt="gceck">
+                            </span>
+
+                            <div class="articles-info">
+                                <span class="category">
+                                    <a href="">INDUSTRY GUIDES</a>                                    
+                                </span>
+                                <h4> <a href="">New Jersey Casino Background Check: Complete Guide for Atlantic City Employment</a></h4>
+                                <span class="read-time">
+                                    Sep. 10, 2025 • 20 min read
+                                </span>
+                                <div class="description">
+                                    Learn about the New Jersey casino background check enforced by the Division of Gaming Enforcement to ensure a secure gaming environment.
+                                </div>
+                                <span class="btn">
+                                    <a class="button readmore" href=""> Read More</a>
+                                </span>
+                            </div>
+                            
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="join-us">
+        <div class="container">
+            <h2>Join Us On Our Journey</h2>
+            <p>As we continue to push the boundaries of what's possible in the background check industry, we invite you to join us on our journey. Trust in our technology, and let’s build a safer, more transparent world together.</p>
+            <a href="" target="_parent" class="button blue">
+                Get Started with GCheck Today
+            </a>
         </div>
     </div>
     
