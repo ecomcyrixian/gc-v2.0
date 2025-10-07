@@ -109,6 +109,10 @@ input[type="search"]{
         width: 100%;
 }
 
+pre{
+  font-family: $default-font;
+}
+
 
 img{
         width: 100%;
@@ -218,6 +222,7 @@ span[Class*=icon-]{
       display: block;
       font-weight: $fSemiBold;
       font-size: $base-fsize;
+      text-transform: uppercase;
 
       @include media($mobile){
         font-size: $fsize14;

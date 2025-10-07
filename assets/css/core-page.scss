@@ -308,6 +308,7 @@ body.page{
     }
 
     .fundamentals.cards{
+        margin:0;
         h4{
             flex-direction: column;
             @include media($mobile){

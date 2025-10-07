@@ -23,6 +23,7 @@
 
         &>div{
             padding: $gap40;
+            background: $white;
             border-radius: $corners8;
             @include media($mobile){
                 padding: $gap20;
@@ -32,19 +33,24 @@
         &.cols2{
             &>div{
                 width: 48.4%;
-                background: $white;                
             }
         }
 
         &.cols3{
             &>div{
                 width: 31.3%;
-                background: $white;                
+            }
+        }
+
+        &.cols4{
+            &>div{
+                width: 22.7% 
             }
         }
 
         &.cols2,
-        &.cols3{
+        &.cols3,
+        &.cols4{
             &>div{
                 @include media(1311px){
                     width: 47.2%;
@@ -54,13 +60,6 @@
                 }
             }
         }
-         
-
-        
-            
-        
-
-
         
     }
 

@@ -1,22 +1,36 @@
-<?php
-get_header(); ?>
+<?php get_header(); ?>
 
-<div id="content" style="width: 100%;">
-    <?php
-    if ( have_posts() ) :
-        while ( have_posts() ) : the_post();
-            ?>
-            <h2><?php the_title(); ?></h2>
-            <div><?php the_content(); ?></div>
-            <?php
-        endwhile;
-    else :
-        echo '<p>No content found.</p>';
-    endif;
-    ?>
+ <?php
+  
 
-    suport service group
+  if( have_rows('page_content') ):
+    while ( have_rows('page_content') ) : the_row();
+      
+        // Case: Top Banner
+        if( get_row_layout() == 'top_banner' ):
+            get_template_part( 'core-pages/top-banner' );
+    
+        // Case: FAQ
+        elseif( get_row_layout() == 'faq' ):
+            get_template_part( 'core-pages/faq' );
+    
+        // Case: Dark Box
+        elseif( get_row_layout() == 'dark_box' ):
+            get_template_part( 'core-pages/dark-box' );
+        
+        // Case: Card
+        elseif( get_row_layout() == 'card' ):
+            get_template_part( 'core-pages/card' );
+            
+    
+        endif;
+    endwhile;
+  else :
+      // Do something...
+  endif;
 
-</div>
+
+  ?>
+
 
 <?php get_footer(); ?>

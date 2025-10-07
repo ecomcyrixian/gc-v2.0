@@ -218,6 +218,7 @@
 }
 .cards .card-cont > div {
   padding: 40px;
+  background: #FFFFFF;
   border-radius: 8px;
 }
 @media screen and (max-width: 767px) {
@@ -227,19 +228,20 @@
 }
 .cards .card-cont.cols2 > div {
   width: 48.4%;
-  background: #FFFFFF;
 }
 .cards .card-cont.cols3 > div {
   width: 31.3%;
-  background: #FFFFFF;
+}
+.cards .card-cont.cols4 > div {
+  width: 22.7%;
 }
 @media screen and (max-width: 1311px) {
-  .cards .card-cont.cols2 > div, .cards .card-cont.cols3 > div {
+  .cards .card-cont.cols2 > div, .cards .card-cont.cols3 > div, .cards .card-cont.cols4 > div {
     width: 47.2%;
   }
 }
 @media screen and (max-width: 767px) {
-  .cards .card-cont.cols2 > div, .cards .card-cont.cols3 > div {
+  .cards .card-cont.cols2 > div, .cards .card-cont.cols3 > div, .cards .card-cont.cols4 > div {
     width: 100%;
   }
 }
@@ -1532,6 +1534,10 @@ input[type=search] {
   width: 100%;
 }
 
+pre {
+  font-family: "Inter", sans-serif;
+}
+
 img {
   width: 100%;
   max-width: 100%;
@@ -1655,6 +1661,7 @@ span[Class*=icon-] {
   display: block;
   font-weight: 600;
   font-size: 16px;
+  text-transform: uppercase;
 }
 @media screen and (max-width: 767px) {
   .heading h2 span {
