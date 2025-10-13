@@ -23,6 +23,7 @@ header{
             
         nav #desktop-nav li > a{
             color:$black;
+            padding-top: $gap8;
         }
 
         nav .hamburger-icon span{
@@ -334,7 +335,7 @@ nav{
                 }
 
                 img{
-                    top: 0;
+                    top: $gap8;
                     left: 0;
                     width: 40px;
                     position: absolute;

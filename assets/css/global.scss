@@ -7,12 +7,13 @@
 @import '../css/_tools/buttons';
 
 /* global styles */
-@import 'cards/cards';
+
 @import 'columns/columns';
 @import 'header/header';
 @import 'footer/footer'; 
-@import '../../partials/banner/css/banner.scss';
-@import '../../partials/faq/css/faq'; 
+@import '../../core-pages/cards/css/cards.scss';
+@import '../../core-pages/banner/css/banner.scss';
+@import '../../core-pages/faq/css/faq'; 
 
 
 /*
@@ -110,6 +111,10 @@ input[type="search"]{
 }
 
 pre{
+    
+   white-space: pre-wrap; /* Allows text to wrap within the <pre> block */
+  word-wrap: break-word; /* Ensures long words break and wrap */
+  overflow-x: auto; 
   font-family: $default-font;
 }
 
@@ -241,4 +246,17 @@ span[Class*=icon-]{
 
 .txtCyan{
   color: $cyan;
+}
+
+.center{
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+  
+}
+
+.home{
+  .banner{
+    padding: 0;
+  }
 }

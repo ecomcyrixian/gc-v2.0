@@ -17,5 +17,12 @@
 	elseif ( is_page( 'industries' ) ) {
 		get_template_part('core-pages/industries');	
 	}
+	
+	// Comparisons
+	elseif ( is_page( 'comparisons' ) ) {
+		get_template_part('core-pages/comparisons/comparisons-2');	
+	}
+
+
 
 ?>
