@@ -36,5 +36,12 @@
         }
     }
 
+    &.readmore{
+        color: $gray300;
+        font-size: $fsize14;
+        font-weight: $fSemiBold;
+        border: 1px solid $gray75;
+    }
+
 
 }

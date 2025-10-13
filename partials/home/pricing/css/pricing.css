@@ -3,12 +3,15 @@
 * Last update of 05.19.25
 */
 /* base */
+/* 12 px */
 /* 14 px */
 /* 18 px*/
 /* 20 px */
+/* 24 px */
 /* 28 px */
 /* 32 px */
 /* 40 px */
+/* 48 px */
 /* 56 px */
 /* variables */
 /*
@@ -16,12 +19,15 @@
 * Last update of 05.19.25
 */
 /* base */
+/* 12 px */
 /* 14 px */
 /* 18 px*/
 /* 20 px */
+/* 24 px */
 /* 28 px */
 /* 32 px */
 /* 40 px */
+/* 48 px */
 /* 56 px */
 /* font family weight */
 /* media query */
@@ -98,8 +104,13 @@
   gap: 20px;
   width: 1094px;
   display: flex;
-  flex-wrap: nowrap;
   margin: 0 auto;
+  flex-direction: row;
+}
+@media screen and (max-width: 1023px) {
+  #pricing #price-boxes > div {
+    padding-left: 10px;
+  }
 }
 #pricing #price-boxes .price-box {
   width: 33.33%;

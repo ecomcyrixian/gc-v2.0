@@ -4,8 +4,7 @@
 #grid-cont{
     width: 100%;
     margin-bottom: $gap100;
-    overflow-y: scroll;
-
+    
     @include media($tablet){
         overflow-y: auto;
     }

@@ -1,0 +1,480 @@
+@import '_tools/variable'; 
+@import '_tools/mixins'; 
+
+body.page{
+
+     .logos{
+            gap: $gap16;
+            display: flex;
+            align-items: center;
+            flex-wrap: nowrap;
+
+            &.Center{
+                justify-content: center;
+            }
+     }
+
+    .page-hero{
+        padding: $gap60 0;
+        background: $blue10;
+
+        &.Center{
+            text-align: center;
+        }
+
+        &>.container{
+            padding: 0;
+        }
+
+        h2{
+            color:$gray300;
+            font-size: $fsize48;
+            font-weight: $fSemiBold;
+            line-height: normal;
+            
+            &>span{
+                    display: block;
+                    color: $blue300;
+                    font-size: $fsize14;
+                    text-transform: uppercase;
+            }
+
+            @include media($mobile){
+                font-size: $fsize32;
+            }
+        }
+
+        strong{
+            font-size: $fsize18;
+        }
+
+        .cols.cols2{
+            align-items: center;
+
+            @include media(1300px){
+                padding: $gap40 $gap16;
+                flex-direction: column;
+                justify-content: flex-start;
+
+                &>div{
+                    width: 100%;
+                    max-width: 100% !important;
+
+                }
+            }
+
+            &>div{
+                flex: none;
+            }
+            &>div:first-child{
+                max-width: 660px;
+                gap: $gap16;
+                display: flex;
+                flex-direction: column;
+                span:last-child{
+                    margin-top: $gap24;
+                }
+            }
+            &>div:last-child{
+                max-width: 620px;
+                overflow: hidden;
+                border-radius: $corners8;
+            }
+        }
+
+        .logos{
+            
+            .gCheck-logo{
+                width: 100px;
+                .gcText{
+                    fill: $black;
+                }
+            }
+            .other-logo{
+                margin-top: 0 !important;
+                svg{
+                    width: 100px;
+                }
+            }
+            
+        }
+
+        .text-only{
+            
+            .heading{
+                margin: $gap16 0;
+            }
+
+            .button{
+                margin: $gap40;
+                display: inline-block;
+            }
+        }
+
+        .value-props{
+            margin: 0;
+            padding: 0;
+            gap: $gap40;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+
+            li{
+                gap: $gap10;
+                display: flex;
+                align-items: center;
+                flex-direction: row;
+            }
+        }
+
+    }
+
+    #testimonials{
+        
+        &.cards p {
+            font-size: $fsize24;
+            &.fineprint{
+                bottom: $gap40;
+                left: $gap40;
+                font-size: $fsize14;
+                position: absolute;
+                strong,b{
+                    display: block;
+                }
+
+                @include media($mobile){
+                    left: $gap20;
+                }
+            }
+        }
+
+        .cols3>div{
+            gap: $gap40;
+            display: flex;
+            position: relative;
+            flex-direction: column;
+
+            &>p:nth-child(2){
+                padding-bottom: $gap100;
+            }
+        }
+        
+    }
+
+    #comparison{
+        color: $white;
+        padding: $gap80 $gap16;
+        background: $gray300;
+        margin-top: $gap120;
+
+        &>.container{            
+            padding: 0;
+        }
+
+        @include media($mobile){
+            padding-bottom: $gap40;                
+        }
+
+
+        .heading{
+            margin: 0;
+            padding-bottom: $gap20;
+            span{
+                color: $cyan;
+                display: block;
+                font-weight: $fSemiBold;
+                font-size: $base-fsize;
+            }
+        }
+   
+        .logos{
+            justify-content: center;
+         
+            .gCheck-logo{
+                width: 170px;
+                .gcText{
+                    fill: $white;
+                }
+            }
+
+            .other-logo svg{
+                width: 160px;
+            }
+        }
+
+        .box{
+            color: $black;
+            overflow-y: auto;
+            
+            @include media($tablet){
+                padding-bottom: $gap40;                
+            }
+
+            &>div{
+                width: 1000px;
+                overflow: hidden;
+                background: $white;
+                border-radius: $corners8;
+                margin: $gap40 auto 0 auto;
+                
+                display: flex;
+                flex-direction: row;    
+            }
+
+            ul{
+                flex: 1;
+                    border-left: 1px solid $gray75;
+                &:last-child{
+                 border-left: 1px solid $gray75;
+                }
+                &:first-child li{
+                    justify-content: flex-end;
+                }
+                &:nth-child(2) li{
+                    justify-content: center;
+                }
+
+            }
+
+            li{
+                gap: $gap10;
+                display: flex;
+                align-items: center;
+                flex-direction: row;
+                padding: $gap30 $gap24;
+
+                &:nth-child(even){
+                    background: $white75;
+                }  
+            }
+
+        }
+    }
+
+    #help{
+        &.cards h4{
+            align-items: flex-start;
+            flex-direction: column;
+            
+              .gCheck-logo{
+                    width: 100px;
+                    .gcText{
+                        fill: $black;
+                    }
+                }
+                .other-logo{
+                    width: 100% !important;
+                    margin-top: 0 !important;
+                    svg{
+                        width: 100px !important;
+                    }
+                }
+
+        }
+
+      
+            
+        
+    
+    }
+
+    /*
+     * sub pages
+     */
+
+    .top-banner{
+        padding: $gap60 $gap16;
+        background: $blue10;
+        &>.container{
+            gap: $gap40;
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+
+            @include media($tablet){
+                flex-direction: column;
+            }
+
+             @include media($mobile){
+                text-align: center;
+                padding: 0;
+            }
+            
+            &>div{
+                flex: 1;                
+            }
+            &>div:first-child{
+                gap:$gap16;
+                display: flex;
+                flex-direction: column;
+                strong{
+                    font-size: $fsize18;
+                }
+            }
+            &>div:last-child{
+                overflow: hidden;
+                border-radius: 8px;
+            }
+        }
+       
+
+       h1{
+        color: $gray300;
+        font-size: $fsize48;
+        line-height: normal;
+        span{
+            display: block;
+            color: $blue300;
+            font-size: $fsize14;
+            text-transform: uppercase;
+        }
+       }
+    }
+
+    .dark-box{
+        color: $white;
+        padding: $gap60;
+        background: $gray300;
+
+        @include media($mobile){
+            padding: $gap16;
+            &>.container,
+            .cards .card-cont{
+                padding: 0;
+            }            
+        }
+
+        .cards{
+            margin-top: $gap40;
+        }
+
+        h2{
+            color: $cyan;
+            padding-bottom: $gap24;
+        }
+           h4{
+            align-items: center;
+           }
+
+        .heading{
+            padding: 0;
+            margin: 0;
+        }
+    }
+
+    .fundamentals.cards{
+        margin:0;
+        h4{
+            
+            @include media($mobile){
+                flex-direction: row;
+            }
+
+            span:first-child{
+                order: 2;
+            }
+            span:last-child{
+                order: 1;
+            }
+        }
+    }
+
+    .latest-articles{
+
+        @include media($mobile){
+            &>.container{
+                padding: 0;
+            }
+        }
+        .cards .card-cont>div{
+            padding: 0;
+        }
+        .featured-image{
+            margin: 0;
+            display: block;
+            height: 300px;
+            overflow: hidden;
+            
+            @include media($mobile){
+                height: auto;
+            }
+        }
+        .articles-info{
+            padding: $gap20;
+            gap: $gap20;
+            display: flex;
+            flex-direction: column;
+            h4,.read-time,.category{
+                margin: 0;
+                margin-bottom: -$gap10;
+            }
+            h4 a{
+                color: $gray300;
+                font-size: $fsize18;
+                text-decoration: none;
+                @include ellipsis(2);
+            }
+            .category a{                
+                color: $blue300;
+                font-size: $fsize12;
+                font-weight: $fSemiBold;
+                text-transform: uppercase;
+                text-decoration: none;
+            }
+            .read-time{
+                color:$gray300;
+                font-size: $fsize12;
+            }
+            .description{
+                color: $gray300;
+                font-size: $fsize14;
+                @include ellipsis(3);
+            }
+            .btn{
+                display: block;
+            }
+            
+        }
+    }
+
+    .most-relevant-products{
+        padding-bottom: $gap50;
+        ul{
+            gap: $gap10;
+            margin: 0 auto;
+            max-width: 1100px;
+            
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+
+            li{
+                color: $black;
+                padding: $gap10;
+                background: $white;
+                border-radius: $corners8;
+            }
+        }
+    }
+
+    .join-us{
+        margin: $gap120 $gap16;
+        &>.container{
+            max-width: 800px;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+
+            @include media($mobile){
+                padding: 0;                
+            }
+        }
+        .button{
+            margin-top: $gap40;
+        }
+    }
+
+}
+

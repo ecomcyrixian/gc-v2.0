@@ -1,7 +1,14 @@
 <?php get_template_part('head') ?>
-<header>
-    <div class="wrap">
-        <h1><a href="<?php echo esc_url(home_url('/')); ?>"><?php bloginfo('name'); ?></a></h1>
-        <p><?php bloginfo('description'); ?></p>
-    </div>
+<header id="typical">
+    <div id="header-cont">
+        <div class="container">
+            <span class="gCheck-logo">
+                <a href="<?php echo site_url(); ?>" aria-label="GCheck">
+                    <?php get_template_part('partials/gcheck-logo') ?>
+                </a>
+            </span>
+            <?php get_template_part('partials/desktop-menu') ?>
+        </div>
+    </div>    
+    <?php get_template_part('partials/mobile-menu') ?>
 </header>

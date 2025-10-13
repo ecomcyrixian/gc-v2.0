@@ -24,10 +24,7 @@ jQuery(document).ready(function($) {
     const myDebouncedFunction = debounce(() => {
         jQuery('#header-cont').toggleClass('active');
         //jQuery('#mobile-nav').toggleClass('active');
-
         $("#mobile-nav").slideToggle("fast");
-        
-      
     }, 300); // Adjust delay as needed
     document.getElementById('mobile-menu').addEventListener('click', myDebouncedFunction);
 

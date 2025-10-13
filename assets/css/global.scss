@@ -7,10 +7,14 @@
 @import '../css/_tools/buttons';
 
 /* global styles */
-@import 'cards/cards';
+
 @import 'columns/columns';
 @import 'header/header';
-@import 'footer/footer';
+@import 'footer/footer'; 
+@import '../../core-pages/cards/css/cards.scss';
+@import '../../core-pages/banner/css/banner.scss';
+@import '../../core-pages/faq/css/faq'; 
+
 
 /*
 * Global
@@ -106,6 +110,14 @@ input[type="search"]{
         width: 100%;
 }
 
+pre{
+    
+   white-space: pre-wrap; /* Allows text to wrap within the <pre> block */
+  word-wrap: break-word; /* Ensures long words break and wrap */
+  overflow-x: auto; 
+  font-family: $default-font;
+}
+
 
 img{
         width: 100%;
@@ -172,13 +184,13 @@ span[Class*=icon-]{
 }
 
 .container{
-    margin: 0 auto;
-    padding: 0 $gap60;
-    max-width: 1320px;
+  padding: 0;  
+  margin: 0 auto;
+  max-width: 1320px;
 
-    @include media($mobile){
-      padding: 0 $gap16;
-    }
+  @include media($mobile){
+    padding: 0 $gap16;
+  }
 
 
 }
@@ -199,21 +211,23 @@ span[Class*=icon-]{
 }
 
 .heading{
+  text-align: center;
   margin-top: $gap100 + 2;
   margin-bottom: $gap80;
 
   @include media($mobile){
-  margin-bottom: $gap40;
+    margin-bottom: $gap40;
+    padding: 0 $gap16;
   }
 
   h2{
-    text-align: center;
     line-height: normal;
     span{
       color: $blue300;
       display: block;
       font-weight: $fSemiBold;
       font-size: $base-fsize;
+      text-transform: uppercase;
 
       @include media($mobile){
         font-size: $fsize14;
@@ -222,3 +236,27 @@ span[Class*=icon-]{
   }
 }
 
+.txtWhite{
+  color: $white;
+}
+
+.txtBlack{
+  color: $black;
+}
+
+.txtCyan{
+  color: $cyan;
+}
+
+.center{
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+  
+}
+
+.home{
+  .banner{
+    padding: 0;
+  }
+}
