@@ -2,6 +2,7 @@
 @import '../../../assets/css/_tools/mixins';
 .cards{
     color: $gray300;
+    margin-bottom: $gap80;
     @include media($mobile){
         margin: 0 auto;
         
@@ -43,7 +44,16 @@
 
         &.cols4{
             &>div{
-                width: 22.7% 
+                width: 22.7%;
+            }
+        }
+        
+        &.cols5{
+            &>div{
+                width: 17.5%;
+                @include media($tablet){
+                    width: 47.1%;
+                }
             }
         }
 

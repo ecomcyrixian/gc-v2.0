@@ -118,12 +118,19 @@ body.page{
             display: flex;
             flex-direction: row;
             justify-content: center;
+            
+            @include media($mobile){
+                gap: $gap10;
+                padding: 0 $gap40;
+                flex-direction: column;
+            }
 
             li{
                 gap: $gap10;
                 display: flex;
                 align-items: center;
                 flex-direction: row;
+                 
             }
         }
 
@@ -454,6 +461,48 @@ body.page{
                 background: $white;
                 border-radius: $corners8;
             }
+        }
+    }
+
+    .percentage-value-props{
+        color: $gray300;
+        margin: $gap80 0;
+
+        h3{
+            display: block;
+        }
+        .card-cont{
+            @include media(1311px){
+                justify-content: center;
+            }
+             @include media($mobile){
+                margin-bottom: $gap80;
+            }
+        }
+        .card-cont>div{
+            background: transparent;
+            text-align: center;
+
+            @include media($tablet){
+                width: 47.1%;
+                svg{
+                    margin: 0 auto;
+                    display: inline-block;
+                }
+            }
+
+            @include media($mobile){
+                padding: 0;
+                width: 100%;                
+            }
+            
+
+        }
+
+        h3{
+            font-size: $fsize64;
+            color: $blue300;
+            font-weight: $fExtraBold;
         }
     }
 

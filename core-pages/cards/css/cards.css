@@ -13,6 +13,7 @@
 /* 40 px */
 /* 48 px */
 /* 56 px */
+/* 64 px */
 /* variables */
 /*
 * Template variables and Revised Article
@@ -29,10 +30,12 @@
 /* 40 px */
 /* 48 px */
 /* 56 px */
+/* 64 px */
 /* font family weight */
 /* media query */
 .cards {
   color: #1A1C1E;
+  margin-bottom: 80px;
 }
 @media screen and (max-width: 767px) {
   .cards {
@@ -70,6 +73,14 @@
 }
 .cards .card-cont.cols4 > div {
   width: 22.7%;
+}
+.cards .card-cont.cols5 > div {
+  width: 17.5%;
+}
+@media screen and (max-width: 1023px) {
+  .cards .card-cont.cols5 > div {
+    width: 47.1%;
+  }
 }
 @media screen and (max-width: 1311px) {
   .cards .card-cont.cols2 > div, .cards .card-cont.cols3 > div, .cards .card-cont.cols4 > div {

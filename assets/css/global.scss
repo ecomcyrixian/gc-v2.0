@@ -112,10 +112,14 @@ input[type="search"]{
 
 pre{
     
-   white-space: pre-wrap; /* Allows text to wrap within the <pre> block */
+  white-space: pre-wrap; /* Allows text to wrap within the <pre> block */
   word-wrap: break-word; /* Ensures long words break and wrap */
   overflow-x: auto; 
   font-family: $default-font;
+
+  @include media($mobile){
+    all: unset;
+  }
 }
 
 

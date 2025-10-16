@@ -50,6 +50,10 @@
         elseif( get_row_layout() == 'join_us' ):
             get_template_part( 'core-pages/join-us' );
 
+        // Case: Percentage Value Props
+        elseif( get_row_layout() == 'percentage_value_props' ):
+            get_template_part( 'core-pages/percentage-value-props' );            
+
         // Case: latest Articles
         elseif( get_row_layout() == 'latest_articles' ):
             //get_template_part( 'core-pages/latest-articles' );
