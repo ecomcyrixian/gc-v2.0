@@ -106,7 +106,7 @@ body.page .page-hero .cols.cols2 > div:first-child {
   flex-direction: column;
 }
 body.page .page-hero .cols.cols2 > div:first-child span:last-child {
-  margin-top: 16px;
+  margin-top: 24px;
 }
 body.page .page-hero .cols.cols2 > div:last-child {
   max-width: 620px;
@@ -268,7 +268,7 @@ body.page #comparison .box li {
   display: flex;
   align-items: center;
   flex-direction: row;
-  padding: 30px 16px;
+  padding: 30px 24px;
 }
 body.page #comparison .box li:before {
   display: none;
@@ -364,7 +364,7 @@ body.page .dark-box .cards {
 }
 body.page .dark-box h2 {
   color: #3FC5FD;
-  padding-bottom: 16px;
+  padding-bottom: 24px;
 }
 body.page .dark-box h4 {
   align-items: center;

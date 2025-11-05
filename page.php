@@ -10,10 +10,6 @@
         if( get_row_layout() == 'page_hero' ):
             get_template_part( 'core-pages/page-hero' );    
 
-        // Case: Top Banner
-        // elseif( get_row_layout() == 'top_banner' ):
-            // get_template_part( 'core-pages/top-banner' );
-    
         // Case: FAQ
         elseif( get_row_layout() == 'faq' ):
             get_template_part( 'core-pages/faq/faq' );

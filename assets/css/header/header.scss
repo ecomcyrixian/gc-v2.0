@@ -91,6 +91,7 @@ header{
             }
 
             span{
+                gap: $gap24;
                 display: flex;
                 flex-wrap: nowrap;
                 justify-content: center;
@@ -120,7 +121,7 @@ header{
             }
 
             .buttons{
-                gap: $gap10;
+                gap: $gap16;
                 display: flex;
                 margin-bottom: $gap24;
                 justify-content: center;
@@ -274,6 +275,7 @@ nav{
             display: flex;
             flex-wrap: nowrap;
             align-items: center;
+            margin-bottom: 0;
         }
 
         li{

@@ -188,6 +188,7 @@ header#home > .container > div p {
   }
 }
 header#home > .container > div span {
+  gap: 24px;
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
@@ -219,9 +220,9 @@ header#home > .container > div span > p {
   font-size: 14px;
 }
 header#home > .container > div .buttons {
-  gap: 10px;
+  gap: 16px;
   display: flex;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
   justify-content: center;
 }
 @media screen and (max-width: 767px) {
@@ -359,6 +360,7 @@ nav #desktop-nav ul {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
+  margin-bottom: 0;
 }
 nav #desktop-nav li {
   padding: 10px;
@@ -488,7 +490,7 @@ nav #mobile-nav label a {
   position: relative;
   font-size: 1.125rem;
   font-weight: 600;
-  padding: 16px 16px;
+  padding: 24px 16px;
 }
 nav #mobile-nav .sub-menu {
   padding: 20px 10px;

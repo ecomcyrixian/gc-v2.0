@@ -62,8 +62,11 @@
   background: #CC2900;
   border-radius: 8px;
   display: flex;
-  gap: 16px;
+  gap: 24px;
   align-items: center;
+}
+#hiring .boxes > .box::before {
+  display: none;
 }
 #hiring .boxes > .box span {
   width: 56px;

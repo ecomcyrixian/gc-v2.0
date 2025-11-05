@@ -63,7 +63,7 @@
   padding: 40px;
   background: #282981;
   border-radius: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 @media screen and (max-width: 767px) {
   #pricing #boxes {
@@ -79,6 +79,7 @@
   flex-wrap: nowrap;
   align-items: flex-start;
   border-right: 1px solid #4B4C96;
+  text-align: left;
 }
 #pricing #boxes > .box:last-child {
   border-right: 0;
@@ -157,8 +158,8 @@
 }
 #pricing #price-boxes .what-is-included {
   font-size: 14px;
-  margin: 16px 0;
-  padding-top: 16px;
+  margin: 24px 0;
+  padding-top: 24px;
   border-top: 1px solid #CDD6E0;
   min-height: 320px;
 }
@@ -180,6 +181,9 @@
   display: flex;
   flex-wrap: nowrap;
   list-style: none;
+}
+#pricing #price-boxes .what-is-included li::before {
+  display: none;
 }
 #pricing #price-boxes .buttons {
   width: 100%;

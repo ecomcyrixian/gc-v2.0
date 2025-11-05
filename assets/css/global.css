@@ -355,6 +355,7 @@ header#home > .container > div p {
   }
 }
 header#home > .container > div span {
+  gap: 24px;
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
@@ -386,9 +387,9 @@ header#home > .container > div span > p {
   font-size: 14px;
 }
 header#home > .container > div .buttons {
-  gap: 10px;
+  gap: 16px;
   display: flex;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
   justify-content: center;
 }
 @media screen and (max-width: 767px) {
@@ -526,6 +527,7 @@ nav #desktop-nav ul {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
+  margin-bottom: 0;
 }
 nav #desktop-nav li {
   padding: 10px;
@@ -655,7 +657,7 @@ nav #mobile-nav label a {
   position: relative;
   font-size: 1.125rem;
   font-weight: 600;
-  padding: 16px 16px;
+  padding: 24px 16px;
 }
 nav #mobile-nav .sub-menu {
   padding: 20px 10px;
@@ -943,7 +945,7 @@ footer .footer-links {
 }
 footer .footer-links h5 {
   color: #777E8C;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 footer .footer-links a {
   display: block;
@@ -969,7 +971,7 @@ footer #copyright > .cols {
 }
 footer #copyright > .cols > div {
   flex: 1;
-  gap: 16px;
+  gap: 24px;
   display: flex;
 }
 @media screen and (max-width: 900px) {
@@ -1093,10 +1095,10 @@ footer #copyright .bbb {
   }
 }
 .cards h4 {
-  gap: 16px;
+  gap: 24px;
   display: flex;
   align-items: flex-start;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
   align-items: flex-start;
 }
 .cards h4 > span:first-child {
@@ -1204,7 +1206,7 @@ footer #copyright .bbb {
 }
 @media screen and (max-width: 767px) {
   .banner ul {
-    margin-top: 16px;
+    margin-top: 24px;
   }
 }
 .banner ul li {
@@ -1394,7 +1396,7 @@ footer #copyright .bbb {
 .banner [class*=-info] h2 {
   color: #3FC5FD;
   font-size: 2.5em;
-  padding-bottom: 16px;
+  padding-bottom: 24px;
   line-height: 120%;
 }
 @media screen and (max-width: 767px) {

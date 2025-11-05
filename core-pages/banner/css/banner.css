@@ -45,7 +45,7 @@
 }
 @media screen and (max-width: 767px) {
   .banner ul {
-    margin-top: 16px;
+    margin-top: 24px;
   }
 }
 .banner ul li {
@@ -235,7 +235,7 @@
 .banner [class*=-info] h2 {
   color: #3FC5FD;
   font-size: 2.5em;
-  padding-bottom: 16px;
+  padding-bottom: 24px;
   line-height: 120%;
 }
 @media screen and (max-width: 767px) {
