@@ -58,6 +58,16 @@ body.page .page-hero h2 {
   font-weight: 600;
   line-height: normal;
 }
+body.page .page-hero h2 br {
+  display: none;
+}
+body.page .page-hero h2 pre {
+  height: auto;
+}
+body.page .page-hero h2 p {
+  padding: 0;
+  margin: 0;
+}
 body.page .page-hero h2 > span {
   display: block;
   color: #4F51FD;
@@ -103,6 +113,20 @@ body.page .page-hero .cols.cols2 > div:last-child {
   overflow: hidden;
   border-radius: 8px;
 }
+body.page .page-hero .logos img {
+  width: revert-layer;
+}
+body.page .page-hero .logos p {
+  gap: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 0;
+  margin: 0;
+}
+body.page .page-hero .logos p br {
+  display: none;
+}
 body.page .page-hero .logos .gCheck-logo {
   width: 100px;
 }
@@ -142,6 +166,9 @@ body.page .page-hero .value-props li {
   display: flex;
   align-items: center;
   flex-direction: row;
+}
+body.page .page-hero .value-props li::before {
+  display: none;
 }
 body.page #testimonials.cards p {
   font-size: 1.5em;
@@ -242,6 +269,9 @@ body.page #comparison .box li {
   align-items: center;
   flex-direction: row;
   padding: 30px 16px;
+}
+body.page #comparison .box li:before {
+  display: none;
 }
 body.page #comparison .box li:nth-child(even) {
   background: #f5f5f5;

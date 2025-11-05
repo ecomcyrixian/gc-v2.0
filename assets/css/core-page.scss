@@ -31,6 +31,19 @@ body.page{
             font-size: $fsize48;
             font-weight: $fSemiBold;
             line-height: normal;
+
+            br{
+                display: none;
+            }
+
+            pre{
+                height: auto;
+            }
+
+            p{
+                padding: 0;
+                margin: 0;
+            }
             
             &>span{
                     display: block;
@@ -83,6 +96,22 @@ body.page{
         }
 
         .logos{
+
+            img{
+                width: revert-layer;                
+            }
+            p{
+                gap: $gap10;
+                display: flex;
+                align-items: center;
+                flex-direction: row;
+                padding: 0;
+                margin: 0;
+
+                br{
+                    display: none;
+                }
+            }
             
             .gCheck-logo{
                 width: 100px;
@@ -130,7 +159,9 @@ body.page{
                 display: flex;
                 align-items: center;
                 flex-direction: row;
-                 
+                &::before{
+                    display: none;
+                }
             }
         }
 
@@ -249,6 +280,9 @@ body.page{
                 align-items: center;
                 flex-direction: row;
                 padding: $gap30 $gap24;
+                &:before{
+                    display: none;
+                }
 
                 &:nth-child(even){
                     background: $white75;

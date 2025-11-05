@@ -97,11 +97,16 @@
     ul{
         margin: 0;
         padding: 0;
+        
+
         li{
             gap: $gap8;
             display: flex;
             align-items: center;
             margin-bottom: $gap8;
+            &::before{
+                display: none;
+            }       
         }
         span{
             display: block;

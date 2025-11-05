@@ -26,6 +26,21 @@ footer{
         padding: $gap60 0;
     }
    
+   ul li{
+    list-style-position: inside;
+
+        &::before{
+            display: none;
+            content: "";
+            padding-left: 6px;
+        }
+
+        &::marker{
+            display: none;
+            content: "";
+        }
+    }
+
     .gCheck-logo{
         width: 110px;
         display: block;
