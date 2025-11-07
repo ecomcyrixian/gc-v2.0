@@ -171,18 +171,27 @@ body.page{
         
         &.cards p {
             font-size: $fsize24;
-            &.fineprint{
-                bottom: $gap40;
-                left: $gap40;
-                font-size: $fsize14;
-                position: absolute;
-                strong,b{
-                    display: block;
-                }
+        }
 
-                @include media($mobile){
-                    left: $gap20;
-                }
+        .fineprint{
+            bottom: $gap40;
+            left: $gap40;
+            font-size: $fsize14;
+            position: absolute;
+
+            br{
+                display: none;
+            }
+
+            p{
+                padding: 0;
+            }
+            strong,b{
+                display: block;
+            }
+
+            @include media($mobile){
+                left: $gap20;
             }
         }
 
@@ -192,8 +201,12 @@ body.page{
             position: relative;
             flex-direction: column;
 
-            &>p:nth-child(2){
-                padding-bottom: $gap100;
+             @include media($mobile){
+                 gap: $gap10;
+            }
+
+            &>span:nth-child(2){
+                padding-bottom: $gap100 + 50;
             }
         }
         

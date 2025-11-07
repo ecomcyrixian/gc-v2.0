@@ -41,15 +41,13 @@
                     ?>
                     <h4>
                         <span>
-                            <pre><?= $h4 ?></pre>
+                            <?= $h4 ?>
                         </span>
                         <span>
                             <?= $icon ?>
                         </span>
                     </h4>
-                    <p>
-                        <?= $details ?>
-                    </p>
+                    <?= $details ?>
                 </div>
                 <?php endwhile; ?>
             <?php endif; ?>

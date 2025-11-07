@@ -173,17 +173,23 @@ body.page .page-hero .value-props li::before {
 body.page #testimonials.cards p {
   font-size: 1.5em;
 }
-body.page #testimonials.cards p.fineprint {
+body.page #testimonials .fineprint {
   bottom: 40px;
   left: 40px;
   font-size: 14px;
   position: absolute;
 }
-body.page #testimonials.cards p.fineprint strong, body.page #testimonials.cards p.fineprint b {
+body.page #testimonials .fineprint br {
+  display: none;
+}
+body.page #testimonials .fineprint p {
+  padding: 0;
+}
+body.page #testimonials .fineprint strong, body.page #testimonials .fineprint b {
   display: block;
 }
 @media screen and (max-width: 767px) {
-  body.page #testimonials.cards p.fineprint {
+  body.page #testimonials .fineprint {
     left: 20px;
   }
 }
@@ -193,8 +199,13 @@ body.page #testimonials .cols3 > div {
   position: relative;
   flex-direction: column;
 }
-body.page #testimonials .cols3 > div > p:nth-child(2) {
-  padding-bottom: 100px;
+@media screen and (max-width: 767px) {
+  body.page #testimonials .cols3 > div {
+    gap: 10px;
+  }
+}
+body.page #testimonials .cols3 > div > span:nth-child(2) {
+  padding-bottom: 150px;
 }
 body.page #comparison {
   color: #FFFFFF;
