@@ -202,7 +202,7 @@ body.page{
             flex-direction: column;
 
              @include media($mobile){
-                 gap: $gap10;
+                 gap: $gap10;  
             }
 
             &>span:nth-child(2){
