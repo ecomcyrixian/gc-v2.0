@@ -17,7 +17,7 @@
                 <pre><?= $h1 ?></pre>
             </h2>
             <p><strong><?= $strong_p ?></strong></p>
-            <p>><?= $details ?></p>
+            <?= $details ?>
             <span>
                 <?php if( have_rows('cta') ): ?>                
                     <?php while( have_rows('cta') ) : the_row(); ?>

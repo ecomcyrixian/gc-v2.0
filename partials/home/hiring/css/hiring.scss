@@ -36,6 +36,10 @@
             gap: $gap24;
             align-items: center;
 
+            &::before{
+                display: none;
+            }
+
             span{
                 width: 56px;
                 height: 56px;

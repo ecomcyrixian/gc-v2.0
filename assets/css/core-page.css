@@ -13,6 +13,10 @@
 /* 40 px */
 /* 48 px */
 /* 56 px */
+<<<<<<< HEAD
+=======
+/* 64 px */
+>>>>>>> version-1.0
 /* variables */
 /*
 * Template variables and Revised Article
@@ -29,6 +33,10 @@
 /* 40 px */
 /* 48 px */
 /* 56 px */
+<<<<<<< HEAD
+=======
+/* 64 px */
+>>>>>>> version-1.0
 /* font family weight */
 /* media query */
 body.page .logos {
@@ -56,6 +64,19 @@ body.page .page-hero h2 {
   font-weight: 600;
   line-height: normal;
 }
+<<<<<<< HEAD
+=======
+body.page .page-hero h2 br {
+  display: none;
+}
+body.page .page-hero h2 pre {
+  height: auto;
+}
+body.page .page-hero h2 p {
+  padding: 0;
+  margin: 0;
+}
+>>>>>>> version-1.0
 body.page .page-hero h2 > span {
   display: block;
   color: #4F51FD;
@@ -94,13 +115,34 @@ body.page .page-hero .cols.cols2 > div:first-child {
   flex-direction: column;
 }
 body.page .page-hero .cols.cols2 > div:first-child span:last-child {
+<<<<<<< HEAD
   margin-top: 16px;
+=======
+  margin-top: 24px;
+>>>>>>> version-1.0
 }
 body.page .page-hero .cols.cols2 > div:last-child {
   max-width: 620px;
   overflow: hidden;
   border-radius: 8px;
 }
+<<<<<<< HEAD
+=======
+body.page .page-hero .logos img {
+  width: revert-layer;
+}
+body.page .page-hero .logos p {
+  gap: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 0;
+  margin: 0;
+}
+body.page .page-hero .logos p br {
+  display: none;
+}
+>>>>>>> version-1.0
 body.page .page-hero .logos .gCheck-logo {
   width: 100px;
 }
@@ -128,26 +170,60 @@ body.page .page-hero .value-props {
   flex-direction: row;
   justify-content: center;
 }
+<<<<<<< HEAD
+=======
+@media screen and (max-width: 767px) {
+  body.page .page-hero .value-props {
+    gap: 10px;
+    padding: 0 40px;
+    flex-direction: column;
+  }
+}
+>>>>>>> version-1.0
 body.page .page-hero .value-props li {
   gap: 10px;
   display: flex;
   align-items: center;
   flex-direction: row;
 }
+<<<<<<< HEAD
 body.page #testimonials.cards p {
   font-size: 1.5em;
 }
 body.page #testimonials.cards p.fineprint {
+=======
+body.page .page-hero .value-props li::before {
+  display: none;
+}
+body.page #testimonials.cards p {
+  font-size: 1.5em;
+}
+body.page #testimonials .fineprint {
+>>>>>>> version-1.0
   bottom: 40px;
   left: 40px;
   font-size: 14px;
   position: absolute;
 }
+<<<<<<< HEAD
 body.page #testimonials.cards p.fineprint strong, body.page #testimonials.cards p.fineprint b {
   display: block;
 }
 @media screen and (max-width: 767px) {
   body.page #testimonials.cards p.fineprint {
+=======
+body.page #testimonials .fineprint br {
+  display: none;
+}
+body.page #testimonials .fineprint p {
+  padding: 0;
+}
+body.page #testimonials .fineprint strong, body.page #testimonials .fineprint b {
+  display: block;
+}
+@media screen and (max-width: 767px) {
+  body.page #testimonials .fineprint {
+>>>>>>> version-1.0
     left: 20px;
   }
 }
@@ -157,8 +233,18 @@ body.page #testimonials .cols3 > div {
   position: relative;
   flex-direction: column;
 }
+<<<<<<< HEAD
 body.page #testimonials .cols3 > div > p:nth-child(2) {
   padding-bottom: 100px;
+=======
+@media screen and (max-width: 767px) {
+  body.page #testimonials .cols3 > div {
+    gap: 10px;
+  }
+}
+body.page #testimonials .cols3 > div > span:nth-child(2) {
+  padding-bottom: 150px;
+>>>>>>> version-1.0
 }
 body.page #comparison {
   color: #FFFFFF;
@@ -232,7 +318,14 @@ body.page #comparison .box li {
   display: flex;
   align-items: center;
   flex-direction: row;
+<<<<<<< HEAD
   padding: 30px 16px;
+=======
+  padding: 30px 24px;
+}
+body.page #comparison .box li:before {
+  display: none;
+>>>>>>> version-1.0
 }
 body.page #comparison .box li:nth-child(even) {
   background: #f5f5f5;
@@ -325,7 +418,11 @@ body.page .dark-box .cards {
 }
 body.page .dark-box h2 {
   color: #3FC5FD;
+<<<<<<< HEAD
   padding-bottom: 16px;
+=======
+  padding-bottom: 24px;
+>>>>>>> version-1.0
 }
 body.page .dark-box h4 {
   align-items: center;
@@ -425,6 +522,50 @@ body.page .most-relevant-products ul li {
   background: #FFFFFF;
   border-radius: 8px;
 }
+<<<<<<< HEAD
+=======
+body.page .percentage-value-props {
+  color: #1A1C1E;
+  margin: 80px 0;
+}
+body.page .percentage-value-props h3 {
+  display: block;
+}
+@media screen and (max-width: 1311px) {
+  body.page .percentage-value-props .card-cont {
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 767px) {
+  body.page .percentage-value-props .card-cont {
+    margin-bottom: 80px;
+  }
+}
+body.page .percentage-value-props .card-cont > div {
+  background: transparent;
+  text-align: center;
+}
+@media screen and (max-width: 1023px) {
+  body.page .percentage-value-props .card-cont > div {
+    width: 47.1%;
+  }
+  body.page .percentage-value-props .card-cont > div svg {
+    margin: 0 auto;
+    display: inline-block;
+  }
+}
+@media screen and (max-width: 767px) {
+  body.page .percentage-value-props .card-cont > div {
+    padding: 0;
+    width: 100%;
+  }
+}
+body.page .percentage-value-props h3 {
+  font-size: 4em;
+  color: #4F51FD;
+  font-weight: 800;
+}
+>>>>>>> version-1.0
 body.page .join-us {
   margin: 120px 16px;
 }

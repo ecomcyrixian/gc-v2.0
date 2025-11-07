@@ -13,6 +13,7 @@
 /* 40 px */
 /* 48 px */
 /* 56 px */
+/* 64 px */
 /* variables */
 /*
 * Template variables and Revised Article
@@ -29,6 +30,7 @@
 /* 40 px */
 /* 48 px */
 /* 56 px */
+/* 64 px */
 /* font family weight */
 /* media query */
 /*
@@ -46,6 +48,7 @@
 /* 40 px */
 /* 48 px */
 /* 56 px */
+/* 64 px */
 /* variables */
 /*
 * Template variables and Revised Article
@@ -62,6 +65,7 @@
 /* 40 px */
 /* 48 px */
 /* 56 px */
+/* 64 px */
 /* font family weight */
 /* media query */
 .button {
@@ -126,6 +130,18 @@ footer {
 footer > .container {
   padding: 60px 0;
 }
+footer ul li {
+  list-style-position: inside;
+}
+footer ul li::before {
+  display: none;
+  content: "";
+  padding-left: 6px;
+}
+footer ul li::marker {
+  display: none;
+  content: "";
+}
 footer .gCheck-logo {
   width: 110px;
   display: block;
@@ -182,7 +198,7 @@ footer .footer-links {
 }
 footer .footer-links h5 {
   color: #777E8C;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 footer .footer-links a {
   display: block;
@@ -208,7 +224,7 @@ footer #copyright > .cols {
 }
 footer #copyright > .cols > div {
   flex: 1;
-  gap: 16px;
+  gap: 24px;
   display: flex;
 }
 @media screen and (max-width: 900px) {

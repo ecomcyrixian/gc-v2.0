@@ -13,6 +13,7 @@
 /* 40 px */
 /* 48 px */
 /* 56 px */
+/* 64 px */
 /* variables */
 /*
 * Template variables and Revised Article
@@ -29,6 +30,7 @@
 /* 40 px */
 /* 48 px */
 /* 56 px */
+/* 64 px */
 /* font family weight */
 /* media query */
 #hiring h4 {
@@ -60,8 +62,11 @@
   background: #CC2900;
   border-radius: 8px;
   display: flex;
-  gap: 16px;
+  gap: 24px;
   align-items: center;
+}
+#hiring .boxes > .box::before {
+  display: none;
 }
 #hiring .boxes > .box span {
   width: 56px;

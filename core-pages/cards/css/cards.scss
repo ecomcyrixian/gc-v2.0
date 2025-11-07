@@ -2,6 +2,7 @@
 @import '../../../assets/css/_tools/mixins';
 .cards{
     color: $gray300;
+    margin-bottom: $gap80;
     @include media($mobile){
         margin: 0 auto;
         
@@ -10,6 +11,10 @@
     &>.container{
        padding: 0;
     }    
+
+    img{
+        width: auto;
+    }
 
     .card-cont{
         gap: $gap40;
@@ -43,7 +48,16 @@
 
         &.cols4{
             &>div{
-                width: 22.7% 
+                width: 22.7%;
+            }
+        }
+        
+        &.cols5{
+            &>div{
+                width: 17.5%;
+                @include media($tablet){
+                    width: 47.1%;
+                }
             }
         }
 
@@ -68,6 +82,7 @@
         align-items: flex-start;
         margin-bottom: $gap24;
         align-items: flex-start;
+        margin-bottom: $gap10;
         
         &>span:first-child{
             flex: 1;
@@ -92,6 +107,9 @@
             display: flex;
             align-items: center;
             margin-bottom: $gap8;
+            &::before{
+                background: url('data:image/svg+xml,<svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="56" height="56" rx="4" fill="%23F2F3FF"/><path d="M35.3043 21.7891H33.4722C33.0738 21.7891 32.6949 21.9805 32.4605 22.3086L26.3199 30.8242L23.5386 26.9648C23.3042 26.6406 22.9292 26.4453 22.5269 26.4453H20.6948C20.4409 26.4453 20.2925 26.7344 20.4409 26.9414L25.3081 33.6914C25.4231 33.8519 25.5747 33.9827 25.7503 34.0729C25.9259 34.1631 26.1205 34.2101 26.3179 34.2101C26.5153 34.2101 26.7099 34.1631 26.8855 34.0729C27.0611 33.9827 27.2127 33.8519 27.3277 33.6914L35.5543 22.2852C35.7066 22.0781 35.5582 21.7891 35.3043 21.7891Z" fill="%234F51FD"/><path d="M28 10.5C18.3359 10.5 10.5 18.3359 10.5 28C10.5 37.6641 18.3359 45.5 28 45.5C37.6641 45.5 45.5 37.6641 45.5 28C45.5 18.3359 37.6641 10.5 28 10.5ZM28 42.5312C19.9766 42.5312 13.4688 36.0234 13.4688 28C13.4688 19.9766 19.9766 13.4688 28 13.4688C36.0234 13.4688 42.5312 19.9766 42.5312 28C42.5312 36.0234 36.0234 42.5312 28 42.5312Z" fill="%234F51FD"/></svg>');
+            }       
         }
         span{
             display: block;

@@ -10,10 +10,6 @@
         if( get_row_layout() == 'page_hero' ):
             get_template_part( 'core-pages/page-hero' );    
 
-        // Case: Top Banner
-        elseif( get_row_layout() == 'top_banner' ):
-            get_template_part( 'core-pages/top-banner' );
-    
         // Case: FAQ
         elseif( get_row_layout() == 'faq' ):
             get_template_part( 'core-pages/faq/faq' );
@@ -49,6 +45,10 @@
         // Case: Join Us
         elseif( get_row_layout() == 'join_us' ):
             get_template_part( 'core-pages/join-us' );
+
+        // Case: Percentage Value Props
+        elseif( get_row_layout() == 'percentage_value_props' ):
+            get_template_part( 'core-pages/percentage-value-props' );            
 
         // Case: latest Articles
         elseif( get_row_layout() == 'latest_articles' ):

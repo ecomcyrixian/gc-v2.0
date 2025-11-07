@@ -31,6 +31,19 @@ body.page{
             font-size: $fsize48;
             font-weight: $fSemiBold;
             line-height: normal;
+
+            br{
+                display: none;
+            }
+
+            pre{
+                height: auto;
+            }
+
+            p{
+                padding: 0;
+                margin: 0;
+            }
             
             &>span{
                     display: block;
@@ -83,6 +96,22 @@ body.page{
         }
 
         .logos{
+
+            img{
+                width: revert-layer;                
+            }
+            p{
+                gap: $gap10;
+                display: flex;
+                align-items: center;
+                flex-direction: row;
+                padding: 0;
+                margin: 0;
+
+                br{
+                    display: none;
+                }
+            }
             
             .gCheck-logo{
                 width: 100px;
@@ -118,12 +147,21 @@ body.page{
             display: flex;
             flex-direction: row;
             justify-content: center;
+            
+            @include media($mobile){
+                gap: $gap10;
+                padding: 0 $gap40;
+                flex-direction: column;
+            }
 
             li{
                 gap: $gap10;
                 display: flex;
                 align-items: center;
                 flex-direction: row;
+                &::before{
+                    display: none;
+                }
             }
         }
 
@@ -133,18 +171,27 @@ body.page{
         
         &.cards p {
             font-size: $fsize24;
-            &.fineprint{
-                bottom: $gap40;
-                left: $gap40;
-                font-size: $fsize14;
-                position: absolute;
-                strong,b{
-                    display: block;
-                }
+        }
 
-                @include media($mobile){
-                    left: $gap20;
-                }
+        .fineprint{
+            bottom: $gap40;
+            left: $gap40;
+            font-size: $fsize14;
+            position: absolute;
+
+            br{
+                display: none;
+            }
+
+            p{
+                padding: 0;
+            }
+            strong,b{
+                display: block;
+            }
+
+            @include media($mobile){
+                left: $gap20;
             }
         }
 
@@ -154,8 +201,12 @@ body.page{
             position: relative;
             flex-direction: column;
 
-            &>p:nth-child(2){
-                padding-bottom: $gap100;
+             @include media($mobile){
+                 gap: $gap10;
+            }
+
+            &>span:nth-child(2){
+                padding-bottom: $gap100 + 50;
             }
         }
         
@@ -242,6 +293,9 @@ body.page{
                 align-items: center;
                 flex-direction: row;
                 padding: $gap30 $gap24;
+                &:before{
+                    display: none;
+                }
 
                 &:nth-child(even){
                     background: $white75;
@@ -454,6 +508,48 @@ body.page{
                 background: $white;
                 border-radius: $corners8;
             }
+        }
+    }
+
+    .percentage-value-props{
+        color: $gray300;
+        margin: $gap80 0;
+
+        h3{
+            display: block;
+        }
+        .card-cont{
+            @include media(1311px){
+                justify-content: center;
+            }
+             @include media($mobile){
+                margin-bottom: $gap80;
+            }
+        }
+        .card-cont>div{
+            background: transparent;
+            text-align: center;
+
+            @include media($tablet){
+                width: 47.1%;
+                svg{
+                    margin: 0 auto;
+                    display: inline-block;
+                }
+            }
+
+            @include media($mobile){
+                padding: 0;
+                width: 100%;                
+            }
+            
+
+        }
+
+        h3{
+            font-size: $fsize64;
+            color: $blue300;
+            font-weight: $fExtraBold;
         }
     }
 

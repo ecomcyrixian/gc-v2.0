@@ -36,12 +36,12 @@
                         <span>
                             <?= $brand_logo ?>
                         </span>
-                        <p>
+                        <span>
                             <?= $details ?>
-                        </p>
-                        <p class="fineprint">
+                        </span>
+                        <spam class="fineprint">
                             <?= $name ?>
-                        </p>
+                        </spam>
                     </div>
                     <?php endwhile; ?>
                 <?php endif; ?>
