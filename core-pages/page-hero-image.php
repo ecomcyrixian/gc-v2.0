@@ -1,22 +1,20 @@
 <?php
     $alignment = get_sub_field('alignment');
+    $ImageAlignment = get_sub_field('image_alignment');
     $logos = get_sub_field('logos');
     $h1 = get_sub_field('h1');
     $snippet = get_sub_field('snippet');
     $strong_p = get_sub_field('strong_p');
     $details = get_sub_field('details');
     $image = get_sub_field('image');
+
 ?>
-<section class="cols cols2">
-        <div>
+<section class="cols cols2 <?= $ImageAlignment ?>">
+    
+    <div>
             <span class="logos <?= $alignment ?> ">
-                    <?= $logos ?>
+            <?= $logos ?>
             </span>
-            <h2>
-                <span><?= $snippet ?></span>
-                <pre><?= $h1 ?></pre>
-            </h2>
-            <p><strong><?= $strong_p ?></strong></p>
             <?= $details ?>
             <span>
                 <?php if( have_rows('cta') ): ?>                

@@ -16,14 +16,50 @@ body.page{
 
     .page-hero{
         padding: $gap60 0;
-        background: $blue10;
 
+        @include media($mobile){
+            br{
+                display: none;
+            }
+        }
+        
+        &.yes{
+            background: $blue10;
+        }
+
+        &.no{
+            background: $white;
+        }
+        
         &.Center{
             text-align: center;
+            .logos{
+                justify-content: center;
+            }
+
+            .bullets{
+                gap: $gap10;
+                padding: $gap10;
+                flex-direction: row;
+                justify-content: center;
+            }
         }
 
         &>.container{
             padding: 0;
+            
+            section{
+                &.Left {
+                    div:first-child{
+                        order: 2
+                    }
+                    div:last-child{
+                        order: 1
+                    }
+                }
+                
+            }
+            
         }
 
         h2{
@@ -33,7 +69,7 @@ body.page{
             line-height: normal;
 
             br{
-                display: none;
+                // display: none;
             }
 
             pre{
@@ -51,14 +87,26 @@ body.page{
                     font-size: $fsize14;
                     text-transform: uppercase;
             }
+            
 
             @include media($mobile){
                 font-size: $fsize32;
             }
         }
 
+        pre{
+            display: block;
+            color: $blue300;
+            font-size: $fsize14;
+            text-transform: uppercase;
+        }
+
         strong{
             font-size: $fsize18;
+        }
+        
+        p{
+            padding: 0;
         }
 
         .cols.cols2{
@@ -95,41 +143,38 @@ body.page{
             }
         }
 
-        .logos{
+        li{
+            padding: $gap10 - 5;
+            list-style: none;
+        }
 
+        .logos{
+            padding: 0;
+            margin: 0;
             img{
                 width: revert-layer;                
             }
-            p{
+        }
+
+        .bullets{
+            padding: 0;
+            margin: $gap20 0;
+            display: flex;
+            flex-direction: column;
+            li{
                 gap: $gap10;
                 display: flex;
-                align-items: center;
-                flex-direction: row;
-                padding: 0;
-                margin: 0;
-
-                br{
-                    display: none;
-                }
             }
-            
-            .gCheck-logo{
-                width: 100px;
-                .gcText{
-                    fill: $black;
-                }
+            li:before{
+                content: "";
+                width: 20px;
+                height: 20px;
+                background: url('data:image/svg+xml,<svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10.5 1.25C5.66797 1.25 1.75 5.16797 1.75 10C1.75 14.832 5.66797 18.75 10.5 18.75C15.332 18.75 19.25 14.832 19.25 10C19.25 5.16797 15.332 1.25 10.5 1.25ZM14.2793 7.14258L10.166 12.8457C10.1085 12.9259 10.0327 12.9913 9.94493 13.0364C9.85713 13.0815 9.75984 13.1051 9.66113 13.1051C9.56242 13.1051 9.46513 13.0815 9.37733 13.0364C9.28953 12.9913 9.21374 12.9259 9.15625 12.8457L6.7207 9.4707C6.64648 9.36719 6.7207 9.22266 6.84766 9.22266H7.76367C7.96289 9.22266 8.15234 9.31836 8.26953 9.48242L9.66016 11.4121L12.7305 7.1543C12.8477 6.99219 13.0352 6.89453 13.2363 6.89453H14.1523C14.2793 6.89453 14.3535 7.03906 14.2793 7.14258V7.14258Z" fill="%235DC567"></path></svg>');
             }
-            .other-logo{
-                margin-top: 0 !important;
-                svg{
-                    width: 100px;
-                }
-            }
-            
         }
 
         .text-only{
-            
+            padding: 0 $gap16;
             .heading{
                 margin: $gap16 0;
             }
@@ -137,6 +182,10 @@ body.page{
             .button{
                 margin: $gap40;
                 display: inline-block;
+            }
+
+            h2{
+                padding-bottom: $gap10;
             }
         }
 
@@ -386,9 +435,24 @@ body.page{
     }
 
     .dark-box{
-        color: $white;
+        color: $black;
         padding: $gap60;
-        background: $gray300;
+        
+         h2{
+            color: $black;
+            padding-bottom: $gap24;
+        }
+        
+
+        &.dark{
+            color: $white;
+            background: $gray300;
+
+            h2{
+                color: $cyan;                
+            }
+            
+        }
 
         @include media($mobile){
             padding: $gap16;
@@ -402,13 +466,14 @@ body.page{
             margin-top: $gap40;
         }
 
-        h2{
-            color: $cyan;
-            padding-bottom: $gap24;
+       
+        li{
+            list-style: none;
+            &:before{
+                display: none;
+            }
+            
         }
-           h4{
-            align-items: center;
-           }
 
         .heading{
             padding: 0;

@@ -2,6 +2,10 @@
     $display_selection = get_sub_field('display_selection') == "Show";
     $h2 = get_sub_field('h2');
 
+    $colors = get_sub_field('colors');
+    $colorLowerCase = strtolower($colors);
+    $colorSetting = str_replace(" ", "-", $colorLowerCase);
+
     $button = get_sub_field('button');
     $link_url = $button['url'];
     $link_title = $button['title'];
@@ -11,7 +15,8 @@
 
 <?php if ( $display_selection ) : ?>
 
- <div class="dark-box">
+<div class="dark-box <?= $colorSetting ?>">
+    
         <div class="container">
             <div class="heading">
                 <h2><pre><?= $h2?></pre></h2>                
