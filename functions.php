@@ -18,6 +18,8 @@ function theme_styles_script() {
 
     } elseif ( is_page() ) {
         wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/core-page.css', array(), '1', 'screen' );
+    } elseif ( is_single() || is_search() || is_category() || is_author() ) {
+        wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/blog-page.css', array(), '1', 'screen' );
     }
 	
 }

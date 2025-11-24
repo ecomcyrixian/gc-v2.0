@@ -31,7 +31,7 @@ $white                  : #FFFFFF;
 $white75                : #f5f5f5;
 $white50                : #f9f9f9; 
 
-$gray75                 : #CDD6E0;
+$gray50                 : #f5f5f5;
 $gray75                 : #CDD6E0;
 $gray100                : #777E8C;
 $gray300                : #1A1C1E;
@@ -57,11 +57,11 @@ $lineColor              :#4B4C96;
 
 
 $base-fsize             : 16px;     /* base */
-$fsize12                : 0.75rem;  /* 12 px */
+$fsize12                : 0.75em;  /* 12 px */
 $fsize14                : 14px;     /* 14 px */
-$fsize18                : 1.125rem; /* 18 px*/
+$fsize18                : 1.125em; /* 18 px*/
 $fsize20                : 1.25em;   /* 20 px */
-$fsize24                : 1.5em;    /* 24 px */
+$fsize24                : 24px;    /* 24 px 1.5em*/
 $fsize28                : 1.75em;   /* 28 px */
 $fsize32                : 2em;      /* 32 px */
 $fsize40                : 2.5em;    /* 40 px */

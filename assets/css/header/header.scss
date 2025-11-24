@@ -46,10 +46,15 @@ header{
             margin-bottom: $gap60;
         }
 
+        .screenshot{
+            margin-top: $gap100;
+        }
+
         &>.container>div{
             color: $white;
             margin: $gap50 auto;
-            max-width: 984px;
+            // max-width: 984px;
+            max-width: 1024px;
             text-align: center;
 
             @include media($mobile){
@@ -65,14 +70,16 @@ header{
 
                 &>i{
                     font-weight: $fBold;
+                    /*
                     &:last-child{
                         font-weight: $fBold;
-                        background-image: linear-gradient(to right, #3FC5FD, #D20DF5); /* Red to Blue gradient */
-                        -webkit-background-clip: text; /* For WebKit browsers */
+                        background-image: linear-gradient(to right, #3FC5FD, #D20DF5);
+                        -webkit-background-clip: text;
                         background-clip: text;
-                        -webkit-text-fill-color: transparent; /* For WebKit browsers */
-                        color: transparent; /* Fallback for browsers that don't support -webkit-text-fill-color */
+                        -webkit-text-fill-color: transparent;
+                        color: transparent; 
                     }
+                    */
 
                 }
 
@@ -355,7 +362,7 @@ nav{
 
     #mobile-nav{
         z-index: 10;
-        top:70px;
+        top:53px;
         display:none;
         width: 100%;
         height: 100%;
@@ -371,7 +378,10 @@ nav{
         a{
             text-decoration: none;
         }
-
+        
+        ul{
+            margin: 0;
+        }
         #buttons{
             width: 100%;
             bottom: 0;

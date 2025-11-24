@@ -45,3 +45,16 @@
 
 
 }
+
+.gcheck-submit-btn{
+    color: $white;
+    background: $blue300;
+    border-radius: 1px;
+    border: 1px solid $blue300;
+    @include transition-fade(0.3);
+    
+    &:hover:not(:disabled) {
+        background: $blue200;
+        box-shadow: none;
+    }
+}

@@ -38,16 +38,19 @@
                 </li>
             </ul>
             <div class="buttons">
-                <a href="" target="_parent" class="button blue">
+                <a href="https://gcheck.com/contact-us/" target="_parent" class="button blue">
+                         Get Started with gcheck
+                    </a>
+                <!-- <a href="" target="_parent" class="button blue">
                     Schedule Your Free Consultation
-                </a>
+                </a> -->
                 <p>No obligation. No pushy sales calls. Just expert guidance to help you make the right decision.</p>
             </div>
         </div>
-        <em><img src="<?php echo get_template_directory_uri() . '/core-pages/banner/images/dotted-img.png' ?>" alt="gceck"></em>
+        <em><img src="<?php echo get_template_directory_uri() . '/core-pages/banner/images/dotted-img.webp' ?>" alt="gceck" loading="lazy"></em>
     </div>
     <span>
-        <img class="photo" src="<?php echo get_template_directory_uri() . '/core-pages/banner/images/close-up-adult-working-his-laptop-office-photo-3.jpg' ?>" alt="gceck">
+        <img class="photo" src="<?php echo get_template_directory_uri() . '/core-pages/banner/images/close-up-adult-working-his-laptop-office-photo-3.webp' ?>" alt="gceck" loading="lazy">
     </span>    
 </div>
 

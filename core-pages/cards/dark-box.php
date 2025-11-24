@@ -2,20 +2,29 @@
     $display_selection = get_sub_field('display_selection') == "Show";
     $h2 = get_sub_field('h2');
     $tagline = get_sub_field('tagline');
+
+    $columns = get_sub_field('columns');
     
+    $colors = get_sub_field('colors');
+    $colorLowerCase = strtolower($colors);
+    $colorSetting = str_replace(" ", "-", $colorLowerCase);
+
+    $setting = get_sub_field('setting');
+    $lowerCase = strtolower($setting);
+    $finalSetting = str_replace(" ", "-", $lowerCase);
+
 ?>
 
 <?php if ( $display_selection ) : ?>
 
- <div class="dark-box">
+ <div class="dark-box <?= $colorSetting ?>">
         <div class="container">
             <div class="heading">
                 <h2><pre><?= $h2?></pre></h2>
                 <?= $tagline ?>
             </div>
-            <div class="cards">
-                   
-                     <div class="card-cont cols2">
+            <div class="cards <?= $finalSetting ?>">                   
+                    <div class="card-cont cols<?= $columns ?>">
                         <?php if( have_rows('boxes') ): ?>                
                             <?php while( have_rows('boxes') ) : the_row(); ?>
                             <div>

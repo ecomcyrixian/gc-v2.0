@@ -1,0 +1,289 @@
+/*
+ * Author Page
+ */
+body.author{
+    
+    .author-page{
+        
+        margin: 0;
+        padding: 50px;
+        font-size: 18px;
+        color: var(--black);
+        background: #fff;
+
+        @media (max-width: 768px) {
+            padding: 20px;
+        }
+
+        .wrap{
+            margin: 0 auto;
+            max-width: 1200px;
+
+        }
+
+        [class*="-info"]{
+            
+            gap: 10px;
+            display: grid;
+            grid-template-columns: auto auto;
+            max-width: 930px;
+            margin: 0 auto 100px auto;
+
+            @media only screen and (max-width: 768px) {
+                grid-template-columns: auto;
+            }
+
+            h2{
+                font-size: 40px;
+                margin: 0 !important;
+            }
+
+            img{
+                height: 156px;
+                width: 156px;
+                border-radius: 50%;
+                overflow: hidden;
+            }
+
+            svg{
+                width: 26px;
+                fill: #606060;
+            }
+
+            a{
+                margin-right: 5px;
+            }
+            span{
+                font-size: 12px;
+            }
+
+        
+
+            [class*="-avatar"]{
+                margin-right: 20px;
+            }
+
+            .author-desc{
+                font-size: 16px;
+            }
+
+        
+            &>div{
+                // border: 1px solid red;
+                &:first-child{
+                    grid-row: 1 / span 3;
+                    text-align: center;
+                }
+            }
+        }
+
+        [class*="-articles"]{
+            margin-bottom: 100px;
+
+            h4{
+                font-size: 24px;
+                margin: 0 0 20px;
+                text-align: left;
+            }
+
+            a{
+                color: var(--primary-blue);
+
+                &.title{
+                    color: #202020;
+                    font-size: 18px;
+                }
+                &.readmore{
+                    transition: 0.5s;
+                    position: relative;
+                    font-size: 18px;
+                    font-weight: 600;
+
+                    svg{
+                        width: 14px;
+                        fill: #4f51fd;
+                    }
+
+                    span{
+                        top: 0;
+                        left: 103px;
+                        position: absolute;    
+                        transition: 0.5s;
+                    }
+                    
+                    &:hover{
+                        span{
+                            left: 113px;
+                        }
+                    }
+                }
+            }
+
+            p{
+                margin-bottom: 10px !important;
+            }
+
+            img{
+                max-width: 100%;
+            }
+
+            .category{
+                font-size: 12px;
+                margin-bottom: 10px !important;
+                text-transform: uppercase;
+            }
+
+        
+            .featured-thumb{
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+                margin-bottom: 10px;
+                border-radius: 16px;
+                overflow: hidden;
+
+                display: block;
+                overflow: hidden;
+                height: 240px;
+            }
+
+            .date-read{
+                gap: 5px;
+                color: var(--gray);
+                display: flex;
+                font-size: 12px;
+                
+            }
+
+            &>div{
+                
+                gap: 40px;
+                display: flex;
+                flex-wrap: wrap;
+                
+
+                section{
+                    text-align: left;
+                    width: 30.4%;
+
+                    @media only screen and (max-width: 1023px) {
+                        width: 47%;
+                    }
+        
+                    @media only screen and (max-width: 768px) {
+                        width: 100%;
+                    }
+                }
+
+            }
+
+        }
+
+        #demo-banner{
+            width: 100%;
+            color: var(--white);
+            overflow: hidden;
+            border-radius: 20px;
+            background: var(--primary-blue);
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 100px;
+            
+            
+            &>div{
+                width: 50%;
+                position: relative;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+
+                @media only screen and (max-width: 1023px) {
+                    width: 100%;
+                    padding: 20px;
+                    &:last-child{
+                        display: none;
+                    }
+
+                    
+                }
+
+            }
+
+            h2{
+                color: var(--white);
+                font-weight: 600;
+                @media only screen and (max-width: 1023px) {
+                    br{ display: none;}
+                }
+            }
+
+            .logo>svg{
+                bottom: -90px;
+                right: -60px;
+                width: 50%;
+                opacity: 0.1;
+                fill: var(--white);
+                position: absolute;
+
+                @media only screen and (max-width: 1023px) {
+                    width: 300px;
+                }
+            }
+
+            .wrap{
+                max-width: 540px;
+                padding: 0 20px;
+
+                @media only screen and (max-width: 1023px) {
+                    max-width: 100%;
+                }
+            }
+            
+            .btn{
+                border: 0;
+                height: 60px;
+                width: 250px;
+                background: var(--white);
+                text-align: center;
+
+                gap: 10px;
+                display: flex;
+                flex-wrap: nowrap;
+
+                color: var(--primary-blue);
+                font-size: 16px;
+                font-weight: 600;
+
+                position: relative;
+
+                padding-right: 20px;
+
+                &>span{
+                    width: 20px;
+                    transition: 0.5s;
+                    right: 30px;
+                    position: absolute;    
+                    transition: 0.5s;
+                }
+                
+                &:hover{
+                    span{
+                        right: 20px;
+                    }
+                }
+
+                svg{
+                    size: 18px;
+                    fill: var(--primary-blue);
+                }
+            }
+            
+
+        }
+
+    }
+
+}

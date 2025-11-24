@@ -1,1 +1,54 @@
-#faq{margin-bottom:120px}#faq h4{margin:0}#faq.cards p{font-size:16px}#faq ul li:before{content:"";height:14px;width:14px;background-image:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="%231f1f1f"><path d="M480-200q-117 0-198.5-81.5T200-480q0-117 81.5-198.5T480-760q117 0 198.5 81.5T760-480q0 117-81.5 198.5T480-200Z"/></svg>');background-repeat:no-repeat;background-size:contain}
+/*
+* Template variables and Revised Article
+* Last update of 05.19.25
+*/
+/* base */
+/* 12 px */
+/* 14 px */
+/* 18 px*/
+/* 20 px */
+/* 24 px 1.5em*/
+/* 28 px */
+/* 32 px */
+/* 40 px */
+/* 48 px */
+/* 56 px */
+/* 64 px */
+/* variables */
+/*
+* Template variables and Revised Article
+* Last update of 05.19.25
+*/
+/* base */
+/* 12 px */
+/* 14 px */
+/* 18 px*/
+/* 20 px */
+/* 24 px 1.5em*/
+/* 28 px */
+/* 32 px */
+/* 40 px */
+/* 48 px */
+/* 56 px */
+/* 64 px */
+/* font family weight */
+/* media query */
+#faq {
+  margin-bottom: 120px;
+}
+#faq h4 {
+  margin: 0;
+}
+#faq.cards p {
+  font-size: 16px;
+}
+#faq ul li:before {
+  content: "";
+  height: 14px;
+  width: 14px;
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="%231f1f1f"><path d="M480-200q-117 0-198.5-81.5T200-480q0-117 81.5-198.5T480-760q117 0 198.5 81.5T760-480q0 117-81.5 198.5T480-200Z"/></svg>');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+/*# sourceMappingURL=faq.css.map */

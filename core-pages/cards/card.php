@@ -4,12 +4,13 @@
     
     $h2 = get_sub_field('h2');    
     
-    $details = get_sub_field('details');
+    $H2details = get_sub_field('details');
     $columns = get_sub_field('columns');
 
     $snippet = get_sub_field('snippet');
-    $lowerCaseString = strtolower($snippet);
-    
+    $snippetLowerCase = strtolower($snippet);
+    $snippetSetting = str_replace(" ", "-", $snippetLowerCase);
+
     $setting = get_sub_field('setting');
     $lowerCase = strtolower($setting);
     $finalSetting = str_replace(" ", "-", $lowerCase);
@@ -17,8 +18,7 @@
 
 <?php if ( $display_selection ) : ?>
 
-
-    <div class="cards <?= $finalSetting ?>">
+    <div class="cards <?= $finalSetting ?> <?= $snippetSetting ?>">
         <div class="container">
         
         <?php if ( $with_header ) : ?>            
@@ -27,6 +27,7 @@
                     <span><?= $snippet ?></span>
                     <pre><?= $h2 ?></pre>
                 </h2>
+                <?= $H2details ?>
             </div>
         <?php endif; ?> 
 
