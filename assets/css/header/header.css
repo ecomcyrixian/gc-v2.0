@@ -7,7 +7,7 @@
 /* 14 px */
 /* 18 px*/
 /* 20 px */
-/* 24 px */
+/* 24 px 1.5em*/
 /* 28 px */
 /* 32 px */
 /* 40 px */
@@ -24,7 +24,7 @@
 /* 14 px */
 /* 18 px*/
 /* 20 px */
-/* 24 px */
+/* 24 px 1.5em*/
 /* 28 px */
 /* 32 px */
 /* 40 px */
@@ -42,7 +42,7 @@
 /* 14 px */
 /* 18 px*/
 /* 20 px */
-/* 24 px */
+/* 24 px 1.5em*/
 /* 28 px */
 /* 32 px */
 /* 40 px */
@@ -59,7 +59,7 @@
 /* 14 px */
 /* 18 px*/
 /* 20 px */
-/* 24 px */
+/* 24 px 1.5em*/
 /* 28 px */
 /* 32 px */
 /* 40 px */
@@ -106,6 +106,18 @@
   border: 1px solid #CDD6E0;
 }
 
+.gcheck-submit-btn {
+  color: #FFFFFF;
+  background: #4F51FD;
+  border-radius: 1px;
+  border: 1px solid #4F51FD;
+  transition: all 0.3s ease 0s;
+}
+.gcheck-submit-btn:hover:not(:disabled) {
+  background: #6D6FFD;
+  box-shadow: none;
+}
+
 /*
 * header
 */
@@ -143,10 +155,13 @@ header#home {
     margin-bottom: 60px;
   }
 }
+header#home .screenshot {
+  margin-top: 100px;
+}
 header#home > .container > div {
   color: #FFFFFF;
   margin: 50px auto;
-  max-width: 984px;
+  max-width: 1024px;
   text-align: center;
 }
 @media screen and (max-width: 767px) {
@@ -163,14 +178,16 @@ header#home > .container > div h1 {
 }
 header#home > .container > div h1 > i {
   font-weight: 700;
-}
-header#home > .container > div h1 > i:last-child {
-  font-weight: 700;
-  background-image: linear-gradient(to right, #3FC5FD, #D20DF5); /* Red to Blue gradient */
-  -webkit-background-clip: text; /* For WebKit browsers */
-  background-clip: text;
-  -webkit-text-fill-color: transparent; /* For WebKit browsers */
-  color: transparent; /* Fallback for browsers that don't support -webkit-text-fill-color */
+  /*
+  &:last-child{
+      font-weight: $fBold;
+      background-image: linear-gradient(to right, #3FC5FD, #D20DF5);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent; 
+  }
+  */
 }
 @media screen and (max-width: 767px) {
   header#home > .container > div h1 {
@@ -426,7 +443,7 @@ nav #desktop-nav .sub-menu span[class*=-description] {
 }
 nav #mobile-nav {
   z-index: 10;
-  top: 70px;
+  top: 53px;
   display: none;
   width: 100%;
   height: 100%;
@@ -440,6 +457,9 @@ nav #mobile-nav.active {
 }
 nav #mobile-nav a {
   text-decoration: none;
+}
+nav #mobile-nav ul {
+  margin: 0;
 }
 nav #mobile-nav #buttons {
   width: 100%;

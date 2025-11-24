@@ -25,18 +25,21 @@
                     </li>
                 </ul>
                 <div class="buttons">
-                    <a href="" target="_parent" class="button blue">
+                    <a href="https://gcheck.com/contact-us/" target="_parent" class="button blue">
+                         Get Started with GCheck
+                    </a>
+                    <!-- <a href="" target="_parent" class="button blue">
                         Start Free Trial
                     </a>
                     <a href="" target="_parent" class="button white">
                         Book A Demo
-                    </a>
+                    </a> -->
                 </div>
             </div>
-            <em><img src="<?php echo get_template_directory_uri() . '/core-pages/banner/images/dotted-img.png' ?>" alt="gceck"></em>
+            <em><img src="<?php echo get_template_directory_uri() . '/core-pages/banner/images/dotted-img.webp' ?>" alt="gceck" loading="lazy"></em>
         </div>
         <span>
-            <img class="photo" src="<?php echo get_template_directory_uri() . '/core-pages/banner/images/close-up-adult-working-his-laptop-office-photo-2.jpg' ?>" alt="gceck">
+            <img class="photo" src="<?php echo get_template_directory_uri() . '/core-pages/banner/images/close-up-adult-working-his-laptop-office-photo-2.webp' ?>" alt="gceck" loading="lazy">
         </span>
     </div>
 </div>

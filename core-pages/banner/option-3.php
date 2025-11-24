@@ -37,10 +37,10 @@
                 </ul>
                 <h3><i>"Every day of delay costs you top talent and $500+ in lost productivity per open position."</i></h3>
             </div>
-            <em><img src="<?php echo get_template_directory_uri() . '/core-pages/banner/images/dotted-img.png' ?>" alt="gceck"></em>
+            <em><img src="<?php echo get_template_directory_uri() . '/core-pages/banner/images/dotted-img.webp' ?>" alt="gceck" loading="lazy"></em>
         </div>
         <span>
-            <img class="photo" src="<?php echo get_template_directory_uri() . '/core-pages/banner/images/close-up-adult-working-his-laptop-office-photo-4.jpg' ?>" alt="gceck">
+            <img class="photo" src="<?php echo get_template_directory_uri() . '/core-pages/banner/images/close-up-adult-working-his-laptop-office-photo-4.webp' ?>" alt="gceck" loading="lazy">
         </span>
     </div>
 </div>

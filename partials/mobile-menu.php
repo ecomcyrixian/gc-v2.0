@@ -168,10 +168,10 @@
         </div>
         
         <div id="buttons">
-            <a href="" target="_parent" class="button blue">
+            <a href="https://gcheck.com/contact-us/" target="_parent" class="button blue">
                 Get Started Today
             </a>
-            <a href="" target="_parent" class="button white">
+            <a href="https://gcheck.com/pricing-packages/" target="_parent" class="button white">
                 Get Volume Pricing
             </a>
         </div>

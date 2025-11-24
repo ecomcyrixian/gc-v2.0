@@ -7,7 +7,7 @@
 /* 14 px */
 /* 18 px*/
 /* 20 px */
-/* 24 px */
+/* 24 px 1.5em*/
 /* 28 px */
 /* 32 px */
 /* 40 px */
@@ -24,7 +24,7 @@
 /* 14 px */
 /* 18 px*/
 /* 20 px */
-/* 24 px */
+/* 24 px 1.5em*/
 /* 28 px */
 /* 32 px */
 /* 40 px */
@@ -58,8 +58,9 @@
 }
 #hiring .boxes > .box {
   flex: 1;
+  color: #000000;
   padding: 20px;
-  background: #CC2900;
+  background: #CDD6E0;
   border-radius: 8px;
   display: flex;
   gap: 24px;
@@ -89,7 +90,8 @@
   padding-bottom: 16px;
 }
 #hiring .gray-box {
-  background: #CDD6E0;
+  color: white;
+  background: #1A1C1E;
   margin-bottom: 16px;
 }
 #hiring .blue-box {

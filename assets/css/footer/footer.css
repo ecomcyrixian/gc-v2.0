@@ -7,7 +7,7 @@
 /* 14 px */
 /* 18 px*/
 /* 20 px */
-/* 24 px */
+/* 24 px 1.5em*/
 /* 28 px */
 /* 32 px */
 /* 40 px */
@@ -24,7 +24,7 @@
 /* 14 px */
 /* 18 px*/
 /* 20 px */
-/* 24 px */
+/* 24 px 1.5em*/
 /* 28 px */
 /* 32 px */
 /* 40 px */
@@ -42,7 +42,7 @@
 /* 14 px */
 /* 18 px*/
 /* 20 px */
-/* 24 px */
+/* 24 px 1.5em*/
 /* 28 px */
 /* 32 px */
 /* 40 px */
@@ -59,7 +59,7 @@
 /* 14 px */
 /* 18 px*/
 /* 20 px */
-/* 24 px */
+/* 24 px 1.5em*/
 /* 28 px */
 /* 32 px */
 /* 40 px */
@@ -106,6 +106,18 @@
   border: 1px solid #CDD6E0;
 }
 
+.gcheck-submit-btn {
+  color: #FFFFFF;
+  background: #4F51FD;
+  border-radius: 1px;
+  border: 1px solid #4F51FD;
+  transition: all 0.3s ease 0s;
+}
+.gcheck-submit-btn:hover:not(:disabled) {
+  background: #6D6FFD;
+  box-shadow: none;
+}
+
 /*
 * footer
 */
@@ -113,7 +125,7 @@ footer {
   color: #FFFFFF;
   font-weight: 400;
   font-size: 16px;
-  padding: 60px 0;
+  padding-top: 60px;
   background: #00014F;
   margin-top: 120px;
 }
@@ -207,7 +219,7 @@ footer .footer-links a {
   text-decoration: none;
 }
 footer #copyright {
-  margin: 40px auto;
+  margin: 40px auto 0 auto;
   padding-top: 40px;
   font-size: 14px;
   border-top: 1px solid #3D3F7A;

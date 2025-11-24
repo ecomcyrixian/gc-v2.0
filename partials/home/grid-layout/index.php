@@ -4,7 +4,7 @@
             <?php get_template_part('partials/home/grid-layout/card-2') ?>        
         </div>
         <div class="grid-item">
-            <img src="<?php echo get_template_directory_uri() . '/partials/home/grid-layout/images/card-vertical-photo.jpg' ?>" alt="gceck">
+            <img src="<?php echo get_template_directory_uri() . '/partials/home/grid-layout/images/card-vertical-photo.webp' ?>" alt="gceck" loading="lazy">
         </div>
         <div class="grid-item">
             <?php get_template_part('partials/home/grid-layout/card-3') ?>
@@ -13,7 +13,7 @@
             <?php get_template_part('partials/home/grid-layout/card-4') ?>
         </div>
         <div class="grid-item">
-            <img src="<?php echo get_template_directory_uri() . '/partials/home/grid-layout/images/card-horizontal-photo.jpg' ?>" alt="gceck">
+            <img src="<?php echo get_template_directory_uri() . '/partials/home/grid-layout/images/card-horizontal-photo.webp' ?>" alt="gceck" loading="lazy">
         </div>
     </div>
     <span class="fine-print container">

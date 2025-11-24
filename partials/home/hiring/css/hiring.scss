@@ -28,8 +28,9 @@
 
         &>.box{
             flex: 1;
+            color: $black;
             padding: $gap20;
-            background: $red300;
+            background: $gray75;
             border-radius: $corners8;
 
             display: flex;
@@ -65,7 +66,8 @@
         }
     }
     .gray-box{
-        background: $gray75;
+        color: white;
+        background: $gray300;
         margin-bottom: $gap16;
     }
 
