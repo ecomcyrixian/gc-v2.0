@@ -1,1 +1,5 @@
+<<<<<<< HEAD
+{"version":3,"sourceRoot":"","sources":["../../../../assets/css/_tools/_variable.scss","../../../../assets/css/_tools/_mixins.scss","key-features.scss"],"names":[],"mappings":"AACA;AAAA;AAAA;AAAA;AAyDoC;AACD;AACC;AACD;AACC;AACA;AACA;AACA;AACA;AACA;AACA;AACA;ACrEpC;ADCA;AAAA;AAAA;AAAA;AAyDoC;AACD;AACC;AACD;AACC;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AClEpC;AAUA;ACVA;EACI,eFcsB","file":"key-features.css"}
+=======
 {"version":3,"sourceRoot":"","sources":["../../../../assets/css/_tools/_variable.scss","../../../../assets/css/_tools/_mixins.scss","key-features.scss"],"names":[],"mappings":"AACA;AAAA;AAAA;AAAA;AAyDoC;AACD;AACC;AACD;AACC;AACD;AACC;AACA;AACA;AACA;AACA;AACA;ACrEpC;ADCA;AAAA;AAAA;AAAA;AAyDoC;AACD;AACC;AACD;AACC;AACD;AACC;AACA;AACA;AACA;AACA;AACA;AClEpC;AAUA;ACVA;EACI,eFcsB","file":"key-features.css"}
+>>>>>>> main
