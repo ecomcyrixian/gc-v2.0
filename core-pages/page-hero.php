@@ -15,9 +15,9 @@
         <div class="container">
             <?php
                 if ( $setting ){
-                    get_template_part( 'core-pages/page-hero-image' );
+                    get_template_part( 'core-pages/page-hero/page-hero-image' );
                 }else{
-                    get_template_part( 'core-pages/page-hero-text' );
+                    get_template_part( 'core-pages/page-hero/page-hero-text' );
                 };
             ?>
         </div>

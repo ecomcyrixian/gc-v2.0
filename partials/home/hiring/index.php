@@ -33,7 +33,7 @@
                 </ul>
             </div>
             <div>
-                <div class="gray-box">
+                <div class="black-box">
                     <h4>The question isn't whether you can afford a faster background check service.</h4>
                     <p>It's whether you can afford to keep losing talent to competitors who figured this out months ago.</p>                    
                 </div>

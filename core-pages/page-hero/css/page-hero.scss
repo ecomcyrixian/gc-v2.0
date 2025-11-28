@@ -1,0 +1,230 @@
+
+
+@import '../../../assets/css/_tools/variable';
+@import '../../../assets/css/_tools/mixins';
+
+ .page-hero{
+
+        padding: $gap60 0;
+
+        @include media($mobile){
+            br{
+                display: none;
+            }
+        }
+        
+        &.yes{
+            background: $blue10;
+        }
+
+        &.Center{
+            text-align: center;
+            .logos{
+                justify-content: center;
+            }
+
+            .bullets{
+                gap: $gap10;
+                display: flex;
+                padding: $gap10;
+                flex-direction: row;
+                justify-content: center;
+
+                li{
+                    padding-bottom: 0;
+                    &::before {
+                        position: static;
+                    }
+                }
+            }
+        }
+
+        &>.container{
+            padding: 0;
+            
+            section{
+                &.Left {
+                    div:first-child{
+                        order: 2
+                    }
+                    div:last-child{
+                        order: 1
+                    }
+                }
+                
+            }
+            
+        }
+
+        h2{
+            color:$gray300;
+            font-size: $fsize48;
+            font-weight: $fSemiBold;
+            line-height: normal;
+
+            br{
+                // display: none;
+            }
+
+            pre{
+                height: auto;
+            }
+
+            p{
+                padding: 0;
+                margin: 0;
+            }
+            
+            &>span{
+                    display: block;
+                    color: $blue300;
+                    font-size: $fsize14;
+                    text-transform: uppercase;
+            }
+            
+
+            @include media($mobile){
+                font-size: $fsize32;
+            }
+        }
+
+        pre{
+            display: block;
+            color: $blue300;
+            font-size: $fsize14;
+            text-transform: uppercase; 
+        }
+
+        strong{
+            font-size: $fsize18;
+        }
+        
+        p{
+            padding: 0; 
+        }
+
+        .cols.cols2{
+            align-items: center;
+
+            @include media(1300px){
+                padding: $gap40 $gap16;
+                flex-direction: column;
+                justify-content: flex-start;
+
+                &>div{
+                    width: 100%;
+                    max-width: 100% !important;
+
+                }
+            }
+
+            &>div{
+                flex: none;
+            }
+            &>div:first-child{
+                max-width: 660px;
+                gap: $gap16;
+                display: flex;
+                flex-direction: column;
+                span:last-child{
+                    margin-top: $gap24;
+                }
+            }
+            &>div:last-child{
+                max-width: 620px;
+                overflow: hidden;
+                border-radius: $corners8;
+            }
+        }
+      
+        .logos{
+            padding: 0;
+            margin: 0;
+            li{
+                list-style: none;
+            }
+            img{
+                width: revert-layer;                
+            }
+        }
+
+        .custom-bullets{
+            padding: 0;
+            margin: $gap20 0;
+            display: flex;
+            flex-wrap: wrap;
+
+            @include media($mobile){
+                display: block;
+            }
+
+            li{
+                width: 50%;
+                gap: $gap10;
+                display: flex;
+                align-items: flex-start;
+             
+                @include media($mobile){
+                    width: 100%;
+                }
+
+                &::before{
+                    display: none;
+                }
+                img{
+                    width: auto;
+                }
+                &>em,&>i{
+                    display: block;
+                    margin: 0 !important;
+                    font-style: normal;
+
+                }
+                strong{
+                    display: block;
+                }
+            }
+        }
+
+        .text-only{
+            padding: 0 $gap16;
+            .heading{
+                margin: $gap16 0;
+            }
+
+            .button{
+                margin: $gap40;
+                display: inline-block;
+            }
+
+            h2{
+                padding-bottom: $gap10;
+            }
+        }
+
+        .value-props{
+            margin: 0;
+            padding: 0;
+            gap: $gap40;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            
+            @include media($mobile){
+                gap: $gap10;
+                padding: 0 $gap40;
+                flex-direction: column;
+            }
+
+            li{
+                gap: $gap10;
+                display: flex;
+                align-items: center;
+                flex-direction: row;
+                &::before{
+                    display: none;
+                }
+            }
+        }
+
+    }

@@ -1,0 +1,219 @@
+@import '../../../../assets/css/_tools/variable';
+@import '../../../../assets/css/_tools/mixins';
+
+
+#pricing{
+    color: $white;
+    text-align: center;
+    padding: $gap80 $gap60;
+    background: $blue500;
+
+    &>.container{
+        padding: 0;
+    }
+
+    @include media($tablet){
+        padding: $gap80 $gap16;
+        
+    }
+   
+    p>a{
+        color: $cyan;        
+    }
+
+    .heading{
+        margin: 0;
+        padding-bottom: $gap40;
+    }
+
+    #boxes{
+        gap: $gap40;
+        display: flex;
+        margin: 0 auto;
+        max-width: 1094px;
+        flex-wrap: nowrap;
+        padding: $gap40;
+        background: $blue600;
+        border-radius: $corners8;
+        margin-bottom: $gap24;
+        position: relative;
+        
+        @include media($mobile){
+            flex-wrap: wrap;        
+        }
+
+        &>.box{
+            gap: $gap8;
+            width: 33.33%;
+            display: flex;
+            color: $gray75;
+            font-size: $fsize14;
+            flex-wrap: nowrap;
+            align-items: flex-start;
+            border-right: 1px solid $lineColor;
+            text-align: left;
+
+            &:last-child{
+                border-right: 0;
+            }
+
+            @include media($mobile){
+                width: 100%;
+                text-align: left;
+                border-right:0;
+            }
+        }
+
+        strong{
+            color: $white;
+            font-size: $default-font;
+            font-weight: $fSemiBold;
+        }
+
+
+    }
+
+    #price-boxes{
+        color: $black;
+        text-align: left;
+        margin: $gap80 0;
+    
+        overflow-y: auto;
+        padding-bottom: $gap20;
+        
+
+        &>div{
+            gap: $gap20;
+            width: 1094px;
+            display: flex;
+            // flex-wrap: nowrap;
+            margin: 0 auto;
+            flex-direction: row;
+            
+            @include media($tablet){
+                padding-left: $gap10;
+            }
+          
+
+        }
+
+        .price-box{
+            width: 33.33%;
+            padding: $gap20;
+            background: $white;
+            border-radius: $corners8;
+            position: relative;      
+        }
+
+        .price-badge{
+            gap: $gap16;
+            display: flex;
+            flex-wrap: wrap;
+            font-size: $fsize14;
+            align-items: flex-start;
+
+            &>h2,
+            &>span{
+                width: 100%;
+                display: block;
+
+                &:first-child{
+                    display: flex;
+                    height: 40px;
+                    align-items: center;
+                    strong{
+                        flex: 1;
+                    }
+                }               
+            }
+            h2{
+                color: $blue300;
+            }
+            p{
+                padding: 0;
+                margin: 0;               
+            }
+            .badge{
+                padding: $gap10;
+                color: $blue500;
+                display: inline-block;
+                background: $blue50;
+                border-radius: $corners4;
+                font-weight: $fSemiBold;
+
+            }
+        }
+
+        .what-is-included{
+
+            font-size: $fsize14;
+            margin: $gap24 0;
+            padding-top: $gap24;
+            padding-bottom: $gap40;
+            border-top: 1px solid $gray75;
+            min-height: 320px;
+
+            strong{
+                display: block;
+                margin-bottom: $gap16;
+            }
+            ul{
+                padding: 0;
+                margin: 0;
+                gap: $gap8;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: flex-start;
+                
+            }
+            li{
+                width: 100%;
+                gap: $gap8;
+                display: flex;
+                flex-wrap: nowrap;
+                list-style: none;
+
+                &::before{
+                    display: none;
+                }
+
+            }
+           
+        }
+
+         .buttons{
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            position: absolute;
+            padding: $gap20;
+
+            a{
+                display: block;
+                text-decoration: none !important;
+            }
+        }
+    }
+
+    .snippet{
+        gap: $gap20;
+        display: flex;
+        flex-wrap: nowrap;
+        font-size: $fsize14;
+        justify-content: center;
+
+        @include media($mobile){
+            flex-wrap: wrap;
+            a{
+                width: 100%;
+                display: block;
+            }
+        }
+        a{
+            color: $cyan;
+            text-decoration: underline;
+        }
+    }
+}
+
+      

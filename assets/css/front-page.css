@@ -380,6 +380,7 @@
   background: #282981;
   border-radius: 8px;
   margin-bottom: 24px;
+  position: relative;
 }
 @media screen and (max-width: 767px) {
   #pricing #boxes {
@@ -476,6 +477,7 @@
   font-size: 14px;
   margin: 24px 0;
   padding-top: 24px;
+  padding-bottom: 40px;
   border-top: 1px solid #CDD6E0;
   min-height: 320px;
 }
@@ -502,7 +504,11 @@
   display: none;
 }
 #pricing #price-boxes .buttons {
+  left: 0;
+  bottom: 0;
   width: 100%;
+  position: absolute;
+  padding: 20px;
 }
 #pricing #price-boxes .buttons a {
   display: block;
@@ -564,6 +570,25 @@
 /* 64 px */
 /* font family weight */
 /* media query */
+#hiring .cols {
+  gap: 40px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+@media screen and (max-width: 767px) {
+  #hiring .cols {
+    display: block;
+  }
+}
+#hiring .cols > div {
+  padding: 0;
+  margin: 0;
+}
+#hiring .cols.cols2 > div {
+  flex: 1;
+}
 #hiring h4 {
   font-weight: 400;
   margin-bottom: 40px;
@@ -581,6 +606,8 @@
   color: #FFFFFF;
   display: flex;
   flex-direction: column;
+  padding-left: 0;
+  margin: 0;
 }
 @media screen and (max-width: 767px) {
   #hiring .boxes {
@@ -589,7 +616,7 @@
 }
 #hiring .boxes > .box {
   flex: 1;
-  color: #000000;
+  color: #1A1C1E;
   padding: 20px;
   background: #CDD6E0;
   border-radius: 8px;
@@ -610,19 +637,25 @@
   margin: 0;
   padding: 0;
 }
+#hiring .black-box,
 #hiring .gray-box,
 #hiring .blue-box {
   border-radius: 8px;
   padding: 20px;
 }
+#hiring .black-box h4,
 #hiring .gray-box h4,
 #hiring .blue-box h4 {
   margin: 0;
   padding-bottom: 16px;
 }
 #hiring .gray-box {
-  color: white;
-  background: #1A1C1E;
+  background: #CDD6E0;
+  margin-bottom: 16px;
+}
+#hiring .black-box {
+  color: #FFFFFF;
+  background: #000000;
   margin-bottom: 16px;
 }
 #hiring .blue-box {
@@ -639,6 +672,10 @@
 #hiring .blue-box li {
   list-style: disc outside;
   padding-bottom: 16px;
+  padding-left: 0;
+}
+#hiring .blue-box li:before {
+  display: none;
 }
 
 /*# sourceMappingURL=front-page.css.map */

@@ -1,5 +1,6 @@
 <?php get_template_part('head') ?>
 <header id="typical">
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <div id="header-cont">
         <div class="container">
             <span class="gCheck-logo">

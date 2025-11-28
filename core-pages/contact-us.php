@@ -9,8 +9,12 @@
                         <h2>Talk to Sales</h2>
                         <p>Connect with a member of our team for a personalized demo or to learn about volume pricing and custom packages.</p>
                     </div>
+                    
+                    
                     <?php get_template_part('core-pages/forms/forms');	?>
+
                     <!-- <p class="fineprint">Never share sensitive information (credit card numbers, social security numbers, passwords) through this form. This site is protected by reCAPTCHA and th <a href="">Google Privacy Policy</a> and <a href="">Terms of Service</a> apply.</p> -->
+
                 </div>
                 <div>
                     <h2><i>Fast, Accurate, and Compliant</i> Background Checks — <em>Made Simple</em></h2>
@@ -40,10 +44,7 @@
                 </div>
             </section>
         </div>
-        <?php
-            // ACF Configuration Widgets
-            get_template_part( 'config' );
-        ?>
+        <?php get_template_part( 'core-pages/config' );?>
     </div>
 </div>
 
