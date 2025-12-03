@@ -8,6 +8,8 @@
         padding: $gap60 0;
 
         @include media($mobile){
+            padding: 0;
+
             br{
                 display: none;
             }
@@ -15,25 +17,36 @@
         
         &.yes{
             background: $blue10;
+            padding: $gap40 0;
         }
 
         &.Center{
             text-align: center;
+            margin-bottom: $gap40;
             .logos{
                 justify-content: center;
             }
 
             .bullets{
-                gap: $gap10;
+                gap: $gap20;
                 display: flex;
                 padding: $gap10;
                 flex-direction: row;
                 justify-content: center;
+                margin-top: $gap20;
+
+                @include media($mobile){
+                   flex-direction: column;
+                }
 
                 li{
                     padding-bottom: 0;
+                     @include media($mobile){
+                       text-align: left;
+                    }
+
                     &::before {
-                        position: static;
+                        left: 0;
                     }
                 }
             }
@@ -53,10 +66,11 @@
                 }
                 
             }
-            
+
         }
 
-        h2{
+        
+        h1, h2{
             color:$gray300;
             font-size: $fsize48;
             font-weight: $fSemiBold;
@@ -93,6 +107,7 @@
             color: $blue300;
             font-size: $fsize14;
             text-transform: uppercase; 
+            margin-bottom: $gap10;
         }
 
         strong{
@@ -140,8 +155,14 @@
         .logos{
             padding: 0;
             margin: 0;
+        
             li{
+                padding: 0;
                 list-style: none;
+                
+                &:before{
+                    display: none;
+                }
             }
             img{
                 width: revert-layer;                
@@ -192,14 +213,24 @@
                 margin: $gap16 0;
             }
 
-            .button{
-                margin: $gap40;
-                display: inline-block;
+            h1,h2{
+                padding-bottom: $gap20;
             }
 
-            h2{
-                padding-bottom: $gap10;
+            .btns{
+                margin: $gap40;
+                gap: $gap20;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                @include media($mobile){
+                    flex-direction: column;
+                }
+                .button{
+                    display: inline-block;
+                }
             }
+            
         }
 
         .value-props{

@@ -1,8 +1,9 @@
 @import '_tools/variable'; 
 @import '_tools/mixins'; 
 
-@import 'blog/author';
-@import 'blog/single'; 
+@import '../../core-pages/blog/css/author';
+@import '../../core-pages/blog/css/single'; 
+
 
 
 /* Webforms */
@@ -231,6 +232,7 @@ body.search{
 .legal-disclaimer{
     font-size: 12px;
     padding-top: $gap20;
+    margin-bottom: $gap120;
     border-top: 1px solid $gray100;
     p{
         padding: $gap10 0 !important;

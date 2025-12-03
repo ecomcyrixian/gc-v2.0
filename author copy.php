@@ -80,7 +80,7 @@
                         <?php echo nl2br( get_the_author_meta( 'user_description' ) ); ?>
                     </div>
                     
-                    <!-- Auhtors box -->
+                <!-- Auhtors box -->
                     <?php //echo do_shortcode(' [publishpress_authors_box layout="ppma_boxes_185"] ') ?>
 
                 </div>
@@ -89,107 +89,77 @@
             </div>
             
         </div>
-      
-            
-         <div class="latest-articles">
-            <div class="container">
-                <div class="heading">
-                    <h2>
-                        <span>FROM THE AUTHOR</span>
-                            More Articles by <?php echo $display_name ?>
-                    </h2>
-                </div>
-                <div class="cards">
-                    <div class="card-cont cols3">
+       
+        <div class="container">
+            <div class="author-articles">
+                <h4>More articles by <?php echo $first_name ?></h4>
+                <div>
 
-                        <!-- wp default loop  -->
+                    <!-- wp default loop  -->
+                    <?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+
                         <?php
-                            // Define the custom query to get the 3 most recent posts
-                            $args = array(
-                                // 'posts_per_page' => esc_html(6),  // Limit the number of post
-                                'post_type'      => 'post',  // Only fetch posts (not pages or custom post types)
-                                'orderby'        => 'publish_date',  // Order by date
-                                'order'          => 'ASC',  // Latest posts first
-                                'author'         => $author->ID,
-                            );
-
-                            // Execute the query
-                            $recent_posts = new WP_Query($args);
+                            $post_date = get_the_date( ' j M, Y' );
+                            $word_count = str_word_count( strip_tags( get_the_content() ) );
+                            $reading_time = ceil( $word_count / 200 );
                         ?>
+                      
+                        <section>
+                            <span class="featured-thumb" style=" background: url(<?php the_post_thumbnail_url('large'); ?>) no-repeat center center;"></span>
+                            <p class="category">
+                                <?php $categories = get_the_category();
+                                    if (!empty($categories)) {
+                                        $category_list = array();
+                                        foreach ($categories as $category) {
+                                            $category_list[] = $category->name;
+                                        }
+                                        echo 'Categories: ' . implode(', ', $category_list);
+                                    }
+                                ?>
+                            </p>
+                            <p>
+                            <a class="title" href="<?php echo get_permalink(); ?>" aria-label="<?php the_title(); ?> ">
+                                <strong>
+                                    <?php the_title(); ?>
+                                </strong>
+                            </a>
+                            </p>
 
-                        <?php if ($recent_posts->have_posts()) : ?>
-                        <?php while ($recent_posts->have_posts()) : $recent_posts->the_post(); ?>
-                        
-                            <?php
-                                $post_date = get_the_date( ' j M, Y' );
-                                $word_count = str_word_count( strip_tags( get_the_content() ) );
-                                $reading_time = ceil( $word_count / 200 );
-                            ?>
+                            <p class="date-read">
+                                <span class="post-date"><?php echo $post_date ?></span>
+                                <strong>•</strong>
+                                <span class="reading-time"><?php echo $reading_time; ?> min read</span>
+                            </p>
                             
-                            <div>
-                                    <span class="featured-image">
-                                    <img src="<?php the_post_thumbnail_url('large'); ?>" alt="<?php the_title(); ?>">
-                                </span>
-                                <div class="articles-info">
-                                    <span class="category">                                       
-                                        <?php
-                                            // Get the current post's categories
-                                            $categories = get_the_category();
 
-                                            if ( ! empty( $categories ) ) {
-                                                // Take the first category in the array (often the primary one)
-                                                $category = $categories[0];
-
-                                                // Get the category name (title)
-                                                $category_title = $category->name;
-
-                                                // Get the category URL (link)
-                                                $category_link = get_category_link( $category->term_id );
-
-                                                // Output the HTML
-                                                echo '<a href="' . esc_url( $category_link ) . '" rel="category tag">';
-                                                echo esc_html( $category_title );
-                                                echo '</a>';
-                                            }
-
-                                        ?>
-                                        
-                                    </span>
-                                    <h4>
-                                        <a class="title" href="<?php echo get_permalink(); ?>" aria-label="<?php the_title(); ?> ">
-                                                <?php the_title(); ?>
-                                        </a>
-                                    </h4>
-                                    <span class="read-time">
-                                            <span class="post-date"><?php echo $post_date ?></span>
-                                            <strong>•</strong>
-                                            <span class="reading-time"><?php echo $reading_time; ?> min read</span>
-                                    </span>
-                                    <div class="description">
-                                        <?php
-                                            $excerpt = wp_trim_words(get_the_excerpt(), 50, '...');
-                                            echo $excerpt;
-                                        ?>                                        
-                                    </div>
-                                    <span class="btn">
-                                        <a class="button readmore" href="<?php echo get_permalink(); ?>"> Read More</a>
-                                    </span>
+                                
+                                <div>
+                                <p class="post-excerpt">
+                                    <?php
+                                    $excerpt = wp_trim_words(get_the_excerpt(), 10, '...');
+                                    echo $excerpt;
+                                    ?>
+                                </p>
+                                <p>
+                                    <a class="readmore" href="<?php echo get_permalink(); ?>">
+                                        Read More
+                                        <span>
+                                            <svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 132 82"><path d="M95.95,2.05c-2.73-2.73-7.17-2.73-9.9,0-2.73,2.73-2.73,7.17,0,9.9l22.05,22.05H7c-3.87,0-7,3.13-7,7s3.13,7,7,7h101.1l-22.05,22.05c-2.73,2.73-2.73,7.17,0,9.9,1.37,1.37,3.16,2.05,4.95,2.05s3.58-.68,4.95-2.05l34-34c2.73-2.73,2.73-7.17,0-9.9L95.95,2.05Z"/></svg>
+                                        </span>
+                                    </a>
+                                </p>
                                 </div>
+                            
+                        </section>
+                     <!-- wp else condition -->
+                    <?php endwhile; else: ?>
+                    <?php wp_reset_postdata(); ?>
+                    <p><?php _e('Sorry, no posts matched your criteria.'); ?></p><?php endif; ?>
 
-                            </div>
-
-                            <!-- wp else condition -->
-                        <?php endwhile; else: ?>
-                        <?php wp_reset_postdata(); ?>
-                        <p><?php _e('Sorry, no posts matched your criteria.'); ?></p><?php endif; ?>
-                        
-
-                    </div>
                 </div>
             </div>
+
         </div>
-                
-      
     </main>
 
 <?php get_footer(); ?>

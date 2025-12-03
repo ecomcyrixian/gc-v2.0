@@ -12,7 +12,7 @@ footer{
     font-size: $base-fsize;
     padding-top: $gap60;
     background: $darkblue;
-    margin-top: $gap120;
+    // margin-top: $gap120;
 
     @include media(1320px){
         padding: $gap60 $gap16;

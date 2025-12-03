@@ -1,7 +1,8 @@
-@import '../_tools/variable'; 
-@import '../_tools/mixins'; 
+@import '../../../assets/css/_tools/variable';
+@import '../../../assets/css/_tools/mixins';
 
-.latest-articles{
+.recent-articles{
+    padding: $gap80 0;
     text-align: left;
 
     section{
@@ -14,14 +15,11 @@
     a{
         color: $blue300;
         text-decoration: none;
-
-        @include media($mobile){
-            display: none;
-        }
     }
 
     .heading{
-        text-align: left;
+        padding: 0;
+        margin: 0;
         margin-bottom: $gap60;
 
         display: flex;
@@ -73,7 +71,7 @@
         }
         h4 a{
             color: $gray300;
-            font-size: $fsize18;
+            font-size: 18px;
             text-decoration: none;
             @include ellipsis(2);
         }
@@ -97,5 +95,11 @@
             display: block;
         }
         
+    }
+}
+
+body.blog{
+    .cards .card-cont.cols3 > div{
+        padding: 0;
     }
 }
