@@ -6,16 +6,33 @@
                 <?php printf( esc_html__( 'Search Results for: %s', 'textdomain' ), '<span>' . get_search_query() . '</span>' ); ?>
             </h4>
             <div class="cards">
-                <div class="card-cont cols3">
+                    <div class="card-cont cols3">
 
-                    <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+                        <!-- wp default loop  -->
                         <?php
-                            $post_date = get_the_date( ' j M, Y' );
-                            $word_count = str_word_count( strip_tags( get_the_content() ) );
-                            $reading_time = ceil( $word_count / 200 );
+                            // Define the custom query to get the 3 most recent posts
+                            $args = array(
+                                // 'posts_per_page' => esc_html(6),  // Limit the number of post
+                                'post_type'      => 'post',  // Only fetch posts (not pages or custom post types)
+                                'orderby'        => 'publish_date',  // Order by date
+                                'order'          => 'ASC',  // Latest posts first
+                                // 'author'         => $author->ID,
+                            );
+
+                            // Execute the query
+                            $recent_posts = new WP_Query($args);
                         ?>
+
+                        <?php if ($recent_posts->have_posts()) : ?>
+                        <?php while ($recent_posts->have_posts()) : $recent_posts->the_post(); ?>
                         
-                        <div>
+                            <?php
+                                $post_date = get_the_date( ' j M, Y' );
+                                $word_count = str_word_count( strip_tags( get_the_content() ) );
+                                $reading_time = ceil( $word_count / 200 );
+                            ?>
+                            
+                            <div>
                                     <span class="featured-image">
                                     <img src="<?php the_post_thumbnail_url('large'); ?>" alt="<?php the_title(); ?>">
                                 </span>
@@ -66,16 +83,15 @@
                                 </div>
 
                             </div>
-                            
-                    <?php
-                        endwhile; else :
-                        echo '<p>No posts found.</p>';
-                        endif;
-                    ?>
+
+                            <!-- wp else condition -->
+                        <?php endwhile; else: ?>
+                        <?php wp_reset_postdata(); ?>
+                        <p><?php _e('Sorry, no posts matched your criteria.'); ?></p><?php endif; ?>
                         
 
+                    </div>
                 </div>
-            </div>
         </div>
         
     </div>

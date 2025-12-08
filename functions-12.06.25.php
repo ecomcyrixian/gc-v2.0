@@ -168,32 +168,3 @@ class Parent_Menu_Walker extends Walker_Nav_Menu {
         // Do nothing for sub-levels
     }
 }
-
-/*
- * categories and tags to page
- */
-
-function register_category_and_tag_with_pages() {
-    // Add categories to pages
-    register_taxonomy_for_object_type('category', 'page');
-    // Add tags to pages
-    register_taxonomy_for_object_type('post_tag', 'page');
-}
-add_action('init', 'register_category_and_tag_with_pages');
-
-function allow_category_and_tag_archives_for_pages($query) {
-    if (is_admin() || !$query->is_main_query()) {
-        return;
-    }
-
-    // Allow pages to be included in category archives
-    if ($query->is_category() && $query->is_main_query()) {
-        $query->set('post_type', array('post', 'page'));
-    }
-
-    // Allow pages to be included in tag archives
-    if ($query->is_tag() && $query->is_main_query()) {
-        $query->set('post_type', array('post', 'page'));
-    }
-}
-add_action('pre_get_posts', 'allow_category_and_tag_archives_for_pages');

@@ -17,7 +17,8 @@
                         'posts_per_page' => esc_html(3),  // Limit the number of post
                         'post_type'      => 'post',  // Only fetch posts (not pages or custom post types)
                         'orderby'        => 'publish_date',  // Order by date
-                        'order'          => 'ASC',  // Latest posts first
+                        'order'          => 'DESC',  // Latest posts first
+                        
                     );
 
                     // Execute the query

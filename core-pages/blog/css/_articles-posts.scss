@@ -38,13 +38,19 @@
     }
 
     .cards{
+        
         &>div:nth-child(even){
             background: $gray300;
         }
         .card-cont{
+            &>div{
+                padding: 0;
+            }
+            /*
             &.con>div{
                 padding: 0;
             }
+            */
         }
     } 
 
@@ -56,17 +62,19 @@
         
         @include media($mobile){
             height: auto;
+            margin-bottom: $gap10;
         }
     }
     
     .articles-info{
-        padding-top: $gap20;
+        padding:$gap20;
         gap: $gap20;
         display: flex;
         flex-direction: column;
+     
         h4,.read-time,.category{
             margin: 0;
-            margin-bottom: -$gap10;
+            // /margin-bottom: -$gap10;
         }
         h4 a{
             color: $gray300;
@@ -75,13 +83,18 @@
             
             @include ellipsis(2);
         }
-        .category a{                
-            color: $blue300;
-            font-size: $fsize12;
-            font-weight: $fSemiBold;
-            text-transform: uppercase;
-            text-decoration: none;
+        
+        .category{
+            a{                
+                color: $blue300;
+                font-size: $fsize12;
+                font-weight: $fSemiBold;
+                text-transform: uppercase;
+                text-decoration: none;
+            }
+            
         }
+        
         .read-time{
             color:$gray300;
             font-size: $fsize12;
@@ -102,6 +115,11 @@ body.blog{
     .latest-articles {
         .cards{
             margin-bottom: 0;
+         
+            
+            &.card-cont{
+                padding: 0;
+            }
         }
         .heading{
             text-align: left;

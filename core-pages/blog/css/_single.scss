@@ -41,7 +41,13 @@ body.single{
 
        
         h2{
-            font-size: $fsize24;
+            font-size: $fsize40;
+        }
+
+        .wp-block-group__inner-container .is-layout-constrained .wp-block-group-is-layout-constrained{
+            em{
+                
+            }
         }
 
         #search{

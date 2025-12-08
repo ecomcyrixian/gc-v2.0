@@ -10,7 +10,7 @@
 <section>
 
     <div class="container">
-         <?php echo '<div class="heading"> <h2>' . esc_html( $category_name ) . '</h2> <a href="'. esc_html( $category_link ) .'" target="_parent" aria-label="'. esc_html( $category_name ) .'"> View all articles </a> </div>'; ?>
+        <?php echo '<div class="heading"> <h2>' . esc_html( $category_name ) . '</h2> <a href="'. esc_html( $category_link ) .'" target="_parent" aria-label="'. esc_html( $category_name ) .'"> View all articles </a> </div>'; ?>
         <div class="card-cont cols3">
             <!-- wp default loop  -->
             <?php

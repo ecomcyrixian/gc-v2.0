@@ -16,5 +16,9 @@
     <script type="javascript" src="<?php echo get_template_directory_uri() . '/assets/js/global.js' ?>"></script>
     <link rel="stylesheet" href="<?php echo get_template_directory_uri() . '/assets/css/global.css' ?>">   
 
+    <?php get_template_part( 'partials/gtm/gtm-script-head-tag' ); ?>
+
 </head>
 <body <?php body_class(); ?>>
+
+<?php get_template_part( 'partials/gtm/gtm-script-body-tag' ); ?>
