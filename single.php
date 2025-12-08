@@ -1,4 +1,7 @@
-<?php get_header(); ?>
+<?php
+get_header();
+global $wp_query;
+?>
 
 <article>
     <section class="posts-title">
@@ -56,7 +59,7 @@
                             echo $plugin->render_review_form(array());
                         }
                         ?>
-                        <!--						<div class="pipedriveWebForms" data-pd-webforms="https://webforms.pipedrive.com/f/bYWCbtZeuHogh6JK4UbrdTgrb0aaX9hLt89hsetfoTsSDxB5Y0TcC64MFGDOyM4TF9"><script src="https://webforms.pipedrive.com/f/loader"></script></div>-->
+                        <!-- <div class="pipedriveWebForms" data-pd-webforms="https://webforms.pipedrive.com/f/bYWCbtZeuHogh6JK4UbrdTgrb0aaX9hLt89hsetfoTsSDxB5Y0TcC64MFGDOyM4TF9"><script src="https://webforms.pipedrive.com/f/loader"></script></div>-->
                     </section>
                 </div>
             </div>
@@ -78,18 +81,29 @@
                             Explore the GCheck Content Hub
                         </h2>
                     </div>
+
+                   
+
                     <div class="cards">
                         <div class="card-cont cols3">
 
-                            <!-- wp default loop  -->
                             <?php
-                            // Define the custom query to get the 3 most recent posts
-                            $args = array(
-                                'posts_per_page' => esc_html(3),  // Limit the number of post
-                                'post_type'      => 'post',  // Only fetch posts (not pages or custom post types)
-                                'orderby'        => 'publish_date',  // Order by date
-                                'order'          => 'ASC',  // Latest posts first
-                            );
+                                $categories = get_the_category();
+
+                                if ( ! empty( $categories ) ) {
+                                    $first_category_id = $categories[0]->cat_ID;
+                                } else {
+                                    echo "No categories found for this post.";
+                                }
+                           
+                                // Define the custom query to get the 3 most recent posts
+                                $args = array(
+                                    'posts_per_page' => 3,  // Limit the number of post
+                                    'post_type'      => 'post',  // Only fetch posts (not pages or custom post types)
+                                    'orderby'        => 'publish_date',  // Order by date
+                                    'order'          => 'DESC',  // Latest posts first
+                                    'cat'            => $first_category_id,
+                                );
 
                             // Execute the query
                             $recent_posts = new WP_Query($args);

@@ -7,8 +7,13 @@
 /* global styles */
 @import 'header/header';
 @import 'footer/footer'; 
-@import '../css/blog/bloghome';
-@import '../css/blog/latest-articles';
+
+/* blog page supported css */
+@import '../../core-pages/blog/css/bloghome';
+@import '../../core-pages/blog/css/articles-posts';
+@import '../../core-pages/blog/css/404'; 
+
+/* care page supported css */
 @import '../../core-pages/cards/css/cards.scss';
 @import '../../core-pages/banner/css/banner.scss';
 @import '../../core-pages/faq/css/faq'; 
@@ -16,10 +21,8 @@
 
 
 
-
 /*
 * Global
-* 09.19.20 last modified - carl
 */
 
 *, *::before, *::after {
@@ -47,7 +50,7 @@
 
 html {
     line-height: 1.5;
-    font-size: $base-fsize;
+    font-size: 16px;
 }
 
 img, picture, video, canvas, svg {
@@ -144,30 +147,27 @@ ul li{
     position: relative;
     list-style: none;
     padding-bottom: $gap10;
-    padding-left: $gap30;
+    padding-left: $gap10;
 
     &:marker{
         display: none;
     }
     &:before{
         content:"";
-        height: 14px;
-        width: 14px;
         background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="%231f1f1f"><path d="M480-200q-117 0-198.5-81.5T200-480q0-117 81.5-198.5T480-760q117 0 198.5 81.5T760-480q0 117-81.5 198.5T480-200Z"/></svg>');
         background-repeat: no-repeat;
         background-size: contain;
 
-        top: 2px;
+        top: 8px;
         left: -10px;
-        height: 26px;
-        width: 26px;
+        height: 10px;
+        width: 10px;
         display: block;
         position: absolute;
 
     }
 
 }
-
 
 
 ol li{
@@ -180,7 +180,8 @@ main{
 
 
 h1 {
-  font-size: 4em; /* 60 px */
+  // font-size: 4em; /* 60 px */
+  font-size: 3.75em;
   @include inter($fSemiBold);
 }
 
@@ -189,25 +190,27 @@ h2 {
   @include inter($fSemiBold);
 
   @include media($mobile){
-      font-size: $fsize32;
+      font-size: $fsize30;
   }
 
 }
 
 h3 {
-  font-size: 1.5em; /* 32 px */
+  // font-size: 1.5em; /* 32 px */
+  font-size: 2em;
   @include inter($fRegular);
 }
 
 h4 {
-  font-size: 24px; /* 24 px 1.5em*/
+  font-size: 1.5em; /* 24 */
   @include inter($fSemiBold);
 }
 
 h5 {
-  font-size: 1.25em; /* 20 px */
+  font-size: 1.125em; /* 18 px */
   @include inter($fRegular);
-}S
+  font-weight: 600;
+}
 
 h1,h2,h3,h4,h5,h6{
   @include media($mobile){
@@ -228,6 +231,26 @@ span[Class*=icon-]{
     cursor: pointer;    
 }
 
+.txtWhite{
+  color: $white;
+}
+
+.txtBlack{
+  color: $black;
+}
+
+.txtCyan{
+  color: $cyan;
+}
+
+.hide{
+    display: none;
+}
+
+.auto-width{
+  width: auto !important;
+}
+
 .container{
   padding: 0;  
   margin: 0 auto;
@@ -236,8 +259,6 @@ span[Class*=icon-]{
   @include media($mobile){
     padding: 0 $gap16;
   }
-
-
 }
 
 .fine-print{
@@ -257,11 +278,11 @@ span[Class*=icon-]{
 
 .heading{
   text-align: center;
-  margin-top: $gap100 + 2;
+  padding: $gap60 0;
   margin-bottom: $gap80;
 
   @include media($mobile){
-    margin-bottom: $gap40;
+    margin: $gap40 0;
     padding: 0 $gap16;
   }
 
@@ -281,42 +302,14 @@ span[Class*=icon-]{
   }
 }
 
-.txtWhite{
-  color: $white;
-}
-
-.txtBlack{
-  color: $black;
-}
-
-.txtCyan{
-  color: $cyan;
-}
-
 .center{
   margin: 0 auto;
   display: block;
   text-align: center;
 }
 
-.hide{
-    display: none;
-}
-
-.home{
-  .banner{
-    padding: 0;
-  }
-}
-
-
-
-
-
-/* check bullets */
- ul.bullets{
+ul.bullets{
     margin: 0;
-    padding-left: $gap20;
     
     svg{
         width: 30px;
@@ -326,8 +319,15 @@ span[Class*=icon-]{
     }
 
     li{
-        &::before{
-            background-image: url('data:image/svg+xml,<svg fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 1.5C6.20156 1.5 1.5 6.20156 1.5 12C1.5 17.7984 6.20156 22.5 12 22.5C17.7984 22.5 22.5 17.7984 22.5 12C22.5 6.20156 17.7984 1.5 12 1.5ZM16.5352 8.57109L11.5992 15.4148C11.5302 15.5111 11.4393 15.5896 11.3339 15.6437C11.2286 15.6978 11.1118 15.7261 10.9934 15.7261C10.8749 15.7261 10.7582 15.6978 10.6528 15.6437C10.5474 15.5896 10.4565 15.5111 10.3875 15.4148L7.46484 11.3648C7.37578 11.2406 7.46484 11.0672 7.61719 11.0672H8.71641C8.95547 11.0672 9.18281 11.182 9.32344 11.3789L10.9922 13.6945L14.6766 8.58516C14.8172 8.39062 15.0422 8.27344 15.2836 8.27344H16.3828C16.5352 8.27344 16.6242 8.44688 16.5352 8.57109V8.57109Z" fill="%235DC567"></path></svg>');
+      gap: $gap10;
+      padding-left: $gap30;
+      &::before{
+          top:2px;
+          left: 0;
+          height: 26px;
+          width: 26px;
+          display: block;
+          background-image: url('data:image/svg+xml,<svg fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 1.5C6.20156 1.5 1.5 6.20156 1.5 12C1.5 17.7984 6.20156 22.5 12 22.5C17.7984 22.5 22.5 17.7984 22.5 12C22.5 6.20156 17.7984 1.5 12 1.5ZM16.5352 8.57109L11.5992 15.4148C11.5302 15.5111 11.4393 15.5896 11.3339 15.6437C11.2286 15.6978 11.1118 15.7261 10.9934 15.7261C10.8749 15.7261 10.7582 15.6978 10.6528 15.6437C10.5474 15.5896 10.4565 15.5111 10.3875 15.4148L7.46484 11.3648C7.37578 11.2406 7.46484 11.0672 7.61719 11.0672H8.71641C8.95547 11.0672 9.18281 11.182 9.32344 11.3789L10.9922 13.6945L14.6766 8.58516C14.8172 8.39062 15.0422 8.27344 15.2836 8.27344H16.3828C16.5352 8.27344 16.6242 8.44688 16.5352 8.57109V8.57109Z" fill="%235DC567"></path></svg>');
         }
       
     }

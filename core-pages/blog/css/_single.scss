@@ -1,9 +1,9 @@
-/*
-* Single, Category, Search pages
-*/
+@import '../../../assets/css/_tools/variable';
+@import '../../../assets/css/_tools/mixins';
+
 body.single{
 
-border: 10px solid red;
+// border: 10px solid red;
 
     #primary{
         // display: flex;
@@ -41,7 +41,13 @@ border: 10px solid red;
 
        
         h2{
-            font-size: $fsize24;
+            font-size: $fsize40;
+        }
+
+        .wp-block-group__inner-container .is-layout-constrained .wp-block-group-is-layout-constrained{
+            em{
+                
+            }
         }
 
         #search{

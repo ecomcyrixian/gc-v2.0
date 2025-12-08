@@ -20,6 +20,10 @@
         elseif( get_row_layout() == 'card' ):
             get_template_part( 'core-pages/cards/card' );
         
+        // Case: Card Image Widget
+        elseif( get_row_layout() == 'card_image' ):
+            get_template_part( 'core-pages/cards/card-image' );
+        
         // Case: Most Relevant Products Widget
         elseif( get_row_layout() == 'most_relevant_products' ):
             get_template_part( 'core-pages/most-relevant-products' );
@@ -63,6 +67,11 @@
         // Case: Latest Articles Widget
         elseif( get_row_layout() == 'latest_articles' ):
             get_template_part( 'core-pages/latest-articles' );
+        
+             // Case: Latest Integration
+        elseif( get_row_layout() == 'integration' ):
+             get_template_part( 'core-pages/brand-page' );
+            
 
         endif;
 

@@ -17,6 +17,7 @@
         </div>
         <?= $details ?>
         
+        <div class="btns">
         <?php if( have_rows('cta') ): ?>                
             <?php while( have_rows('cta') ) : the_row(); ?>
                 <?php
@@ -30,6 +31,7 @@
                 </a>                
             <?php endwhile; ?>
         <?php endif; ?>        
-        
+        </div>
+
     </div>    
 </section>

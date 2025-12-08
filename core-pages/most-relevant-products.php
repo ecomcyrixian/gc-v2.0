@@ -15,7 +15,7 @@
 
 <?php if ( $display_selection ) : ?>
 
-<div class="dark-box <?= $colorSetting ?>">
+<div class="dark-box relevant-products <?= $colorSetting ?>">
     
         <div class="container">
             <div class="heading">

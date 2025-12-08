@@ -75,6 +75,30 @@ add_action( 'after_setup_theme', 'register_my_menu' );
  * Custom walker class
  */ 
 class Walker_Nav_Menu_With_Description extends Walker_Nav_Menu {
+	
+	public function start_lvl( &$output, $depth = 0, $args = array() ) {
+        // Same spacing logic as core
+        if ( isset( $args->item_spacing ) && 'discard' === $args->item_spacing ) {
+            $t = '';
+            $n = '';
+        } else {
+            $t = "\t";
+            $n = "\n";
+        }
+
+        $indent  = str_repeat( $t, $depth );
+        $classes = array( 'sub-menu' );
+
+        // 🔹 Add bc-three-col ONLY for the "GCv2.0 : Background Checks" menu at depth 0
+        if ( isset( $args->menu ) && $args->menu === 'GCv2.0 : Background Checks' && $depth === 0 ) {
+            $classes[] = 'bc-three-col';
+        }
+
+        $class_names = implode( ' ', $classes );
+        $class_names = $class_names ? ' class="' . esc_attr( $class_names ) . '"' : '';
+
+        $output .= "{$n}{$indent}<ul{$class_names}>{$n}";
+    }
 
     // Start element output
     function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
@@ -111,38 +135,65 @@ class Walker_Nav_Menu_With_Description extends Walker_Nav_Menu {
         $title = apply_filters( 'the_title', $item->title, $item->ID );
 
         $item_output  = $args->before;
-        $item_output .= '<a'. $attributes .'>';
-        $item_output .= $args->link_before . $title . $args->link_after;
-        if ( $description ) {
-            // $item_output .= '<span class="menu-item-description">' . esc_html( $description ) . '</span>';
-            $item_output .= '<span class="menu-item-description">' . $description . '</span>';
-        }
-        $item_output .= '</a>';
+		 $item_output .= '<a'. $attributes .'>';
+            $item_output .= $args->link_before . $title . $args->link_after;
+            if ( $description ) {
+                $item_output .= '<span class="menu-item-description">' . $description . '</span>';
+            }
+            $item_output .= '</a>';
         $item_output .= $args->after;
 
         $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
     }
 }
 
-
-    class Parent_Menu_Walker extends Walker_Nav_Menu {
-        function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
-            if ( $depth == 0 ) { // Only process top-level items (parent menu items)
-                parent::start_el( $output, $item, $depth, $args, $id );
-            }
-        }
-
-        function end_el( &$output, $item, $depth = 0, $args = array() ) {
-            if ( $depth == 0 ) { // Only process top-level items
-                parent::end_el( $output, $item, $depth, $args );
-            }
-        }
-
-        function start_lvl( &$output, $depth = 0, $args = array() ) {
-            // Do nothing for sub-levels
-        }
-
-        function end_lvl( &$output, $depth = 0, $args = array() ) {
-            // Do nothing for sub-levels
+class Parent_Menu_Walker extends Walker_Nav_Menu {
+    function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+        if ( $depth == 0 ) { // Only process top-level items (parent menu items)
+            parent::start_el( $output, $item, $depth, $args, $id );
         }
     }
+
+    function end_el( &$output, $item, $depth = 0, $args = array() ) {
+        if ( $depth == 0 ) { // Only process top-level items
+            parent::end_el( $output, $item, $depth, $args );
+        }
+    }
+
+    function start_lvl( &$output, $depth = 0, $args = array() ) {
+        // Do nothing for sub-levels
+    }
+
+    function end_lvl( &$output, $depth = 0, $args = array() ) {
+        // Do nothing for sub-levels
+    }
+}
+
+/*
+ * categories and tags to page
+ */
+
+function register_category_and_tag_with_pages() {
+    // Add categories to pages
+    register_taxonomy_for_object_type('category', 'page');
+    // Add tags to pages
+    register_taxonomy_for_object_type('post_tag', 'page');
+}
+add_action('init', 'register_category_and_tag_with_pages');
+
+function allow_category_and_tag_archives_for_pages($query) {
+    if (is_admin() || !$query->is_main_query()) {
+        return;
+    }
+
+    // Allow pages to be included in category archives
+    if ($query->is_category() && $query->is_main_query()) {
+        $query->set('post_type', array('post', 'page'));
+    }
+
+    // Allow pages to be included in tag archives
+    if ($query->is_tag() && $query->is_main_query()) {
+        $query->set('post_type', array('post', 'page'));
+    }
+}
+add_action('pre_get_posts', 'allow_category_and_tag_archives_for_pages');

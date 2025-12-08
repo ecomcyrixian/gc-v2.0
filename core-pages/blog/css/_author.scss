@@ -1,0 +1,61 @@
+
+@import '../../../assets/css/_tools/variable';
+@import '../../../assets/css/_tools/mixins';
+
+body.author{
+    
+    .author-page{
+        
+        
+
+        @media (max-width: 768px) {
+            padding: 20px;
+        }
+
+        .wrap{
+            margin: 0 auto;
+            max-width: 1200px;
+
+        }
+
+        .author-info{
+            padding: $gap100 $gap10;
+            background: $blue10;
+
+            &>.container{
+                gap: $gap20;
+                display: flex;
+                flex-direction: row;
+             
+                @include media($mobile){
+                    flex-direction: column;
+                }
+            }
+ 
+
+        }
+
+        .author-avatar{
+             img{
+                height: 156px;
+                width: 156px;
+                border-radius: 50%;
+                overflow: hidden;
+                margin: 0  auto;
+            }
+        }
+        
+        .author-desc{
+            flex: 1;
+        }
+
+        .name-socmed{
+            gap: $gap10;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+        
+    }
+
+}

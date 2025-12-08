@@ -1,0 +1,13 @@
+
+@import '../../../assets/css/_tools/variable';
+@import '../../../assets/css/_tools/mixins';
+
+
+body.search{
+    h4{
+        margin: $gap40 0;
+        span{
+            color: $blue300;
+        }
+    }
+}

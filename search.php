@@ -1,41 +1,21 @@
 <?php get_header(); ?>
 
-    <div id="search" class="latest-articles">
-            <div class="container">
-                
-                <h4>
-                    <?php
-                    /* translators: %s: Search query. */
-                    printf( esc_html__( 'Search Results for: %s', 'textdomain' ), '<span>' . get_search_query() . '</span>' );
-                    ?>
-                </h4>
-                <div class="cards">
-                    <div class="card-cont cols3">
+    <div class="articles-posts">
+        <div class="container">
+            <h4>
+                <?php printf( esc_html__( 'Search Results for: %s', 'textdomain' ), '<span>' . get_search_query() . '</span>' ); ?>
+            </h4>
+            <div class="cards">
+                <div class="card-cont cols3">
 
-                        <!-- wp default loop  -->
+                    <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
                         <?php
-                            // Define the custom query to get the 3 most recent posts
-                            $args = array(
-                                'posts_per_page' => esc_html(20),  // Limit the number of post
-                                'post_type'      => 'post',  // Only fetch posts (not pages or custom post types)
-                                'orderby'        => 'publish_date',  // Order by date
-                                'order'          => 'ASC',  // Latest posts first
-                            );
-
-                            // Execute the query
-                            $recent_posts = new WP_Query($args);
+                            $post_date = get_the_date( ' j M, Y' );
+                            $word_count = str_word_count( strip_tags( get_the_content() ) );
+                            $reading_time = ceil( $word_count / 200 );
                         ?>
-
-                        <?php if ($recent_posts->have_posts()) : ?>
-                        <?php while ($recent_posts->have_posts()) : $recent_posts->the_post(); ?>
                         
-                            <?php
-                                $post_date = get_the_date( ' j M, Y' );
-                                $word_count = str_word_count( strip_tags( get_the_content() ) );
-                                $reading_time = ceil( $word_count / 200 );
-                            ?>
-                            
-                            <div>
+                        <div>
                                     <span class="featured-image">
                                     <img src="<?php the_post_thumbnail_url('large'); ?>" alt="<?php the_title(); ?>">
                                 </span>
@@ -86,16 +66,18 @@
                                 </div>
 
                             </div>
-
-                            <!-- wp else condition -->
-                        <?php endwhile; else: ?>
-                        <?php wp_reset_postdata(); ?>
-                        <p><?php _e('Sorry, no posts matched your criteria.'); ?></p><?php endif; ?>
+                            
+                    <?php
+                        endwhile; else :
+                        echo '<p>No posts found.</p>';
+                        endif;
+                    ?>
                         
 
-                    </div>
                 </div>
             </div>
         </div>
+        
+    </div>
 
 <?php get_footer(); ?>

@@ -1,0 +1,16 @@
+@import '../../../assets/css/_tools/variable';
+@import '../../../assets/css/_tools/mixins';
+
+body.error404{
+    main{
+        padding: $gap100 0;
+        text-align: center;
+        background: $blue10;
+    }
+    
+    h2{
+        font-size: 30px;
+        font-weight:900;
+        text-transform: uppercase;
+    }
+}

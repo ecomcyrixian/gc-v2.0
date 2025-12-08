@@ -9,6 +9,7 @@
 /* 20 px */
 /* 24 px 1.5em*/
 /* 28 px */
+/* 30 px */
 /* 32 px */
 /* 40 px */
 /* 48 px */
@@ -26,6 +27,7 @@
 /* 20 px */
 /* 24 px 1.5em*/
 /* 28 px */
+/* 30 px */
 /* 32 px */
 /* 40 px */
 /* 48 px */
@@ -277,15 +279,27 @@ body.page .dark-box.dark h2 {
 body.page .dark-box .cards {
   margin-top: 40px;
 }
-body.page .dark-box li {
-  list-style: none;
-}
-body.page .dark-box li:before {
-  display: none;
+body.page .dark-box {
+  /*
+
+  li{
+      list-style: none;
+      &:before{
+          display: none;
+      }
+
+  }
+  */
 }
 body.page .dark-box .heading {
   padding: 0;
   margin: 0;
+}
+body.page .dark-box.relevant-products li {
+  list-style: none;
+}
+body.page .dark-box.relevant-products li:before {
+  display: none;
 }
 body.page .fundamentals.cards {
   margin: 0;
@@ -483,13 +497,15 @@ body.page #pricing #mobile-price .box {
   border-top: 1px solid #CDD6E0;
 }
 body.page #pricing #mobile-price .box ul {
-  margin-top: 16px;
+  margin: 16px 0 0;
+  padding-left: 0;
 }
 body.page #pricing #mobile-price .box li {
   display: flex;
   flex-direction: row;
   align-items: center;
   list-style: none;
+  padding-left: 0;
 }
 body.page #pricing #mobile-price .box li::before {
   display: none;
@@ -528,6 +544,9 @@ body.page .join-us > .container {
 }
 body.page .join-us .button {
   margin-top: 40px;
+}
+body.page .form-template {
+  margin-bottom: 80px;
 }
 body.page .form-template section {
   display: flex;
@@ -852,6 +871,9 @@ body.page #standard-page .glossary-content ul {
 }
 body.page #standard-page .glossary-content ul li {
   padding-left: 0;
+}
+body.page #standard-page .glossary-content ul li::before {
+  display: none;
 }
 body.page #standard-page .glossary-content .data-info {
   padding-left: 20px;

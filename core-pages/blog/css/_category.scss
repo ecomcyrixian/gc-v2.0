@@ -1,0 +1,121 @@
+@import '../../../assets/css/_tools/variable';
+@import '../../../assets/css/_tools/mixins';
+
+body.category{
+    .page-hero{
+        h1{
+            font-size: 40px;
+        }
+    }
+
+    .latest-category-artile{
+       
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        grid-column-gap: $gap20;
+        grid-row-gap: $gap20;
+
+        margin-bottom: $gap40;
+
+        @include media($tablet){
+            display: block;
+            
+        }
+
+        .featured-image{
+            @include media($mobile){
+                margin-bottom: $gap10;
+            }
+        }
+            
+        &>div{
+            background: $white;
+
+            @include media($tablet){
+                margin-bottom: $gap20;
+            }
+            
+            .btn,
+            .featured-image,
+            .description{
+                display: none !important;
+            }
+        }
+
+        &>div:nth-child(1) { 
+            grid-area: 1 / 1 / 4 / 3;
+
+            .btn,
+            .featured-image,
+            .description{
+                display: block !important;
+                
+            }
+            img{
+                width: 100%;
+                height: 300px;
+                display: block;
+                object-fit: cover;
+                object-position: center 0;
+            }
+        
+        }
+        &>div:nth-child(2) { grid-area: 1 / 3 / 2 / 4; }
+        &>div:nth-child(3) { grid-area: 2 / 3 / 3 / 4; }
+        &>div:nth-child(4) { grid-area: 3 / 3 / 4 / 4; }
+
+    }
+
+    .articles-info{
+        padding: $gap20;
+        display: flex;
+        flex-direction: column;
+        gap: $gap10;
+    
+        h4,.read-time,.category{
+            margin: 0;
+            
+        }
+        h4 a{
+            color: $gray300;
+            font-size: 18px;
+            text-decoration: none;
+            
+            @include ellipsis(2);
+        }
+        .category{
+            
+            
+            a{                
+                color: $blue300;
+                font-size: $fsize12;
+                font-weight: $fSemiBold;
+                text-transform: uppercase;
+                text-decoration: none;
+            }
+            
+        }
+        
+        .read-time{
+            display: block;
+            color:$gray300;
+            font-size: $fsize12;
+            margin-bottom: $gap24;
+        }
+        .description{
+            color: $gray300;
+            font-size: $fsize14;
+            margin-bottom: $gap24;
+            @include ellipsis(3);
+        }
+        .btn{
+            display: block;
+        }
+        
+    }
+
+    .articles-posts{
+        margin-bottom: $gap40;
+    }
+}

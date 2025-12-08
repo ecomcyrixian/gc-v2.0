@@ -1,8 +1,10 @@
 @import '_tools/variable'; 
 @import '_tools/mixins'; 
 
-@import 'blog/author';
-@import 'blog/single'; 
+@import '../../core-pages/blog/css/author';
+@import '../../core-pages/blog/css/single'; 
+@import '../../core-pages/blog/css/category'; 
+@import '../../core-pages/blog/css/search'; 
 
 
 /* Webforms */
@@ -39,122 +41,48 @@
     }
 }
 
-body.category,
-body.search{
-
-    /* Limit excerpt description to a maximum of 4 lines for the grid layout */
-    .post-excerpt-4-lines {
-        /* Required for line clamping to work */
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-
-        /* Set the maximum number of lines */
-        -webkit-line-clamp: 4; 
-        
-        /* Hide the text that exceeds the limit */
-        overflow: hidden; 
-
-        /* Add space below the excerpt */
-        margin-bottom: 1rem;
-    }
-
-    /* Optional: Ensure post thumbnails don't break the aspect ratio in the card */
-    .post-thumbnail-container img.card-img-top {
-        width: 100%;
-        height: 200px; /* Adjust height as needed */
-        object-fit: cover; /* Ensures image covers the area without distortion */
-    }
-
-    .row{
-        gap:$gap30;
-        display: flex;
-        flex-wrap: wrap;
-
-        .col{
-            padding: $gap20;
-            width: 31.3%;
-            background: $white;
-            position: relative;
-
-            @include media($tablet){
-                width: 48%;
-            }
-
-            @include media($mobile){
-                width: 100%;
-            }
-        }
-    }
-
-    a{
-        text-decoration: none;
-    }
-
-    #primary{
-         
-        header{
-            padding: $gap20;
-            border-bottom: 0;
-            background: transparent;
-        }
-
-        h1{
-            font-size: $fsize20;
-        }
-        .card-footer a{
-            color: $blue300;
-            left: $gap20;
-            bottom:$gap20;
-            position: absolute;
-        }
-        .entry-summary{
-            padding-bottom: $gap40;
-        }
-    }
-    
-    h4{
-        margin-bottom: $gap40;
-        &>span{
-            color: $blue300;
-        }
-    }
-}
-
-
+/* article */
 #primary{
     margin-top: $gap40;
     a{
         color: $black;
     }
 
-    ul{
-        margin-left: $gap40;
+    ul,ol{
+        margin: 0;
+        padding: $gap10 $gap10 $gap10 $gap20;
+
     }
 
     li{
         list-style-position: outside;
     }
 
-    h1,h2{
+    h1,h2,h3{
         line-height: normal;
     }
 
     h1{
         font-size: $fsize32;
     }
-    h2,p{
-        padding: $gap20 0;
+    h2{
+       padding-top: $gap40;
+        font-size: 28px;
     }
 
-    h2{
-        font-size: $fsize20;        
+    h3{
+        font-size: 24px;
+        font-weight: bold;
+        padding-top: $gap40;
     }
 
     hr{
         display: none;
     }
 
+   
     p{
+        padding: $gap10 0;
         &.has-background{
             padding: $gap60;
             border-top: 0;
@@ -166,6 +94,8 @@ body.search{
         }
         
     }
+
+    
 
     ._article-topcontent {
         margin-bottom:$gap20;
@@ -179,7 +109,7 @@ body.search{
         
         ._article-summary {
             margin-bottom:$gap60;
-            font-size:1.8rem;
+            font-size:18px;
             line-height:2.6rem;
             background:url('/wp-content/uploads/2024/07/quote.svg') no-repeat 0 .7rem;
             padding-left:$gap60;
@@ -225,12 +155,19 @@ body.search{
         
     }
   
+    .ppma-author-category-wrap{
+        ul{
+            padding: $gap10 0;
+            margin: 0;
+        }
+    }
 }
 
 
 .legal-disclaimer{
     font-size: 12px;
     padding-top: $gap20;
+    margin-bottom: $gap120;
     border-top: 1px solid $gray100;
     p{
         padding: $gap10 0 !important;
