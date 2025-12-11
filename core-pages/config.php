@@ -68,7 +68,7 @@
         elseif( get_row_layout() == 'latest_articles' ):
             get_template_part( 'core-pages/latest-articles' );
         
-             // Case: Latest Integration
+        // Case: Latest Integration
         elseif( get_row_layout() == 'integration' ):
              get_template_part( 'core-pages/brand-page' );
             

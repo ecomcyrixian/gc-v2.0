@@ -893,8 +893,9 @@ body.page{
     }
 
     #landing-page{
-        margin: $gap80 0;
+        margin: $gap40 0;
 
+        
         h1,h2,h3{
             padding-bottom: $gap20;
         }
@@ -928,7 +929,7 @@ body.page{
         }
 
         .wp-block-columns{
-            margin: $gap60 0;
+            margin: 0;
 
             &.cols3{
                 &>div{
@@ -1053,11 +1054,62 @@ body.page{
                 }
             }
         }
-
-        
-
-       
-       
     }
+
+    .gcheckpdf-request-container{
+        max-width: 644px;
+    }
+
+    #whitepaper{
+        margin: $gap60 0;
+        .page-hero{
+            
+            @include media($mobile){
+                margin-top: $gap40;
+            }
+        }
+
+        h4{
+            font-size: 18px;
+            @include ellipsis(2);
+        }
+
+        .cards{
+            margin-bottom: 0;
+        }
+        .pdf-info{
+            gap: $gap20;
+            display: flex;
+            flex-direction: row;
+            padding-bottom: $gap60;
+            a{
+                color: $gray300;
+                text-decoration: none;
+            }
+            &>span{
+                flex: 1 0 48px;
+            }
+        }
+
+        .button.outline{
+            top: auto;
+            bottom: $gap20;
+            right: $gap20;
+            left: $gap20;
+            display: block;
+            position: absolute;
+
+            &:link,
+            &:active,
+            &:visited{
+                color: $blue300;
+            }
+        }
+        .cards .card-cont > div{
+            position: relative;
+        }
+    }
+
+    
 }
 

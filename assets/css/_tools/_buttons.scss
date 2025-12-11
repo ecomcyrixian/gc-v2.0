@@ -43,6 +43,11 @@
         border: 1px solid $gray75;
     }
 
+    &.outline{
+        display: block;
+        padding: $gap10 0;
+        border: 1px solid $blue75;
+    }
 
 }
 

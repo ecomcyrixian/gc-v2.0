@@ -10,20 +10,15 @@ footer{
     color: $white;
     font-weight: $fRegular;
     font-size: $base-fsize;
-    padding-top: $gap60;
+    padding: $gap60 0;
     background: $darkblue;
-    // margin-top: $gap120;
-
+    
     @include media(1320px){
         padding: $gap60 $gap16;
     }
-    @include media($mobile){
-         padding: $gap20 $gap16;
-    }
-
 
     &>.container{
-        padding: $gap60 0;
+        padding: 0;
     }
 
     ul {
@@ -154,6 +149,10 @@ footer{
                 &:last-child{
                     justify-content: flex-end;
                     text-align: right;
+                    
+                    gap:$gap20;
+                    display: flex;
+
                     a{
                         color: $cyan;
                         text-decoration: none;
