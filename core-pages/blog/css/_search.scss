@@ -11,3 +11,43 @@ body.search{
         }
     }
 }
+
+// search form
+.search-form{
+    display: block;
+      margin: 0 auto;
+      max-width: 500px;
+      position: relative;
+
+      @include media($tablet){
+        margin: 0 $gap20;
+        max-width: 100%;
+      }
+      
+      svg{
+        top: 0;
+        z-index: 1;
+        left: 10px;
+        bottom: 0;
+        right: auto;
+        width: 24px;
+        height: 24px;
+        margin: auto;
+        position: absolute;
+      }
+      
+      input[type="text"],
+      input[type="search"]{
+        padding: $gap10 $gap10 $gap10 $gap40;
+        background: $white;
+        border-radius: $corners8;
+        border: 1px solid $gray75;
+
+         
+        
+      }
+
+      input[type="submit"]{
+        display: none;
+      }
+  }

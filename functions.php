@@ -199,7 +199,7 @@ function allow_category_and_tag_archives_for_pages($query) {
 add_action('pre_get_posts', 'allow_category_and_tag_archives_for_pages');
 
 
-//  Add excerpt in page
+//  Add excerpt for pages
 add_action( 'init', 'my_add_excerpts_to_pages' );
 function my_add_excerpts_to_pages() {
     add_post_type_support( 'page', 'excerpt' );

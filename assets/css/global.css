@@ -1067,38 +1067,6 @@ body.blog .heading {
   margin-bottom: 0;
   padding-bottom: 40px;
 }
-body.blog .search {
-  display: block;
-  margin: 0 auto;
-  max-width: 500px;
-  position: relative;
-}
-@media screen and (max-width: 1023px) {
-  body.blog .search {
-    margin: 0 20px;
-    max-width: 100%;
-  }
-}
-body.blog .search svg {
-  top: 0;
-  left: 10px;
-  bottom: 0;
-  right: auto;
-  width: 24px;
-  height: 24px;
-  margin: auto;
-  position: absolute;
-}
-body.blog .search input[type=text],
-body.blog .search input[type=search] {
-  padding: 10px 10px 10px 40px;
-  background: #FFFFFF;
-  border-radius: 8px;
-  border: 1px solid #CDD6E0;
-}
-body.blog .search input[type=submit] {
-  display: none;
-}
 body.blog .cols {
   gap: 40px;
   display: flex;
@@ -1363,6 +1331,84 @@ body.error404 h2 {
   font-size: 30px;
   font-weight: 900;
   text-transform: uppercase;
+}
+
+/*
+* Template variables and Revised Article
+* Last update of 05.19.25
+*/
+/* base */
+/* 12 px */
+/* 14 px */
+/* 18 px*/
+/* 20 px */
+/* 24 px 1.5em*/
+/* 28 px */
+/* 30 px */
+/* 32 px */
+/* 40 px */
+/* 48 px */
+/* 56 px */
+/* 64 px */
+/* variables */
+/*
+* Template variables and Revised Article
+* Last update of 05.19.25
+*/
+/* base */
+/* 12 px */
+/* 14 px */
+/* 18 px*/
+/* 20 px */
+/* 24 px 1.5em*/
+/* 28 px */
+/* 30 px */
+/* 32 px */
+/* 40 px */
+/* 48 px */
+/* 56 px */
+/* 64 px */
+/* font family weight */
+/* media query */
+body.search h4 {
+  margin: 40px 0;
+}
+body.search h4 span {
+  color: #4F51FD;
+}
+
+.search-form {
+  display: block;
+  margin: 0 auto;
+  max-width: 500px;
+  position: relative;
+}
+@media screen and (max-width: 1023px) {
+  .search-form {
+    margin: 0 20px;
+    max-width: 100%;
+  }
+}
+.search-form svg {
+  top: 0;
+  z-index: 1;
+  left: 10px;
+  bottom: 0;
+  right: auto;
+  width: 24px;
+  height: 24px;
+  margin: auto;
+  position: absolute;
+}
+.search-form input[type=text],
+.search-form input[type=search] {
+  padding: 10px 10px 10px 40px;
+  background: #FFFFFF;
+  border-radius: 8px;
+  border: 1px solid #CDD6E0;
+}
+.search-form input[type=submit] {
+  display: none;
 }
 
 /* care page supported css */
