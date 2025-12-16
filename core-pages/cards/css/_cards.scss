@@ -3,7 +3,7 @@
 
 .cards{
     color: $gray300;
-    margin-bottom: $gap80;
+    margin-bottom: $gap60;
     @include media($mobile){
         margin: 0 auto;
         
@@ -108,6 +108,9 @@
     }
 
     &.top-icon{
+        .heading {
+            margin-bottom: 0;
+        }
         h4{
             flex-direction: column;
             &>span:first-child{
@@ -121,6 +124,9 @@
     }
 
     &.right-icon{
+        .heading {
+            margin-bottom: 0;
+        }
         h4{
             flex-direction: row;
             align-items: center;
@@ -129,6 +135,22 @@
             }
             &>span:last-child{
                 order: 2;
+            }
+        }
+    }
+
+    &.left-icon{
+        .heading{
+            margin-bottom: 0;
+        }
+        h4{
+            flex-direction: row;
+            align-items: center;
+            &>span:first-child{
+                order: 2;
+            }
+            &>span:last-child{
+                order: 1;
             }
         }
     }

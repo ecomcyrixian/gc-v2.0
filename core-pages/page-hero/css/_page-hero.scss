@@ -20,6 +20,10 @@
             padding: $gap40 0;
         }
 
+        &.no{
+            padding: $gap40 0;
+        }
+
         &.Center{
             text-align: center;
             margin-bottom: $gap40;
@@ -76,9 +80,9 @@
             font-weight: $fSemiBold;
             line-height: normal;
 
-            br{
-                // display: none;
-            }
+            // br{
+            //     // display: none;
+            // }
 
             pre{
                 height: auto;
@@ -211,6 +215,7 @@
             padding: 0 $gap16;
             .heading{
                 margin: $gap16 0;
+                padding: 0;
             }
 
             h1,h2{

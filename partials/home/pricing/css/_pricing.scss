@@ -5,7 +5,7 @@
 #pricing{
     color: $white;
     text-align: center;
-    padding: $gap80 $gap60;
+    padding: 0 $gap60 $gap60;
     background: $blue500;
 
     &>.container{
@@ -76,7 +76,7 @@
     #price-boxes{
         color: $black;
         text-align: left;
-        margin: $gap80 0;
+        margin: $gap60 0;
     
         overflow-y: auto;
         padding-bottom: $gap20;
