@@ -287,7 +287,7 @@ header#typical nav .hamburger-icon span {
   background: #000000 !important;
 }
 header#home {
-  height: 1330px;
+  height: 1200px;
   background: url(../images/home-header-bg.jpg) no-repeat top center #30319A;
   background-size: cover;
 }
@@ -1451,7 +1451,7 @@ body.search h4 span {
 /* media query */
 .cards {
   color: #1A1C1E;
-  margin-bottom: 80px;
+  margin-bottom: 60px;
 }
 @media screen and (max-width: 767px) {
   .cards {
@@ -1637,7 +1637,7 @@ body.search h4 span {
 /* font family weight */
 /* media query */
 .banner {
-  padding: 80px 0;
+  padding: 40px 0;
 }
 .banner .photo {
   width: 528px;
