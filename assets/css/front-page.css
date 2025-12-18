@@ -365,7 +365,6 @@
 /* media query */
 #integrations {
   margin-bottom: 80px;
-  background: #f9f9f9;
 }
 #integrations .integrations-logos {
   max-width: 100%;
@@ -459,7 +458,7 @@
 #pricing {
   color: #FFFFFF;
   text-align: center;
-  padding: 0 60px 60px;
+  padding: 60px;
   background: #30319A;
 }
 #pricing > .container {
