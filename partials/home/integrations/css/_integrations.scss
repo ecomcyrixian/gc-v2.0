@@ -3,6 +3,10 @@
 
 #integrations{
     margin-bottom: $gap80;
+
+    &>.heading {
+        margin-bottom: 0;
+    }
     
     .integrations-logos{
         max-width: 100%;
