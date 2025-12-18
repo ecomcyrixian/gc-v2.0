@@ -26,6 +26,10 @@
         padding-bottom: $gap40;
     }
 
+    .heading h2 span{
+        color: $cyan;
+    }
+
     #boxes{
         gap: $gap40;
         display: flex;
@@ -123,6 +127,7 @@
                     align-items: center;
                     strong{
                         flex: 1;
+                        font-size: $fsize18;
                     }
                 }               
             }

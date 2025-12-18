@@ -1065,7 +1065,7 @@ footer #copyright .bbb {
 /* media query */
 body.blog .heading {
   margin-bottom: 0;
-  padding-bottom: 40px;
+  padding-bottom: 80px;
 }
 body.blog .cols {
   gap: 40px;
@@ -1160,7 +1160,7 @@ body.blog .recent-articles .cards {
 .articles-posts .heading,
 .recent-articles .heading,
 .latest-articles .heading {
-  margin-bottom: 60px;
+  margin-bottom: 0;
   display: flex;
   align-items: center;
 }
@@ -1535,6 +1535,9 @@ body.search h4 span {
 .cards p {
   font-size: 14px;
 }
+.cards.top-icon .heading {
+  margin-bottom: 0;
+}
 .cards.top-icon h4 {
   flex-direction: column;
 }
@@ -1543,6 +1546,9 @@ body.search h4 span {
 }
 .cards.top-icon h4 > span:last-child {
   order: 1;
+}
+.cards.right-icon .heading {
+  margin-bottom: 0;
 }
 .cards.right-icon h4 {
   flex-direction: row;
@@ -1553,6 +1559,19 @@ body.search h4 span {
 }
 .cards.right-icon h4 > span:last-child {
   order: 2;
+}
+.cards.left-icon .heading {
+  margin-bottom: 0;
+}
+.cards.left-icon h4 {
+  flex-direction: row;
+  align-items: center;
+}
+.cards.left-icon h4 > span:first-child {
+  order: 2;
+}
+.cards.left-icon h4 > span:last-child {
+  order: 1;
 }
 .cards.no-icon h4 > span:last-child {
   display: none;
@@ -1654,7 +1673,7 @@ body.search h4 span {
 }
 @media screen and (max-width: 767px) {
   .banner {
-    padding: 20px 0;
+    padding: 80px 0;
     width: 370px;
     margin: 0 auto;
   }
@@ -1882,9 +1901,6 @@ body.search h4 span {
 /* 64 px */
 /* font family weight */
 /* media query */
-#faq {
-  margin-bottom: 120px;
-}
 #faq h4 {
   margin: 0;
 }
@@ -1898,6 +1914,10 @@ body.search h4 span {
   background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="%231f1f1f"><path d="M480-200q-117 0-198.5-81.5T200-480q0-117 81.5-198.5T480-760q117 0 198.5 81.5T760-480q0 117-81.5 198.5T480-200Z"/></svg>');
   background-repeat: no-repeat;
   background-size: contain;
+}
+
+#faq.cards .heading {
+  margin-bottom: 0;
 }
 
 /*
@@ -1950,6 +1970,9 @@ body.search h4 span {
 }
 .page-hero.yes {
   background: #EDEEFF;
+  padding: 40px 0;
+}
+.page-hero.no {
   padding: 40px 0;
 }
 .page-hero.Center {
@@ -2115,6 +2138,7 @@ body.search h4 span {
 }
 .page-hero .text-only .heading {
   margin: 16px 0;
+  padding: 0;
 }
 .page-hero .text-only h1, .page-hero .text-only h2 {
   padding-bottom: 20px;
