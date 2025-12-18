@@ -366,6 +366,9 @@
 #integrations {
   margin-bottom: 80px;
 }
+#integrations > .heading {
+  margin-bottom: 0;
+}
 #integrations .integrations-logos {
   max-width: 100%;
   text-align: center;
