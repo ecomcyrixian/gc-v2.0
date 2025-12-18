@@ -2,12 +2,12 @@
 @import '../../../assets/css/_tools/mixins';
 
 #faq{
-    margin-bottom: $gap120;
+    // margin-bottom: $gap120;
     h4{
         margin: 0;
     }
     &.cards p{
-        font-size: $base-fsize;        
+        font-size: $base-fsize;       
     }
 
     ul li{
@@ -23,3 +23,8 @@
     
     
 }
+
+#faq.cards .heading {
+    margin-bottom: 0;
+  }
+  

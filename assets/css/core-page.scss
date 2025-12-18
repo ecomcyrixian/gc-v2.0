@@ -289,7 +289,7 @@ body.page{
         }
 
         .cards{
-            margin-top: $gap40;
+            margin: $gap40 0;
         }
 
         /*
@@ -584,7 +584,7 @@ body.page{
     }
     
     .join-us{
-        margin: $gap120 $gap16;
+        margin: $gap80 $gap16;
         &>.container{
             max-width: 800px;
             display: flex;
@@ -598,7 +598,7 @@ body.page{
             }
         }
         .button{
-            margin-top: $gap40;
+            margin-top: $gap20;
         }
     }
 

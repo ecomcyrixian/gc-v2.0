@@ -3,7 +3,7 @@
 
 #grid-cont{
     width: 100%;
-    margin-bottom: $gap100;
+    margin-bottom: $gap40;
     
     @include media($tablet){
         overflow-y: auto;
