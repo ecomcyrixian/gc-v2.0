@@ -1,0 +1,99 @@
+/*
+* Template variables and Revised Article
+* Last update of 05.19.25
+*/
+/* base */
+/* 12 px */
+/* 14 px */
+/* 18 px*/
+/* 20 px */
+/* 24 px 1.5em*/
+/* 28 px */
+/* 30 px */
+/* 32 px */
+/* 40 px */
+/* 48 px */
+/* 56 px */
+/* 64 px */
+/* variables */
+/*
+* Template variables and Revised Article
+* Last update of 05.19.25
+*/
+/* base */
+/* 12 px */
+/* 14 px */
+/* 18 px*/
+/* 20 px */
+/* 24 px 1.5em*/
+/* 28 px */
+/* 30 px */
+/* 32 px */
+/* 40 px */
+/* 48 px */
+/* 56 px */
+/* 64 px */
+/* font family weight */
+/* media query */
+#integrations {
+  margin-bottom: 80px;
+  padding: 80px 0;
+  background: #f9f9f9;
+}
+#integrations .heading {
+  margin-bottom: 60px;
+}
+#integrations .integrations-logos {
+  margin: 60px auto;
+  max-width: 100%;
+  text-align: center;
+}
+#integrations .integrations-logos img {
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+#integrations .integrations-description {
+  text-align: center;
+  margin: 40px auto 60px;
+  max-width: 800px;
+}
+#integrations .integrations-description p {
+  font-size: 1.125em;
+  color: #000000;
+  line-height: 1.6;
+  margin: 0;
+}
+#integrations .integrations-cta {
+  text-align: center;
+  margin-top: 40px;
+}
+#integrations .integrations-cta .button {
+  display: inline-block;
+}
+@media screen and (max-width: 767px) {
+  #integrations {
+    padding: 60px 0;
+    margin-bottom: 60px;
+  }
+  #integrations .heading {
+    margin-bottom: 40px;
+  }
+  #integrations .integrations-logos {
+    margin: 40px auto;
+  }
+  #integrations .integrations-description {
+    margin: 30px auto 40px;
+  }
+  #integrations .integrations-description p {
+    font-size: 16px;
+    padding: 0 16px;
+  }
+  #integrations .integrations-cta {
+    margin-top: 30px;
+  }
+}
+
+/*# sourceMappingURL=_integrations.css.map */
