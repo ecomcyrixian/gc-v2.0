@@ -363,11 +363,12 @@
 /* 64 px */
 /* font family weight */
 /* media query */
+#integrations .heading {
+  margin-bottom: 0;
+}
+
 #integrations {
   margin-bottom: 80px;
-}
-#integrations > .heading {
-  margin-bottom: 0;
 }
 #integrations .integrations-logos {
   max-width: 100%;
@@ -703,6 +704,9 @@
 }
 #hiring .cols.cols2 > div {
   flex: 1;
+}
+#hiring .heading {
+  margin-bottom: 0;
 }
 #hiring h4 {
   font-weight: 400;
