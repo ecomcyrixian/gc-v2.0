@@ -231,8 +231,13 @@
     }
   }
 
-  .text-only:has(.ats-integration) {
+  .text-only:has(.ats-integration),
+  .text-only:has(.process-flow) {
     padding: 0;
+
+    .btns {
+      margin: 0;
+    }
   }
 
   .value-props {
@@ -401,8 +406,6 @@
   // Process Flow (matches preview)
   .process-flow {
     max-width: 1320px;
-    margin: $gap60 auto;
-    padding: 0 $gap16;
 
     @include media($mobile) {
       margin: $gap40 auto;

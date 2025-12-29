@@ -2164,8 +2164,13 @@ body.search h4 span {
 .page-hero .text-only .btns .button {
   display: inline-block;
 }
-.page-hero .text-only:has(.ats-integration) {
+.page-hero .text-only:has(.ats-integration),
+.page-hero .text-only:has(.process-flow) {
   padding: 0;
+}
+.page-hero .text-only:has(.ats-integration) .btns,
+.page-hero .text-only:has(.process-flow) .btns {
+  margin: 0;
 }
 .page-hero .value-props {
   margin: 0;
@@ -2324,8 +2329,6 @@ body.search h4 span {
 }
 .page-hero .process-flow {
   max-width: 1320px;
-  margin: 60px auto;
-  padding: 0 16px;
 }
 @media screen and (max-width: 767px) {
   .page-hero .process-flow {
