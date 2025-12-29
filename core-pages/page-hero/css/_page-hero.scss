@@ -1,409 +1,576 @@
+@import "../../../assets/css/_tools/variable";
+@import "../../../assets/css/_tools/mixins";
 
+.page-hero {
+  padding: $gap60 0;
 
-@import '../../../assets/css/_tools/variable';
-@import '../../../assets/css/_tools/mixins';
+  @include media($mobile) {
+    padding: 0;
 
- .page-hero{
-
-        padding: $gap60 0;
-
-        @include media($mobile){
-            padding: 0;
-
-            br{
-                display: none;
-            }
-        }
-        
-        &.yes{
-            background: $blue10;
-            padding: $gap40 0;
-        }
-
-        &.no{
-            padding: $gap40 0;
-        }
-
-        &.Center{
-            text-align: center;
-            margin-bottom: $gap40;
-            .logos{
-                justify-content: center;
-            }
-
-            .bullets{
-                gap: $gap20;
-                display: flex;
-                padding: $gap10;
-                flex-direction: row;
-                justify-content: center;
-                margin-top: $gap20;
-
-                @include media($mobile){
-                   flex-direction: column;
-                }
-
-                li{
-                    padding-bottom: 0;
-                     @include media($mobile){
-                       text-align: left;
-                    }
-
-                    &::before {
-                        left: 0;
-                    }
-                }
-            }
-        }
-
-        &>.container{
-            padding: 0;
-            
-            section{
-                &.Left {
-                    div:first-child{
-                        order: 2
-                    }
-                    div:last-child{
-                        order: 1
-                    }
-                }
-                
-            }
-
-        }
-
-        
-        h1, h2{
-            color:$gray300;
-            font-size: $fsize48;
-            font-weight: $fSemiBold;
-            line-height: normal;
-
-            // br{
-            //     // display: none;
-            // }
-
-            pre{
-                height: auto;
-            }
-
-            p{
-                padding: 0;
-                margin: 0;
-            }
-            
-            &>span{
-                    display: block;
-                    color: $blue300;
-                    font-size: $fsize14;
-                    text-transform: uppercase;
-            }
-            
-
-            @include media($mobile){
-                font-size: $fsize32;
-            }
-        }
-
-        pre{
-            display: block;
-            color: $blue300;
-            font-size: $fsize14;
-            text-transform: uppercase; 
-            margin-bottom: $gap10;
-        }
-
-        strong{
-            font-size: $fsize18;
-        }
-        
-        p{
-            padding: 0; 
-        }
-
-        .cols.cols2{
-            align-items: center;
-
-            @include media(1300px){
-                padding: $gap40 $gap16;
-                flex-direction: column;
-                justify-content: flex-start;
-
-                &>div{
-                    width: 100%;
-                    max-width: 100% !important;
-
-                }
-            }
-
-            &>div{
-                flex: none;
-            }
-            &>div:first-child{
-                max-width: 660px;
-                gap: $gap16;
-                display: flex;
-                flex-direction: column;
-                span:last-child{
-                    margin: $gap24 0;
-                }
-            }
-            &>div:last-child{
-                max-width: 620px;
-                overflow: hidden;
-                border-radius: $corners8;
-            }
-        }
-      
-        .logos{
-            padding: 0;
-            margin: 0;
-        
-            li{
-                padding: 0;
-                list-style: none;
-                
-                &:before{
-                    display: none;
-                }
-            }
-            img{
-                width: revert-layer;                
-            }
-        }
-
-        .custom-bullets{
-            padding: 0;
-            margin: $gap20 0;
-            display: flex;
-            flex-wrap: wrap;
-
-            @include media($mobile){
-                display: block;
-            }
-
-            li{
-                width: 50%;
-                gap: $gap10;
-                display: flex;
-                align-items: flex-start;
-             
-                @include media($mobile){
-                    width: 100%;
-                }
-
-                &::before{
-                    display: none;
-                }
-                img{
-                    width: auto;
-                }
-                &>em,&>i{
-                    display: block;
-                    margin: 0 !important;
-                    font-style: normal;
-
-                }
-                strong{
-                    display: block;
-                }
-            }
-        }
-
-        .text-only{
-            padding: 0 $gap16;
-            .heading{
-                margin: $gap16 0;
-                padding: 0;
-            }
-
-            h1,h2{
-                padding-bottom: $gap20;
-            }
-
-            .btns{
-                margin: $gap40;
-                gap: $gap20;
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                @include media($mobile){
-                    flex-direction: column;
-                }
-                .button{
-                    display: inline-block;
-                }
-            }
-            
-        }
-
-        .text-only:has(.ats-integration) {
-            padding: 0;
-        }
-
-        .value-props{
-            margin: 0;
-            padding: 0;
-            gap: $gap40;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            
-            @include media($mobile){
-                gap: $gap10;
-                padding: 0 $gap40;
-                flex-direction: column;
-            }
-
-            li{
-                gap: $gap10;
-                display: flex;
-                align-items: center;
-                flex-direction: row;
-                &::before{
-                    display: none;
-                }
-            }
-        }
-
-        .ats-integration {
-            max-width: 1320px;
-            margin: 0 auto;
-
-            @include media($mobile) {
-                padding: $gap40 0;
-            }
-
-            .ats-sections {
-                display: flex;
-                flex-direction: column;
-                
-            }
-
-            .ats-section {
-                border-radius: $corners8;
-                padding: $gap40 $gap40 0 $gap40;
-
-                @include media($mobile) {
-                    padding: $gap24 $gap24 0 $gap24;
-                }
-
-                &:last-child {
-                    padding-bottom: $gap40;
-
-                    @include media($mobile) {
-                        padding-bottom: $gap24;
-                    }
-                }
-
-                .section-title {
-                    font-size: $fsize24;
-                    font-weight: $fSemiBold;
-                    color: $gray300;
-                    text-align: center;
-                    margin-bottom: $gap40;
-                    text-transform: uppercase;
-                    letter-spacing: 0.5px;
-
-                    @include media($mobile) {
-                        font-size: $fsize18;
-                        margin-bottom: $gap30;
-                    }
-                }
-
-                .ats-cards {
-                    display: grid;
-                    grid-template-columns: repeat(3, 1fr);
-                    gap: $gap24;
-
-                    @include media(1311px) {
-                        grid-template-columns: repeat(2, 1fr);
-                    }
-
-                    @include media($mobile) {
-                        grid-template-columns: 1fr;
-                        gap: $gap20;
-                    }
-                }
-
-                .ats-card {
-                    background: $white;
-                    border-radius: $corners8;
-                    padding: $gap24;
-                    display: flex;
-                    flex-direction: column;
-                    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-
-                    @include media($mobile) {
-                        padding: $gap20;
-                    }
-
-                    .card-header {
-                        display: flex;
-                        flex-direction: row;
-                        align-items: center;
-                        margin-bottom: $gap20;
-                        gap: $gap16;
-                    }
-
-                    .card-icon {
-                        width: 56px;
-                        height: 56px;
-                        flex-shrink: 0;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-
-                        svg {
-                            width: 100%;
-                            height: 100%;
-                        }
-                    }
-
-                    h3 {
-                        font-size: $fsize18;
-                        font-weight: $fSemiBold;
-                        color: $gray300;
-                        margin: 0;
-                        line-height: 1.4;
-                        flex: 1;
-                        min-width: 0;
-                    }
-
-                    ul {
-                        width: 100%;
-                        margin: 0;
-                        padding: 0;
-                        list-style: none;
-                        display: flex;
-                        flex-direction: column;
-                        gap: $gap10;
-
-                        li {
-                            font-size: $fsize14;
-                            color: $gray100;
-                            padding: 0;
-                            padding-left: 0;
-                            position: relative;
-                            padding-left: $gap20;
-                            line-height: 1.5;
-
-                            &::before {
-                                content: "";
-                                position: absolute;
-                                left: 0;
-                                top: 8px;
-                                width: 6px;
-                                height: 6px;
-                                background: $gray100;
-                                border-radius: 50%;
-                                display: block;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
+    br {
+      display: none;
     }
+  }
+
+  &.yes {
+    background: $blue10;
+    padding: $gap40 0;
+  }
+
+  &.no {
+    padding: $gap40 0;
+  }
+
+  &.Center {
+    text-align: center;
+    margin-bottom: $gap40;
+    .logos {
+      justify-content: center;
+    }
+
+    .bullets {
+      gap: $gap20;
+      display: flex;
+      padding: $gap10;
+      flex-direction: row;
+      justify-content: center;
+      margin-top: $gap20;
+
+      @include media($mobile) {
+        flex-direction: column;
+      }
+
+      li {
+        padding-bottom: 0;
+        @include media($mobile) {
+          text-align: left;
+        }
+
+        &::before {
+          left: 0;
+        }
+      }
+    }
+  }
+
+  & > .container {
+    padding: 0;
+
+    section {
+      &.Left {
+        div:first-child {
+          order: 2;
+        }
+        div:last-child {
+          order: 1;
+        }
+      }
+    }
+  }
+
+  h1,
+  h2 {
+    color: $gray300;
+    font-size: $fsize48;
+    font-weight: $fSemiBold;
+    line-height: normal;
+
+    // br{
+    //     // display: none;
+    // }
+
+    pre {
+      height: auto;
+    }
+
+    p {
+      padding: 0;
+      margin: 0;
+    }
+
+    & > span {
+      display: block;
+      color: $blue300;
+      font-size: $fsize14;
+      text-transform: uppercase;
+    }
+
+    @include media($mobile) {
+      font-size: $fsize32;
+    }
+  }
+
+  pre {
+    display: block;
+    color: $blue300;
+    font-size: $fsize14;
+    text-transform: uppercase;
+    margin-bottom: $gap10;
+  }
+
+  strong {
+    font-size: $fsize18;
+  }
+
+  p {
+    padding: 0;
+  }
+
+  .cols.cols2 {
+    align-items: center;
+
+    @include media(1300px) {
+      padding: $gap40 $gap16;
+      flex-direction: column;
+      justify-content: flex-start;
+
+      & > div {
+        width: 100%;
+        max-width: 100% !important;
+      }
+    }
+
+    & > div {
+      flex: none;
+    }
+    & > div:first-child {
+      max-width: 660px;
+      gap: $gap16;
+      display: flex;
+      flex-direction: column;
+      span:last-child {
+        margin: $gap24 0;
+      }
+    }
+    & > div:last-child {
+      max-width: 620px;
+      overflow: hidden;
+      border-radius: $corners8;
+    }
+  }
+
+  .logos {
+    padding: 0;
+    margin: 0;
+
+    li {
+      padding: 0;
+      list-style: none;
+
+      &:before {
+        display: none;
+      }
+    }
+    img {
+      width: revert-layer;
+    }
+  }
+
+  .custom-bullets {
+    padding: 0;
+    margin: $gap20 0;
+    display: flex;
+    flex-wrap: wrap;
+
+    @include media($mobile) {
+      display: block;
+    }
+
+    li {
+      width: 50%;
+      gap: $gap10;
+      display: flex;
+      align-items: flex-start;
+
+      @include media($mobile) {
+        width: 100%;
+      }
+
+      &::before {
+        display: none;
+      }
+      img {
+        width: auto;
+      }
+      & > em,
+      & > i {
+        display: block;
+        margin: 0 !important;
+        font-style: normal;
+      }
+      strong {
+        display: block;
+      }
+    }
+  }
+
+  .text-only {
+    padding: 0 $gap16;
+    .heading {
+      margin: $gap16 0;
+      padding: 0;
+    }
+
+    h1,
+    h2 {
+      padding-bottom: $gap20;
+    }
+
+    .btns {
+      margin: $gap40;
+      gap: $gap20;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      @include media($mobile) {
+        flex-direction: column;
+      }
+      .button {
+        display: inline-block;
+      }
+    }
+  }
+
+  .text-only:has(.ats-integration) {
+    padding: 0;
+  }
+
+  .value-props {
+    margin: 0;
+    padding: 0;
+    gap: $gap40;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    @include media($mobile) {
+      gap: $gap10;
+      padding: 0 $gap40;
+      flex-direction: column;
+    }
+
+    li {
+      gap: $gap10;
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      &::before {
+        display: none;
+      }
+    }
+  }
+
+  .ats-integration {
+    max-width: 1320px;
+    margin: 0 auto;
+
+    @include media($mobile) {
+      padding: $gap40 0;
+    }
+
+    .ats-sections {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .ats-section {
+      border-radius: $corners8;
+      padding: $gap40 $gap40 0 $gap40;
+
+      @include media($mobile) {
+        padding: $gap24 $gap24 0 $gap24;
+      }
+
+      &:last-child {
+        padding-bottom: $gap40;
+
+        @include media($mobile) {
+          padding-bottom: $gap24;
+        }
+      }
+
+      .section-title {
+        font-size: $fsize24;
+        font-weight: $fSemiBold;
+        color: $gray300;
+        text-align: center;
+        margin-bottom: $gap40;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+
+        @include media($mobile) {
+          font-size: $fsize18;
+          margin-bottom: $gap30;
+        }
+      }
+
+      .ats-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: $gap24;
+
+        @include media(1311px) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include media($mobile) {
+          grid-template-columns: 1fr;
+          gap: $gap20;
+        }
+      }
+
+      .ats-card {
+        background: $white;
+        border-radius: $corners8;
+        padding: $gap24;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+
+        @include media($mobile) {
+          padding: $gap20;
+        }
+
+        .card-header {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          margin-bottom: $gap20;
+          gap: $gap16;
+        }
+
+        .card-icon {
+          width: 56px;
+          height: 56px;
+          flex-shrink: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          svg {
+            width: 100%;
+            height: 100%;
+          }
+        }
+
+        h3 {
+          font-size: $fsize18;
+          font-weight: $fSemiBold;
+          color: $gray300;
+          margin: 0;
+          line-height: 1.4;
+          flex: 1;
+          min-width: 0;
+        }
+
+        ul {
+          width: 100%;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          display: flex;
+          flex-direction: column;
+          gap: $gap10;
+
+          li {
+            font-size: $fsize14;
+            color: $gray100;
+            padding: 0;
+            padding-left: 0;
+            position: relative;
+            padding-left: $gap20;
+            line-height: 1.5;
+
+            &::before {
+              content: "";
+              position: absolute;
+              left: 0;
+              top: 8px;
+              width: 6px;
+              height: 6px;
+              background: $gray100;
+              border-radius: 50%;
+              display: block;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Process Flow (matches preview)
+  .process-flow {
+    max-width: 1320px;
+    margin: $gap60 auto;
+    padding: 0 $gap16;
+
+    @include media($mobile) {
+      margin: $gap40 auto;
+      padding: 0;
+    }
+
+    .process-title {
+      text-align: center;
+      font-size: $fsize40;
+      font-weight: $fSemiBold;
+      color: $gray300;
+      margin: 0 0 $gap60 0;
+      line-height: 1.15;
+
+      @include media($mobile) {
+        font-size: $fsize28;
+        margin-bottom: $gap40;
+      }
+    }
+
+    .process-steps {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: $gap24;
+      padding-top: $gap8;
+      padding-bottom: $gap24;
+
+      // connecting line (desktop only)
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 32px; // align with icon row
+        height: 2px;
+        background: #4f51fd; // new theme color
+        z-index: 0;
+
+        @include media($tablet) {
+          display: none;
+        }
+      }
+
+      @include media($tablet) {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: $gap40 $gap24;
+        padding-top: 0;
+      }
+
+      // Optional sizing helper if you add class steps-5 / steps-6 in HTML
+      &.steps-5 .process-step {
+        max-width: 220px;
+      }
+      &.steps-6 .process-step {
+        max-width: 190px;
+      }
+    }
+
+    .process-step {
+      flex: 1 1 0;
+      min-width: 0;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+
+      // fallback sizing if you DO NOT want to add steps-5/steps-6 class
+      // (keeps your existing :has behavior)
+      max-width: 190px;
+
+      @include media($tablet) {
+        max-width: 260px;
+        width: 100%;
+      }
+
+      @include media($mobile) {
+        max-width: 100%;
+      }
+
+      // icon wrapper (sits on the line)
+      .step-icon-wrap {
+        position: relative;
+        width: 64px;
+        height: 64px;
+        margin: 0 auto $gap16 auto;
+      }
+
+      // number badge centered above icon
+      .step-number {
+        position: absolute;
+        top: -14px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 28px;
+        height: 28px;
+        border-radius: 999px;
+        background: #4f51fd; // new theme color
+        color: $white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: $fsize14;
+        font-weight: $fSemiBold;
+        box-shadow: 0 0 0 4px $white;
+        z-index: 2;
+        margin: 0;
+      }
+
+      // outlined square icon container
+      .step-icon {
+        width: 64px;
+        height: 64px;
+        border: 2px solid $gray300;
+        border-radius: 12px;
+        background: $white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+
+        svg {
+          width: 34px;
+          height: 34px;
+        }
+      }
+
+      // IMPORTANT: remove card styling (text-only under icon)
+      .step-card {
+        background: transparent;
+        border: 0;
+        border-radius: 0;
+        padding: 0;
+        min-height: auto;
+        width: 100%;
+        box-shadow: none;
+        display: block;
+        text-align: center;
+      }
+
+      h3 {
+        font-size: 16px;
+        font-weight: $fSemiBold;
+        color: $gray300;
+        margin: 0 0 $gap10 0;
+        line-height: normal;
+      }
+
+      p {
+        font-size: $fsize14;
+        color: $gray100;
+        line-height: 1.7;
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    // Keep your original auto-detection too (works if browser supports :has)
+    .process-steps:has(.process-step:nth-child(5):last-child) {
+      .process-step {
+        max-width: 220px;
+      }
+    }
+    .process-steps:has(.process-step:nth-child(6):last-child) {
+      .process-step {
+        max-width: 190px;
+      }
+    }
+  }
+}

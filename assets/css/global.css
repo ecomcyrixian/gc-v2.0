@@ -2015,27 +2015,32 @@ body.search h4 span {
 .page-hero > .container section.Left div:last-child {
   order: 1;
 }
-.page-hero h1, .page-hero h2 {
+.page-hero h1,
+.page-hero h2 {
   color: #1A1C1E;
   font-size: 3em;
   font-weight: 600;
   line-height: normal;
 }
-.page-hero h1 pre, .page-hero h2 pre {
+.page-hero h1 pre,
+.page-hero h2 pre {
   height: auto;
 }
-.page-hero h1 p, .page-hero h2 p {
+.page-hero h1 p,
+.page-hero h2 p {
   padding: 0;
   margin: 0;
 }
-.page-hero h1 > span, .page-hero h2 > span {
+.page-hero h1 > span,
+.page-hero h2 > span {
   display: block;
   color: #4F51FD;
   font-size: 14px;
   text-transform: uppercase;
 }
 @media screen and (max-width: 767px) {
-  .page-hero h1, .page-hero h2 {
+  .page-hero h1,
+  .page-hero h2 {
     font-size: 2em;
   }
 }
@@ -2140,7 +2145,8 @@ body.search h4 span {
   margin: 16px 0;
   padding: 0;
 }
-.page-hero .text-only h1, .page-hero .text-only h2 {
+.page-hero .text-only h1,
+.page-hero .text-only h2 {
   padding-bottom: 20px;
 }
 .page-hero .text-only .btns {
@@ -2315,6 +2321,159 @@ body.search h4 span {
   background: #777E8C;
   border-radius: 50%;
   display: block;
+}
+.page-hero .process-flow {
+  max-width: 1320px;
+  margin: 60px auto;
+  padding: 0 16px;
+}
+@media screen and (max-width: 767px) {
+  .page-hero .process-flow {
+    margin: 40px auto;
+    padding: 0;
+  }
+}
+.page-hero .process-flow .process-title {
+  text-align: center;
+  font-size: 2.5em;
+  font-weight: 600;
+  color: #1A1C1E;
+  margin: 0 0 60px 0;
+  line-height: 1.15;
+}
+@media screen and (max-width: 767px) {
+  .page-hero .process-flow .process-title {
+    font-size: 1.75em;
+    margin-bottom: 40px;
+  }
+}
+.page-hero .process-flow .process-steps {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  padding-top: 8px;
+  padding-bottom: 24px;
+}
+.page-hero .process-flow .process-steps::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 32px;
+  height: 2px;
+  background: #4f51fd;
+  z-index: 0;
+}
+@media screen and (max-width: 1023px) {
+  .page-hero .process-flow .process-steps::before {
+    display: none;
+  }
+}
+@media screen and (max-width: 1023px) {
+  .page-hero .process-flow .process-steps {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px 24px;
+    padding-top: 0;
+  }
+}
+.page-hero .process-flow .process-steps.steps-5 .process-step {
+  max-width: 220px;
+}
+.page-hero .process-flow .process-steps.steps-6 .process-step {
+  max-width: 190px;
+}
+.page-hero .process-flow .process-step {
+  flex: 1 1 0;
+  min-width: 0;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  max-width: 190px;
+}
+@media screen and (max-width: 1023px) {
+  .page-hero .process-flow .process-step {
+    max-width: 260px;
+    width: 100%;
+  }
+}
+@media screen and (max-width: 767px) {
+  .page-hero .process-flow .process-step {
+    max-width: 100%;
+  }
+}
+.page-hero .process-flow .process-step .step-icon-wrap {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px auto;
+}
+.page-hero .process-flow .process-step .step-number {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: #4f51fd;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 0 0 4px #FFFFFF;
+  z-index: 2;
+  margin: 0;
+}
+.page-hero .process-flow .process-step .step-icon {
+  width: 64px;
+  height: 64px;
+  border: 2px solid #1A1C1E;
+  border-radius: 12px;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+.page-hero .process-flow .process-step .step-icon svg {
+  width: 34px;
+  height: 34px;
+}
+.page-hero .process-flow .process-step .step-card {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  min-height: auto;
+  width: 100%;
+  box-shadow: none;
+  display: block;
+  text-align: center;
+}
+.page-hero .process-flow .process-step h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1A1C1E;
+  margin: 0 0 10px 0;
+  line-height: normal;
+}
+.page-hero .process-flow .process-step p {
+  font-size: 14px;
+  color: #777E8C;
+  line-height: 1.7;
+  margin: 0;
+  padding: 0;
+}
+.page-hero .process-flow .process-steps:has(.process-step:nth-child(5):last-child) .process-step {
+  max-width: 220px;
+}
+.page-hero .process-flow .process-steps:has(.process-step:nth-child(6):last-child) .process-step {
+  max-width: 190px;
 }
 
 /*
