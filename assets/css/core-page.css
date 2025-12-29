@@ -301,6 +301,9 @@ body.page .dark-box.relevant-products li {
 body.page .dark-box.relevant-products li:before {
   display: none;
 }
+body.page .dark-box.relevant-products.dark {
+  padding-top: 0 !important;
+}
 body.page .fundamentals.cards {
   margin: 0;
 }
@@ -978,6 +981,11 @@ body.page #whitepaper .category a {
 }
 body.page #whitepaper .hidden {
   display: none;
+}
+@media screen and (max-width: 1311px) {
+  body.page .cards .card-cont {
+    padding: 16px;
+  }
 }
 
 /*# sourceMappingURL=core-page.css.map */

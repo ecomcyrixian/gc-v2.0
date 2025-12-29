@@ -317,6 +317,10 @@ body.page{
                 }
                 
             }
+
+            &.dark{
+                padding-top: 0 !important;
+            }
         }
     }
 
@@ -1129,6 +1133,12 @@ body.page{
 
          .hidden {
             display: none;
+        }
+    }
+
+    @include media(1311px){
+        .cards .card-cont{
+            padding: 16px;
         }
     }
 
