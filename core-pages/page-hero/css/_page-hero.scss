@@ -24,6 +24,11 @@
   &.Center {
     text-align: center;
     margin-bottom: $gap40;
+    
+    .mission-box {
+      margin-bottom: 0;
+    }
+    
     .logos {
       justify-content: center;
     }
@@ -344,19 +349,7 @@
           gap: $gap16;
         }
 
-        .card-icon {
-          width: 56px;
-          height: 56px;
-          flex-shrink: 0;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          svg {
-            width: 100%;
-            height: 100%;
-          }
-        }
+       
 
         h3 {
           font-size: $fsize18;
@@ -364,7 +357,6 @@
           color: $gray300;
           margin: 0;
           line-height: 1.4;
-          flex: 1;
           min-width: 0;
         }
 
@@ -375,7 +367,6 @@
           list-style: none;
           display: flex;
           flex-direction: column;
-          gap: $gap10;
 
           li {
             font-size: $fsize14;
@@ -385,6 +376,7 @@
             position: relative;
             padding-left: $gap20;
             line-height: 1.5;
+            text-align: left;
 
             &::before {
               content: "";

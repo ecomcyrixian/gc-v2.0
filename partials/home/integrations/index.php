@@ -4,7 +4,7 @@
         <div class="heading">
             <h2>
                 <span>INTEGRATIONS</span>
-                Connect Your Tools. Streamline Every Background Check.
+                Scalable Integrations for ATS & HRIS Systems
             </h2>
         </div>
 
@@ -13,12 +13,12 @@
         </div>
 
         <div class="integrations-description">
-            <p>Easily integrate with the tools you already use to run faster, more efficient background checks.</p>
+            <p>Integrate your ATS and HRIS to automate data flow and keep teams focused on what matters most—hiring great talent.</p>
         </div>
 
         <div class="integrations-cta">
             <a href="https://gcheck.com/integrations/" target="_parent" class="button blue">
-                Explore Our Integrations
+                Explore All Integrations
             </a>
         </div>
     
