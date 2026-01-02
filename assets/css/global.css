@@ -289,6 +289,9 @@ header#typical nav .hamburger-icon span {
 header#typical nav .hamburger-desktop .desktop-trigger {
   color: #000000;
 }
+header#typical nav .hamburger-desktop .desktop-trigger {
+  color: #000000;
+}
 header#home {
   height: 1200px;
   background: url(../images/home-header-bg.jpg) no-repeat top center #30319A;

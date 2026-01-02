@@ -172,10 +172,13 @@
                 </div>
                 <div class="copyright-badges">
                     <span>
-                        <a href="https://credential.thepbsa.org/81250267-8d4e-4389-8668-0e5603945b4b#acc.P4vlOphF" target="_blank">
-                            <img src="<?php echo get_template_directory_uri() . '/assets/images/psba-logo2.png' ?>" alt="PBSA">
+                        <a href="https://credential.thepbsa.org/114492a9-638f-4bc4-bda1-bd465b3a5c2b#acc.Pw2lZ9sL" target="_blank">
+                            <img src="<?php echo get_template_directory_uri() . '/assets/images/PBSA logo.png' ?>" alt="PBSA">
                         </a>
-                    </span>    
+                    </span>
+                    <span>
+                        <img src="<?php echo get_template_directory_uri() . '/assets/images/footer-logo.png' ?>" alt="BBB, SHRM, ASA Accreditations">
+                    </span>
                 </div>
             </div>
         </section>
