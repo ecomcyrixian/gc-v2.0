@@ -1,12 +1,19 @@
 @import '../../../../assets/css/_tools/variable';
 @import '../../../../assets/css/_tools/mixins';
 
-#integrations .heading {
-    margin-bottom: 0;
-}
+
 
 #integrations{
     margin-bottom: $gap80;
+
+    .heading {
+        margin-bottom: 0;
+        padding-bottom: $gap20;
+
+        h2 span{
+            margin-bottom: $gap20;
+        }
+    }
 
     .integrations-logos{
         max-width: 100%;
@@ -14,7 +21,6 @@
 
         img{
             width: 100%;
-            max-width: 1200px;
             height: auto;
             display: block;
             margin: 0 auto;
@@ -27,7 +33,7 @@
         max-width: 600px;
 
         p{
-            font-size: $fsize18;
+            font-size: $fsize20;
             color: $black;
             line-height: 1.6;
             margin: 0;

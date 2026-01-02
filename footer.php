@@ -1,19 +1,126 @@
     <footer>
         
         <section class="container">
-            <div class="cols">
+            <!-- 
+                NOTE: Create these WordPress menus in Appearance > Menus:
+                - GCv2.0 Footer : Identity & Trust
+                - GCv2.0 Footer : Background Checks
+                - GCv2.0 Footer : Verifications & Credentialing
+                - GCv2.0 Footer : Drug & Health
+                - GCv2.0 Footer : Risk Monitoring
+                - GCv2.0 Footer : Compliance Automation
+                - GCv2.0 Footer : Resources
+                - GCv2.0 Footer : Company
+            -->
+            <!-- Top Row: 4 columns -->
+            <div class="footer-top-row">
+                <!-- Identity & Trust -->
+                <div class="footer-links">
+                    <h5>Identity & Trust</h5>
+                    <?php 
+                        wp_nav_menu( array(
+                            'menu' => 'GCv2.0 Footer : Identity & Trust',
+                            'menu_class'     => 'main-menu',
+                            'fallback_cb'   => false,
+                        ) );
+                    ?>
+                </div>
                 
-                <!-- gcheck info  -->
-                <div>
+                <!-- Background Checks -->
+                <div class="footer-links">
+                    <h5>Background Checks</h5>
+                    <?php 
+                        wp_nav_menu( array(
+                            'menu' => 'GCv2.0 Footer : Background Checks',
+                            'menu_class'     => 'main-menu',
+                            'fallback_cb'   => false,
+                        ) );
+                    ?>
+                </div>
+                
+                <!-- Verifications & Credentialing -->
+                <div class="footer-links">
+                    <h5>Verifications & Credentialing</h5>
+                    <?php 
+                        wp_nav_menu( array(
+                            'menu' => 'GCv2.0 Footer : Verifications & Credentialing',
+                            'menu_class'     => 'main-menu',
+                            'fallback_cb'   => false,
+                        ) );
+                    ?>
+                </div>
+                
+                <!-- Drug & Health -->
+                <div class="footer-links">
+                    <h5>Drug & Health</h5>
+                    <?php 
+                        wp_nav_menu( array(
+                            'menu' => 'GCv2.0 Footer : Drug & Health',
+                            'menu_class'     => 'main-menu',
+                            'fallback_cb'   => false,
+                        ) );
+                    ?>
+                </div>
+            </div>
+            
+            <!-- Bottom Row: 4 columns -->
+            <div class="footer-bottom-row">
+                <!-- Risk Monitoring -->
+                <div class="footer-links">
+                    <h5>Risk Monitoring</h5>
+                    <?php 
+                        wp_nav_menu( array(
+                            'menu' => 'GCv2.0 Footer : Risk Monitoring',
+                            'menu_class'     => 'main-menu',
+                            'fallback_cb'   => false,
+                        ) );
+                    ?>
+                </div>
+                
+                <!-- Compliance Automation -->
+                <div class="footer-links">
+                    <h5>Compliance Automation</h5>
+                    <?php 
+                        wp_nav_menu( array(
+                            'menu' => 'GCv2.0 Footer : Compliance Automation',
+                            'menu_class'     => 'main-menu',
+                            'fallback_cb'   => false,
+                        ) );
+                    ?>
+                </div>
+                
+                <!-- Resources -->
+                <div class="footer-links">
+                    <h5>Resources</h5>
+                    <?php 
+                        wp_nav_menu( array(
+                            'menu' => 'GCv2.0 Footer : Resources',
+                            'menu_class'     => 'main-menu',
+                            'fallback_cb'   => false,
+                        ) );
+                    ?>
+                </div>
+                
+                <!-- Company -->
+                <div class="footer-links">
+                    <h5>Company</h5>
+                    <?php 
+                        wp_nav_menu( array(
+                            'menu' => 'GCv2.0 Footer : Company',
+                            'menu_class'     => 'main-menu',
+                            'fallback_cb'   => false,
+                        ) );
+                    ?>
+                </div>
+            </div>
+        </section>
+        <section id="footer-contact" class="container">
+            <div class="footer-contact-row">
+                <div class="footer-logo-social">
                     <span class="gCheck-logo">
                         <a href="<?php echo site_url(); ?>" aria-label="GCheck">
                             <?php get_template_part('partials/gcheck-logo') ?>
                         </a>
-                    </span>
-                    <p>8335 W Sunset Blvd Ste 240 <br>Los Angeles, CA 90069</p>
-                    <span>
-                        <p>Talk to an Expert</p>
-                        <p>844-GCHECK-4 / 844-424-3254</p>
                     </span>
                     <ul class="socmed">
                         <li>
@@ -38,70 +145,37 @@
                         </li>
                     </ul>
                 </div>
-
-                <!-- Background Checks -->
-                <div class="footer-links">
-                    <h5>Background Checks</h5>
-                    <?php 
-                        wp_nav_menu( array(
-                            'menu' => 'GCv2.0 Footer : Background Checks',
-                            'menu_class'     => 'main-menu',
-                        ) );
-                    ?>
+                <div class="footer-contact-info">
+                    <div class="footer-address">
+                        <img src="<?php echo get_template_directory_uri() . '/assets/images/address.svg' ?>" alt="Address" width="48" height="48">
+                        <div>
+                            <p>8335 W Sunset Blvd Ste 240</p>
+                            <p>Los Angeles, CA 90069</p>
+                        </div>
+                    </div>
+                    <div class="footer-phone">
+                        <img src="<?php echo get_template_directory_uri() . '/assets/images/phone.svg' ?>" alt="Phone" width="48" height="48">
+                        <div>
+                            <p>Talk to an Expert</p>
+                            <p>844-424-3254 / 844-424-3254</p>
+                        </div>
+                    </div>
                 </div>
-                
-                <!-- Industries -->
-                <div class="footer-links">
-                    <h5>Industries</h5>
-                    <?php 
-                        wp_nav_menu( array(
-                            'menu' => 'GCv2.0 Footer : Industry',
-                            'menu_class'     => 'main-menu',
-                        ) );
-                    ?>
-                </div>
-                
-                <!-- Company -->
-                <div class="footer-links">
-                    <h5>Company</h5>
-                    <?php 
-                        wp_nav_menu( array(
-                            'menu' => 'GCv2.0 Footer : Company',
-                            'menu_class'     => 'main-menu',
-                        ) );
-                    ?>
-                </div>
-                
-                <!-- Resources -->
-                <div class="footer-links">
-                    <h5>Resources</h5>
-                    <?php 
-                        wp_nav_menu( array(
-                            'menu' => 'GCv2.0 Footer : Resources',
-                            'menu_class'     => 'main-menu',
-                        ) );
-                    ?>
-                </div>
-                
             </div>
         </section>
+        
         <section id="copyright" class="container">
-            <div class="cols">
-                <div>
+            <div class="copyright-row">
+                <div class="copyright-left">
+                    <span><a href="https://gcheck.com/privacy-policy/">Privacy Policy</a></span>
+                    <span>&copy; <?php echo date('Y'); ?> GCheck. All rights reserved.</span>
+                </div>
+                <div class="copyright-badges">
                     <span>
                         <a href="https://credential.thepbsa.org/81250267-8d4e-4389-8668-0e5603945b4b#acc.P4vlOphF" target="_blank">
-                            <img class="psba" src="<?php echo get_template_directory_uri() . '/assets/images/psba-logo.png' ?>" alt="psba">
+                            <img src="<?php echo get_template_directory_uri() . '/assets/images/psba-logo2.png' ?>" alt="PBSA">
                         </a>
-                    </span>
-                    <span>
-                        <a href="https://www.bbb.org/us/ca/los-angeles/profile/employment-background-check/gcheck-1216-1000042700" target="_blank">
-                            <img class="bbb" src="<?php echo get_template_directory_uri() . '/assets/images/bbb-logo.png' ?>" alt="psba">
-                        </a>
-                    </span>
-                </div>
-                <div>
-                    <span><a href="https://gcheck.com/privacy-policy/">Privacy Policy</a></span>
-                    <span>&copy; <?php echo date('Y'); ?> <?php bloginfo('name'); ?> All rights reserved.</span>
+                    </span>    
                 </div>
             </div>
         </section>
