@@ -24,6 +24,32 @@
 HTML;
     }
 ?>
+<?php
+    // Helper function to get mega feature content
+    function get_mega_feature_content( $menu_name, $feature_type = 'article' ) {
+        if ( $feature_type === 'whitepaper' ) {
+            // Whitepaper uses static image, no query
+            return generate_mega_featured_whitepaper( $menu_name );
+        } else {
+            $post = get_mega_menu_featured_article( $menu_name );
+            if ( $post ) {
+                return generate_mega_featured_article( $post );
+            }
+        }
+        
+        // Fallback placeholder for articles only
+        return <<<HTML
+<div class="mega-feature blog">
+    <div class="feature-card">
+        <p class="eyebrow category-colored">Featured story</p>
+        <h4 class="feature-title">Placeholder article title</h4>
+        <p class="feature-meta">Jan 1, 2025 • 5 min read</p>
+        <a class="button outline" href="#">Read More</a>
+    </div>
+</div>
+HTML;
+    }
+?>
 <nav>
     <span id="mobile-menu" class="icon-menu" >
         <input type="checkbox" id="menu-toggle" class="hidden-checkbox">
