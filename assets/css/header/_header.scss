@@ -73,6 +73,17 @@ header{
             }
         }
         
+        @media (min-width: 1231px) {
+            nav #desktop-nav .menu-block:hover > .main-menu > li > a{
+                color: $white !important;
+                
+                &::after{
+                    transform: rotate(180deg);
+                    @include transition-fade(0.2);
+                }
+            }
+        }
+        
         @include media($tablet){
             height: 100%;
             padding-bottom: $gap40;
