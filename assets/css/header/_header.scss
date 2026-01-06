@@ -468,6 +468,13 @@ nav{
             letter-spacing: 0.16em;
             text-transform: uppercase;
             color: $gray100;
+            text-decoration: none;
+            display: block;
+            transition: color 0.2s ease;
+            
+            &:hover{
+                color: $blue300;
+            }
         }
 
         .mega-links .sub-menu{

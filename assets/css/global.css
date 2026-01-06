@@ -674,6 +674,12 @@ nav #desktop-nav .mega-links .mega-title {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: #777E8C;
+  text-decoration: none;
+  display: block;
+  transition: color 0.2s ease;
+}
+nav #desktop-nav .mega-links .mega-title:hover {
+  color: #4F51FD;
 }
 nav #desktop-nav .mega-links .sub-menu {
   list-style: none;
@@ -1321,6 +1327,14 @@ footer .footer-links h5 {
   margin-bottom: 24px;
   font-size: 14px;
   letter-spacing: 0.16em;
+}
+footer .footer-links h5 a {
+  color: #777E8C;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+footer .footer-links h5 a:hover {
+  color: #3FC5FD;
 }
 footer .footer-links a {
   display: block;
@@ -2011,6 +2025,12 @@ body.search h4 span {
 }
 .cards.right-icon h4 > span:last-child {
   order: 2;
+}
+.cards.right-icon.how-it-works h4 {
+  align-items: flex-start;
+}
+.cards.right-icon.how-it-works pre {
+  margin-top: 10px;
 }
 .cards.left-icon .heading {
   margin-bottom: 0;

@@ -139,6 +139,15 @@
         }
     }
 
+    &.right-icon.how-it-works{
+        h4{
+            align-items: flex-start;
+        }
+        pre {
+            margin-top: $gap10;
+        }
+    }
+
     &.left-icon{
         .heading{
             margin-bottom: 0;

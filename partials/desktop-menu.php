@@ -2,8 +2,13 @@
     // Helper function to get mega feature content
     function get_mega_feature_content( $menu_name, $feature_type = 'article' ) {
         if ( $feature_type === 'whitepaper' ) {
-            // Whitepaper uses static image, no query
-            return generate_mega_featured_whitepaper( $menu_name );
+            // Whitepaper function commented out for future use - Background Checks and Drug & Health now use articles
+            // return generate_mega_featured_whitepaper( $menu_name );
+            // Fallback to article if whitepaper is requested but function is commented out
+            $post = get_mega_menu_featured_article( $menu_name );
+            if ( $post ) {
+                return generate_mega_featured_article( $post );
+            }
         } else {
             $post = get_mega_menu_featured_article( $menu_name );
             if ( $post ) {
@@ -52,7 +57,7 @@ HTML;
                 'menu_class'     => 'main-menu',
                 'container'      => 'div',
                 'container_class'=> 'menu-block nav-background',
-                'mega_feature'   => get_mega_feature_content( 'GCv2.0 : Background Checks', 'whitepaper' ),
+                'mega_feature'   => get_mega_feature_content( 'GCv2.0 : Background Checks', 'article' ),
                 'mega_panel_title'=> "Background Checks",
                 'mega_cta_label' => "Talk To Sales",
                 'mega_cta_url'   => "https://gcheck.com/contact-us/"
@@ -74,7 +79,7 @@ HTML;
                 'menu_class'     => 'main-menu',
                 'container'      => 'div',
                 'container_class'=> 'menu-block nav-drug-health',
-                'mega_feature'   => get_mega_feature_content( 'GCv2.0 : Drug & Health', 'whitepaper' ),
+                'mega_feature'   => get_mega_feature_content( 'GCv2.0 : Drug & Health', 'article' ),
                 'mega_panel_title'=> "Drug & Health",
                 'mega_cta_label' => "Talk To Sales",
                 'mega_cta_url'   => "https://gcheck.com/contact-us/"
@@ -116,6 +121,7 @@ HTML;
         
         <div class="hamburger-flyout">
             <ul class="hamburger-links">
+                <?php /* Industries link commented out - page not ready yet
                 <li>
                     <a href="https://gcheck.com/industry/" target="_parent">
                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -125,6 +131,7 @@ HTML;
                         <span>Industries</span> 
                     </a>
                 </li>
+                */ ?>
                 <li>
                     <a href="https://gcheck.com/integrations/" target="_parent">
                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -168,12 +168,14 @@
             <!-- Quick links: industries / integrations / company / pricing -->
             <div class="mobile-quick-links">
                 <ul class="quick-links-list">
+                    <?php /* Industries link commented out - page not ready yet
                     <li>
                         <a href="https://gcheck.com/industry/" target="_parent">
                             <span class="icon-box ico-industries"></span>
                             <span>Industries</span>
                         </a>
                     </li>
+                    */ ?>
                     <li>
                         <a href="https://gcheck.com/integrations/" target="_parent">
                             <span class="icon-box ico-integrations"></span>

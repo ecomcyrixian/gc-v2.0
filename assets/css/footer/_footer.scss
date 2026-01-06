@@ -93,6 +93,16 @@ footer{
             margin-bottom: $gap24;
             font-size: $fsize14;
             letter-spacing: 0.16em;
+            
+            a{
+                color: $gray100;
+                text-decoration: none;
+                transition: color 0.2s ease;
+                
+                &:hover{
+                    color: $cyan;
+                }
+            }
         }
         a{
             display: block;

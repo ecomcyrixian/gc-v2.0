@@ -35,15 +35,36 @@ function gcheck_scripts() {
     wp_enqueue_script('jquery');
 
     // Enqueue your custom script, with jQuery as a dependency
+    // Update version number each time you upload a new global.js
+    $global_js_version = '1.0.0';
+    
     wp_enqueue_script(
         'my-custom-script', // Unique handle for your script
         get_template_directory_uri() . '/assets/js/global.js', // Path to your script
         array('jquery'), // Array of dependencies (jQuery in this case)
-        '1.0.0', // Version number (optional)
-        true // Load in the footer (true) or header (false)
+        $global_js_version, // Version number - increment this on each upload
+        false // Load in header (false) to match current head.php placement
     );
 }
 add_action('wp_enqueue_scripts', 'gcheck_scripts');
+
+/*
+ * Enqueue global CSS with manual version control for cache busting
+ * Update the version number each time you upload a new global.css
+ */
+function enqueue_global_styles() {
+    // Update this version number each time you upload a new global.css
+    $global_css_version = '1.0.0';
+    
+    wp_enqueue_style(
+        'global-style',
+        get_template_directory_uri() . '/assets/css/global.css',
+        array(), // No dependencies
+        $global_css_version, // Version number - increment this on each upload
+        'all'
+    );
+}
+add_action( 'wp_enqueue_scripts', 'enqueue_global_styles' );
 
 
 /*
@@ -215,7 +236,17 @@ class Desktop_Mega_Walker extends Walker_Nav_Menu_With_Description {
         if ( $depth === 0 ) {
             $output .= "{$n}{$indent}<div class=\"mega-panel\"><div class=\"mega-links\">{$n}";
             if ( ! empty( $args->mega_panel_title ) ) {
-                $output .= "{$indent}<p class=\"mega-title\">" . esc_html( $args->mega_panel_title ) . "</p>{$n}";
+                // Map panel titles to their URLs
+                $title_url_map = array(
+                    'Identity' => 'https://gcheck.com/identity',
+                    'Background Checks' => 'https://gcheck.com/background-checks',
+                    'Verifications' => 'https://gcheck.com/verifications',
+                    'Drug & Health' => 'https://gcheck.com/drug-health',
+                    'Continuous Monitoring' => 'https://gcheck.com/risk-monitoring',
+                    'Compliance' => 'https://gcheck.com/compliance',
+                );
+                $title_url = isset( $title_url_map[ $args->mega_panel_title ] ) ? $title_url_map[ $args->mega_panel_title ] : '#';
+                $output .= "{$indent}<a href=\"" . esc_url( $title_url ) . "\" class=\"mega-title\">" . esc_html( $args->mega_panel_title ) . "</a>{$n}";
             }
             $output .= "{$indent}<ul{$class_names}>{$n}";
         } else {
@@ -315,10 +346,12 @@ function my_add_excerpts_to_pages() {
 function get_mega_menu_featured_article( $menu_name, $menu_item_title = '' ) {
     // Map menu names to specific post IDs (prioritized)
     $menu_post_map = array(
-        'GCv2.0 : Identity' => 11127,
-        'GCv2.0 : Verifications' => 10442,
-        'GCv2.0 : Risk Monitoring' => 8908,
-        'GCv2.0 : Compliance' => 18483,
+        'GCv2.0 : Identity' => 2965,
+        'GCv2.0 : Background Checks' => 2721,
+        'GCv2.0 : Drug & Health' => 2965,
+        'GCv2.0 : Verifications' => 16952,
+        'GCv2.0 : Risk Monitoring' => 2344,
+        'GCv2.0 : Compliance' => 18359,
     );
     
     // First, try to get the prioritized post ID
@@ -483,14 +516,10 @@ function generate_mega_featured_article( $post ) {
     $html .= '<p class="eyebrow category-colored">' . esc_html( $category_name ) . '</p>';
     $html .= '<h4 class="feature-title">' . esc_html( $title ) . '</h4>';
     
-    if ( $date || $read_time ) {
+    // Date removed from header - only show read time if available
+    if ( $read_time ) {
         $html .= '<p class="feature-meta">';
-        if ( $date ) {
-            $html .= esc_html( $date );
-        }
-        if ( $read_time ) {
-            $html .= ( $date ? ' • ' : '' ) . esc_html( $read_time ) . ' min read';
-        }
+        $html .= esc_html( $read_time ) . ' min read';
         $html .= '</p>';
     }
     
@@ -504,7 +533,9 @@ function generate_mega_featured_article( $post ) {
 /*
  * Generate whitepaper HTML for mega menu
  * Uses static image from assets, no post query
+ * COMMENTED OUT FOR FUTURE USE - Background Checks and Drug & Health now use articles
  */
+/*
 function generate_mega_featured_whitepaper( $menu_name = '' ) {
     $image_path = get_template_directory_uri() . '/assets/images/whitepaper-mega-menu.png';
     
@@ -521,3 +552,4 @@ function generate_mega_featured_whitepaper( $menu_name = '' ) {
     
     return $html;
 }
+*/
