@@ -49,7 +49,7 @@ function filterItems() {
 </script>
 
 
-    <div class="page-hero Center yes">
+    <div class="page-hero Center">
         <div class="container">
 
             <div class="heading">
