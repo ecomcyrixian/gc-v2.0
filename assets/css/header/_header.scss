@@ -300,6 +300,29 @@ header{
         nav .hamburger-icon span{
             background:$gray300;
         }
+
+        nav #desktop-nav .menu-block > .main-menu > li > a{
+            color: $black;
+        }
+
+        nav .hamburger-desktop .desktop-trigger{
+            color: $black;
+        }
+
+        @media (min-width: 1231px) {
+            nav #desktop-nav .menu-block:hover > .main-menu > li > a{
+                color: $black !important;
+            }
+        }
+
+        nav .hamburger-links a{
+            color: $black;
+            
+            &:hover{
+                background: $blue50;
+                color: $blue300;
+            }
+        }
         
     }
     &.active{
@@ -729,7 +752,12 @@ nav{
                 &>a{
                     color: $black;
                     display: block !important;
+                    transition: color 0.2s ease;
                     // margin-left: 60px;
+
+                    &:hover{
+                        color: $blue300 !important;
+                    }
                 }
             }
 

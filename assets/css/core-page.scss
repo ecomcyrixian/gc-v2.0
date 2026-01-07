@@ -1066,7 +1066,7 @@ body.page{
 
     #whitepaper{
 
-        margin: $gap60 0;
+        margin-bottom: $gap60;
 
         .page-hero{
             
@@ -1077,6 +1077,7 @@ body.page{
             .heading{
                 padding-bottom: $gap20;
                 margin-bottom: 0;
+                padding: 0 !important;
             }
         }
 
