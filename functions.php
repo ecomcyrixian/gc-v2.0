@@ -6,20 +6,30 @@ add_theme_support( 'post-thumbnails' );
 
 /*
  * Specific script and styles per page
+ * Automatic cache busting based on file modification time
  */
 function theme_styles_script() {
 	
     global $post;
     
 	if ( is_front_page() ) {
-    	wp_enqueue_style( 'homepage-style', get_template_directory_uri() . '/assets/css/front-page.css', array(), '1', 'screen' );
-        //wp_register_script( 'homepage-script', get_template_directory_uri() . '/assets/js/front-page.js', '', '', true );
-    	//wp_enqueue_script( 'homepage-script' );
+    	$front_page_css = get_template_directory() . '/assets/css/front-page.css';
+    	$front_page_version = file_exists($front_page_css) ? filemtime($front_page_css) : '1';
+    	wp_enqueue_style( 'homepage-style', get_template_directory_uri() . '/assets/css/front-page.css', array(), $front_page_version, 'screen' );
+        // If you uncomment this, it will automatically have cache busting
+        // $front_page_js = get_template_directory() . '/assets/js/front-page.js';
+        // $front_page_js_version = file_exists($front_page_js) ? filemtime($front_page_js) : '1';
+        // wp_register_script( 'homepage-script', get_template_directory_uri() . '/assets/js/front-page.js', array(), $front_page_js_version, true );
+    	// wp_enqueue_script( 'homepage-script' );
 
     } elseif ( is_page() ) {
-        wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/core-page.css', array(), '1', 'screen' );
+        $core_page_css = get_template_directory() . '/assets/css/core-page.css';
+        $core_page_version = file_exists($core_page_css) ? filemtime($core_page_css) : '1';
+        wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/core-page.css', array(), $core_page_version, 'screen' );
     } elseif ( is_single() || is_search() || is_category() || is_author() ) {
-        wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/blog-page.css', array(), '1', 'screen' );
+        $blog_page_css = get_template_directory() . '/assets/css/blog-page.css';
+        $blog_page_version = file_exists($blog_page_css) ? filemtime($blog_page_css) : '1';
+        wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/blog-page.css', array(), $blog_page_version, 'screen' );
     }
 	
 }
@@ -28,6 +38,7 @@ add_action( 'wp_enqueue_scripts', 'theme_styles_script' );
 
 /*
  * Enqueue jQuery (WordPress's built-in version)
+ * Automatic cache busting based on file modification time
  */
     
 function gcheck_scripts() {
@@ -35,32 +46,33 @@ function gcheck_scripts() {
     wp_enqueue_script('jquery');
 
     // Enqueue your custom script, with jQuery as a dependency
-    // Update version number each time you upload a new global.js
-    $global_js_version = '1.0.0';
+    // Version updates automatically when global.js file is modified
+    $js_file_path = get_template_directory() . '/assets/js/global.js';
+    $global_js_version = file_exists($js_file_path) ? filemtime($js_file_path) : '1.0.0';
     
     wp_enqueue_script(
         'my-custom-script', // Unique handle for your script
         get_template_directory_uri() . '/assets/js/global.js', // Path to your script
         array('jquery'), // Array of dependencies (jQuery in this case)
-        $global_js_version, // Version number - increment this on each upload
+        $global_js_version, // Version number - automatically updates when file changes
         false // Load in header (false) to match current head.php placement
     );
 }
 add_action('wp_enqueue_scripts', 'gcheck_scripts');
 
 /*
- * Enqueue global CSS with manual version control for cache busting
- * Update the version number each time you upload a new global.css
+ * Enqueue global CSS with automatic cache busting based on file modification time
+ * Version updates automatically when global.css file is modified
  */
 function enqueue_global_styles() {
-    // Update this version number each time you upload a new global.css
-    $global_css_version = '1.0.0';
+    $css_file_path = get_template_directory() . '/assets/css/global.css';
+    $global_css_version = file_exists($css_file_path) ? filemtime($css_file_path) : '1.0.1';
     
     wp_enqueue_style(
         'global-style',
         get_template_directory_uri() . '/assets/css/global.css',
         array(), // No dependencies
-        $global_css_version, // Version number - increment this on each upload
+        $global_css_version, // Version number - automatically updates when file changes
         'all'
     );
 }
@@ -348,7 +360,7 @@ function get_mega_menu_featured_article( $menu_name, $menu_item_title = '' ) {
     $menu_post_map = array(
         'GCv2.0 : Identity' => 2965,
         'GCv2.0 : Background Checks' => 2721,
-        'GCv2.0 : Drug & Health' => 2965,
+        'GCv2.0 : Drug & Health' => 10978,
         'GCv2.0 : Verifications' => 16952,
         'GCv2.0 : Risk Monitoring' => 2344,
         'GCv2.0 : Compliance' => 18359,
