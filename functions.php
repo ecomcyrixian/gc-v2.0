@@ -13,9 +13,9 @@ function theme_styles_script() {
     global $post;
     
 	if ( is_front_page() ) {
-    	$front_page_css = get_template_directory() . '/assets/css/front-page.css';
+    	$front_page_css = get_template_directory() . '/assets/css/front-page-new.css';
     	$front_page_version = file_exists($front_page_css) ? filemtime($front_page_css) : '1';
-    	wp_enqueue_style( 'homepage-style', get_template_directory_uri() . '/assets/css/front-page.css', array(), $front_page_version, 'screen' );
+    	wp_enqueue_style( 'homepage-style', get_template_directory_uri() . '/assets/css/front-page-new.css', array(), $front_page_version, 'screen' );
         // If you uncomment this, it will automatically have cache busting
         // $front_page_js = get_template_directory() . '/assets/js/front-page.js';
         // $front_page_js_version = file_exists($front_page_js) ? filemtime($front_page_js) : '1';
@@ -23,13 +23,13 @@ function theme_styles_script() {
     	// wp_enqueue_script( 'homepage-script' );
 
     } elseif ( is_page() ) {
-        $core_page_css = get_template_directory() . '/assets/css/core-page.css';
+        $core_page_css = get_template_directory() . '/assets/css/core-page-new.css';
         $core_page_version = file_exists($core_page_css) ? filemtime($core_page_css) : '1';
-        wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/core-page.css', array(), $core_page_version, 'screen' );
+        wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/core-page-new.css', array(), $core_page_version, 'screen' );
     } elseif ( is_single() || is_search() || is_category() || is_author() ) {
-        $blog_page_css = get_template_directory() . '/assets/css/blog-page.css';
+        $blog_page_css = get_template_directory() . '/assets/css/blog-page-new.css';
         $blog_page_version = file_exists($blog_page_css) ? filemtime($blog_page_css) : '1';
-        wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/blog-page.css', array(), $blog_page_version, 'screen' );
+        wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/blog-page-new.css', array(), $blog_page_version, 'screen' );
     }
 	
 }
@@ -46,13 +46,13 @@ function gcheck_scripts() {
     wp_enqueue_script('jquery');
 
     // Enqueue your custom script, with jQuery as a dependency
-    // Version updates automatically when global.js file is modified
-    $js_file_path = get_template_directory() . '/assets/js/global.js';
+    // Version updates automatically when global-new.js file is modified
+    $js_file_path = get_template_directory() . '/assets/js/global-new.js';
     $global_js_version = file_exists($js_file_path) ? filemtime($js_file_path) : '1.0.0';
     
     wp_enqueue_script(
         'my-custom-script', // Unique handle for your script
-        get_template_directory_uri() . '/assets/js/global.js', // Path to your script
+        get_template_directory_uri() . '/assets/js/global-new.js', // Path to your script
         array('jquery'), // Array of dependencies (jQuery in this case)
         $global_js_version, // Version number - automatically updates when file changes
         false // Load in header (false) to match current head.php placement
@@ -62,15 +62,15 @@ add_action('wp_enqueue_scripts', 'gcheck_scripts');
 
 /*
  * Enqueue global CSS with automatic cache busting based on file modification time
- * Version updates automatically when global.css file is modified
+ * Version updates automatically when global-new.css file is modified
  */
 function enqueue_global_styles() {
-    $css_file_path = get_template_directory() . '/assets/css/global.css';
+    $css_file_path = get_template_directory() . '/assets/css/global-new.css';
     $global_css_version = file_exists($css_file_path) ? filemtime($css_file_path) : '1.0.1';
     
     wp_enqueue_style(
         'global-style',
-        get_template_directory_uri() . '/assets/css/global.css',
+        get_template_directory_uri() . '/assets/css/global-new.css',
         array(), // No dependencies
         $global_css_version, // Version number - automatically updates when file changes
         'all'
