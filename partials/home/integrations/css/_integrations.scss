@@ -5,6 +5,8 @@
 
 #integrations{
     margin-bottom: $gap80;
+    padding: $gap80 0;
+    background: $white50;
 
     .heading {
         margin-bottom: 0;
@@ -16,14 +18,49 @@
     }
 
     .integrations-logos{
-        max-width: 100%;
+        max-width: 1200px;
+        margin: $gap60 auto;
+        display: flex;
+        flex-direction: column;
+        gap: $gap40;
         text-align: center;
 
-        img{
+        .integration-row{
+            display: flex;
+            justify-content: center;
+            gap: $gap40;
             width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
+        }
+
+        .integration-logo-link{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            height: 100px;
+            padding: $gap20;
+            background: $white;
+            border-radius: $corners4;
+            box-shadow: 0 4px 40px 4px rgba(0, 0, 0, 0.08);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            line-height: 0;
+            flex-shrink: 0;
+
+            img{
+                // Default size: 160px x 60px with contain
+                width: 160px;
+                height: 60px;
+                object-fit: contain;
+                display: block;
+                
+                // Inline styles will override these defaults
+            }
+
+            &:hover{
+                transform: translateY(-2px);
+                opacity: 0.8;
+            }
         }
     }
 
@@ -49,6 +86,23 @@
         }
     }
 
+    @include media($tablet){
+        .integrations-logos{
+            gap: $gap16;
+            padding: 0 $gap16;
+
+            .integration-row{
+                gap: $gap16;
+                flex-wrap: wrap;
+            }
+
+            .integration-logo-link{
+                width: calc(33.333% - #{$gap16 * 2 / 3});
+                max-width: 200px;
+            }
+        }
+    }
+
     @include media($mobile){
         padding: $gap60 0;
         margin-bottom: $gap60;
@@ -58,7 +112,29 @@
         }
 
         .integrations-logos{
+            gap: $gap12;
+            padding: 0 $gap16;
             margin: $gap40 auto;
+
+            .integration-row{
+                gap: $gap12;
+                flex-wrap: wrap;
+            }
+
+            .integration-logo-link{
+                width: calc(50% - #{$gap12 / 2});
+                height: auto;
+                min-height: 100px;
+                aspect-ratio: 2 / 1;
+                padding: $gap16;
+
+                img{
+                    width: 100%;
+                    max-width: 120px;
+                    height: auto;
+                    max-height: 50px;
+                }
+            }
         }
 
         .integrations-description{

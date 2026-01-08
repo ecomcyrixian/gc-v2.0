@@ -522,11 +522,11 @@ function generate_mega_featured_article( $post ) {
     $html .= '<div class="feature-card">';
     
     if ( $thumbnail ) {
-        $html .= '<div class="feature-image">' . $thumbnail . '</div>';
+        $html .= '<div class="feature-image"><a href="' . esc_url( $permalink ) . '">' . $thumbnail . '</a></div>';
     }
     
-    $html .= '<p class="eyebrow category-colored">' . esc_html( $category_name ) . '</p>';
-    $html .= '<h4 class="feature-title">' . esc_html( $title ) . '</h4>';
+    $html .= '<p class="eyebrow category-colored"><a href="' . esc_url( $permalink ) . '">' . esc_html( $category_name ) . '</a></p>';
+    $html .= '<h4 class="feature-title"><a href="' . esc_url( $permalink ) . '">' . esc_html( $title ) . '</a></h4>';
     
     // Date removed from header - only show read time if available
     if ( $read_time ) {

@@ -365,6 +365,8 @@
 /* media query */
 #integrations {
   margin-bottom: 80px;
+  padding: 80px 0;
+  background: #f9f9f9;
 }
 #integrations .heading {
   margin-bottom: 0;
@@ -374,14 +376,43 @@
   margin-bottom: 20px;
 }
 #integrations .integrations-logos {
-  max-width: 100%;
+  max-width: 1200px;
+  margin: 60px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
   text-align: center;
 }
-#integrations .integrations-logos img {
+#integrations .integrations-logos .integration-row {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
   width: 100%;
-  height: auto;
+}
+#integrations .integrations-logos .integration-logo-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 100px;
+  padding: 20px;
+  background: #FFFFFF;
+  border-radius: 4px;
+  box-shadow: 0 4px 40px 4px rgba(0, 0, 0, 0.08);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  line-height: 0;
+  flex-shrink: 0;
+}
+#integrations .integrations-logos .integration-logo-link img {
+  width: 160px;
+  height: 60px;
+  object-fit: contain;
   display: block;
-  margin: 0 auto;
+}
+#integrations .integrations-logos .integration-logo-link:hover {
+  transform: translateY(-2px);
+  opacity: 0.8;
 }
 #integrations .integrations-description {
   text-align: center;
@@ -401,6 +432,20 @@
 #integrations .integrations-cta .button {
   display: inline-block;
 }
+@media screen and (max-width: 1023px) {
+  #integrations .integrations-logos {
+    gap: 16px;
+    padding: 0 16px;
+  }
+  #integrations .integrations-logos .integration-row {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  #integrations .integrations-logos .integration-logo-link {
+    width: calc(33.333% - 10.6666666667px);
+    max-width: 200px;
+  }
+}
 @media screen and (max-width: 767px) {
   #integrations {
     padding: 60px 0;
@@ -410,7 +455,26 @@
     margin-bottom: 40px;
   }
   #integrations .integrations-logos {
+    gap: 12px;
+    padding: 0 16px;
     margin: 40px auto;
+  }
+  #integrations .integrations-logos .integration-row {
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  #integrations .integrations-logos .integration-logo-link {
+    width: calc(50% - 6px);
+    height: auto;
+    min-height: 100px;
+    aspect-ratio: 2/1;
+    padding: 16px;
+  }
+  #integrations .integrations-logos .integration-logo-link img {
+    width: 100%;
+    max-width: 120px;
+    height: auto;
+    max-height: 50px;
   }
   #integrations .integrations-description {
     margin: 30px auto 40px;
