@@ -6,15 +6,21 @@ add_theme_support( 'post-thumbnails' );
 
 /*
  * Specific script and styles per page
- * Automatic cache busting based on file modification time
+ * Automatic cache busting based on source SCSS and compiled CSS file modification time
+ * Uses whichever is newer (industry-standard hybrid approach)
  */
 function theme_styles_script() {
 	
     global $post;
     
 	if ( is_front_page() ) {
+    	$front_page_scss = get_template_directory() . '/assets/css/front-page-new.scss';
     	$front_page_css = get_template_directory() . '/assets/css/front-page-new.css';
-    	$front_page_version = file_exists($front_page_css) ? filemtime($front_page_css) : '1';
+    	
+    	$scss_time = file_exists($front_page_scss) ? filemtime($front_page_scss) : 0;
+    	$css_time = file_exists($front_page_css) ? filemtime($front_page_css) : 0;
+    	$front_page_version = max($scss_time, $css_time) ?: '1';
+    	
     	wp_enqueue_style( 'homepage-style', get_template_directory_uri() . '/assets/css/front-page-new.css', array(), $front_page_version, 'screen' );
         // If you uncomment this, it will automatically have cache busting
         // $front_page_js = get_template_directory() . '/assets/js/front-page.js';
@@ -23,13 +29,41 @@ function theme_styles_script() {
     	// wp_enqueue_script( 'homepage-script' );
 
     } elseif ( is_page() ) {
+        $core_page_scss = get_template_directory() . '/assets/css/core-page.scss';
+        $page_hero_scss = get_template_directory() . '/core-pages/page-hero/css/_page-hero.scss';
         $core_page_css = get_template_directory() . '/assets/css/core-page-new.css';
-        $core_page_version = file_exists($core_page_css) ? filemtime($core_page_css) : '1';
-        wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/core-page-new.css', array(), $core_page_version, 'screen' );
+        
+        $scss_times = array();
+        if (file_exists($core_page_scss)) {
+            $scss_times[] = filemtime($core_page_scss);
+        }
+        if (file_exists($page_hero_scss)) {
+            $scss_times[] = filemtime($page_hero_scss);
+        }
+        
+        $css_time = file_exists($core_page_css) ? filemtime($core_page_css) : 0;
+        $max_scss_time = !empty($scss_times) ? max($scss_times) : 0;
+        $version = max($max_scss_time, $css_time) ?: '1';
+        
+        wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/core-page-new.css', array(), $version, 'screen' );
     } elseif ( is_single() || is_search() || is_category() || is_author() ) {
+        $blog_page_scss = get_template_directory() . '/assets/css/blog-page-new.scss';
+        $search_scss = get_template_directory() . '/core-pages/blog/css/_search.scss';
         $blog_page_css = get_template_directory() . '/assets/css/blog-page-new.css';
-        $blog_page_version = file_exists($blog_page_css) ? filemtime($blog_page_css) : '1';
-        wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/blog-page-new.css', array(), $blog_page_version, 'screen' );
+        
+        $scss_times = array();
+        if (file_exists($blog_page_scss)) {
+            $scss_times[] = filemtime($blog_page_scss);
+        }
+        if (file_exists($search_scss)) {
+            $scss_times[] = filemtime($search_scss);
+        }
+        
+        $css_time = file_exists($blog_page_css) ? filemtime($blog_page_css) : 0;
+        $max_scss_time = !empty($scss_times) ? max($scss_times) : 0;
+        $version = max($max_scss_time, $css_time) ?: '1';
+        
+        wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/blog-page-new.css', array(), $version, 'screen' );
     }
 	
 }
@@ -61,18 +95,35 @@ function gcheck_scripts() {
 add_action('wp_enqueue_scripts', 'gcheck_scripts');
 
 /*
- * Enqueue global CSS with automatic cache busting based on file modification time
- * Version updates automatically when global-new.css file is modified
+ * Enqueue global CSS with automatic cache busting based on source SCSS and compiled CSS file modification time
+ * Uses whichever is newer (industry-standard hybrid approach)
  */
 function enqueue_global_styles() {
+    $scss_file_path = get_template_directory() . '/assets/css/global-new.scss';
+    $page_hero_scss = get_template_directory() . '/core-pages/page-hero/css/_page-hero.scss';
+    $search_scss = get_template_directory() . '/core-pages/blog/css/_search.scss';
     $css_file_path = get_template_directory() . '/assets/css/global-new.css';
-    $global_css_version = file_exists($css_file_path) ? filemtime($css_file_path) : '1.0.1';
+    
+    $scss_times = array();
+    if (file_exists($scss_file_path)) {
+        $scss_times[] = filemtime($scss_file_path);
+    }
+    if (file_exists($page_hero_scss)) {
+        $scss_times[] = filemtime($page_hero_scss);
+    }
+    if (file_exists($search_scss)) {
+        $scss_times[] = filemtime($search_scss);
+    }
+    
+    $css_time = file_exists($css_file_path) ? filemtime($css_file_path) : 0;
+    $max_scss_time = !empty($scss_times) ? max($scss_times) : 0;
+    $version = max($max_scss_time, $css_time) ?: '1.0.1';
     
     wp_enqueue_style(
         'global-style',
         get_template_directory_uri() . '/assets/css/global-new.css',
         array(), // No dependencies
-        $global_css_version, // Version number - automatically updates when file changes
+        $version, // Version number - automatically updates when source SCSS or compiled CSS changes
         'all'
     );
 }
