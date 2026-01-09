@@ -383,6 +383,9 @@
   gap: 40px;
   text-align: center;
 }
+#integrations .integrations-logos .integrations-logos-mobile {
+  display: none;
+}
 #integrations .integrations-logos .integration-row {
   display: flex;
   justify-content: center;
@@ -460,8 +463,13 @@
     margin: 40px auto;
   }
   #integrations .integrations-logos .integration-row {
-    gap: 12px;
+    display: none;
+  }
+  #integrations .integrations-logos .integrations-logos-mobile {
+    display: flex;
     flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
   }
   #integrations .integrations-logos .integration-logo-link {
     width: calc(50% - 6px);

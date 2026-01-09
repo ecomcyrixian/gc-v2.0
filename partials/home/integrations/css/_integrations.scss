@@ -25,6 +25,10 @@
         gap: $gap40;
         text-align: center;
 
+        .integrations-logos-mobile{
+            display: none;
+        }
+
         .integration-row{
             display: flex;
             justify-content: center;
@@ -117,8 +121,14 @@
             margin: $gap40 auto;
 
             .integration-row{
-                gap: $gap12;
+                display: none;
+            }
+
+            .integrations-logos-mobile{
+                display: flex;
                 flex-wrap: wrap;
+                gap: $gap12;
+                justify-content: center;
             }
 
             .integration-logo-link{
