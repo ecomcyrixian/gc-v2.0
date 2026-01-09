@@ -573,13 +573,18 @@ body.search h4 span {
 .search-form svg {
   top: 0;
   z-index: 1;
-  left: 10px;
+  left: 30px;
   bottom: 0;
   right: auto;
   width: 24px;
   height: 24px;
   margin: auto;
   position: absolute;
+}
+@media screen and (min-width: 1024px) {
+  .search-form svg {
+    left: 10px;
+  }
 }
 .search-form input[type=text],
 .search-form input[type=search] {
