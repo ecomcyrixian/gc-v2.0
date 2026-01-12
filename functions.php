@@ -101,15 +101,20 @@ add_action('wp_enqueue_scripts', 'gcheck_scripts');
 function enqueue_global_styles() {
     $scss_file_path = get_template_directory() . '/assets/css/global-new.scss';
     $page_hero_scss = get_template_directory() . '/core-pages/page-hero/css/_page-hero.scss';
+    $cards_scss = get_template_directory() . '/core-pages/cards/css/_cards.scss';
     $search_scss = get_template_directory() . '/core-pages/blog/css/_search.scss';
     $css_file_path = get_template_directory() . '/assets/css/global-new.css';
     
     $scss_times = array();
+    
     if (file_exists($scss_file_path)) {
         $scss_times[] = filemtime($scss_file_path);
     }
     if (file_exists($page_hero_scss)) {
         $scss_times[] = filemtime($page_hero_scss);
+    }
+    if (file_exists($cards_scss)) {
+        $scss_times[] = filemtime($cards_scss);
     }
     if (file_exists($search_scss)) {
         $scss_times[] = filemtime($search_scss);
@@ -117,7 +122,15 @@ function enqueue_global_styles() {
     
     $css_time = file_exists($css_file_path) ? filemtime($css_file_path) : 0;
     $max_scss_time = !empty($scss_times) ? max($scss_times) : 0;
-    $version = max($max_scss_time, $css_time) ?: '1.0.1';
+    
+    // Use content hash of the CSS file for reliable cache busting
+    // This ensures the version changes whenever the CSS file content actually changes
+    // Even if server-side caching affects file modification times
+    $css_hash = file_exists($css_file_path) ? md5_file($css_file_path) : '';
+    $hash_suffix = $css_hash ? substr($css_hash, 0, 8) : '';
+    
+    // Combine modification time with content hash for maximum reliability
+    $version = max($max_scss_time, $css_time) . ($hash_suffix ? '-' . $hash_suffix : '');
     
     wp_enqueue_style(
         'global-style',
