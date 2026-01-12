@@ -2770,114 +2770,101 @@ body.search h4 span {
     padding: 40px 0;
   }
 }
-.page-hero .ats-integration .ats-sections {
-  display: flex;
-  flex-direction: column;
+.page-hero .ats-integration h1 {
+  text-align: center;
+  font-size: 2.5em;
+  font-weight: 600;
+  margin: 0 0 40px 0;
+}
+@media screen and (max-width: 767px) {
+  .page-hero .ats-integration h1 {
+    font-size: 1.75em;
+  }
 }
 .page-hero .ats-integration .ats-section {
+  background: #FFFFFF;
+  border: 1px solid #e5e7eb;
   border-radius: 8px;
-  padding: 40px 40px 0 40px;
-}
-@media screen and (max-width: 767px) {
-  .page-hero .ats-integration .ats-section {
-    padding: 24px 24px 0 24px;
-  }
-}
-.page-hero .ats-integration .ats-section:last-child {
-  padding-bottom: 40px;
-}
-@media screen and (max-width: 767px) {
-  .page-hero .ats-integration .ats-section:last-child {
-    padding-bottom: 24px;
-  }
+  margin-bottom: 32px;
+  overflow: hidden;
 }
 .page-hero .ats-integration .ats-section .section-title {
-  font-size: 24px;
+  padding: 16px 24px;
+  font-size: 1.25em;
   font-weight: 600;
-  color: #1A1C1E;
-  text-align: center;
-  margin-bottom: 40px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  margin: 0;
 }
-@media screen and (max-width: 767px) {
-  .page-hero .ats-integration .ats-section .section-title {
-    font-size: 1.125em;
-    margin-bottom: 30px;
-  }
-}
-.page-hero .ats-integration .ats-section .ats-cards {
+.page-hero .ats-integration .ats-section .ats-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
 }
-@media screen and (max-width: 1311px) {
-  .page-hero .ats-integration .ats-section .ats-cards {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media screen and (max-width: 767px) {
-  .page-hero .ats-integration .ats-section .ats-cards {
+@media screen and (max-width: 1024px) {
+  .page-hero .ats-integration .ats-section .ats-row {
     grid-template-columns: 1fr;
-    gap: 20px;
   }
 }
-.page-hero .ats-integration .ats-section .ats-card {
-  background: #FFFFFF;
-  border-radius: 8px;
+.page-hero .ats-integration .ats-section .ats-cell {
   padding: 24px;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 }
-@media screen and (max-width: 767px) {
-  .page-hero .ats-integration .ats-section .ats-card {
-    padding: 20px;
+@media screen and (max-width: 1024px) {
+  .page-hero .ats-integration .ats-section .ats-cell {
+    border-bottom: 1px solid #e5e7eb;
+  }
+  .page-hero .ats-integration .ats-section .ats-cell:last-child {
+    border-bottom: none;
   }
 }
-.page-hero .ats-integration .ats-section .ats-card .card-header {
+.page-hero .ats-integration .ats-section .ats-cell .card-header {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  margin-bottom: 20px;
   gap: 16px;
+  margin-bottom: 16px;
 }
-.page-hero .ats-integration .ats-section .ats-card h3 {
-  font-size: 1.125em;
+.page-hero .ats-integration .ats-section .ats-cell .card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: #F2F3FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.page-hero .ats-integration .ats-section .ats-cell .card-icon img {
+  width: auto;
+  height: auto;
+}
+.page-hero .ats-integration .ats-section .ats-cell h3 {
+  font-size: 18px;
   font-weight: 600;
-  color: #1A1C1E;
   margin: 0;
-  line-height: 1.4;
-  min-width: 0;
+  color: #1A1C1E;
 }
-.page-hero .ats-integration .ats-section .ats-card ul {
-  width: 100%;
+.page-hero .ats-integration .ats-section .ats-cell ul {
   margin: 0;
   padding: 0;
   list-style: none;
-  display: flex;
-  flex-direction: column;
 }
-.page-hero .ats-integration .ats-section .ats-card ul li {
-  font-size: 14px;
+.page-hero .ats-integration .ats-section .ats-cell li {
+  font-size: 16px;
   color: #777E8C;
-  padding: 0;
-  padding-left: 0;
+  padding-left: 16px;
   position: relative;
-  padding-left: 20px;
   line-height: 1.5;
-  text-align: left;
 }
-.page-hero .ats-integration .ats-section .ats-card ul li::before {
+.page-hero .ats-integration .ats-section .ats-cell li::before {
   content: "";
   position: absolute;
   left: 0;
   top: 8px;
   width: 6px;
   height: 6px;
-  background: #777E8C;
   border-radius: 50%;
-  display: block;
+  background: #777E8C;
 }
 .page-hero .process-flow {
   max-width: 1320px;

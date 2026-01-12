@@ -278,115 +278,107 @@
       padding: $gap40 0;
     }
 
-    .ats-sections {
-      display: flex;
-      flex-direction: column;
+    h1 {
+      text-align: center;
+      font-size: $fsize40;
+      font-weight: $fSemiBold;
+      margin: 0 0 $gap40 0;
+
+      @include media($mobile) {
+        font-size: $fsize28;
+      }
     }
 
     .ats-section {
+      background: $white;
+      border: 1px solid #e5e7eb;
       border-radius: $corners8;
-      padding: $gap40 $gap40 0 $gap40;
-
-      @include media($mobile) {
-        padding: $gap24 $gap24 0 $gap24;
-      }
-
-      &:last-child {
-        padding-bottom: $gap40;
-
-        @include media($mobile) {
-          padding-bottom: $gap24;
-        }
-      }
+      margin-bottom: 32px;
+      overflow: hidden;
 
       .section-title {
-        font-size: $fsize24;
+        padding: $gap16 $gap24;
+        font-size: $fsize20;
         font-weight: $fSemiBold;
-        color: $gray300;
-        text-align: center;
-        margin-bottom: $gap40;
+        letter-spacing: 0.12em;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
-
-        @include media($mobile) {
-          font-size: $fsize18;
-          margin-bottom: $gap30;
-        }
+        background: #f9fafb;
+        border-bottom: 1px solid #e5e7eb;
+        margin: 0;
       }
 
-      .ats-cards {
+      .ats-row {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: $gap24;
 
-        @include media(1311px) {
-          grid-template-columns: repeat(2, 1fr);
-        }
-
-        @include media($mobile) {
+        @include media(1024px) {
           grid-template-columns: 1fr;
-          gap: $gap20;
         }
       }
 
-      .ats-card {
-        background: $white;
-        border-radius: $corners8;
+      .ats-cell {
         padding: $gap24;
-        display: flex;
-        flex-direction: column;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 
-        @include media($mobile) {
-          padding: $gap20;
+        @include media(1024px) {
+          border-bottom: 1px solid #e5e7eb;
+
+          &:last-child {
+            border-bottom: none;
+          }
         }
 
         .card-header {
           display: flex;
-          flex-direction: row;
           align-items: center;
-          margin-bottom: $gap20;
           gap: $gap16;
+          margin-bottom: $gap16;
+        }
+
+        .card-icon {
+          width: 44px;
+          height: 44px;
+          border-radius: $corners8;
+          background: $blue50;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+
+          img {
+            width: auto;
+            height: auto;
+          }
         }
 
         h3 {
-          font-size: $fsize18;
+          font-size: 18px;
           font-weight: $fSemiBold;
-          color: $gray300;
           margin: 0;
-          line-height: 1.4;
-          min-width: 0;
+          color: $gray300;
         }
 
         ul {
-          width: 100%;
           margin: 0;
           padding: 0;
           list-style: none;
-          display: flex;
-          flex-direction: column;
+        }
 
-          li {
-            font-size: $fsize14;
-            color: $gray100;
-            padding: 0;
-            padding-left: 0;
-            position: relative;
-            padding-left: $gap20;
-            line-height: 1.5;
-            text-align: left;
+        li {
+          font-size: 16px;
+          color: $gray100;
+          padding-left: $gap16;
+          position: relative;
+          line-height: 1.5;
 
-            &::before {
-              content: "";
-              position: absolute;
-              left: 0;
-              top: 8px;
-              width: 6px;
-              height: 6px;
-              background: $gray100;
-              border-radius: 50%;
-              display: block;
-            }
+          &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: $gray100;
           }
         }
       }
