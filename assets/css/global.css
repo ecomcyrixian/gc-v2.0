@@ -2848,6 +2848,9 @@ body.search h4 span {
     font-size: 1.75em;
   }
 }
+.page-hero .ats-integration h2 {
+  padding-bottom: 60px;
+}
 .page-hero .ats-integration .ats-section {
   background: #FFFFFF;
   border: 1px solid #e5e7eb;
