@@ -2088,6 +2088,73 @@ body.search h4 span {
     display: none;
   }
 }
+.cards h4:has(.pillar-title) {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.cards h4:has(.pillar-title) > span:first-child {
+  flex: none;
+  width: 100%;
+}
+.cards .pillar-title {
+  color: #1A1C1E;
+  font-size: 22px;
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+.cards {
+  /* =========================
+     PILLAR LIST (NEW)
+     ========================= */
+}
+.cards .pillar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 16px;
+}
+.cards .pillar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+.cards .pillar-item p {
+  font-size: 16px;
+}
+.cards .pillar-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.cards {
+  /* Icon color variants */
+}
+.cards .icon-green {
+  background: #e6f6ef;
+  color: #059669;
+}
+.cards .icon-blue {
+  background: #e8f1fd;
+  color: #2563eb;
+}
+.cards .icon-teal {
+  background: #e6f7f5;
+  color: #0d9488;
+}
+.cards {
+  /* ========================= */
+}
 .cards p {
   font-size: 14px;
 }
