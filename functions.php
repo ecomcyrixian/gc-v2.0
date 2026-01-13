@@ -319,7 +319,7 @@ class Desktop_Mega_Walker extends Walker_Nav_Menu_With_Description {
                     'Verifications' => 'https://gcheck.com/verifications',
                     'Drug & Health' => 'https://gcheck.com/drug-health',
                     'Continuous Monitoring' => 'https://gcheck.com/risk-monitoring',
-                    'Compliance' => 'https://gcheck.com/compliance',
+                    'Compliance' => 'https://gcheck.com/compliance-automation',
                 );
                 $title_url = isset( $title_url_map[ $args->mega_panel_title ] ) ? $title_url_map[ $args->mega_panel_title ] : '#';
                 $output .= "{$indent}<a href=\"" . esc_url( $title_url ) . "\" class=\"mega-title\">" . esc_html( $args->mega_panel_title ) . "</a>{$n}";
@@ -605,6 +605,32 @@ function generate_mega_featured_article( $post ) {
     
     return $html;
 }
+
+/**
+ * Force Background Check CPT pages to return Page Not Found
+ * This removes them from Google search on recrawl
+ */
+
+add_action('init', function () {
+    add_rewrite_rule(
+        '^blog/background_check/.*',
+        'index.php?post_type=background_check',
+        'top'
+    );
+});
+
+add_action('template_redirect', function () {
+
+    if (is_singular('background_check')) {
+        global $wp_query;
+        $wp_query->set_404();
+        status_header(410); // change to 410 if you want faster removal
+        nocache_headers();
+        exit;
+    }
+
+});
+
 
 /*
  * Generate whitepaper HTML for mega menu

@@ -79,7 +79,7 @@
                 
                 <!-- Compliance Automation -->
                 <div class="footer-links">
-                    <h5><a href="https://gcheck.com/compliance">Compliance Automation</a></h5>
+                    <h5><a href="https://gcheck.com/compliance-automation">Compliance Automation</a></h5>
                     <?php 
                         wp_nav_menu( array(
                             'menu' => 'GCv2.0 Footer : Compliance Automation',
@@ -149,7 +149,7 @@
                     <div class="footer-address">
                         <img src="<?php echo get_template_directory_uri() . '/assets/images/address.svg' ?>" alt="Address" width="48" height="48">
                         <div>
-                            <p>8335 W Sunset Blvd Ste 240</p>
+                            <p>8335 W Sunset Blvd Suite 240</p>
                             <p>Los Angeles, CA 90069</p>
                         </div>
                     </div>
@@ -178,11 +178,11 @@
                     </span>
                     <span>
                         <a href="https://www.bbb.org/us/ca/los-angeles/profile/employment-background-check/gcheck-1216-1000042700" target="_blank">
-                            <img src="<?php echo get_template_directory_uri() . '/assets/images/bbb-logo.png' ?>" alt="BBB Accredited Business">
+                            <img src="<?php echo get_template_directory_uri() . '/assets/images/bbb-logo copy.png' ?>" alt="BBB Accredited Business">
                         </a>
                     </span>
                     <span>
-                        <img src="<?php echo get_template_directory_uri() . '/assets/images/footer-logo.png' ?>" alt="SHRM, ASA Accreditations">
+                        <img src="<?php echo get_template_directory_uri() . '/assets/images/footer-logo copy.png' ?>" alt="SHRM, ASA Accreditations">
                     </span>
                 </div>
             </div>

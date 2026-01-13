@@ -50,7 +50,7 @@ header{
     
 
     &#home{
-        height: 1200px;
+        height: 1160px;
         background: url(../images/home-header-bg.jpg) no-repeat top center $blue500;
         background-size: cover;
         .gCheck-logo{
@@ -93,9 +93,9 @@ header{
             margin-bottom: $gap60;
         }
 
-        .screenshot{
-            margin-top: $gap100;
-        }
+        // .screenshot{
+        //     margin-top: $gap100;
+        // }
 
         &>.container>div{
             color: $white;
@@ -139,6 +139,7 @@ header{
             p{
                 font-size: $fsize20;
                 margin-bottom: $gap40;
+                color: $gray75;
                 @include media($mobile){
                     font-size: $base-fsize;
                 }

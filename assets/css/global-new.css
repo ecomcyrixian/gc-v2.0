@@ -293,7 +293,7 @@ header#typical nav .hamburger-desktop .desktop-trigger {
   color: #000000;
 }
 header#home {
-  height: 1200px;
+  height: 1160px;
   background: url(../images/home-header-bg.jpg) no-repeat top center #30319A;
   background-size: cover;
 }
@@ -331,9 +331,6 @@ header#home nav .icon-menu {
   header#home {
     margin-bottom: 60px;
   }
-}
-header#home .screenshot {
-  margin-top: 100px;
 }
 header#home > .container > div {
   color: #FFFFFF;
@@ -375,6 +372,7 @@ header#home > .container > div h1 > i {
 header#home > .container > div p {
   font-size: 1.25em;
   margin-bottom: 40px;
+  color: #CDD6E0;
 }
 @media screen and (max-width: 767px) {
   header#home > .container > div p {
