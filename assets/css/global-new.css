@@ -503,7 +503,7 @@ header#home .screenshot > img {
 }
 #header-cont.scroll, #header-cont.active {
   top: 0;
-  z-index: 99;
+  z-index: 100;
   background: #FFFFFF;
   border-bottom: 1px solid #CDD6E0;
 }

@@ -1,4 +1,16 @@
 <?php
+// Route to V2 layout if ACF field is enabled
+if ( is_single() && function_exists( 'get_field' ) ) {
+    $use_blog_v2 = get_field( 'use_blog_v2' );
+    if ( $use_blog_v2 ) {
+        $v2_template = locate_template( 'single-post-v2.php' );
+        if ( $v2_template ) {
+            include( $v2_template );
+            return;
+        }
+    }
+}
+
 get_header();
 global $wp_query;
 ?>

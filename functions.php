@@ -91,6 +91,33 @@ function gcheck_scripts() {
         $global_js_version, // Version number - automatically updates when file changes
         false // Load in header (false) to match current head.php placement
     );
+
+    // Enqueue blog V2 scripts for single posts
+    if ( is_single() ) {
+        // Progress bar script
+        $progress_js_path = get_template_directory() . '/assets/js/blog-v2-progress.js';
+        $progress_js_version = file_exists($progress_js_path) ? filemtime($progress_js_path) : '1.0.0';
+        
+        wp_enqueue_script(
+            'blog-v2-progress', // Unique handle
+            get_template_directory_uri() . '/assets/js/blog-v2-progress.js', // Path to script
+            array('jquery'), // Dependencies
+            $progress_js_version, // Version with cache busting
+            true // Load in footer
+        );
+
+        // TOC script
+        $toc_js_path = get_template_directory() . '/assets/js/blog-v2-toc.js';
+        $toc_js_version = file_exists($toc_js_path) ? filemtime($toc_js_path) : '1.0.0';
+        
+        wp_enqueue_script(
+            'blog-v2-toc', // Unique handle
+            get_template_directory_uri() . '/assets/js/blog-v2-toc.js', // Path to script
+            array('jquery'), // Dependencies
+            $toc_js_version, // Version with cache busting
+            true // Load in footer
+        );
+    }
 }
 add_action('wp_enqueue_scripts', 'gcheck_scripts');
 
