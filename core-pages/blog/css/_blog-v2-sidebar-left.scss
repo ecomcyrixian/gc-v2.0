@@ -15,7 +15,7 @@
     width: 288px;
     height: fit-content;
     max-height: calc(100vh - 160px);
-    overflow-y: auto;
+    overflow: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
 
@@ -34,6 +34,16 @@
         padding: $gap16;
         height: auto;
     }
+}
+
+.blog-v2-sidebar__container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.blog-v2-sidebar__toc-section {
+    // Container for TOC content
 }
 
 
@@ -103,4 +113,9 @@
     &.is-active {
         font-weight: 600;
     }
+}
+
+.blog-v2-sidebar__divider {
+    border-top: 1px solid #363C3F;
+    padding-bottom: $gap16;
 }

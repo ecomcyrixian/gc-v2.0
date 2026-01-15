@@ -1,0 +1,541 @@
+@import '../../../assets/css/_tools/variable';
+@import '../../../assets/css/_tools/mixins';
+
+/**
+ * Blog V2 Content Styles
+ * Typography, spacing, and content elements for Gutenberg blog content
+ * Scoped to .blog-v2-content only
+ */
+
+.blog-v2-content {
+    font-family: $default-font;
+    font-size: $base-fsize;
+    line-height: 1.7;
+    color: $gray300;
+    word-wrap: break-word;
+
+    // Reset any parent overflow issues
+    overflow: visible;
+
+    @include media($mobile) {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+    // ====================
+    // HEADINGS
+    // ====================
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: $default-font;
+        font-weight: $fSemiBold;
+        line-height: 1.3;
+        color: $gray300;
+        margin: 2.5em 0 0.75em 0;
+        scroll-margin-top: 140px; // Account for sticky header
+        
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+
+    h1 {
+        font-size: $fsize48;
+        font-weight: $fBold;
+        
+        @include media($tablet) {
+            font-size: $fsize40;
+        }
+        
+        @include media($mobile) {
+            font-size: $fsize32;
+        }
+    }
+
+    h2 {
+        font-size: $fsize40;
+        
+        @include media($tablet) {
+            font-size: $fsize32;
+        }
+        
+        @include media($mobile) {
+            font-size: $fsize28;
+        }
+    }
+
+    h3 {
+        font-size: $fsize32;
+        
+        @include media($tablet) {
+            font-size: $fsize28;
+        }
+        
+        @include media($mobile) {
+            font-size: $fsize24;
+        }
+    }
+
+    h4 {
+        font-size: $fsize24;
+        
+        @include media($mobile) {
+            font-size: $fsize20;
+        }
+    }
+
+    h5 {
+        font-size: $fsize20;
+        
+        @include media($mobile) {
+            font-size: $fsize18;
+        }
+    }
+
+    h6 {
+        font-size: $fsize18;
+        font-weight: $fMedium;
+        
+        @include media($mobile) {
+            font-size: $base-fsize;
+        }
+    }
+
+    // ====================
+    // PARAGRAPHS
+    // ====================
+
+    p {
+        margin: 0 0 1.5em 0;
+        line-height: 1.7;
+        
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        @include media($mobile) {
+            margin-bottom: 1.25em;
+        }
+    }
+
+    // ====================
+    // LISTS
+    // ====================
+
+    ul, ol {
+        margin: 0 0 1.5em 0;
+        padding-left: $gap40;
+        
+        @include media($mobile) {
+            padding-left: $gap30;
+            margin-bottom: 1.25em;
+        }
+    }
+
+    ul {
+        list-style-type: disc;
+
+        ul {
+            list-style-type: circle;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+        }
+    }
+
+    ol {
+        list-style-type: decimal;
+
+        ol {
+            list-style-type: lower-alpha;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+        }
+    }
+
+    li {
+        margin-bottom: 0.5em;
+        line-height: 1.7;
+        padding-left: $gap8;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        // Nested lists
+        ul, ol {
+            margin-top: 0.5em;
+            margin-bottom: 0;
+        }
+    }
+
+    // ====================
+    // LINKS
+    // ====================
+
+    a {
+        color: $blue300;
+        text-decoration: underline;
+        text-decoration-color: rgba($blue300, 0.3);
+        text-underline-offset: 2px;
+        transition: all 0.2s ease;
+
+        &:hover {
+            color: $blue200;
+            text-decoration-color: rgba($blue200, 0.6);
+        }
+
+        &:focus {
+            outline: 2px solid $blue300;
+            outline-offset: 2px;
+            border-radius: 2px;
+        }
+    }
+
+    // ====================
+    // IMAGES
+    // ====================
+
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        border-radius: $corners8;
+    }
+
+    figure {
+        margin: 2em 0;
+        
+        @include media($mobile) {
+            margin: 1.5em 0;
+        }
+
+        img {
+            width: 100%;
+        }
+
+        &.alignleft {
+            float: left;
+            margin: 0.5em $gap30 $gap20 0;
+            max-width: 50%;
+
+            @include media($mobile) {
+                float: none;
+                margin: 1.5em 0;
+                max-width: 100%;
+            }
+        }
+
+        &.alignright {
+            float: right;
+            margin: 0.5em 0 $gap20 $gap30;
+            max-width: 50%;
+
+            @include media($mobile) {
+                float: none;
+                margin: 1.5em 0;
+                max-width: 100%;
+            }
+        }
+
+        &.aligncenter {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        &.alignwide {
+            max-width: 100%;
+        }
+
+        &.alignfull {
+            max-width: 100%;
+            width: 100%;
+        }
+    }
+
+    figcaption {
+        margin-top: $gap12;
+        font-size: $fsize14;
+        color: $gray100;
+        text-align: center;
+        font-style: italic;
+        line-height: 1.5;
+
+        @include media($mobile) {
+            font-size: 13px;
+        }
+    }
+
+    // ====================
+    // BLOCKQUOTES
+    // ====================
+
+    blockquote {
+        margin: 2em 0;
+        padding: $gap24 $gap30 $gap24 $gap40;
+        background-color: $blue10;
+        border-left: 4px solid $blue300;
+        border-radius: $corners8;
+        font-style: italic;
+
+        @include media($mobile) {
+            padding: $gap20 $gap20 $gap20 $gap24;
+            margin: 1.5em 0;
+        }
+
+        p {
+            margin-bottom: 1em;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        cite {
+            display: block;
+            margin-top: $gap16;
+            font-size: $fsize14;
+            font-style: normal;
+            color: $gray100;
+            font-weight: $fMedium;
+
+            &:before {
+                content: "— ";
+            }
+        }
+    }
+
+    // ====================
+    // TABLES
+    // ====================
+
+    table {
+        width: 100%;
+        margin: 2em 0;
+        border-collapse: collapse;
+        border: 1px solid $gray75;
+        font-size: $fsize14;
+
+        @include media($mobile) {
+            font-size: 13px;
+            margin: 1.5em 0;
+            display: block;
+            overflow-x: auto;
+        }
+    }
+
+    thead {
+        background-color: $gray50;
+        border-bottom: 2px solid $gray75;
+    }
+
+    th {
+        padding: $gap16 $gap20;
+        text-align: left;
+        font-weight: $fSemiBold;
+        color: $gray300;
+
+        @include media($mobile) {
+            padding: $gap12 $gap16;
+        }
+    }
+
+    td {
+        padding: $gap16 $gap20;
+        border-bottom: 1px solid $gray75;
+
+        @include media($mobile) {
+            padding: $gap12 $gap16;
+        }
+    }
+
+    tbody tr {
+        &:hover {
+            background-color: $white50;
+        }
+
+        &:last-child td {
+            border-bottom: none;
+        }
+    }
+
+    // ====================
+    // CODE BLOCKS
+    // ====================
+
+    code {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 0.9em;
+        background-color: $gray50;
+        padding: 2px 6px;
+        border-radius: 3px;
+        color: $gray300;
+    }
+
+    pre {
+        margin: 2em 0;
+        padding: $gap20 $gap24;
+        background-color: $gray300;
+        border-radius: $corners8;
+        overflow-x: auto;
+        line-height: 1.6;
+
+        @include media($mobile) {
+            padding: $gap16 $gap20;
+            margin: 1.5em 0;
+        }
+
+        code {
+            background-color: transparent;
+            padding: 0;
+            color: $white;
+            font-size: $fsize14;
+        }
+    }
+
+    // ====================
+    // HORIZONTAL RULE
+    // ====================
+
+    hr {
+        margin: 3em 0;
+        border: none;
+        border-top: 2px solid $gray75;
+
+        @include media($mobile) {
+            margin: 2em 0;
+        }
+    }
+
+    // ====================
+    // STRONG & EMPHASIS
+    // ====================
+
+    strong, b {
+        font-weight: $fSemiBold;
+    }
+
+    em, i {
+        font-style: italic;
+    }
+
+    // ====================
+    // BUTTONS (Gutenberg)
+    // ====================
+
+    .wp-block-button {
+        margin: 1.5em 0;
+
+        .wp-block-button__link {
+            display: inline-block;
+            padding: $gap12 $gap30;
+            background-color: $blue300;
+            color: $white;
+            text-decoration: none;
+            border-radius: $corners8;
+            font-weight: $fMedium;
+            transition: all 0.2s ease;
+
+            &:hover {
+                background-color: $blue200;
+                color: $white;
+                text-decoration: none;
+            }
+        }
+    }
+
+    // ====================
+    // GUTENBERG BLOCKS
+    // ====================
+
+    // Columns
+    .wp-block-columns {
+        display: flex;
+        gap: $gap40;
+        margin: 2em 0;
+
+        @include media($tablet) {
+            flex-direction: column;
+            gap: $gap20;
+        }
+
+        @include media($mobile) {
+            gap: $gap16;
+        }
+    }
+
+    .wp-block-column {
+        flex: 1;
+        min-width: 0;
+    }
+
+    // Group
+    .wp-block-group {
+        margin: 2em 0;
+    }
+
+    // Cover
+    .wp-block-cover {
+        margin: 2em 0;
+        border-radius: $corners8;
+        overflow: hidden;
+    }
+
+    // Separator
+    .wp-block-separator {
+        margin: 3em auto;
+        border: none;
+        border-top: 2px solid $gray75;
+
+        &.is-style-wide {
+            width: 100%;
+        }
+
+        &.is-style-dots {
+            border: none;
+            text-align: center;
+            
+            &:before {
+                content: "···";
+                font-size: $fsize24;
+                letter-spacing: 1em;
+                padding-left: 1em;
+                color: $gray100;
+            }
+        }
+    }
+
+    // Spacer
+    .wp-block-spacer {
+        clear: both;
+    }
+
+    // ====================
+    // VIDEO & EMBEDS
+    // ====================
+
+    .wp-block-embed,
+    .wp-block-video {
+        margin: 2em 0;
+
+        @include media($mobile) {
+            margin: 1.5em 0;
+        }
+
+        iframe,
+        video {
+            max-width: 100%;
+            border-radius: $corners8;
+        }
+    }
+
+    // ====================
+    // CLEARFIX
+    // ====================
+
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}

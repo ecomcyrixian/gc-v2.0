@@ -58,4 +58,16 @@
             <a href="#" class="blog-v2-sidebar__more-link">more about Charm</a>
         </div>
     </div>
+
+    <?php 
+    // Loop through flexible content to find cards with position="right"
+    if ( function_exists( 'have_rows' ) && have_rows( 'blog_v2_layout' ) ) :
+        while ( have_rows( 'blog_v2_layout' ) ) : the_row();
+            if ( get_row_layout() == 'card' ) :
+                set_query_var( 'sidebar_position', 'right' );
+                get_template_part( 'partials/blog-v2/card' );
+            endif;
+        endwhile;
+    endif;
+    ?>
 </aside>

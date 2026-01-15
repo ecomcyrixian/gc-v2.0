@@ -21,9 +21,9 @@
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
-    border-bottom: none; // Override global header border-bottom
+    z-index: 1; 
+    border-bottom: none; 
 
-    // Background image wrapper to cover full screen width
     &[data-bg-image]::before {
         content: '';
         position: absolute;
@@ -40,7 +40,6 @@
         pointer-events: none;
     }
 
-    // Single column layout when no image
     &.blog-v2-hero--no-image {
         grid-template-columns: 1fr;
     }
@@ -68,7 +67,6 @@
     flex-direction: column;
     gap: $gap20;
 
-    // Span full width when no image
     .blog-v2-hero--no-image & {
         grid-column: 1 / -1;
     }
@@ -196,6 +194,13 @@
         display: block;
     }
 
+    > p {
+        font-size: $fsize12;
+        color: $gray300;
+        display: block;
+        padding-bottom: 0;
+    }
+
     > div {
         display: flex;
         align-items: center;
@@ -240,7 +245,7 @@
     height: 60px;
     background-color: #363C3F;
     flex-shrink: 0;
-    margin-top: $gap24;
+    margin: $gap24 0;
 
     @include media($tablet) {
         height: 50px;

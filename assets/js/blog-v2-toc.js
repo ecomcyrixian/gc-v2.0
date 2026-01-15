@@ -1,6 +1,7 @@
 /**
  * Blog V2 Table of Contents Generator
- * Auto-generates TOC from h2 and h3 headings in .blog-v2-content
+ * Generates TOC from headings with .toc-item class in .blog-v2-content
+ * Supports H2, H3, H4, H5, H6 with mixed levels
  * Highlights active section on scroll
  */
 
@@ -26,7 +27,7 @@
         }
 
         function buildTOC() {
-            const headings = $content.find('h2');
+            const headings = $content.find('h2.toc-item, h3.toc-item, h4.toc-item, h5.toc-item, h6.toc-item');
             const tocItems = [];
 
             headings.each(function(index) {
@@ -48,10 +49,12 @@
                     $heading.attr('id', id);
                 }
 
+                const level = parseInt($heading.prop('tagName').substring(1));
+
                 tocItems.push({
                     id: id,
                     text: text,
-                    level: 2,
+                    level: level,
                     index: index + 1
                 });
             });
@@ -69,13 +72,13 @@
             
             tocItems.forEach(function(item) {
                 const $li = $('<li>', {
-                    class: 'blog-v2-toc__item blog-v2-toc__item--level-2'
+                    class: 'blog-v2-toc__item blog-v2-toc__item--level-' + item.level
                 });
 
                 const $link = $('<a>', {
                     href: '#' + item.id,
                     text: item.text,
-                    class: 'blog-v2-toc__link'
+                    class: 'blog-v2-toc__link blog-v2-toc__link--level-' + item.level
                 });
 
                 $link.on('click', function(e) {
@@ -106,7 +109,7 @@
 
             let currentActive = null;
             let currentActiveIndex = -1;
-            const headings = $content.find('h2');
+            const headings = $content.find('h2.toc-item, h3.toc-item, h4.toc-item, h5.toc-item, h6.toc-item');
             const allLinks = $tocList.find('.blog-v2-toc__link');
 
             if (headings.length === 0) {
@@ -158,52 +161,11 @@
         const tocItems = buildTOC();
         renderTOC(tocItems);
 
-        function lockSidebarPosition() {
-            const $sidebar = $('.blog-v2-sidebar--left');
-            const $layout = $('.blog-v2-layout');
-            
-            if (!$sidebar.length || !$layout.length) return;
-
-            const scrollTop = $(window).scrollTop();
-            const stickyTop = 130;
-            const isDesktop = window.matchMedia && window.matchMedia('(min-width: 1024px)').matches;
-
-            if (!isDesktop) {
-                $sidebar.removeClass('is-pinned');
-                $sidebar[0].style.removeProperty('--blog-v2-left');
-                $sidebar[0].style.removeProperty('--blog-v2-width');
-                $sidebar[0].style.removeProperty('position');
-                $sidebar[0].style.removeProperty('top');
-                $sidebar[0].style.removeProperty('left');
-                $sidebar[0].style.removeProperty('width');
-                return;
-            }
-
-            const layoutTop = $layout.offset().top;
-            const layoutBottom = layoutTop + $layout.outerHeight();
-            const sidebarHeight = $sidebar.outerHeight();
-            const stickyEndTrigger = layoutBottom - stickyTop - sidebarHeight;
-
-            if (scrollTop >= stickyEndTrigger) {
-                const layoutLeft = $layout.offset().left;
-                const sidebarWidth = $sidebar.outerWidth();
-
-                $sidebar.addClass('is-pinned');
-                $sidebar[0].style.setProperty('--blog-v2-left', layoutLeft + 'px');
-                $sidebar[0].style.setProperty('--blog-v2-width', sidebarWidth + 'px');
-            } else {
-                $sidebar.removeClass('is-pinned');
-                $sidebar[0].style.removeProperty('--blog-v2-left');
-                $sidebar[0].style.removeProperty('--blog-v2-width');
-            }
-        }
-
         let ticking = false;
         $(window).on('scroll', function() {
             if (!ticking) {
                 window.requestAnimationFrame(function() {
                     updateActiveTOC();
-                    lockSidebarPosition();
                     ticking = false;
                 });
                 ticking = true;
@@ -211,11 +173,7 @@
         });
 
         updateActiveTOC();
-        lockSidebarPosition();
 
-        $(window).on('resize', function() {
-            lockSidebarPosition();
-        });
     });
 
 })(jQuery);
