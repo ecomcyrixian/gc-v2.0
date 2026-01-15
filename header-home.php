@@ -53,7 +53,7 @@
     </div>
 
     <div class="container screenshot">
-        <img src="<?php echo get_template_directory_uri() . '/assets/images/header-img.webp' ?>" alt="gceck" loading="lazy">
+        <img src="<?php echo get_template_directory_uri() . '/assets/images/header-img2.png' ?>" alt="gceck" loading="lazy">
     </div>
     
 </header>

@@ -46,17 +46,84 @@ footer{
     }
 
     .gCheck-logo{
-        width: 110px;
+        width: 135px;
         display: block;
         .gcText{
             fill: $white;
         }
     }
 
-    .cols{
-        gap:$gap40;
+    // Navigation rows
+    .footer-top-row{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: $gap40;
+        margin-bottom: $gap40;
+
+        @include media($tablet){
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include media($mobile){
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .footer-bottom-row{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: $gap40;
+        margin-bottom: $gap40;
+        padding-bottom: $gap40;
+        border-bottom: 1px solid #CDD6E029;
+
+        @include media($tablet){
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include media($mobile){
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .footer-links{
+        font-size: $fsize14;
+        h5{
+            color: $gray100;
+            margin-bottom: $gap24;
+            font-size: $fsize14;
+            letter-spacing: 0.16em;
+            
+            a{
+                color: $gray100;
+                text-decoration: none;
+                transition: color 0.2s ease;
+                
+                &:hover{
+                    color: $cyan;
+                }
+            }
+        }
+        a{
+            display: block;
+            color: $white;
+            margin-bottom: $gap8;
+            text-decoration: none;
+            transition: color 0.2s ease;
+
+            &:hover{
+                color: $cyan;
+            }
+        }
+    }
+
+  
+
+    .footer-contact-row{
         display: flex;
-        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: $gap40;
 
         @include media($tablet){
             flex-wrap: wrap;
@@ -64,35 +131,18 @@ footer{
 
         @include media($mobile){
             flex-direction: column;
+            align-items: flex-start;
         }
+    }
 
-        &>div{
+    .footer-logo-social{
+        display: flex;
+        flex-direction: row;
+        gap: $gap20;
+        align-items: center;
 
-            @include media($tablet){
-                width: 28.9% !important;
-            }
-
-             @include media($mobile){
-                width: 100% !important;
-            }
-            
-            &:first-child{
-                width: 420px;
-
-                span:nth-child(3){
-                    display: block;
-                    margin-top: $gap40;                    
-                }
-            }
-
-            &:nth-child(2){
-                width: 260px;
-            }
-            
-            &:nth-child(3),
-            &:nth-child(4){
-                width: 160px;
-            }
+        @include media($mobile){
+            width: 100%;
         }
     }
 
@@ -100,20 +150,67 @@ footer{
         gap: $gap10;
         display: flex;
         flex-wrap: nowrap;
-        margin-top: $gap40;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+            padding-bottom: 0;
+        }
     }
 
-    .footer-links{
-        font-size: $fsize14;
-        h5{
-            color: $gray100;
-            margin-bottom: $gap24;     
+    .footer-contact-info{
+        display: flex;
+        align-items: center;
+        gap: $gap40;
+
+        @include media($tablet){
+            flex-direction: column;
+            align-items: flex-start;
+            gap: $gap24;
         }
-        a{
-            display: block;
+
+        @include media($mobile){
+            width: 100%;
+        }
+    }
+
+    .footer-address,
+    .footer-phone{
+        display: flex;
+        align-items: center;
+        gap: $gap16;
+        color: $white;
+
+        img{
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+        }
+
+        > div{
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        p{
+            margin: 0;
+            font-size: $fsize14;
+            line-height: 1.4;
             color: $white;
-            margin-bottom: $gap8;
-            text-decoration: none;
+        }
+    }
+
+    .footer-phone{
+        > div{
+            p{
+                &:first-child{
+                    font-weight: $fSemiBold;
+                    color: $gray100;
+                    font-size: $fsize14;
+                }
+            }
         }
     }
 
@@ -121,51 +218,63 @@ footer{
         margin: $gap40 auto 0 auto;
         padding-top: $gap40;
         font-size: $fsize14;
-        border-top: 1px solid #3D3F7A;
+        border-top: 1px solid #CDD6E029;
+    }
 
-        &>.cols{
+    .copyright-row{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: $gap40;
+
+        @include media($tablet){
+            flex-direction: column;
+            align-items: flex-start;
+            gap: $gap24;
+        }
+    }
+
+    .copyright-left{
+        display: flex;
+        gap: $gap20;
+        flex-wrap: wrap;
+
+        @include media($mobile){
+            flex-direction: column;
+            gap: $gap12;
+        }
+
+        a{
+            color: $cyan;
+            text-decoration: none;
+        }
+
+        span{
+            color: $white;
+        }
+    }
+
+    .copyright-badges{
+        display: flex;
+        gap: $gap24;
+        align-items: center;
+        flex-wrap: wrap;
+
+        @include media($mobile){
+            width: 100%;
+            justify-content: flex-start;
+        }
+
+        span{
             display: flex;
-            flex-wrap: nowrap;
             align-items: center;
-
-            @include media(900px){
-                flex-direction: column;
-            }
-
-            &>div{
-                flex: 1;
-                gap: $gap24;
-                display: flex;
-                
-                @include media(900px){
-                    width: 100% !important;
-                    justify-content: center !important;
-                }
-
-                @include media($mobile){
-                    justify-content: flex-start !important;
-                }
-                
-                &:last-child{
-                    justify-content: flex-end;
-                    text-align: right;
-                    
-                    gap:$gap20;
-                    display: flex;
-
-                    a{
-                        color: $cyan;
-                        text-decoration: none;
-                    }
-                }
-            }
         }
-        .psba{
-            width: 50px;
+
+        img{
+            height: auto;
+            display: block;
         }
-        .bbb{
-            width: 114px;
-        }
+
     }
 
 

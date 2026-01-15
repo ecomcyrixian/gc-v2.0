@@ -3,7 +3,7 @@
 
 #grid-cont{
     width: 100%;
-    margin-bottom: $gap100;
+    margin-bottom: $gap60;
     
     @include media($tablet){
         overflow-y: auto;
@@ -11,7 +11,7 @@
     @include media($mobile){
         overflow-y:inherit;
         margin: 0 auto;
-        margin-bottom: $gap80;
+        // margin-bottom: $gap80;
     }
 }
 
@@ -27,7 +27,7 @@
     }
 
     &.set1{
-        padding-top: $gap60;
+        padding-top: $gap120;
 
         grid-template-columns: repeat(5, 1fr);
         grid-template-rows: repeat(2, 1fr);
@@ -59,6 +59,10 @@
         }
         .mobile{
             display: none;
+        }
+
+        @include media($tablet){
+            padding-top: $gap80;
         }
 
         @include media(1350px){

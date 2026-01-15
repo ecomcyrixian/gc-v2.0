@@ -15,8 +15,7 @@
     <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet"> -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" onload="this.onload=null;this.rel='stylesheet';this.removeAttribute('as')" as="style" fetchpriority="high">
 
-    <script type="javascript" src="<?php echo get_template_directory_uri() . '/assets/js/global.js' ?>"></script>
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri() . '/assets/css/global.css' ?>">   
+    <!-- global.css and global.js are now loaded via wp_enqueue_style/wp_enqueue_script in functions.php with cache busting -->
 
     
 

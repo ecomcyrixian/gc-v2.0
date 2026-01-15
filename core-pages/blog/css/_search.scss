@@ -27,13 +27,17 @@ body.search{
       svg{
         top: 0;
         z-index: 1;
-        left: 10px;
+        left: 30px;
         bottom: 0;
         right: auto;
         width: 24px;
         height: 24px;
         margin: auto;
         position: absolute;
+
+        @media screen and (min-width: #{$tablet + 1px}) {
+          left: 10px;
+        }
       }
       
       input[type="text"],

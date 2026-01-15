@@ -2,5 +2,11 @@
 @import '../../../../assets/css/_tools/mixins';
 
 #key-features{
-    margin-bottom: $gap120;
+    margin-bottom: $gap80;
+}
+
+#key-features.cards {
+    .heading {
+      margin-bottom: 0;
+    }
 }
