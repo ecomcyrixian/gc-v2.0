@@ -1,0 +1,124 @@
+@import '../../../assets/css/_tools/variable';
+@import '../../../assets/css/_tools/mixins';
+
+/**
+ * Blog V2 Right Sidebar Styles
+ * Author and Reviewer card styling
+ * Scoped to blog-v2- classes only
+ * Matching Figma design: white cards, 8px radius, 20px padding, 16px gap
+ */
+
+.blog-v2-sidebar--right {
+    display: flex;
+    flex-direction: column;
+    gap: $gap30;
+
+    @include media($mobile) {
+        gap: $gap20;
+    }
+}
+
+.blog-v2-sidebar__author,
+.blog-v2-sidebar__reviewer {
+    display: flex;
+    flex-direction: column;
+    gap: $gap16;
+}
+
+.blog-v2-sidebar__title {
+    font-size: 10px;
+    font-weight: 600;
+    color: $gray100;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.blog-v2-sidebar__card {
+    display: flex;
+    flex-direction: column;
+    gap: $gap16;
+    padding: $gap20;
+    background: $white;
+    border-radius: 8px;
+    width: 100%;
+
+    @include media($mobile) {
+        padding: $gap16;
+        gap: $gap12;
+    }
+}
+
+.blog-v2-sidebar__header {
+    display: flex;
+    gap: $gap12;
+    align-items: flex-start;
+}
+
+.blog-v2-sidebar__avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    flex-shrink: 0;
+
+    @include media($mobile) {
+        width: 56px;
+        height: 56px;
+    }
+}
+
+.blog-v2-sidebar__info {
+    display: flex;
+    flex-direction: column;
+    gap: $gap4;
+    flex: 1;
+    min-width: 0;
+}
+
+.blog-v2-sidebar__name-wrapper {
+    display: flex;
+    align-items: center;
+    gap: $gap8;
+}
+
+.blog-v2-sidebar__name {
+    font-size: 16px;
+    font-weight: 600;
+    color: $black;
+    line-height: 1.4;
+    display: block;
+    margin: 0;
+}
+
+
+.blog-v2-sidebar__role {
+    font-size: $fsize14;
+    color: $gray100;
+    line-height: 1.4;
+    display: block;
+    margin: 0;
+}
+
+.blog-v2-sidebar__description {
+    font-size: $fsize14;
+    color: $black;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.blog-v2-sidebar__more-link {
+    font-size: $fsize14;
+    color: $blue300;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+    align-self: flex-start;
+
+    &:hover {
+        color: $blue200;
+        text-decoration: underline;
+    }
+}

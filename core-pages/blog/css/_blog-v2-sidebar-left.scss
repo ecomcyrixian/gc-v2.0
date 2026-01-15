@@ -1,0 +1,106 @@
+@import '../../../assets/css/_tools/variable';
+@import '../../../assets/css/_tools/mixins';
+
+/**
+ * Blog V2 Left Sidebar Styles
+ * Table of Contents styling
+ * Scoped to blog-v2- classes only
+ * Height depends on content (number of h2/h3 items) - no fixed height
+ */
+
+.blog-v2-sidebar--left {
+    background-color: #1A1C1E;
+    border-radius: 8px;
+    padding: $gap20;
+    width: 288px;
+    height: fit-content;
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    @include media($mobile) {
+        width: 100%;
+        padding: $gap16;
+        height: auto;
+    }
+
+    @include media($tablet) {
+        width: 100%;
+        padding: $gap16;
+        height: auto;
+    }
+}
+
+
+.blog-v2-sidebar__heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: $fsize18;
+    font-weight: 600;
+    color: $white;
+    margin: 0 0 $gap20 0;
+    line-height: 1.4;
+
+    @include media($mobile) {
+        font-size: 16px;
+        margin-bottom: $gap16;
+    }
+}
+
+
+.blog-v2-toc__list {
+    list-style: none;
+    margin: 0 !important;
+    padding: 0 !important;
+    padding-left: 0 !important;
+}
+
+
+.blog-v2-toc__item {
+    margin: 0;
+    padding: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: 0 !important;
+    position: static !important;
+
+    &:before {
+        display: none !important;
+    }
+}
+
+.blog-v2-toc__link {
+    display: block;
+    color: $white;
+    text-decoration: none;
+    font-size: $fsize14;
+    line-height: 1.5;
+    transition: border-color 0.2s ease;
+    padding: $gap16 $gap20 $gap16 $gap20;
+    border-left: 2px solid #363C3F;
+    margin: 0;
+
+    @include media($mobile) {
+        padding: $gap12 $gap16 0 $gap16;
+        font-size: 14px;
+    }
+
+    &:hover {
+        color: $white;
+    }
+
+    &.is-active,
+    &.is-visited {
+        color: $white;
+        border-left-color: $blue300;
+    }
+
+    &.is-active {
+        font-weight: 600;
+    }
+}

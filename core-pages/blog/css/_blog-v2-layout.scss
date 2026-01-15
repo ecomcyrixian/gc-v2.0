@@ -1,0 +1,87 @@
+@import '../../../assets/css/_tools/variable';
+@import '../../../assets/css/_tools/mixins';
+
+/**
+ * Blog V2 Layout Styles
+ * Grid-based 3-column layout with sticky sidebars
+ * Scoped to blog-v2- classes only
+ */
+
+@import 'blog-v2-sidebar-left';
+@import 'blog-v2-sidebar-right';
+
+.blog-v2-layout {
+    display: grid;
+    grid-template-columns: 288px 1fr 288px;
+    gap: $gap40;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: $gap100 0;
+    align-items: start;
+
+    @include media($tablet) {
+        grid-template-columns: 1fr;
+        gap: $gap20;
+        padding: $gap30 $gap16;
+    }
+
+    @include media($mobile) {
+        grid-template-columns: 1fr;
+        gap: $gap20;
+        padding: $gap20 $gap16;
+    }
+}
+
+.blog-v2-sidebar {
+    position: sticky;
+    top: 130px;
+    align-self: start;
+
+    @include media($tablet) {
+        position: relative;
+        top: 0;
+        max-height: none;
+    }
+
+    @include media($mobile) {
+        position: relative;
+        top: 0;
+        max-height: none;
+    }
+
+    &--left {
+        @include media($tablet) {
+            margin-bottom: $gap20;
+        }
+
+        @include media($mobile) {
+            margin-bottom: $gap20;
+        }
+    }
+
+    &--right {
+        @include media($tablet) {
+            margin-top: $gap20;
+        }
+
+        @include media($mobile) {
+            margin-top: $gap20;
+        }
+    }
+}
+
+.blog-v2-content {
+    min-width: 0;
+
+    @include media($mobile) {
+        width: 100%;
+        overflow-x: hidden;
+    }
+}
+
+.blog-v2-layout,
+.blog-v2-content,
+.site-main,
+article {
+    overflow: visible;
+}
