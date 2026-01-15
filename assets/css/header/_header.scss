@@ -112,27 +112,27 @@ header{
             h1{
                 display: block;
                 margin: 0 auto $gap16  auto;
-                font-size: $fsize56;
-                font-weight: $fRegular;
-
-                &>i{
-                    font-weight: $fBold;
-                    /*
-                    &:last-child{
-                        font-weight: $fBold;
-                        background-image: linear-gradient(to right, #3FC5FD, #D20DF5);
-                        -webkit-background-clip: text;
-                        background-clip: text;
-                        -webkit-text-fill-color: transparent;
-                        color: transparent; 
-                    }
-                    */
-
-                }
+                font-size: $fsize64;
+                font-weight: $fBold;
+                font-style: italic;
 
                 @include media($mobile){
                     font-size: $fsize40;
                     padding: 0 $gap8;
+                }
+            }
+
+            h5{
+                font-size: $fsize32;
+                font-weight: $fRegular;
+                margin-bottom: $gap16;
+
+                &>i{
+                    font-weight: $fBold;
+                    font-style: italic;
+                }
+                @include media($mobile){
+                    font-size: $fsize20;
                 }
             }
 

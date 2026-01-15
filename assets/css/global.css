@@ -347,26 +347,28 @@ header#home > .container > div {
 header#home > .container > div h1 {
   display: block;
   margin: 0 auto 16px auto;
-  font-size: 3.5em;
-  font-weight: 400;
-}
-header#home > .container > div h1 > i {
+  font-size: 4em;
   font-weight: 700;
-  /*
-  &:last-child{
-      font-weight: $fBold;
-      background-image: linear-gradient(to right, #3FC5FD, #D20DF5);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      color: transparent; 
-  }
-  */
+  font-style: italic;
 }
 @media screen and (max-width: 767px) {
   header#home > .container > div h1 {
     font-size: 2.5em;
     padding: 0 8px;
+  }
+}
+header#home > .container > div h5 {
+  font-size: 2em;
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+header#home > .container > div h5 > i {
+  font-weight: 700;
+  font-style: italic;
+}
+@media screen and (max-width: 767px) {
+  header#home > .container > div h5 {
+    font-size: 1.25em;
   }
 }
 header#home > .container > div p {
