@@ -13,6 +13,8 @@
     border-radius: 8px;
     padding: $gap20;
     width: 288px;
+    height: fit-content;
+    max-height: calc(100vh - 160px);
     overflow: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -24,13 +26,26 @@
     @include media($mobile) {
         width: 100%;
         padding: $gap16;
+        height: auto;
     }
 
     @include media($tablet) {
         width: 100%;
         padding: $gap16;
+        height: auto;
     }
 }
+
+.blog-v2-sidebar__container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.blog-v2-sidebar__toc-section {
+    // Container for TOC content
+}
+
 
 .blog-v2-sidebar__heading {
     display: flex;
@@ -98,4 +113,9 @@
     &.is-active {
         font-weight: 600;
     }
+}
+
+.blog-v2-sidebar__divider {
+    border-top: 1px solid #363C3F;
+    padding-bottom: $gap16;
 }

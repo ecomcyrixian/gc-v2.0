@@ -1,6 +1,7 @@
 /**
  * Blog V2 Table of Contents Generator
- * Auto-generates TOC from h2 and h3 headings in .blog-v2-content
+ * Generates TOC from headings with .toc-item class in .blog-v2-content
+ * Supports H2, H3, H4, H5, H6 with mixed levels
  * Highlights active section on scroll
  */
 
@@ -26,7 +27,7 @@
         }
 
         function buildTOC() {
-            const headings = $content.find('h2');
+            const headings = $content.find('h2.toc-item, h3.toc-item, h4.toc-item, h5.toc-item, h6.toc-item');
             const tocItems = [];
 
             headings.each(function(index) {
@@ -48,10 +49,12 @@
                     $heading.attr('id', id);
                 }
 
+                const level = parseInt($heading.prop('tagName').substring(1));
+
                 tocItems.push({
                     id: id,
                     text: text,
-                    level: 2,
+                    level: level,
                     index: index + 1
                 });
             });
@@ -69,13 +72,13 @@
             
             tocItems.forEach(function(item) {
                 const $li = $('<li>', {
-                    class: 'blog-v2-toc__item blog-v2-toc__item--level-2'
+                    class: 'blog-v2-toc__item blog-v2-toc__item--level-' + item.level
                 });
 
                 const $link = $('<a>', {
                     href: '#' + item.id,
                     text: item.text,
-                    class: 'blog-v2-toc__link'
+                    class: 'blog-v2-toc__link blog-v2-toc__link--level-' + item.level
                 });
 
                 $link.on('click', function(e) {
@@ -100,11 +103,18 @@
             const scrollTop = $(window).scrollTop();
             const windowHeight = $(window).height();
             const scrollBottom = scrollTop + windowHeight / 3;
+            const documentBottom = scrollTop + windowHeight;
+            const contentBottom = $content.offset().top + $content.outerHeight();
+            const maxScrollTop = $(document).height() - windowHeight;
 
             let currentActive = null;
             let currentActiveIndex = -1;
-            const headings = $content.find('h2');
+            const headings = $content.find('h2.toc-item, h3.toc-item, h4.toc-item, h5.toc-item, h6.toc-item');
             const allLinks = $tocList.find('.blog-v2-toc__link');
+
+            if (headings.length === 0) {
+                return;
+            }
 
             headings.each(function(index) {
                 const $heading = $(this);
@@ -121,6 +131,17 @@
                     }
                 }
             });
+
+            if ((documentBottom >= contentBottom - 10 || scrollTop >= maxScrollTop - 2) && headings.length > 0) {
+                const lastHeading = headings.last();
+                const lastId = lastHeading.attr('id');
+                if (lastId) {
+                    const $lastLink = $tocList.find('a[href="#' + lastId + '"]');
+                    if ($lastLink.length) {
+                        currentActiveIndex = allLinks.index($lastLink);
+                    }
+                }
+            }
 
             allLinks.removeClass('is-active is-visited');
             
@@ -152,6 +173,7 @@
         });
 
         updateActiveTOC();
+
     });
 
 })(jQuery);

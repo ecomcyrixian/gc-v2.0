@@ -117,7 +117,7 @@ if ( function_exists( 'get_sub_field' ) ) {
         
         <div class="blog-hero-authors">
             <div class="written-by">
-                <span>Written by</span>
+                <p>Written by</p>
                 <div>
                     <?php
                     $author_name = 'Pat Hartonian';
@@ -133,7 +133,7 @@ if ( function_exists( 'get_sub_field' ) ) {
             </div>
             <div class="author-divider"></div>
             <div class="reviewed-by">
-                <span>Reviewed by</span>
+                <p>Reviewed by</p>
                 <div>
                     <?php
                     $reviewer_name = 'Charm Paz, CHRP';

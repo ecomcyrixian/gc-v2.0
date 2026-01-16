@@ -19,6 +19,5 @@ if ( function_exists( 'get_field' ) ) {
     <main class="blog-v2-content">
         <?php the_content(); ?>
     </main>
-
     <?php get_template_part( 'partials/blog-v2/sidebar-right' ); ?>
 </div>

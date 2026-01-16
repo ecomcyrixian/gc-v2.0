@@ -1,0 +1,228 @@
+@import '../../../assets/css/_tools/variable';
+@import '../../../assets/css/_tools/mixins';
+
+/**
+ * Blog V2 Card Styles
+ * Reusable dynamic card component for blog sidebars
+ * Can be used in left sidebar, right sidebar, or anywhere
+ * Supports 1, 2, 3, 4 column layouts
+ * Scoped to blog-v2-card classes
+ */
+
+// Container for cards with column support
+.blog-v2-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $gap24;
+
+    @include media($mobile) {
+        gap: $gap16;
+    }
+
+    // Column width classes
+    &.cols1 .blog-v2-card {
+        width: 100%;
+    }
+
+    &.cols2 .blog-v2-card {
+        width: calc(50% - #{$gap24} / 2);
+
+        @include media($mobile) {
+            width: 100%;
+        }
+    }
+
+    &.cols3 .blog-v2-card {
+        width: calc(33.333% - #{$gap24} * 2 / 3);
+
+        @include media($tablet) {
+            width: calc(50% - #{$gap24} / 2);
+        }
+
+        @include media($mobile) {
+            width: 100%;
+        }
+    }
+
+    &.cols4 .blog-v2-card {
+        width: calc(25% - #{$gap24} * 3 / 4);
+
+        @include media($tablet) {
+            width: calc(50% - #{$gap24} / 2);
+        }
+
+        @include media($mobile) {
+            width: 100%;
+        }
+    }
+}
+
+.blog-v2-card {
+    border-radius: 8px;
+    padding: $gap24 $gap20;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: $white;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    .blog-v2-sidebar--left &,
+    .blog-v2-sidebar--right & {
+        width: 100%;
+    }
+
+    .blog-v2-sidebar--left & {
+        margin-top: $gap24;
+    }
+
+    @include media($mobile) {
+        padding: $gap20 $gap16;
+        min-height: 220px;
+    }
+
+    @include media($tablet) {
+        padding: $gap20 $gap16;
+        min-height: 240px;
+    }
+}
+
+.blog-v2-card__bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 8px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.blog-v2-card__content {
+    position: relative;
+    z-index: 2;
+}
+
+.blog-v2-card__snippet {
+    display: inline-block;
+    padding: 4px $gap12;
+    background-color: $blue300;
+    color: $white;
+    font-size: 11px;
+    font-weight: $fSemiBold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 4px;
+    margin-bottom: $gap16;
+    line-height: 1.3;
+
+    @include media($mobile) {
+        font-size: 10px;
+        padding: 3px $gap10;
+        margin-bottom: $gap12;
+    }
+}
+
+.blog-v2-card__icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: $gap16;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+    }
+
+    @include media($mobile) {
+        width: 40px;
+        height: 40px;
+        margin-bottom: $gap12;
+    }
+}
+
+.blog-v2-card__heading {
+    font-size: $fsize18;
+    font-weight: $fSemiBold;
+    color: $gray300;
+    margin: 0 0 $gap16 0;
+    line-height: 1.3;
+
+    .highlight {
+        color: $blue300;
+    }
+
+    br {
+        @include media($mobile) {
+            display: none;
+        }
+    }
+
+    @include media($tablet) {
+        font-size: $base-fsize;
+        margin-bottom: $gap12;
+    }
+
+    @include media($mobile) {
+        font-size: $fsize14;
+        margin-bottom: $gap12;
+    }
+}
+
+.blog-v2-card__details {
+    font-size: $fsize14;
+    color: $gray300;
+    line-height: 1.5;
+    margin: 0 0 $gap20 0;
+
+    p {
+        margin: 0 0 $gap12 0;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    @include media($tablet) {
+        font-size: 13px;
+        margin-bottom: $gap16;
+    }
+
+    @include media($mobile) {
+        font-size: 13px;
+        margin-bottom: $gap16;
+    }
+}
+
+.blog-v2-card__btn {
+    display: inline-block;
+    padding: $gap12 $gap20;
+    color: $blue300;
+    background-color: $white;
+    border: 1px solid $blue75;
+    text-decoration: none;
+    border-radius: $corners4;
+    font-size: $fsize14;
+    font-weight: $fSemiBold;
+    transition: all 0.2s ease;
+    line-height: 1.4;
+
+
+    @include media($tablet) {
+        padding: $gap10 $gap16;
+        font-size: 13px;
+    }
+
+    @include media($mobile) {
+        padding: $gap10 $gap16;
+        font-size: 13px;
+        width: 100%;
+        text-align: center;
+    }
+}

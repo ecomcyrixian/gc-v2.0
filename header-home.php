@@ -17,8 +17,10 @@
         <div>
             <h1>
                 <!-- <i>Fast, Accurate,</i> and <i>Compliant</i> Background Checks — <i>Made Simple</i> -->
-                 Compliance for Good™ Delivers Screening That's <i>Fast</i>, <i>Fair</i>, and <i>Protective</i>
+                 <!-- Compliance for Good™ Delivers Screening That's <i>Fast</i>, <i>Fair</i>, and <i>Protective</i> -->
+                 Compliance for Good.™
             </h1>
+            <h5>Stay Compliant with Background Checks that are  <br/><i>Fast</i>, <i>Fair</i>, and <i>Protective</i></h5>
             <!-- <p>AI Powered FCRA-Compliant Background Checks in Only 24-48 Hours</p> -->
              <p>Accurate 24-48 hour results with bias-aware decisioning and audit-ready compliance built in.</p>
             <span class="buttons">

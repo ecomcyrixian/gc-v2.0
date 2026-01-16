@@ -20,10 +20,12 @@
         const $header = $('#header-cont');
         const $pageHero = $('.blog-v2-hero');
         const $layoutContainer = $('.blog-v2-layout');
+        const $content = $('.blog-v2-content');
         const initialWidth = 150;
         
         let layoutContainerTop = null;
         let progressBarOriginalTop = null;
+        let contentBottom = null;
 
         function getNavbarHeight() {
             if (!$header.length) return 0;
@@ -44,9 +46,19 @@
             return null;
         }
 
+        function calculateContentBottom() {
+            if ($content.length) {
+                const contentOffset = $content.offset();
+                const contentHeight = $content.outerHeight();
+                if (contentOffset && contentHeight) {
+                    return contentOffset.top + contentHeight;
+                }
+            }
+            return null;
+        }
+
         function updateProgressBar() {
             const windowHeight = $(window).height();
-            const documentHeight = $(document).height();
             const scrollTop = $(window).scrollTop();
             
             if (layoutContainerTop === null) {
@@ -61,6 +73,13 @@
                 }
             }
 
+            if (contentBottom === null) {
+                contentBottom = calculateContentBottom();
+                if (contentBottom === null) {
+                    return;
+                }
+            }
+
             if (progressBarOriginalTop === null) {
                 const progressBarOffset = $progressBar.offset();
                 if (progressBarOffset) {
@@ -71,8 +90,8 @@
             }
 
             const navbarHeight = getNavbarHeight();
-            const paddingOffset = 130;
-            const stickyTriggerPoint = layoutContainerTop + paddingOffset - navbarHeight;
+            const sidebarStickyTop = 130;
+            const stickyTriggerPoint = layoutContainerTop - sidebarStickyTop;
             
             if (scrollTop >= stickyTriggerPoint) {
                 if (!$progressBar.hasClass('is-sticky')) {
@@ -80,10 +99,21 @@
                 }
                 $progressBar.css('top', navbarHeight + 'px');
                 
-                const totalScrollable = documentHeight - windowHeight;
-                const scrollableAfterLayout = totalScrollable - layoutContainerTop;
+                const windowHeight = $(window).height();
+                const documentBottom = scrollTop + windowHeight;
+                const scrollableContentHeight = contentBottom - layoutContainerTop;
                 const scrolledPastLayout = scrollTop - layoutContainerTop;
-                const progress = scrollableAfterLayout > 0 ? Math.min(scrolledPastLayout / scrollableAfterLayout, 1) : 1;
+                
+                let progress = 0;
+                if (scrollableContentHeight > 0) {
+                    progress = Math.min(Math.max(scrolledPastLayout / scrollableContentHeight, 0), 1);
+                } else {
+                    progress = 1;
+                }
+                
+                if (documentBottom >= contentBottom - 50) {
+                    progress = 1;
+                }
                 
                 const maxWidth = getProgressBarWidth();
                 const currentWidth = initialWidth + (progress * (maxWidth - initialWidth));
@@ -113,6 +143,7 @@
         $(window).on('resize', function() {
             layoutContainerTop = null;
             progressBarOriginalTop = null;
+            contentBottom = null;
             updateProgressBar();
         });
     });
