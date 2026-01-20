@@ -20,9 +20,10 @@
                  <!-- Compliance for Good™ Delivers Screening That's <i>Fast</i>, <i>Fair</i>, and <i>Protective</i> -->
                  Compliance for Good.™
             </h1>
-            <h5>Stay Compliant with Background Checks that are  <br/><i>Fast</i>, <i>Fair</i>, and <i>Protective</i></h5>
+            <h5>Stay Compliant with Background Checks that are</h5>
+            <h5 class="header-subtitle">Fast<i>, </i>  Accurate<i>, and </i> Safe</h5>
             <!-- <p>AI Powered FCRA-Compliant Background Checks in Only 24-48 Hours</p> -->
-             <p>Accurate 24-48 hour results with bias-aware decisioning and audit-ready compliance built in.</p>
+             <p>Accurate 24-48 hour results with audit-grade data and built-in FCRA compliance</p>
             <span class="buttons">
                 <a href="https://gcheck.com/contact-us/" target="_parent" class="button blue">
                     Get Started Today

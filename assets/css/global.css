@@ -349,7 +349,7 @@ header#home > .container > div h1 {
   margin: 0 auto 16px auto;
   font-size: 4em;
   font-weight: 700;
-  font-style: italic;
+  transform: skew(-8deg);
 }
 @media screen and (max-width: 767px) {
   header#home > .container > div h1 {
@@ -360,11 +360,17 @@ header#home > .container > div h1 {
 header#home > .container > div h5 {
   font-size: 2em;
   font-weight: 400;
-  margin-bottom: 16px;
 }
-header#home > .container > div h5 > i {
+header#home > .container > div h5.header-subtitle {
   font-weight: 700;
-  font-style: italic;
+  margin-bottom: 16px;
+  transform: skew(-8deg);
+}
+header#home > .container > div h5.header-subtitle i {
+  font-weight: 400;
+  transform: skew(8deg);
+  font-style: normal;
+  display: inline-block;
 }
 @media screen and (max-width: 767px) {
   header#home > .container > div h5 {
@@ -372,7 +378,7 @@ header#home > .container > div h5 > i {
   }
 }
 header#home > .container > div p {
-  font-size: 1.125em;
+  font-size: 16px;
   margin-bottom: 40px;
   color: #CDD6E0;
 }
