@@ -9,17 +9,44 @@
  * Scoped to blog-v2-card classes
  */
 
-// Container for cards with column support
 .blog-v2-cards-container {
     display: flex;
     flex-wrap: wrap;
     gap: $gap24;
 
-    @include media($mobile) {
-        gap: $gap16;
+    .blog-v2-sidebar__container:has(.blog-v2-sidebar--left) & {
+        @include media($tablet) {
+            display: none !important;
+        }
+
+        @include media($mobile) {
+            display: none !important;
+        }
     }
 
-    // Column width classes
+    .blog-v2-sidebar--left &,
+    .blog-v2-sidebar--right & {
+        @include media($tablet) {
+            display: none !important;
+        }
+
+        @include media($mobile) {
+            display: none !important;
+        }
+    }
+
+    .blog-v2-mobile-cards & {
+        @include media($mobile) {
+            padding: 0 16px;
+            gap: $gap16;
+        }
+
+        @include media($tablet) {
+            padding: 0 16px;
+            gap: $gap16;
+        }
+    }
+
     &.cols1 .blog-v2-card {
         width: 100%;
     }
@@ -59,7 +86,7 @@
 
 .blog-v2-card {
     border-radius: 8px;
-    padding: $gap24 $gap20;
+    padding: $gap20;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -77,152 +104,136 @@
         margin-top: $gap24;
     }
 
-    @include media($mobile) {
-        padding: $gap20 $gap16;
-        min-height: 220px;
-    }
-
-    @include media($tablet) {
-        padding: $gap20 $gap16;
-        min-height: 240px;
-    }
-}
-
-.blog-v2-card__bg-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 8px;
-    z-index: 0;
-    pointer-events: none;
-}
-
-.blog-v2-card__content {
-    position: relative;
-    z-index: 2;
-}
-
-.blog-v2-card__snippet {
-    display: inline-block;
-    padding: 4px $gap12;
-    background-color: $blue300;
-    color: $white;
-    font-size: 11px;
-    font-weight: $fSemiBold;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border-radius: 4px;
-    margin-bottom: $gap16;
-    line-height: 1.3;
-
-    @include media($mobile) {
-        font-size: 10px;
-        padding: 3px $gap10;
-        margin-bottom: $gap12;
-    }
-}
-
-.blog-v2-card__icon {
-    width: 48px;
-    height: 48px;
-    margin-bottom: $gap16;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    svg {
+    &__bg-image {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
-        display: block;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 8px;
+        z-index: 0;
+        pointer-events: none;
     }
 
-    @include media($mobile) {
-        width: 40px;
-        height: 40px;
-        margin-bottom: $gap12;
-    }
-}
-
-.blog-v2-card__heading {
-    font-size: $fsize18;
-    font-weight: $fSemiBold;
-    color: $gray300;
-    margin: 0 0 $gap16 0;
-    line-height: 1.3;
-
-    .highlight {
-        color: $blue300;
+    &__content {
+        position: relative;
+        z-index: 2;
     }
 
-    br {
+    &__snippet {
+        display: inline-block;
+        padding: 4px $gap12;
+        background-color: $blue300;
+        color: $white;
+        font-size: 11px;
+        font-weight: $fSemiBold;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-radius: 4px;
+        margin-bottom: $gap16;
+        line-height: 1.3;
+
         @include media($mobile) {
-            display: none;
+            font-size: 10px;
+            padding: 3px $gap10;
+            margin-bottom: $gap12;
         }
     }
 
-    @include media($tablet) {
-        font-size: $base-fsize;
-        margin-bottom: $gap12;
+    &__icon {
+        width: 48px;
+        height: 48px;
+        margin-bottom: $gap16;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        @include media($mobile) {
+            width: 40px;
+            height: 40px;
+            margin-bottom: $gap12;
+        }
     }
 
-    @include media($mobile) {
+    &__heading {
+        font-size: $fsize18;
+        font-weight: $fSemiBold;
+        color: $gray300;
+        margin: 0 0 $gap16 0;
+        line-height: 1.3;
+
+        .highlight {
+            color: $blue300;
+        }
+
+        br {
+            @include media($mobile) {
+                display: none;
+            }
+        }
+
+        @include media($mobile) {
+            font-size: $base-fsize;
+            margin-bottom: $gap12;
+        }
+    }
+
+    &__details {
         font-size: $fsize14;
-        margin-bottom: $gap12;
-    }
-}
+        color: $gray300;
+        line-height: 1.5;
+        margin: 0 0 $gap20 0;
 
-.blog-v2-card__details {
-    font-size: $fsize14;
-    color: $gray300;
-    line-height: 1.5;
-    margin: 0 0 $gap20 0;
+        p {
+            font-size: $base-fsize;
+            margin: 0 0 $gap12 0;
 
-    p {
-        margin: 0 0 $gap12 0;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
 
-        &:last-child {
-            margin-bottom: 0;
+        @include media($tablet) {
+            font-size: 13px;
+            margin-bottom: $gap16;
+        }
+
+        @include media($mobile) {
+            font-size: 13px;
+            margin-bottom: $gap16;
         }
     }
 
-    @include media($tablet) {
-        font-size: 13px;
-        margin-bottom: $gap16;
-    }
+    &__btn {
+        display: inline-block;
+        padding: $gap12 $gap20;
+        color: $blue300;
+        background-color: $white;
+        border: 1px solid $blue75;
+        text-decoration: none;
+        border-radius: $corners4;
+        font-size: $fsize14;
+        font-weight: $fSemiBold;
+        transition: all 0.2s ease;
+        line-height: 1.4;
 
-    @include media($mobile) {
-        font-size: 13px;
-        margin-bottom: $gap16;
-    }
-}
+        @include media($tablet) {
+            padding: $gap10 $gap16;
+            font-size: 13px;
+        }
 
-.blog-v2-card__btn {
-    display: inline-block;
-    padding: $gap12 $gap20;
-    color: $blue300;
-    background-color: $white;
-    border: 1px solid $blue75;
-    text-decoration: none;
-    border-radius: $corners4;
-    font-size: $fsize14;
-    font-weight: $fSemiBold;
-    transition: all 0.2s ease;
-    line-height: 1.4;
-
-
-    @include media($tablet) {
-        padding: $gap10 $gap16;
-        font-size: 13px;
-    }
-
-    @include media($mobile) {
-        padding: $gap10 $gap16;
-        font-size: 13px;
-        width: 100%;
-        text-align: center;
+        @include media($mobile) {
+            padding: $gap10 $gap16;
+            font-size: 13px;
+            text-align: center;
+        }
     }
 }

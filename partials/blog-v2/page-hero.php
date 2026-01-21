@@ -1,7 +1,7 @@
 <?php
 /**
  * Template Part: Blog V2 Page Hero (Flexible Content)
- * Displays hero section with title, date, intro text, and image
+ * Displays hero section with title, category, intro text, and image
  * Designed to be used within a flexible content loop
  * Reads fields from current flexible content row using get_sub_field()
  */
@@ -78,9 +78,18 @@ if ( function_exists( 'get_sub_field' ) ) {
 <header class="blog-v2-hero<?php echo ! $hero_image_url ? ' blog-v2-hero--no-image' : ''; ?>"<?php if ( $hero_bg_image_url ) : ?> data-bg-image="<?php echo esc_url( $hero_bg_image_url ); ?>" style="--bg-image: url('<?php echo esc_url( $hero_bg_image_url ); ?>');"<?php endif; ?>>
     <div class="blog-v2-hero__content">
         <div class="blog-v2-hero__meta">
-            <time class="blog-v2-hero__date" datetime="<?php echo esc_attr( get_the_date( 'c' ) ); ?>">
-                <?php echo get_the_date(); ?>
-            </time>
+            <?php
+            $categories = get_the_category();
+            $category_name = '';
+            if ( ! empty( $categories ) ) {
+                $category_name = esc_html( $categories[0]->name );
+            }
+            ?>
+            <?php if ( $category_name ) : ?>
+                <span class="blog-v2-hero__category">
+                    <?php echo $category_name; ?>
+                </span>
+            <?php endif; ?>
             <div class="blog-v2-hero__socials">
                 <a href="<?php echo esc_url( get_permalink() ); ?>" target="_blank" rel="noopener noreferrer" aria-label="Share">
                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -117,15 +126,15 @@ if ( function_exists( 'get_sub_field' ) ) {
         
         <div class="blog-hero-authors">
             <div class="written-by">
-                <p>Written by</p>
-                <div>
+                <p>Created by</p>
+                <div class="blog-hero-authors__author">
                     <?php
                     $author_name = 'Pat Hartonian';
-                    $author_job = 'Editor, GCheck';
+                    $author_job = 'VP of Operations, GCheck';
                     $author_avatar = get_template_directory_uri() . '/assets/images/pat-hat.png';
                     ?>
                     <img src="<?php echo esc_url( $author_avatar ); ?>" alt="<?php echo esc_attr( $author_name ); ?>">
-                    <div>
+                    <div class="blog-hero-authors__author-info">
                         <strong><?php echo esc_html( $author_name ); ?></strong>
                         <span><?php echo esc_html( $author_job ); ?></span>
                     </div>
@@ -134,14 +143,14 @@ if ( function_exists( 'get_sub_field' ) ) {
             <div class="author-divider"></div>
             <div class="reviewed-by">
                 <p>Reviewed by</p>
-                <div>
+                <div class="blog-hero-authors__author">
                     <?php
                     $reviewer_name = 'Charm Paz, CHRP';
                     $reviewer_job = 'Recruiter and Editor, GCheck';
                     $reviewer_avatar = get_template_directory_uri() . '/assets/images/charm-paz.png';
                     ?>
                     <img src="<?php echo esc_url( $reviewer_avatar ); ?>" alt="<?php echo esc_attr( $reviewer_name ); ?>">
-                    <div>
+                    <div class="blog-hero-authors__author-info">
                         <strong><?php echo esc_html( $reviewer_name ); ?></strong>
                         <span><?php echo esc_html( $reviewer_job ); ?></span>
                     </div>

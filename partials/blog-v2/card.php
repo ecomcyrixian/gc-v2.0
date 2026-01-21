@@ -6,34 +6,26 @@
  * Filters cards based on 'sidebar_position' query var
  */
 
-// This template expects to be called from a flexible content loop
-// where the parent card fields are available
 
-// Get the sidebar position (left/right) passed from the calling template
 $current_position = get_query_var( 'sidebar_position', '' );
 
-// Get parent card fields
-$card_position = get_sub_field( 'position' ); // Left or Right
-$show_card = get_sub_field( 'with_background_image' ); // True/False
-$columns = get_sub_field( 'columns' ); // 1, 2, 3, or 4
+$card_position = get_sub_field( 'position' ); 
+$show_card = get_sub_field( 'with_background_image' ); 
+$columns = get_sub_field( 'columns' ); 
 
-// Filter: Only show cards that match the current sidebar position (case-insensitive)
 if ( $current_position && $card_position ) {
     $card_position_lower = strtolower( trim( $card_position ) );
     if ( $card_position_lower !== $current_position ) {
-        return; // Skip this entire card layout
+        return;
     }
 }
 
-// Check if background image should be shown (uses fixed blog-card-bg.png)
 $has_bg_image = $show_card ? true : false;
 
-// Check if cards repeater exists
 if ( ! function_exists( 'have_rows' ) || ! have_rows( 'cards' ) ) {
     return;
 }
 
-// Determine column class
 $col_class = 'cols1';
 if ( $columns == 2 ) {
     $col_class = 'cols2';
@@ -43,18 +35,15 @@ if ( $columns == 2 ) {
     $col_class = 'cols4';
 }
 
-// Start cards container
 ?>
 <div class="blog-v2-cards-container <?php echo esc_attr( $col_class ); ?>">
     <?php while ( have_rows( 'cards' ) ) : the_row(); ?>
         <?php
-        // Get individual card fields
         $heading = get_sub_field( 'h4' );
         $details = get_sub_field( 'details' );
         $icon = get_sub_field( 'svg_icon' );
         $button = get_sub_field( 'button' );
         
-        // Process button
         $button_url = '#';
         $button_text = '';
         $button_target = '_self';
