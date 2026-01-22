@@ -117,6 +117,18 @@ function gcheck_scripts() {
             $toc_js_version, // Version with cache busting
             true // Load in footer
         );
+
+        // Mobile cards repositioning script
+        $mobile_cards_js_path = get_template_directory() . '/assets/js/blog-v2-mobile-cards.js';
+        $mobile_cards_js_version = file_exists($mobile_cards_js_path) ? filemtime($mobile_cards_js_path) : '1.0.0';
+        
+        wp_enqueue_script(
+            'blog-v2-mobile-cards', // Unique handle
+            get_template_directory_uri() . '/assets/js/blog-v2-mobile-cards.js', // Path to script
+            array('jquery'), // Dependencies
+            $mobile_cards_js_version, // Version with cache busting
+            true // Load in footer
+        );
     }
 }
 add_action('wp_enqueue_scripts', 'gcheck_scripts');
@@ -682,3 +694,27 @@ function generate_mega_featured_whitepaper( $menu_name = '' ) {
     return $html;
 }
 */
+
+/**
+ * Shortcode: Blog Article Card
+ * Usage: [article_card id="123"] or [article_card id="123" /]
+ * Displays a blog post card with featured image, category, title, date, and author
+ */
+function blog_v2_article_card_shortcode( $atts ) {
+    $atts = shortcode_atts( array(
+        'id' => '',
+    ), $atts, 'article_card' );
+    
+    if ( empty( $atts['id'] ) || ! is_numeric( $atts['id'] ) ) {
+        return '';
+    }
+    
+    $post_id = intval( $atts['id'] );
+    
+    set_query_var( 'article_post_id', $post_id );
+    
+    ob_start();
+    get_template_part( 'partials/blog-v2/article-card' );
+    return ob_get_clean();
+}
+add_shortcode( 'article_card', 'blog_v2_article_card_shortcode' );

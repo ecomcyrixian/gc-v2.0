@@ -35,17 +35,6 @@
         }
     }
 
-    .blog-v2-mobile-cards & {
-        @include media($mobile) {
-            padding: 0 16px;
-            gap: $gap16;
-        }
-
-        @include media($tablet) {
-            padding: 0 16px;
-            gap: $gap16;
-        }
-    }
 
     &.cols1 .blog-v2-card {
         width: 100%;

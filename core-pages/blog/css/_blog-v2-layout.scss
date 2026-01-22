@@ -11,28 +11,29 @@
 @import 'blog-v2-progress';
 @import 'blog-v2-content';
 @import 'blog-v2-card';
+@import 'blog-v2-article-card';
 @import 'blog-v2-sidebar-left';
 @import 'blog-v2-sidebar-right';
 
 .blog-v2-layout {
     display: grid;
     grid-template-columns: 288px 1fr 288px;
-    gap: $gap40;
+    gap: 55px;
     max-width: 1320px;
     margin: 0 auto;
-    padding: $gap100 0;
+    padding: $gap100 0 $gap120 0;
     align-items: start;
 
     @include media($tablet) {
         grid-template-columns: 1fr;
         gap: $gap20;
-        padding: $gap30 $gap16;
+        padding: $gap40 $gap16;
     }
 
     @include media($mobile) {
         grid-template-columns: 1fr;
         gap: $gap20;
-        padding: $gap20 $gap16;
+        padding: $gap40 $gap16;
     }
 
     &,
@@ -123,11 +124,11 @@
         text-align: center;
 
         @include media($tablet) {
-            padding: 30px 16px;
+            padding: 0 16px 40px 16px;
         }
 
         @include media($mobile) {
-            padding: 20px 16px;
+            padding: 0 16px 40px 16px;
         }
             
 
