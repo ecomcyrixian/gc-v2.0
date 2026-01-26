@@ -1213,7 +1213,6 @@ body.search h4 span {
 .blog-v2-content a {
   color: #4F51FD;
   text-decoration: underline;
-  text-decoration-color: rgba(79, 81, 253, 0.3);
   text-underline-offset: 2px;
   transition: all 0.2s ease;
 }

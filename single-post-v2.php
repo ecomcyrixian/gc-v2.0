@@ -83,34 +83,92 @@ if ( function_exists( 'have_rows' ) && function_exists( 'get_field' ) ) {
             <div class="cards">
                 <div class="card-cont cols3">
                     <?php
-                    $current_title = get_the_title();
-                    $current_content = get_the_content();
+                    $current_post_id = get_the_ID();
+                    $recent_posts = null;
                     
-                    $text = $current_title . ' ' . strip_tags($current_content);
-                    $text = strtolower($text);
+                    // Strategy 1: Get posts from the same category
+                    $categories = get_the_category($current_post_id);
+                    if (!empty($categories)) {
+                        $category_ids = array_map(function($cat) {
+                            return $cat->term_id;
+                        }, $categories);
+                        
+                        $args = array(
+                            'posts_per_page' => 3,
+                            'post_type'      => 'post',
+                            'post__not_in'   => array($current_post_id),
+                            'category__in'   => $category_ids,
+                            'orderby'        => 'date',
+                            'order'          => 'DESC',
+                        );
+                        $recent_posts = new WP_Query($args);
+                    }
                     
-                    $common_words = array('the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'a', 'an', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'should', 'could', 'may', 'might', 'must', 'can', 'this', 'that', 'these', 'those', 'i', 'you', 'he', 'she', 'it', 'we', 'they');
-                    $words = str_word_count($text, 1);
-                    $keywords = array_diff($words, $common_words);
-                    $keywords = array_filter($keywords, function($word) {
-                        return strlen($word) > 3; 
-                    });
+                    // Strategy 2: If no category matches, try tags
+                    if (!$recent_posts || !$recent_posts->have_posts()) {
+                        $tags = get_the_tags($current_post_id);
+                        if (!empty($tags)) {
+                            $tag_ids = array_map(function($tag) {
+                                return $tag->term_id;
+                            }, $tags);
+                            
+                            $args = array(
+                                'posts_per_page' => 3,
+                                'post_type'      => 'post',
+                                'post__not_in'   => array($current_post_id),
+                                'tag__in'        => $tag_ids,
+                                'orderby'        => 'date',
+                                'order'          => 'DESC',
+                            );
+                            $recent_posts = new WP_Query($args);
+                        }
+                    }
                     
-                    $word_counts = array_count_values($keywords);
-                    arsort($word_counts);
-                    $top_keywords = array_slice(array_keys($word_counts), 0, 10);
+                    // Strategy 3: If still no matches, use keyword search (less strict)
+                    if (!$recent_posts || !$recent_posts->have_posts()) {
+                        $current_title = get_the_title();
+                        $current_content = get_the_content();
+                        
+                        $text = $current_title . ' ' . strip_tags($current_content);
+                        $text = strtolower($text);
+                        
+                        $common_words = array('the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'a', 'an', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'should', 'could', 'may', 'might', 'must', 'can', 'this', 'that', 'these', 'those', 'i', 'you', 'he', 'she', 'it', 'we', 'they');
+                        $words = str_word_count($text, 1);
+                        $keywords = array_diff($words, $common_words);
+                        $keywords = array_filter($keywords, function($word) {
+                            return strlen($word) > 3; 
+                        });
+                        
+                        $word_counts = array_count_values($keywords);
+                        arsort($word_counts);
+                        $top_keywords = array_slice(array_keys($word_counts), 0, 5);
+                        
+                        if (!empty($top_keywords)) {
+                            $search_terms = implode(' ', $top_keywords);
+                            
+                            $args = array(
+                                'posts_per_page' => 3,
+                                'post_type'      => 'post',
+                                'post__not_in'   => array($current_post_id),
+                                's'              => $search_terms,
+                                'orderby'        => 'date',
+                                'order'          => 'DESC',
+                            );
+                            $recent_posts = new WP_Query($args);
+                        }
+                    }
                     
-                    $search_terms = implode(' ', $top_keywords);
-                    
-                    $args = array(
-                        'posts_per_page' => 3,
-                        'post_type'      => 'post',
-                        'orderby'        => 'relevance',
-                        'order'          => 'DESC',
-                        'post__not_in'   => array( get_the_ID() ),
-                        's'              => $search_terms, 
-                    );
-                    $recent_posts = new WP_Query($args);
+                    // Strategy 4: Final fallback - just get recent posts
+                    if (!$recent_posts || !$recent_posts->have_posts()) {
+                        $args = array(
+                            'posts_per_page' => 3,
+                            'post_type'      => 'post',
+                            'post__not_in'   => array($current_post_id),
+                            'orderby'        => 'date',
+                            'order'          => 'DESC',
+                        );
+                        $recent_posts = new WP_Query($args);
+                    }
                     
                     if ($recent_posts->have_posts()) : 
                         while ($recent_posts->have_posts()) : $recent_posts->the_post();
