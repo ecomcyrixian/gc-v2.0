@@ -45,11 +45,6 @@
     h2 {
         font-size: $fsize28;
         font-weight: $fSemiBold;
-
-        &.toc-item {
-            border-left: 2px solid $blue300;
-            padding: $gap12 $gap16;
-        }
     }
 
     h3 {
@@ -96,6 +91,7 @@
             line-height: 26px;
             padding-bottom: 0;
             margin: 0 0 40px 0;
+            font-style: italic;
         }
     }
 
@@ -149,21 +145,20 @@
         }
     }
 
-    .wp-block-list {
-        margin: 0 0 24px 0;
-        padding-left: 0;
-
-        li {
-            margin-bottom: 0;
-            padding-left: 0;
-        }
-    }
-
-    // List with blue triangle bullets
-    .wp-block-list-2 {
+    // wp-block-list: same blue triangle bullet design; no numbers for ol
+    .wp-block-list,
+    ol.wp-block-list {
         margin: 0;
         padding-left: 0;
         list-style: none;
+        list-style-type: none;
+        counter-reset: none;
+
+        ol {
+            list-style: none;
+            list-style-type: none;
+            counter-reset: none;
+        }
 
         ul {
             margin: 0;
@@ -175,12 +170,14 @@
             margin-bottom: 24px;
             line-height: 1.7;
             padding-bottom: 0;
+            list-style: none;
+            list-style-type: none;
+            counter-increment: none;
 
             &:last-child {
                 margin-bottom: 0;
             }
 
-            // Blue triangle bullet
             &::before {
                 content: "";
                 position: absolute;
@@ -363,19 +360,31 @@
     tbody tr {
         background-color: $white;
 
-        // First row is header
-        &:first-child {
-            background-color: $blue500;
-
-            td {
-                color: $white;
-                font-weight: $fSemiBold;
-            }
+        &:nth-child(odd) {
+            background-color: $white;
         }
 
-        &:nth-child(odd):not(:first-child) {
+        &:nth-child(even) {
             background-color: $blue50;
         }
+    }
+
+    // When there is no thead: first tbody row = blue header; rest alternate white / light blue (2nd=white, 3rd=light, etc.)
+    table:not(:has(thead)) tbody tr:first-child {
+        background-color: $blue500;
+
+        td {
+            color: $white;
+            font-weight: $fSemiBold;
+        }
+    }
+
+    table:not(:has(thead)) tbody tr:not(:first-child):nth-child(even) {
+        background-color: $white;
+    }
+
+    table:not(:has(thead)) tbody tr:not(:first-child):nth-child(odd) {
+        background-color: $blue50;
     }
 
     // ====================
@@ -392,9 +401,8 @@
     }
 
     pre {
-        margin: 2em 0;
         padding: $gap20 $gap24;
-        background-color: $gray300;
+        background-color: $gray300 !important;
         border-radius: $corners8;
         overflow-x: auto;
         line-height: 1.6;
@@ -542,15 +550,20 @@
             font-size: $fsize18;
         }
 
-        ul {
+        ul,
+        ol {
             margin: 0;
             padding-left: 0;
             list-style: none;
+            list-style-type: none;
+            counter-reset: none;
 
             li {
+                list-style: none;
+                list-style-type: none;
                 position: relative;
                 padding-left: $gap24;
-                margin-bottom: $gap24;
+                margin-bottom: $gap8;
                 padding-bottom: 0;
 
                 &:last-child {
@@ -566,6 +579,7 @@
                     background-color: $blue300;
                     background-image: none;
                     display: block;
+                    top: 8px;
                 }
             }
         }
@@ -578,6 +592,145 @@
         color: $blue500;
         font-size: $fsize24;
         font-style: italic;
+    }
+
+    // ====================
+    // EXPERT INSIGHT (p.blog-v2-expert-insight / pale cyan blue block)
+    // ====================
+    // Figma: pale cyan background, 2px blue left border, large quote mark, 24px italic blue text,
+    // "... see more" link, Charm avatar + name/title. Truncate with expand on click.
+
+    .blog-v2-expert-insight {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        padding: 20px 20px 20px 24px;
+        border-radius: $corners8;
+        background-color: transparent !important;
+
+        @include media($mobile) {
+            padding: $gap20;
+            gap: $gap24;
+            margin: 1.5em 0;
+        }
+
+        > p.has-pale-cyan-blue-background-color.has-background.has-medium-font-size {
+            position: relative;
+            font-family: $default-font;
+            font-size: 24px;
+            font-weight: $fRegular;
+            font-style: italic;
+            line-height: 1.5;
+            color: $blue500;
+            margin: 0;
+            padding: 0 0 0 $gap24;
+            background-color: transparent !important;
+
+            &::before {
+                content: "\201C";
+                position: absolute;
+                left: 0;
+                font-size: 40px;
+                line-height: 1;
+                color: $gray75;
+                font-family: Georgia, serif;
+                pointer-events: none;
+            }
+        }
+
+        &:not(.is-expanded) > p.has-pale-cyan-blue-background-color.has-background.has-medium-font-size {
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        &.is-expanded > p.has-pale-cyan-blue-background-color.has-background.has-medium-font-size {
+            display: block;
+            overflow: visible;
+
+            &::after {
+                content: "\201D";
+                display: inline;
+                font-size: 40px;
+                line-height: 1;
+                color: $gray75;
+                font-family: Georgia, serif;
+                pointer-events: none;
+            }
+        }
+
+        .blog-v2-expert-insight__see-more {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            padding-left: $gap24;
+            color: $blue300;
+            font-size: 14px;
+            font-weight: $fSemiBold;
+            line-height: 22px;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: inherit;
+            align-self: flex-start;
+            text-align: left;
+
+            &:hover {
+                color: $blue200;
+            }
+        }
+
+        .blog-v2-expert-insight__attribution {
+            display: flex;
+            align-items: center;
+            gap: $gap16;
+            margin: 0;
+            padding-left: $gap24;
+
+            img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                object-fit: cover;
+                flex-shrink: 0;
+                display: block;
+            }
+
+            .blog-v2-expert-insight__attribution-text {
+                font-style: normal;
+                font-size: 14px;
+                line-height: 22px;
+                color: #202020;
+
+                .blog-v2-expert-insight__attribution-name {
+                    display: block;
+                    font-weight: $fSemiBold;
+                    color: #202020;
+                }
+
+                .blog-v2-expert-insight__attribution-title {
+                    display: block;
+                    font-weight: $fRegular;
+                    color: #202020;
+                }
+            }
+
+            .blog-v2-expert-insight__attribution-link {
+                display: flex;
+                align-items: center;
+                gap: $gap16;
+                text-decoration: none;
+                color: inherit;
+
+                &:hover {
+                    color: inherit;
+                }
+            }
+        }
     }
 
     // ====================

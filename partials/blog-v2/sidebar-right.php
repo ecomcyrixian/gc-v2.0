@@ -1,9 +1,59 @@
 <?php
 /**
  * Template Part: Blog V2 Right Sidebar
- * Right sidebar for author and reviewer cards
- * Hardcoded to match Figma design
+ * About The Creator, About The Reviewer, whitepaper card (related or random), compliance CTA.
+ * No ACF; no card.php.
  */
+
+// Whitepaper card: query pages in category "whitepapers", pick one related to current post title or random.
+$current_post_title = wp_strip_all_tags( get_the_title() );
+$whitepaper_post    = null;
+
+$wpq = new WP_Query( array(
+    'post_type'      => 'page',
+    'posts_per_page' => 30,
+    'orderby'        => 'date',
+    'order'          => 'DESC',
+    'post_status'    => 'publish',
+    'tax_query'      => array(
+        array(
+            'taxonomy' => 'category',
+            'field'    => 'slug',
+            'terms'    => 'whitepapers',
+        ),
+    ),
+) );
+
+if ( $wpq->have_posts() ) {
+    $whitepapers = array();
+    while ( $wpq->have_posts() ) {
+        $wpq->the_post();
+        $whitepapers[] = get_post();
+    }
+    wp_reset_postdata();
+
+    if ( ! empty( $whitepapers ) ) {
+        $current_words = array_filter( array_map( 'strtolower', preg_split( '/\s+/', $current_post_title, -1, PREG_SPLIT_NO_EMPTY ) ) );
+        $best_score    = 0;
+        $best_index    = 0;
+
+        foreach ( $whitepapers as $i => $wp_post ) {
+            $wp_title = strtolower( wp_strip_all_tags( get_the_title( $wp_post ) ) );
+            $score    = 0;
+            foreach ( $current_words as $word ) {
+                if ( strlen( $word ) > 2 && strpos( $wp_title, $word ) !== false ) {
+                    $score++;
+                }
+            }
+            if ( $score > $best_score ) {
+                $best_score = $score;
+                $best_index = $i;
+            }
+        }
+
+        $whitepaper_post = $best_score > 0 ? $whitepapers[ $best_index ] : $whitepapers[ array_rand( $whitepapers ) ];
+    }
+}
 ?>
 
 <aside class="blog-v2-sidebar blog-v2-sidebar--right">
@@ -29,7 +79,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="blog-v2-sidebar__reviewer">
         <div class="blog-v2-sidebar__card">
             <div class="blog-v2-sidebar__title">About The Reviewer</div>
@@ -53,15 +103,15 @@
         </div>
     </div>
 
-    <?php 
-    // Loop through flexible content to find cards with position="right"
-    if ( function_exists( 'have_rows' ) && have_rows( 'blog_v2_layout' ) ) :
-        while ( have_rows( 'blog_v2_layout' ) ) : the_row();
-            if ( get_row_layout() == 'card' ) :
-                set_query_var( 'sidebar_position', 'right' );
-                get_template_part( 'partials/blog-v2/card' );
-            endif;
-        endwhile;
-    endif;
-    ?>
+    <?php if ( $whitepaper_post ) : ?>
+    <div class="blog-v2-cards-container cols1 blog-v2-cards-container--whitepaper">
+        <div class="blog-v2-card blog-v2-card--whitepaper">
+            <div class="blog-v2-card__content">
+                <span class="blog-v2-card_whitepaper-heading-prefix">Whitepaper</span>
+                <h4 class="blog-v2-card__whitepaper-heading"><?php echo esc_html( get_the_title( $whitepaper_post ) ); ?></h4>
+                <a href="<?php echo esc_url( get_permalink( $whitepaper_post ) ); ?>" class="blog-v2-card__btn" aria-label="Download PDF">Download PDF</a>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
 </aside>

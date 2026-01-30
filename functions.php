@@ -118,20 +118,40 @@ function gcheck_scripts() {
             true // Load in footer
         );
 
-        // Mobile cards repositioning script
-        $mobile_cards_js_path = get_template_directory() . '/assets/js/blog-v2-mobile-cards.js';
-        $mobile_cards_js_version = file_exists($mobile_cards_js_path) ? filemtime($mobile_cards_js_path) : '1.0.0';
-        
+        // Expert insight block (pale cyan blue): truncate, see more, Charm attribution
+        $expert_insight_js_path = get_template_directory() . '/assets/js/blog-v2-expert-insight.js';
+        $expert_insight_js_version = file_exists($expert_insight_js_path) ? filemtime($expert_insight_js_path) : '1.0.0';
         wp_enqueue_script(
-            'blog-v2-mobile-cards', // Unique handle
-            get_template_directory_uri() . '/assets/js/blog-v2-mobile-cards.js', // Path to script
-            array('jquery'), // Dependencies
-            $mobile_cards_js_version, // Version with cache busting
-            true // Load in footer
+            'blog-v2-expert-insight',
+            get_template_directory_uri() . '/assets/js/blog-v2-expert-insight.js',
+            array(),
+            $expert_insight_js_version,
+            true
+        );
+        wp_localize_script(
+            'blog-v2-expert-insight',
+            'blogV2ExpertInsight',
+            array(
+                'charmAvatarUrl' => get_template_directory_uri() . '/assets/images/charm-paz.png',
+                'charmLink'      => 'https://gcheck.com/blog/author/charm/',
+            )
         );
     }
 }
 add_action('wp_enqueue_scripts', 'gcheck_scripts');
+
+/**
+ * Remove only strictly empty paragraph tags from blog post content (single posts only).
+ * Removes <p></p> or <p class="..."></p> with nothing between the tags.
+ */
+function blog_v2_remove_empty_p_tags( $content ) {
+    if ( ! is_single() ) {
+        return $content;
+    }
+    $content = preg_replace( '/<p[^>]*><\/p>/', '', $content );
+    return $content;
+}
+add_filter( 'the_content', 'blog_v2_remove_empty_p_tags', 20 );
 
 /*
  * Enqueue global CSS with automatic cache busting based on source SCSS and compiled CSS file modification time
@@ -694,6 +714,81 @@ function generate_mega_featured_whitepaper( $menu_name = '' ) {
     return $html;
 }
 */
+
+/**
+ * Pick one related post from a list by keyword match (current title words in candidate title).
+ * Same logic as whitepaper in sidebar-right: best score wins, else random.
+ *
+ * @param WP_Post[] $candidates   List of posts.
+ * @param string    $current_title Current post title (plain text).
+ * @return WP_Post|null
+ */
+function blog_v2_pick_related_post( array $candidates, $current_title ) {
+    if ( empty( $candidates ) ) {
+        return null;
+    }
+    $current_words = array_filter( array_map( 'strtolower', preg_split( '/\s+/', $current_title, -1, PREG_SPLIT_NO_EMPTY ) ) );
+    $best_score    = 0;
+    $best_index    = 0;
+
+    foreach ( $candidates as $i => $post ) {
+        $candidate_title = strtolower( wp_strip_all_tags( get_the_title( $post ) ) );
+        $score           = 0;
+        foreach ( $current_words as $word ) {
+            if ( strlen( $word ) > 2 && strpos( $candidate_title, $word ) !== false ) {
+                $score++;
+            }
+        }
+        if ( $score > $best_score ) {
+            $best_score = $score;
+            $best_index = $i;
+        }
+    }
+
+    return $best_score > 0 ? $candidates[ $best_index ] : $candidates[ array_rand( $candidates ) ];
+}
+
+/**
+ * Get the related-article-inline HTML for the current post (one card above references/end of content).
+ * Used by the_content filter to inject above References/Resources or at end of content.
+ *
+ * @return string HTML or empty string.
+ */
+function blog_v2_get_related_article_inline_html() {
+    if ( ! is_singular( 'post' ) || ! in_the_loop() ) {
+        return '';
+    }
+    ob_start();
+    get_template_part( 'partials/blog-v2/related-article-inline' );
+    return ob_get_clean();
+}
+
+/**
+ * Inject related article block into post content: above References/Resources section if present,
+ * otherwise at the end of content (so it always displays before About The Creator).
+ */
+function blog_v2_inject_related_article_above_references( $content ) {
+    if ( ! is_singular( 'post' ) || ! in_the_loop() ) {
+        return $content;
+    }
+
+    $related_html = blog_v2_get_related_article_inline_html();
+    if ( $related_html === '' ) {
+        return $content;
+    }
+
+    // Match first heading (h2, h3, h4) that is "References", "Resources", "Sources", or "Additional Resources" (case-insensitive).
+    $pattern = '/<(h[2-4])[^>]*>\s*(References|Resources|Sources|Additional Resources?)\s*<\/\1>/i';
+    if ( preg_match( $pattern, $content, $m ) ) {
+        $insert_before = $m[0];
+        $content       = str_replace( $insert_before, $related_html . "\n" . $insert_before, $content );
+    } else {
+        $content = $content . "\n" . $related_html;
+    }
+
+    return $content;
+}
+add_filter( 'the_content', 'blog_v2_inject_related_article_above_references', 15 );
 
 /**
  * Shortcode: Blog Article Card

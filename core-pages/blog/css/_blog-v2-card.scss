@@ -3,10 +3,8 @@
 
 /**
  * Blog V2 Card Styles
- * Reusable dynamic card component for blog sidebars
- * Can be used in left sidebar, right sidebar, or anywhere
- * Supports 1, 2, 3, 4 column layouts
- * Scoped to blog-v2-card classes
+ * Hardcoded cards in left/right sidebars (no ACF card.php).
+ * cols1 only (single card per sidebar).
  */
 
 .blog-v2-cards-container {
@@ -35,41 +33,8 @@
         }
     }
 
-
     &.cols1 .blog-v2-card {
         width: 100%;
-    }
-
-    &.cols2 .blog-v2-card {
-        width: calc(50% - #{$gap24} / 2);
-
-        @include media($mobile) {
-            width: 100%;
-        }
-    }
-
-    &.cols3 .blog-v2-card {
-        width: calc(33.333% - #{$gap24} * 2 / 3);
-
-        @include media($tablet) {
-            width: calc(50% - #{$gap24} / 2);
-        }
-
-        @include media($mobile) {
-            width: 100%;
-        }
-    }
-
-    &.cols4 .blog-v2-card {
-        width: calc(25% - #{$gap24} * 3 / 4);
-
-        @include media($tablet) {
-            width: calc(50% - #{$gap24} / 2);
-        }
-
-        @include media($mobile) {
-            width: 100%;
-        }
     }
 }
 
@@ -109,47 +74,6 @@
     &__content {
         position: relative;
         z-index: 2;
-    }
-
-    &__snippet {
-        display: inline-block;
-        padding: 4px $gap12;
-        background-color: $blue300;
-        color: $white;
-        font-size: 11px;
-        font-weight: $fSemiBold;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        border-radius: 4px;
-        margin-bottom: $gap16;
-        line-height: 1.3;
-
-        @include media($mobile) {
-            font-size: 10px;
-            padding: 3px $gap10;
-            margin-bottom: $gap12;
-        }
-    }
-
-    &__icon {
-        width: 48px;
-        height: 48px;
-        margin-bottom: $gap16;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        svg {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-
-        @include media($mobile) {
-            width: 40px;
-            height: 40px;
-            margin-bottom: $gap12;
-        }
     }
 
     &__heading {
@@ -224,5 +148,32 @@
             font-size: 13px;
             text-align: center;
         }
+    }
+
+    &__heading-prefix {
+        font-size: $fsize18;
+        font-weight: $fSemiBold;
+        line-height: 1.3;
+    }
+
+    &__heading {
+        font-size: $fsize24;
+        font-weight: $fSemiBold;
+        color: $blue300;
+    }
+
+    &__whitepaper-heading {
+        font-size: 16px;
+        font-weight: $fSemiBold;
+        color: $gray300;
+        margin-bottom: $gap24;
+        margin-top: $gap8;
+    }
+
+    &_whitepaper-heading-prefix {
+        font-size: 12px;
+        font-weight: $fSemiBold;
+        color: $blue300;
+        text-transform: uppercase;
     }
 }

@@ -1,81 +1,41 @@
 <?php
 /**
- * Template Part: Blog V2 Page Hero (Flexible Content)
- * Displays hero section with title, category, intro text, and image
- * Designed to be used within a flexible content loop
- * Reads fields from current flexible content row using get_sub_field()
+ * Template Part: Blog V2 Page Hero
+ * Displays hero with title, category, intro text, and image.
+ * All data from post: title, excerpt or SEO meta, first category, featured image.
+ * Background from static asset.
  */
 
-$hero_title = '';
+$hero_title_plain = wp_strip_all_tags( get_the_title() );
 
-if ( function_exists( 'get_sub_field' ) ) {
-    $hero_title = get_sub_field( 'hero_title' );
-    if ( is_string( $hero_title ) ) {
-        $hero_title = trim( $hero_title );
+// Hero intro: only manual excerpt or SEO meta — never auto-generated excerpt from post content.
+$hero_content = '';
+if ( has_excerpt() ) {
+    $hero_content = get_the_excerpt();
+}
+if ( empty( trim( $hero_content ) ) && function_exists( 'get_post_meta' ) ) {
+    $post_id   = get_the_ID();
+    $meta_desc = get_post_meta( $post_id, '_yoast_wpseo_metadesc', true );
+    if ( ! empty( trim( $meta_desc ) ) ) {
+        $hero_content = $meta_desc;
+    }
+    if ( empty( trim( $hero_content ) ) ) {
+        $meta_desc = get_post_meta( $post_id, 'rank_math_description', true );
+        if ( ! empty( trim( $meta_desc ) ) ) {
+            $hero_content = $meta_desc;
+        }
     }
 }
 
-if ( empty( $hero_title ) || ( is_string( $hero_title ) && trim( strip_tags( $hero_title ) ) === '' ) ) {
-    $hero_title = '<h1>' . esc_html( get_the_title() ) . '</h1>';
-}
-
-$hero_bg_image_url = null;
-if ( function_exists( 'get_sub_field' ) ) {
-    $bg_image = get_sub_field( 'background_image' );
-    if ( $bg_image && ! empty( $bg_image ) ) {
-        if ( is_string( $bg_image ) ) {
-            $bg_image = trim( $bg_image );
-            if ( ! empty( $bg_image ) && ( filter_var( $bg_image, FILTER_VALIDATE_URL ) || strpos( $bg_image, '/' ) === 0 || strpos( $bg_image, 'http' ) === 0 ) ) {
-                $hero_bg_image_url = $bg_image;
-            }
-        }
-        elseif ( is_array( $bg_image ) ) {
-            if ( isset( $bg_image['url'] ) && ! empty( $bg_image['url'] ) ) {
-                $hero_bg_image_url = $bg_image['url'];
-            } elseif ( isset( $bg_image['ID'] ) && is_numeric( $bg_image['ID'] ) ) {
-                $hero_bg_image_url = wp_get_attachment_image_url( $bg_image['ID'], 'full' );
-            }
-        }
-        elseif ( is_numeric( $bg_image ) ) {
-            $hero_bg_image_url = wp_get_attachment_image_url( $bg_image, 'full' );
-        }
-    }
-}
+$hero_bg_image_url = get_template_directory_uri() . '/assets/images/blog-card-bg.png';
 
 $hero_image_url = null;
-if ( function_exists( 'get_sub_field' ) ) {
-    $select_image = get_sub_field( 'select_image' );
-    if ( $select_image && ! empty( $select_image ) ) {
-        if ( is_string( $select_image ) ) {
-            $select_image = trim( $select_image );
-            if ( ! empty( $select_image ) && ( filter_var( $select_image, FILTER_VALIDATE_URL ) || strpos( $select_image, '/' ) === 0 || strpos( $select_image, 'http' ) === 0 ) ) {
-                $hero_image_url = $select_image;
-            }
-        }
-        elseif ( is_array( $select_image ) ) {
-            if ( isset( $select_image['url'] ) && ! empty( $select_image['url'] ) ) {
-                $hero_image_url = $select_image['url'];
-            } elseif ( isset( $select_image['ID'] ) && is_numeric( $select_image['ID'] ) ) {
-                $hero_image_url = wp_get_attachment_image_url( $select_image['ID'], 'full' );
-            }
-        }
-        elseif ( is_numeric( $select_image ) ) {
-            $hero_image_url = wp_get_attachment_image_url( $select_image, 'full' );
-        }
-    }
-}
-
-if ( ( ! $hero_image_url || empty( $hero_image_url ) ) && has_post_thumbnail() ) {
+if ( has_post_thumbnail() ) {
     $hero_image_url = get_the_post_thumbnail_url( get_the_ID(), 'full' );
-}
-
-$hero_content = '';
-if ( function_exists( 'get_sub_field' ) ) {
-    $hero_content = get_sub_field( 'content' );
 }
 ?>
 
-<header class="blog-v2-hero<?php echo ! $hero_image_url ? ' blog-v2-hero--no-image' : ''; ?>"<?php if ( $hero_bg_image_url ) : ?> data-bg-image="<?php echo esc_url( $hero_bg_image_url ); ?>" style="--bg-image: url('<?php echo esc_url( $hero_bg_image_url ); ?>');"<?php endif; ?>>
+<header class="blog-v2-hero<?php echo ! $hero_image_url ? ' blog-v2-hero--no-image' : ''; ?>" data-bg-image="<?php echo esc_url( $hero_bg_image_url ); ?>" style="--bg-image: url('<?php echo esc_url( $hero_bg_image_url ); ?>');">
     <div class="blog-v2-hero__content">
         <div class="blog-v2-hero__meta">
             <?php
@@ -111,19 +71,17 @@ if ( function_exists( 'get_sub_field' ) ) {
                         <path d="M26 16.3038C26 10.7472 21.5229 6.24268 16 6.24268C10.4771 6.24268 6 10.7472 6 16.3038C6 21.3255 9.65684 25.4879 14.4375 26.2427V19.2121H11.8984V16.3038H14.4375V14.0872C14.4375 11.5656 15.9305 10.1728 18.2146 10.1728C19.3088 10.1728 20.4531 10.3693 20.4531 10.3693V12.8453H19.1922C17.95 12.8453 17.5625 13.6209 17.5625 14.4166V16.3038H20.3359L19.8926 19.2121H17.5625V26.2427C22.3432 25.4879 26 21.3257 26 16.3038Z" fill="#1A1C1E"/>
                     </svg>
                 </a>
-               
-
             </div>
         </div>
         <div class="blog-v2-hero__title">
-            <?php echo wp_kses_post( $hero_title ); ?>
+            <?php echo esc_html( $hero_title_plain ); ?>
         </div>
-        <?php if ( $hero_content ) : ?>
+        <?php if ( ! empty( trim( $hero_content ) ) ) : ?>
             <div class="blog-v2-hero__intro">
-                <?php echo wp_kses_post( $hero_content ); ?>
+                <?php echo wp_kses_post( wpautop( $hero_content ) ); ?>
             </div>
         <?php endif; ?>
-        
+
         <div class="blog-hero-authors">
             <div class="written-by">
                 <p>Created by</p>
@@ -161,11 +119,7 @@ if ( function_exists( 'get_sub_field' ) ) {
 
     <?php if ( $hero_image_url ) : ?>
         <div class="blog-v2-hero__media">
-            <img src="<?php echo esc_url( $hero_image_url ); ?>" alt="<?php echo esc_attr( strip_tags( $hero_title ) ?: get_the_title() ); ?>" class="blog-v2-hero__image" />
-        </div>
-    <?php elseif ( has_post_thumbnail() ) : ?>
-        <div class="blog-v2-hero__media">
-            <?php the_post_thumbnail( 'full', array( 'class' => 'blog-v2-hero__image' ) ); ?>
+            <img src="<?php echo esc_url( $hero_image_url ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" class="blog-v2-hero__image" />
         </div>
     <?php endif; ?>
 </header>
