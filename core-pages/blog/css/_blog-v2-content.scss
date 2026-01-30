@@ -13,6 +13,9 @@
     line-height: 1.7;
     color: $gray300;
     word-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 
     // Reset any parent overflow issues
     overflow: visible;
@@ -25,19 +28,6 @@
     // ====================
     // HEADINGS
     // ====================
-
-    h1, h2, h3, h4, h5, h6 {
-        font-family: $default-font;
-        font-weight: $fSemiBold;
-        line-height: 1.3;
-        color: $gray300;
-        margin: 2.5em 0 0.75em 0;
-        scroll-margin-top: 140px; // Account for sticky header
-        
-        &:first-child {
-            margin-top: 0;
-        }
-    }
 
     h1 {
         font-size: $fsize48;
@@ -53,27 +43,18 @@
     }
 
     h2 {
-        font-size: $fsize40;
-        
-        @include media($tablet) {
-            font-size: $fsize32;
-        }
-        
-        @include media($mobile) {
-            font-size: $fsize28;
+        font-size: $fsize28;
+        font-weight: $fSemiBold;
+
+        &.toc-item {
+            border-left: 2px solid $blue300;
+            padding: $gap12 $gap16;
         }
     }
 
     h3 {
-        font-size: $fsize32;
-        
-        @include media($tablet) {
-            font-size: $fsize28;
-        }
-        
-        @include media($mobile) {
-            font-size: $fsize24;
-        }
+        font-size: $fsize18;
+        font-weight: $fSemiBold;
     }
 
     h4 {
@@ -106,15 +87,15 @@
     // ====================
 
     p {
-        margin: 0 0 1.5em 0;
         line-height: 1.7;
-        
-        &:last-child {
-            margin-bottom: 0;
-        }
+        font-size: $base-fsize;
+        padding-bottom: 0;
 
-        @include media($mobile) {
-            margin-bottom: 1.25em;
+        &._article-summary {
+            font-size: $fsize18;
+            line-height: 26px;
+            padding-bottom: 0;
+            margin: 0 0 40px 0;
         }
     }
 
@@ -168,6 +149,53 @@
         }
     }
 
+    .wp-block-list {
+        margin: 0 0 24px 0;
+        padding-left: 0;
+
+        li {
+            margin-bottom: 0;
+            padding-left: 0;
+        }
+    }
+
+    // List with blue triangle bullets
+    .wp-block-list-2 {
+        margin: 0;
+        padding-left: 0;
+        list-style: none;
+
+        ul {
+            margin: 0;
+        }
+
+        li {
+            position: relative;
+            padding-left: $gap24;
+            margin-bottom: 24px;
+            line-height: 1.7;
+            padding-bottom: 0;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            // Blue triangle bullet
+            &::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0.5em;
+                width: 0;
+                height: 0;
+                border-left: 10px solid $blue300;
+                border-top: 6px solid transparent;
+                border-bottom: 6px solid transparent;
+                display: block;
+            }
+        }
+    }
+
     // ====================
     // LINKS
     // ====================
@@ -175,7 +203,6 @@
     a {
         color: $blue300;
         text-decoration: underline;
-        text-decoration-color: rgba($blue300, 0.3);
         text-underline-offset: 2px;
         transition: all 0.2s ease;
 
@@ -203,11 +230,6 @@
     }
 
     figure {
-        margin: 2em 0;
-        
-        @include media($mobile) {
-            margin: 1.5em 0;
-        }
 
         img {
             width: 100%;
@@ -254,16 +276,10 @@
     }
 
     figcaption {
-        margin-top: $gap12;
-        font-size: $fsize14;
-        color: $gray100;
-        text-align: center;
-        font-style: italic;
-        line-height: 1.5;
-
-        @include media($mobile) {
-            font-size: 13px;
-        }
+        margin-top: $gap10;
+        font-size: $fsize12;
+        color: $gray300;
+        margin-bottom: 0;
     }
 
     // ====================
@@ -311,29 +327,23 @@
 
     table {
         width: 100%;
-        margin: 2em 0;
         border-collapse: collapse;
-        border: 1px solid $gray75;
+        border: none;
         font-size: $fsize14;
-
-        @include media($mobile) {
-            font-size: 13px;
-            margin: 1.5em 0;
-            display: block;
-            overflow-x: auto;
-        }
+        border-radius: $corners8;
+        overflow: hidden;
+        background-color: $white;
     }
 
     thead {
-        background-color: $gray50;
-        border-bottom: 2px solid $gray75;
+        background-color: $blue500;
     }
 
     th {
         padding: $gap16 $gap20;
         text-align: left;
         font-weight: $fSemiBold;
-        color: $gray300;
+        color: $white;
 
         @include media($mobile) {
             padding: $gap12 $gap16;
@@ -342,7 +352,8 @@
 
     td {
         padding: $gap16 $gap20;
-        border-bottom: 1px solid $gray75;
+        border: none;
+        color: $gray300;
 
         @include media($mobile) {
             padding: $gap12 $gap16;
@@ -350,12 +361,20 @@
     }
 
     tbody tr {
-        &:hover {
-            background-color: $white50;
+        background-color: $white;
+
+        // First row is header
+        &:first-child {
+            background-color: $blue500;
+
+            td {
+                color: $white;
+                font-weight: $fSemiBold;
+            }
         }
 
-        &:last-child td {
-            border-bottom: none;
+        &:nth-child(odd):not(:first-child) {
+            background-color: $blue50;
         }
     }
 
@@ -412,7 +431,7 @@
     // ====================
 
     strong, b {
-        font-weight: $fSemiBold;
+        font-weight: $fBold;
     }
 
     em, i {
@@ -424,7 +443,6 @@
     // ====================
 
     .wp-block-button {
-        margin: 1.5em 0;
 
         .wp-block-button__link {
             display: inline-block;
@@ -448,31 +466,11 @@
     // GUTENBERG BLOCKS
     // ====================
 
-    // Columns
-    .wp-block-columns {
-        display: flex;
-        gap: $gap40;
-        margin: 2em 0;
-
-        @include media($tablet) {
-            flex-direction: column;
-            gap: $gap20;
-        }
-
-        @include media($mobile) {
-            gap: $gap16;
-        }
-    }
-
     .wp-block-column {
         flex: 1;
         min-width: 0;
     }
 
-    // Group
-    .wp-block-group {
-        margin: 2em 0;
-    }
 
     // Cover
     .wp-block-cover {
@@ -516,7 +514,6 @@
 
     .wp-block-embed,
     .wp-block-video {
-        margin: 2em 0;
 
         @include media($mobile) {
             margin: 1.5em 0;
@@ -527,6 +524,137 @@
             max-width: 100%;
             border-radius: $corners8;
         }
+    }
+
+    // ====================
+    // KEY TAKEAWAYS
+    // ====================
+
+    .wp-block-group._article-keytakeaways {
+        background-color: $white;
+        padding: $gap20;
+        border-radius: $corners8;
+
+        h2 {
+            margin-bottom: $gap24;
+            font-weight: $fSemiBold;
+            color: $black;
+            font-size: $fsize18;
+        }
+
+        ul {
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+
+            li {
+                position: relative;
+                padding-left: $gap24;
+                margin-bottom: $gap24;
+                padding-bottom: 0;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+
+                &:before {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    width: 10px;
+                    height: 10px;
+                    background-color: $blue300;
+                    background-image: none;
+                    display: block;
+                }
+            }
+        }
+    }
+
+    // HR PROFESSIONALS
+    ._article-hrprofessionals {
+        border-left: 2px solid $blue300;
+        padding: $gap20;
+        color: $blue500;
+        font-size: $fsize24;
+        font-style: italic;
+    }
+
+    // ====================
+    // ABOUT THE CREATOR
+    // ====================
+
+    .wp-block-group._article-about-creator {
+        background-color: $white;
+        border-radius: $corners8;
+        padding: $gap40;
+        display: flex;
+        flex-direction: column;
+        gap: $gap40;
+
+        @include media($mobile) {
+            padding: $gap20;
+        }
+
+        .blog-v2-about-creator__label {
+            font-size: 10px;
+            font-weight: $fSemiBold;
+            color: $gray100;
+            text-transform: uppercase;
+        }
+
+        .blog-v2-about-creator__header {
+            display: flex;
+            gap: $gap24;
+            align-items: center;
+
+            @include media($mobile) {
+                flex-direction: column;
+                gap: $gap16;
+                align-items: flex-start;
+            }
+        }
+
+        .blog-v2-about-creator__avatar {
+            flex-shrink: 0;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+
+            @include media($mobile) {
+                width: 80px;
+                height: 80px;
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+        }
+
+        .blog-v2-about-creator__info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-v2-about-creator__name {
+            font-size: $fsize24;
+            font-weight: $fSemiBold;
+            color: $gray300;
+        }
+
+        .blog-v2-about-creator__job {
+            font-size: $fsize14;
+            color: $gray300;
+            font-weight: $fSemiBold;
+        }
+
+        // Remove gap after About The Creator section
+        margin-bottom: -40px;
     }
 
     // ====================

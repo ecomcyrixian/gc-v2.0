@@ -114,7 +114,8 @@ header{
                 margin: 0 auto $gap16  auto;
                 font-size: $fsize64;
                 font-weight: $fBold;
-                font-style: italic;
+                transform: skew(-8deg);
+
 
                 @include media($mobile){
                     font-size: $fsize40;
@@ -125,11 +126,16 @@ header{
             h5{
                 font-size: $fsize32;
                 font-weight: $fRegular;
-                margin-bottom: $gap16;
-
-                &>i{
+                &.header-subtitle{
                     font-weight: $fBold;
-                    font-style: italic;
+                    margin-bottom: $gap16;
+                    transform: skew(-8deg);
+                }
+                &.header-subtitle i{
+                    font-weight: $fRegular;
+                    transform: skew(8deg);
+                    font-style: normal;
+                    display: inline-block;
                 }
                 @include media($mobile){
                     font-size: $fsize20;
@@ -137,7 +143,7 @@ header{
             }
 
             p{
-                font-size: $fsize18;
+                font-size: 16px;
                 margin-bottom: $gap40;
                 color: $gray75;
                 @include media($mobile){
@@ -267,7 +273,7 @@ header{
     &.scroll,
     &.active{
         top:0;
-        z-index: 99;
+        z-index: 100;
         background: $white;
         border-bottom: 1px solid $gray75;
           

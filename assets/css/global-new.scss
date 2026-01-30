@@ -293,8 +293,9 @@ span[Class*=icon-]{
       color: $blue300;
       display: block;
       font-weight: $fSemiBold;
-      font-size: $base-fsize;
+      font-size: $fsize14;
       text-transform: uppercase;
+      margin-bottom: $gap16;
 
       @include media($mobile){
         font-size: $fsize14;

@@ -140,7 +140,7 @@
             }
             .badge{
                 padding: $gap10;
-                color: $blue500;
+                color: $blue300;
                 display: inline-block;
                 background: $blue50;
                 border-radius: $corners4;
@@ -215,8 +215,8 @@
             }
         }
         a{
-            color: $cyan;
-            text-decoration: underline;
+            color: #999AFE;
+            text-decoration: none;
         }
     }
 }

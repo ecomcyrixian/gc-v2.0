@@ -655,7 +655,7 @@
 }
 #pricing #price-boxes .price-badge .badge {
   padding: 10px;
-  color: #30319A;
+  color: #4F51FD;
   display: inline-block;
   background: #F2F3FF;
   border-radius: 4px;
@@ -719,8 +719,8 @@
   }
 }
 #pricing .snippet a {
-  color: #3FC5FD;
-  text-decoration: underline;
+  color: #999AFE;
+  text-decoration: none;
 }
 
 /*
