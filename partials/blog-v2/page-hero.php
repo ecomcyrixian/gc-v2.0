@@ -87,14 +87,18 @@ if ( has_post_thumbnail() ) {
                 <p>Created by</p>
                 <div class="blog-hero-authors__author">
                     <?php
-                    $author_name = 'Pat Hartonian';
-                    $author_job = 'VP of Operations, GCheck';
-                    $author_avatar = get_template_directory_uri() . '/assets/images/pat-hat.png';
+                    $author = blog_v2_author_display_data();
                     ?>
-                    <img src="<?php echo esc_url( $author_avatar ); ?>" alt="<?php echo esc_attr( $author_name ); ?>">
+                    <?php if ( $author['avatar'] === 'pat' && ! empty( $author['url'] ) ) : ?>
+                        <img src="<?php echo esc_url( $author['url'] ); ?>" alt="<?php echo esc_attr( $author['name'] ); ?>">
+                    <?php else : ?>
+                        <span class="blog-hero-authors__initials" aria-hidden="true"<?php echo ! empty( $author['color'] ) ? ' style="background-color:' . esc_attr( $author['color'] ) . '; color: #fff;"' : ''; ?>><?php echo esc_html( $author['initials'] ); ?></span>
+                    <?php endif; ?>
                     <div class="blog-hero-authors__author-info">
-                        <strong><?php echo esc_html( $author_name ); ?></strong>
-                        <span><?php echo esc_html( $author_job ); ?></span>
+                        <strong><?php echo esc_html( $author['name'] ); ?></strong>
+                        <?php if ( ! empty( $author['job'] ) ) : ?>
+                            <span><?php echo esc_html( $author['job'] ); ?></span>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

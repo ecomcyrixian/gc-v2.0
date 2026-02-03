@@ -61,20 +61,37 @@ if ( $wpq->have_posts() ) {
         <div class="blog-v2-sidebar__card">
             <h3 class="blog-v2-sidebar__title">About The Creator</h3>
             <?php
-            $author_name = 'Pat Hartonian';
-            $author_job = 'VP of Operations, GCheck';
-            $author_avatar = get_template_directory_uri() . '/assets/images/pat-hat.png';
+            $author = blog_v2_author_display_data();
+            $author_linkedin = '#';
+            if ( isset( $author['avatar'] ) && $author['avatar'] === 'pat' ) {
+                $author_id_for_linkedin = (int) get_post_field( 'post_author', get_the_ID() );
+                if ( $author_id_for_linkedin ) {
+                    $author_linkedin = get_the_author_meta( 'linkedin', $author_id_for_linkedin );
+                    $author_linkedin = is_string( $author_linkedin ) ? trim( $author_linkedin ) : '';
+                }
+                if ( empty( $author_linkedin ) ) {
+                    $author_linkedin = '#';
+                }
+            }
             ?>
             <div class="blog-v2-sidebar__author-container">
-                <img src="<?php echo esc_url( $author_avatar ); ?>" alt="<?php echo esc_attr( $author_name ); ?>" class="blog-v2-sidebar__avatar">
+                <?php if ( ! empty( $author['avatar'] ) && $author['avatar'] === 'pat' && ! empty( $author['url'] ) ) : ?>
+                    <img src="<?php echo esc_url( $author['url'] ); ?>" alt="<?php echo esc_attr( $author['name'] ); ?>" class="blog-v2-sidebar__avatar">
+                <?php else : ?>
+                    <span class="blog-v2-sidebar__initials blog-v2-sidebar__avatar" aria-hidden="true"<?php echo ! empty( $author['color'] ) ? ' style="background-color:' . esc_attr( $author['color'] ) . '; color: #fff;"' : ''; ?>><?php echo esc_html( $author['initials'] ); ?></span>
+                <?php endif; ?>
                 <div class="blog-v2-sidebar__author-info">
                     <div class="blog-v2-sidebar__author-name-wrapper">
-                        <span><?php echo esc_html( $author_name ); ?></span>
-                        <a href="#" class="blog-v2-sidebar__linkedin" aria-label="LinkedIn">
-                            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/linkedin.png' ); ?>" alt="LinkedIn">
-                        </a>
+                        <span><?php echo esc_html( $author['name'] ); ?></span>
+                        <?php if ( $author_linkedin !== '' ) : ?>
+                            <a href="<?php echo esc_url( $author_linkedin ); ?>" class="blog-v2-sidebar__linkedin" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                                <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/linkedin.png' ); ?>" alt="LinkedIn">
+                            </a>
+                        <?php endif; ?>
                     </div>
-                    <span><?php echo esc_html( $author_job ); ?></span>
+                    <?php if ( ! empty( $author['job'] ) ) : ?>
+                        <span><?php echo esc_html( $author['job'] ); ?></span>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -92,8 +109,8 @@ if ( $wpq->have_posts() ) {
                 <img src="<?php echo esc_url( $reviewer_avatar ); ?>" alt="<?php echo esc_attr( $reviewer_name ); ?>" class="blog-v2-sidebar__avatar">
                 <div class="blog-v2-sidebar__author-info">
                     <div class="blog-v2-sidebar__author-name-wrapper">
-                        <span><?php echo esc_html( $reviewer_name ); ?></span>
-                        <a href="#" class="blog-v2-sidebar__linkedin" aria-label="LinkedIn">
+                        <span><a href="https://gcheck.com/blog/author/charm/" style="text-decoration: none; color: inherit;"> <?php echo esc_html( $reviewer_name ); ?></a></span>
+                        <a href="https://www.linkedin.com/in/charm-paz-554380203/" class="blog-v2-sidebar__linkedin" aria-label="LinkedIn">
                             <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/linkedin.png' ); ?>" alt="LinkedIn">
                         </a>
                     </div>

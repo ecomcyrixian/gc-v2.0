@@ -141,17 +141,15 @@ function gcheck_scripts() {
 add_action('wp_enqueue_scripts', 'gcheck_scripts');
 
 /**
- * Remove only strictly empty paragraph tags from blog post content (single posts only).
- * Removes <p></p> or <p class="..."></p> with nothing between the tags.
+ * Load Blog V2 functions only on single post views (author helpers, content filters, related post, shortcode).
+ * Expand condition later if [article_card] or other blog-v2 logic is needed on pages/archives.
  */
-function blog_v2_remove_empty_p_tags( $content ) {
-    if ( ! is_single() ) {
-        return $content;
+function maybe_load_blog_v2_functions() {
+    if ( is_singular( 'post' ) ) {
+        require_once get_template_directory() . '/partials/blog-v2/blog-v2-functions.php';
     }
-    $content = preg_replace( '/<p[^>]*><\/p>/', '', $content );
-    return $content;
 }
-add_filter( 'the_content', 'blog_v2_remove_empty_p_tags', 20 );
+add_action( 'wp', 'maybe_load_blog_v2_functions' );
 
 /*
  * Enqueue global CSS with automatic cache busting based on source SCSS and compiled CSS file modification time
@@ -714,102 +712,3 @@ function generate_mega_featured_whitepaper( $menu_name = '' ) {
     return $html;
 }
 */
-
-/**
- * Pick one related post from a list by keyword match (current title words in candidate title).
- * Same logic as whitepaper in sidebar-right: best score wins, else random.
- *
- * @param WP_Post[] $candidates   List of posts.
- * @param string    $current_title Current post title (plain text).
- * @return WP_Post|null
- */
-function blog_v2_pick_related_post( array $candidates, $current_title ) {
-    if ( empty( $candidates ) ) {
-        return null;
-    }
-    $current_words = array_filter( array_map( 'strtolower', preg_split( '/\s+/', $current_title, -1, PREG_SPLIT_NO_EMPTY ) ) );
-    $best_score    = 0;
-    $best_index    = 0;
-
-    foreach ( $candidates as $i => $post ) {
-        $candidate_title = strtolower( wp_strip_all_tags( get_the_title( $post ) ) );
-        $score           = 0;
-        foreach ( $current_words as $word ) {
-            if ( strlen( $word ) > 2 && strpos( $candidate_title, $word ) !== false ) {
-                $score++;
-            }
-        }
-        if ( $score > $best_score ) {
-            $best_score = $score;
-            $best_index = $i;
-        }
-    }
-
-    return $best_score > 0 ? $candidates[ $best_index ] : $candidates[ array_rand( $candidates ) ];
-}
-
-/**
- * Get the related-article-inline HTML for the current post (one card above references/end of content).
- * Used by the_content filter to inject above References/Resources or at end of content.
- *
- * @return string HTML or empty string.
- */
-function blog_v2_get_related_article_inline_html() {
-    if ( ! is_singular( 'post' ) || ! in_the_loop() ) {
-        return '';
-    }
-    ob_start();
-    get_template_part( 'partials/blog-v2/related-article-inline' );
-    return ob_get_clean();
-}
-
-/**
- * Inject related article block into post content: above References/Resources section if present,
- * otherwise at the end of content (so it always displays before About The Creator).
- */
-function blog_v2_inject_related_article_above_references( $content ) {
-    if ( ! is_singular( 'post' ) || ! in_the_loop() ) {
-        return $content;
-    }
-
-    $related_html = blog_v2_get_related_article_inline_html();
-    if ( $related_html === '' ) {
-        return $content;
-    }
-
-    // Match first heading (h2, h3, h4) that is "References", "Resources", "Sources", or "Additional Resources" (case-insensitive).
-    $pattern = '/<(h[2-4])[^>]*>\s*(References|Resources|Sources|Additional Resources?)\s*<\/\1>/i';
-    if ( preg_match( $pattern, $content, $m ) ) {
-        $insert_before = $m[0];
-        $content       = str_replace( $insert_before, $related_html . "\n" . $insert_before, $content );
-    } else {
-        $content = $content . "\n" . $related_html;
-    }
-
-    return $content;
-}
-add_filter( 'the_content', 'blog_v2_inject_related_article_above_references', 15 );
-
-/**
- * Shortcode: Blog Article Card
- * Usage: [article_card id="123"] or [article_card id="123" /]
- * Displays a blog post card with featured image, category, title, date, and author
- */
-function blog_v2_article_card_shortcode( $atts ) {
-    $atts = shortcode_atts( array(
-        'id' => '',
-    ), $atts, 'article_card' );
-    
-    if ( empty( $atts['id'] ) || ! is_numeric( $atts['id'] ) ) {
-        return '';
-    }
-    
-    $post_id = intval( $atts['id'] );
-    
-    set_query_var( 'article_post_id', $post_id );
-    
-    ob_start();
-    get_template_part( 'partials/blog-v2/article-card' );
-    return ob_get_clean();
-}
-add_shortcode( 'article_card', 'blog_v2_article_card_shortcode' );
