@@ -110,14 +110,17 @@ function blog_v2_author_display_data( $post_id = null ) {
 // --- Content filters, related post, shortcode ---
 
 /**
- * Remove only strictly empty paragraph tags from blog post content (single posts only).
+ * Remove empty paragraphs and standalone wp-block-separator hr from blog post content (single posts only).
  * Removes <p></p> or <p class="..."></p> with nothing between the tags.
+ * Also removes <hr class="wp-block-separator has-alpha-channel-opacity"/> (and variants).
  */
 function blog_v2_remove_empty_p_tags( $content ) {
     if ( ! is_single() ) {
         return $content;
     }
     $content = preg_replace( '/<p[^>]*><\/p>/', '', $content );
+    // Remove wp-block-separator hr with has-alpha-channel-opacity (class order may vary).
+    $content = preg_replace( '/<hr[^>]*class="[^"]*(?:wp-block-separator[^"]*has-alpha-channel-opacity|has-alpha-channel-opacity[^"]*wp-block-separator)[^"]*"[^>]*\/?>/', '', $content );
     return $content;
 }
 add_filter( 'the_content', 'blog_v2_remove_empty_p_tags', 20 );

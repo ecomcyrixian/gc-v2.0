@@ -145,7 +145,7 @@
         }
     }
 
-    // wp-block-list: same blue triangle bullet design; no numbers for ol
+    // wp-block-list: blue triangle for top-level only; nested lists use disc for hierarchy
     .wp-block-list,
     ol.wp-block-list {
         margin: 0;
@@ -164,7 +164,7 @@
             margin: 0;
         }
 
-        li {
+        > li {
             position: relative;
             padding-left: $gap24;
             margin-bottom: 24px;
@@ -189,6 +189,40 @@
                 border-top: 6px solid transparent;
                 border-bottom: 6px solid transparent;
                 display: block;
+            }
+
+            // Nested wp-block-list only: small circle, more gap from text; top-level triangle (>) unchanged
+            .wp-block-list,
+            ul.wp-block-list {
+                margin-top: 0.5em;
+                margin-bottom: 0;
+                padding-left: 0;
+
+                li {
+                    position: relative;
+                    padding-left: 14px;
+                    margin-bottom: 0.5em;
+                    line-height: 1.7;
+                    list-style: none;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        left: 0;
+                        top: 0.65em;
+                        width: 5px !important;
+                        height: 5px !important;
+                        border: none !important;
+                        border-radius: 50%;
+                        background-color: $blue300;
+                        display: block;
+                        box-sizing: border-box;
+                    }
+                }
             }
         }
     }

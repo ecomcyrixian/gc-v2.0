@@ -40,11 +40,9 @@
                 }
             });
 
-            // Remove author link and preceding dash (e.g. " – <a href="...">Charm Paz, CHRP</a>")
-            var authorLinks = p.querySelectorAll('a[href*="author/charm"], a[href*="author/charm-paz"]');
+            // Remove author link and preceding dash (e.g. " - <a href="...">Charm Paz, CHRP</a>" or " - <a href="...">Emile Garcia, SHRM-SCP, CHRP, CHRBP</a>")
+            var authorLinks = p.querySelectorAll('a[href*="author/"]');
             authorLinks.forEach(function (a) {
-                var text = a.textContent.trim();
-                if (!/Charm Paz/i.test(text)) return;
                 // Trim preceding " – ", " - ", "— " from previous sibling text node
                 var prev = a.previousSibling;
                 if (prev && prev.nodeType === Node.TEXT_NODE) {
