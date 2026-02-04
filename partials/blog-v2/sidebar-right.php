@@ -61,47 +61,55 @@ if ( $wpq->have_posts() ) {
         <div class="blog-v2-sidebar__card">
             <h3 class="blog-v2-sidebar__title">About The Creator</h3>
             <?php
-            $author_name = 'Pat Hartonian';
-            $author_job = 'VP of Operations, GCheck';
-            $author_avatar = get_template_directory_uri() . '/assets/images/pat-hat.png';
+            $creator = function_exists( 'blog_v2_author_display_data' ) ? blog_v2_author_display_data() : array( 'name' => 'Pat Hartonian', 'job' => 'VP of Operations, GCheck', 'url' => get_template_directory_uri() . '/assets/images/pat-hat.png', 'link' => '#' );
+            $creator_avatar_url = ! empty( $creator['url'] ) ? $creator['url'] : '';
             ?>
             <div class="blog-v2-sidebar__author-container">
-                <img src="<?php echo esc_url( $author_avatar ); ?>" alt="<?php echo esc_attr( $author_name ); ?>" class="blog-v2-sidebar__avatar">
+                <?php if ( $creator_avatar_url ) : ?>
+                    <img src="<?php echo esc_url( $creator_avatar_url ); ?>" alt="<?php echo esc_attr( $creator['name'] ); ?>" class="blog-v2-sidebar__avatar">
+                <?php else : ?>
+                    <div class="blog-v2-sidebar__avatar blog-v2-sidebar__avatar--initials" style="background-color:<?php echo esc_attr( isset( $creator['color'] ) ? $creator['color'] : '#6B7280' ); ?>"><?php echo esc_html( isset( $creator['initials'] ) ? $creator['initials'] : '' ); ?></div>
+                <?php endif; ?>
                 <div class="blog-v2-sidebar__author-info">
                     <div class="blog-v2-sidebar__author-name-wrapper">
-                        <span><?php echo esc_html( $author_name ); ?></span>
-                        <a href="#" class="blog-v2-sidebar__linkedin" aria-label="LinkedIn">
+                        <?php $creator_link = ! empty( $creator['link'] ) ? $creator['link'] : '#'; ?>
+                        <span><a href="<?php echo esc_url( $creator_link ); ?>" style="text-decoration: none; color: inherit;"><?php echo esc_html( $creator['name'] ); ?></a></span>
+                        <a href="<?php echo esc_url( ! empty( $creator['link'] ) ? $creator['link'] : '#' ); ?>" class="blog-v2-sidebar__linkedin" aria-label="LinkedIn">
                             <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/linkedin.png' ); ?>" alt="LinkedIn">
                         </a>
                     </div>
-                    <span><?php echo esc_html( $author_job ); ?></span>
+                    <span><?php echo esc_html( $creator['job'] ); ?></span>
                 </div>
             </div>
         </div>
     </div>
 
+    <?php
+    $reviewer = function_exists( 'blog_v2_reviewer_display_data' ) ? blog_v2_reviewer_display_data() : null;
+    if ( $reviewer ) :
+        if ( empty( $reviewer['avatar'] ) ) {
+            $reviewer['avatar'] = get_template_directory_uri() . '/assets/images/charm-paz.png';
+        }
+        $reviewer_link = ! empty( $reviewer['link'] ) ? $reviewer['link'] : '#';
+    ?>
     <div class="blog-v2-sidebar__reviewer">
         <div class="blog-v2-sidebar__card">
             <div class="blog-v2-sidebar__title">About The Reviewer</div>
-            <?php
-            $reviewer_name = 'Charm Paz, CHRP';
-            $reviewer_job = 'Recruiter and Editor, GCheck';
-            $reviewer_avatar = get_template_directory_uri() . '/assets/images/charm-paz.png';
-            ?>
             <div class="blog-v2-sidebar__author-container">
-                <img src="<?php echo esc_url( $reviewer_avatar ); ?>" alt="<?php echo esc_attr( $reviewer_name ); ?>" class="blog-v2-sidebar__avatar">
+                <img src="<?php echo esc_url( $reviewer['avatar'] ); ?>" alt="<?php echo esc_attr( $reviewer['name'] ); ?>" class="blog-v2-sidebar__avatar">
                 <div class="blog-v2-sidebar__author-info">
                     <div class="blog-v2-sidebar__author-name-wrapper">
-                        <span><a href="https://gcheck.com/blog/author/charm/" style="text-decoration: none; color: inherit;"> <?php echo esc_html( $reviewer_name ); ?></a></span>
+                        <span><a href="<?php echo esc_url( $reviewer_link ); ?>" style="text-decoration: none; color: inherit;"><?php echo esc_html( $reviewer['name'] ); ?></a></span>
                         <a href="https://www.linkedin.com/in/charm-paz-554380203/" class="blog-v2-sidebar__linkedin" aria-label="LinkedIn">
                             <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/linkedin.png' ); ?>" alt="LinkedIn">
                         </a>
                     </div>
-                    <span><?php echo esc_html( $reviewer_job ); ?></span>
+                    <span><?php echo esc_html( $reviewer['job'] ); ?></span>
                 </div>
             </div>
         </div>
     </div>
+    <?php endif; ?>
 
     <?php if ( $whitepaper_post ) : ?>
     <div class="blog-v2-cards-container cols1 blog-v2-cards-container--whitepaper">

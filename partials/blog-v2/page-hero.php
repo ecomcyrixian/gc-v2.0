@@ -87,33 +87,39 @@ if ( has_post_thumbnail() ) {
                 <p>Created by</p>
                 <div class="blog-hero-authors__author">
                     <?php
-                    $author_name = 'Pat Hartonian';
-                    $author_job = 'VP of Operations, GCheck';
-                    $author_avatar = get_template_directory_uri() . '/assets/images/pat-hat.png';
+                    $creator = function_exists( 'blog_v2_author_display_data' ) ? blog_v2_author_display_data() : blog_v2_default_author();
+                    $creator_avatar_url = ! empty( $creator['url'] ) ? $creator['url'] : '';
                     ?>
-                    <img src="<?php echo esc_url( $author_avatar ); ?>" alt="<?php echo esc_attr( $author_name ); ?>">
+                    <?php if ( $creator_avatar_url ) : ?>
+                        <img src="<?php echo esc_url( $creator_avatar_url ); ?>" alt="<?php echo esc_attr( $creator['name'] ); ?>">
+                    <?php else : ?>
+                        <div class="blog-hero-authors__initials" style="background-color:<?php echo esc_attr( isset( $creator['color'] ) ? $creator['color'] : '#6B7280' ); ?>"><?php echo esc_html( isset( $creator['initials'] ) ? $creator['initials'] : '' ); ?></div>
+                    <?php endif; ?>
                     <div class="blog-hero-authors__author-info">
-                        <strong><?php echo esc_html( $author_name ); ?></strong>
-                        <span><?php echo esc_html( $author_job ); ?></span>
+                        <strong><?php echo esc_html( $creator['name'] ); ?></strong>
+                        <span><?php echo esc_html( $creator['job'] ); ?></span>
                     </div>
                 </div>
             </div>
+            <?php
+            $reviewer = function_exists( 'blog_v2_reviewer_display_data' ) ? blog_v2_reviewer_display_data() : null;
+            if ( $reviewer ) :
+                if ( empty( $reviewer['avatar'] ) ) {
+                    $reviewer['avatar'] = get_template_directory_uri() . '/assets/images/charm-paz.png';
+                }
+            ?>
             <div class="author-divider"></div>
             <div class="reviewed-by">
                 <p>Reviewed by</p>
                 <div class="blog-hero-authors__author">
-                    <?php
-                    $reviewer_name = 'Charm Paz, CHRP';
-                    $reviewer_job = 'Recruiter and Editor, GCheck';
-                    $reviewer_avatar = get_template_directory_uri() . '/assets/images/charm-paz.png';
-                    ?>
-                    <img src="<?php echo esc_url( $reviewer_avatar ); ?>" alt="<?php echo esc_attr( $reviewer_name ); ?>">
+                    <img src="<?php echo esc_url( $reviewer['avatar'] ); ?>" alt="<?php echo esc_attr( $reviewer['name'] ); ?>">
                     <div class="blog-hero-authors__author-info">
-                        <strong><?php echo esc_html( $reviewer_name ); ?></strong>
-                        <span><?php echo esc_html( $reviewer_job ); ?></span>
+                        <strong><?php echo esc_html( $reviewer['name'] ); ?></strong>
+                        <span><?php echo esc_html( $reviewer['job'] ); ?></span>
                     </div>
                 </div>
             </div>
+            <?php endif; ?>
         </div>
     </div>
 

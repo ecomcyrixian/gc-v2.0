@@ -725,13 +725,40 @@
             margin: 0;
             padding-left: $gap24;
 
-            img {
+            .blog-v2-expert-insight__attribution-avatar {
                 width: 40px;
                 height: 40px;
-                border-radius: 50%;
-                object-fit: cover;
                 flex-shrink: 0;
-                display: block;
+                position: relative;
+                border-radius: 50%;
+                overflow: hidden;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                    object-fit: cover;
+                    display: block;
+                }
+
+                .blog-v2-expert-insight__attribution-avatar-initials {
+                    display: none;
+                    position: absolute;
+                    inset: 0;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                    background-color: $gray100;
+                    color: $white;
+                    font-size: $fsize14;
+                    font-weight: $fSemiBold;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .blog-v2-expert-insight__attribution-avatar--initials .blog-v2-expert-insight__attribution-avatar-initials {
+                    display: flex;
+                }
             }
 
             .blog-v2-expert-insight__attribution-text {
@@ -819,6 +846,22 @@
                 height: 100%;
                 object-fit: cover;
                 display: block;
+            }
+
+            .blog-v2-about-creator__initials {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: $fsize24;
+                font-weight: $fSemiBold;
+                color: $white;
+
+                @include media($mobile) {
+                    font-size: $fsize20;
+                }
             }
         }
 

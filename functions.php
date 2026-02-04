@@ -128,13 +128,19 @@ function gcheck_scripts() {
             $expert_insight_js_version,
             true
         );
+        $expert_insight_data = array(
+            'charmAvatarUrl' => get_template_directory_uri() . '/assets/images/charm-paz.png',
+            'charmLink'      => 'https://gcheck.com/blog/author/charm/',
+        );
+        if ( function_exists( 'blog_v2_expert_insight_experts' ) ) {
+            $expert_insight_data['experts'] = blog_v2_expert_insight_experts();
+        } else {
+            $expert_insight_data['experts'] = array();
+        }
         wp_localize_script(
             'blog-v2-expert-insight',
             'blogV2ExpertInsight',
-            array(
-                'charmAvatarUrl' => get_template_directory_uri() . '/assets/images/charm-paz.png',
-                'charmLink'      => 'https://gcheck.com/blog/author/charm/',
-            )
+            $expert_insight_data
         );
     }
 }
