@@ -129,11 +129,11 @@ function gcheck_scripts() {
             true
         );
         $expert_insight_data = array(
-            'charmAvatarUrl' => get_template_directory_uri() . '/assets/images/charm-paz.png',
+            'charmAvatarUrl' => '',
             'charmLink'      => 'https://gcheck.com/blog/author/charm/',
         );
         if ( function_exists( 'blog_v2_expert_insight_experts' ) ) {
-            $expert_insight_data['experts'] = blog_v2_expert_insight_experts();
+            $expert_insight_data['experts'] = blog_v2_expert_insight_experts( get_the_ID() );
         } else {
             $expert_insight_data['experts'] = array();
         }

@@ -21,10 +21,11 @@
     }
 
     function getExpertForSlug(slug) {
-        if (!slug) return defaultCharm.avatar ? defaultCharm : null;
+        if (!slug) return defaultCharm;
         var expert = experts[slug];
         if (expert && expert.avatar) return expert;
-        if (slug === 'charm' || slug === 'charm-paz') return defaultCharm.avatar ? defaultCharm : null;
+        if (expert && expert.name) return expert;
+        if (slug === 'charm' || slug === 'charm-paz') return defaultCharm;
         return expert || null;
     }
 

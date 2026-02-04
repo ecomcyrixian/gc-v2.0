@@ -97,7 +97,7 @@ if ( has_post_thumbnail() ) {
                     <?php endif; ?>
                     <div class="blog-hero-authors__author-info">
                         <strong><?php echo esc_html( $creator['name'] ); ?></strong>
-                        <span><?php echo esc_html( $creator['job'] ); ?></span>
+                        <?php if ( ! empty( $creator['job'] ) ) : ?><span><?php echo esc_html( $creator['job'] ); ?></span><?php endif; ?>
                     </div>
                 </div>
             </div>

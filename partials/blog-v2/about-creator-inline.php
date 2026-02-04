@@ -21,7 +21,7 @@ $creator_bio       = function_exists( 'blog_v2_creator_bio' ) ? blog_v2_creator_
             <div class="blog-v2-about-creator__name-wrapper">
                 <h3 class="blog-v2-about-creator__name"><?php echo esc_html( $creator['name'] ); ?></h3>
             </div>
-            <p class="blog-v2-about-creator__job"><?php echo esc_html( $creator['job'] ); ?></p>
+            <?php if ( ! empty( $creator['job'] ) ) : ?><p class="blog-v2-about-creator__job"><?php echo esc_html( $creator['job'] ); ?></p><?php endif; ?>
         </div>
     </div>
     <?php if ( $creator_bio !== '' ) : ?>

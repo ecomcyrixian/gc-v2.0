@@ -78,7 +78,7 @@ if ( $wpq->have_posts() ) {
                             <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/linkedin.png' ); ?>" alt="LinkedIn">
                         </a>
                     </div>
-                    <span><?php echo esc_html( $creator['job'] ); ?></span>
+                    <?php if ( ! empty( $creator['job'] ) ) : ?><span><?php echo esc_html( $creator['job'] ); ?></span><?php endif; ?>
                 </div>
             </div>
         </div>
@@ -91,6 +91,7 @@ if ( $wpq->have_posts() ) {
             $reviewer['avatar'] = get_template_directory_uri() . '/assets/images/charm-paz.png';
         }
         $reviewer_link = ! empty( $reviewer['link'] ) ? $reviewer['link'] : '#';
+        $reviewer_linkedin = ! empty( $reviewer['linkedin'] ) ? $reviewer['linkedin'] : '';
     ?>
     <div class="blog-v2-sidebar__reviewer">
         <div class="blog-v2-sidebar__card">
@@ -100,9 +101,11 @@ if ( $wpq->have_posts() ) {
                 <div class="blog-v2-sidebar__author-info">
                     <div class="blog-v2-sidebar__author-name-wrapper">
                         <span><a href="<?php echo esc_url( $reviewer_link ); ?>" style="text-decoration: none; color: inherit;"><?php echo esc_html( $reviewer['name'] ); ?></a></span>
-                        <a href="https://www.linkedin.com/in/charm-paz-554380203/" class="blog-v2-sidebar__linkedin" aria-label="LinkedIn">
+                        <?php if ( $reviewer_linkedin !== '' ) : ?>
+                        <a href="<?php echo esc_url( $reviewer_linkedin ); ?>" class="blog-v2-sidebar__linkedin" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
                             <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/linkedin.png' ); ?>" alt="LinkedIn">
                         </a>
+                        <?php endif; ?>
                     </div>
                     <span><?php echo esc_html( $reviewer['job'] ); ?></span>
                 </div>
