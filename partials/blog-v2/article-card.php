@@ -31,9 +31,21 @@ $title = get_the_title( $post_id );
 $permalink = get_permalink( $post_id );
 $featured_image = get_the_post_thumbnail_url( $post_id, 'medium' );
 $date = get_the_date( 'd M Y', $post_id );
-$author_id = get_post_field( 'post_author', $post_id );
-$author_name = get_the_author_meta( 'display_name', $author_id );
-$author_url = get_author_posts_url( $author_id );
+
+$author_name = '';
+$author_url = '#';
+if ( function_exists( 'blog_v2_author_display_data' ) ) {
+    $creator = blog_v2_author_display_data( $post_id );
+    if ( ! empty( $creator['name'] ) ) {
+        $author_name = $creator['name'];
+        $author_url = ! empty( $creator['link'] ) ? $creator['link'] : '#';
+    }
+}
+if ( $author_name === '' ) {
+    $author_id = get_post_field( 'post_author', $post_id );
+    $author_name = get_the_author_meta( 'display_name', $author_id );
+    $author_url = get_author_posts_url( $author_id );
+}
 
 $categories = get_the_category( $post_id );
 $category_name = '';
