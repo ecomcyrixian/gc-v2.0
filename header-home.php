@@ -18,7 +18,7 @@
             <h1>
                 <!-- <i>Fast, Accurate,</i> and <i>Compliant</i> Background Checks — <i>Made Simple</i> -->
                  <!-- Compliance for Good™ Delivers Screening That's <i>Fast</i>, <i>Fair</i>, and <i>Protective</i> -->
-                 Compliance for Good.™
+                 Compliance for Good ™
             </h1>
             <h5>Stay Compliant with Background Checks that are</h5>
             <h5 class="header-subtitle">Fast<i>, </i>  Accurate<i>, and </i> Safe</h5>
