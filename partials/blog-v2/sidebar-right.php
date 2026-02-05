@@ -1,9 +1,59 @@
 <?php
 /**
  * Template Part: Blog V2 Right Sidebar
- * Right sidebar for author and reviewer cards
- * Hardcoded to match Figma design
+ * About The Creator, About The Reviewer, whitepaper card (related or random), compliance CTA.
+ * No ACF; no card.php.
  */
+
+// Whitepaper card: query pages in category "whitepapers", pick one related to current post title or random.
+$current_post_title = wp_strip_all_tags( get_the_title() );
+$whitepaper_post    = null;
+
+$wpq = new WP_Query( array(
+    'post_type'      => 'page',
+    'posts_per_page' => 30,
+    'orderby'        => 'date',
+    'order'          => 'DESC',
+    'post_status'    => 'publish',
+    'tax_query'      => array(
+        array(
+            'taxonomy' => 'category',
+            'field'    => 'slug',
+            'terms'    => 'whitepapers',
+        ),
+    ),
+) );
+
+if ( $wpq->have_posts() ) {
+    $whitepapers = array();
+    while ( $wpq->have_posts() ) {
+        $wpq->the_post();
+        $whitepapers[] = get_post();
+    }
+    wp_reset_postdata();
+
+    if ( ! empty( $whitepapers ) ) {
+        $current_words = array_filter( array_map( 'strtolower', preg_split( '/\s+/', $current_post_title, -1, PREG_SPLIT_NO_EMPTY ) ) );
+        $best_score    = 0;
+        $best_index    = 0;
+
+        foreach ( $whitepapers as $i => $wp_post ) {
+            $wp_title = strtolower( wp_strip_all_tags( get_the_title( $wp_post ) ) );
+            $score    = 0;
+            foreach ( $current_words as $word ) {
+                if ( strlen( $word ) > 2 && strpos( $wp_title, $word ) !== false ) {
+                    $score++;
+                }
+            }
+            if ( $score > $best_score ) {
+                $best_score = $score;
+                $best_index = $i;
+            }
+        }
+
+        $whitepaper_post = $best_score > 0 ? $whitepapers[ $best_index ] : $whitepapers[ array_rand( $whitepapers ) ];
+    }
+}
 ?>
 
 <aside class="blog-v2-sidebar blog-v2-sidebar--right">
@@ -11,57 +61,68 @@
         <div class="blog-v2-sidebar__card">
             <h3 class="blog-v2-sidebar__title">About The Creator</h3>
             <?php
-            $author_name = 'Pat Hartonian';
-            $author_job = 'VP of Operations, GCheck';
-            $author_avatar = get_template_directory_uri() . '/assets/images/pat-hat.png';
+            $creator = function_exists( 'blog_v2_author_display_data' ) ? blog_v2_author_display_data() : array( 'name' => 'Pat Hartonian', 'job' => 'VP of Operations, GCheck', 'url' => get_template_directory_uri() . '/assets/images/pat-hat.png', 'link' => '#' );
+            $creator_avatar_url = ! empty( $creator['url'] ) ? $creator['url'] : '';
             ?>
             <div class="blog-v2-sidebar__author-container">
-                <img src="<?php echo esc_url( $author_avatar ); ?>" alt="<?php echo esc_attr( $author_name ); ?>" class="blog-v2-sidebar__avatar">
+                <?php if ( $creator_avatar_url ) : ?>
+                    <img src="<?php echo esc_url( $creator_avatar_url ); ?>" alt="<?php echo esc_attr( $creator['name'] ); ?>" class="blog-v2-sidebar__avatar">
+                <?php else : ?>
+                    <div class="blog-v2-sidebar__avatar blog-v2-sidebar__avatar--initials" style="background-color:<?php echo esc_attr( isset( $creator['color'] ) ? $creator['color'] : '#6B7280' ); ?>"><?php echo esc_html( isset( $creator['initials'] ) ? $creator['initials'] : '' ); ?></div>
+                <?php endif; ?>
                 <div class="blog-v2-sidebar__author-info">
                     <div class="blog-v2-sidebar__author-name-wrapper">
-                        <span><?php echo esc_html( $author_name ); ?></span>
-                        <a href="#" class="blog-v2-sidebar__linkedin" aria-label="LinkedIn">
+                        <?php $creator_link = ! empty( $creator['link'] ) ? $creator['link'] : '#'; ?>
+                        <span><a href="<?php echo esc_url( $creator_link ); ?>" style="text-decoration: none; color: inherit;"><?php echo esc_html( $creator['name'] ); ?></a></span>
+                        <a href="<?php echo esc_url( ! empty( $creator['link'] ) ? $creator['link'] : '#' ); ?>" class="blog-v2-sidebar__linkedin" aria-label="LinkedIn">
                             <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/linkedin.png' ); ?>" alt="LinkedIn">
                         </a>
                     </div>
-                    <span><?php echo esc_html( $author_job ); ?></span>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="blog-v2-sidebar__reviewer">
-        <div class="blog-v2-sidebar__card">
-            <div class="blog-v2-sidebar__title">About The Reviewer</div>
-            <?php
-            $reviewer_name = 'Charm Paz, CHRP';
-            $reviewer_job = 'Recruiter and Editor, GCheck';
-            $reviewer_avatar = get_template_directory_uri() . '/assets/images/charm-paz.png';
-            ?>
-            <div class="blog-v2-sidebar__author-container">
-                <img src="<?php echo esc_url( $reviewer_avatar ); ?>" alt="<?php echo esc_attr( $reviewer_name ); ?>" class="blog-v2-sidebar__avatar">
-                <div class="blog-v2-sidebar__author-info">
-                    <div class="blog-v2-sidebar__author-name-wrapper">
-                        <span><?php echo esc_html( $reviewer_name ); ?></span>
-                        <a href="#" class="blog-v2-sidebar__linkedin" aria-label="LinkedIn">
-                            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/linkedin.png' ); ?>" alt="LinkedIn">
-                        </a>
-                    </div>
-                    <span><?php echo esc_html( $reviewer_job ); ?></span>
+                    <?php if ( ! empty( $creator['job'] ) ) : ?><span><?php echo esc_html( $creator['job'] ); ?></span><?php endif; ?>
                 </div>
             </div>
         </div>
     </div>
 
-    <?php 
-    // Loop through flexible content to find cards with position="right"
-    if ( function_exists( 'have_rows' ) && have_rows( 'blog_v2_layout' ) ) :
-        while ( have_rows( 'blog_v2_layout' ) ) : the_row();
-            if ( get_row_layout() == 'card' ) :
-                set_query_var( 'sidebar_position', 'right' );
-                get_template_part( 'partials/blog-v2/card' );
-            endif;
-        endwhile;
-    endif;
+    <?php
+    $reviewer = function_exists( 'blog_v2_reviewer_display_data' ) ? blog_v2_reviewer_display_data() : null;
+    if ( $reviewer ) :
+        if ( empty( $reviewer['avatar'] ) ) {
+            $reviewer['avatar'] = get_template_directory_uri() . '/assets/images/charm-paz.png';
+        }
+        $reviewer_link = ! empty( $reviewer['link'] ) ? $reviewer['link'] : '#';
+        $reviewer_linkedin = ! empty( $reviewer['linkedin'] ) ? $reviewer['linkedin'] : '';
     ?>
+    <div class="blog-v2-sidebar__reviewer">
+        <div class="blog-v2-sidebar__card">
+            <div class="blog-v2-sidebar__title">About The Reviewer</div>
+            <div class="blog-v2-sidebar__author-container">
+                <img src="<?php echo esc_url( $reviewer['avatar'] ); ?>" alt="<?php echo esc_attr( $reviewer['name'] ); ?>" class="blog-v2-sidebar__avatar">
+                <div class="blog-v2-sidebar__author-info">
+                    <div class="blog-v2-sidebar__author-name-wrapper">
+                        <span><a href="<?php echo esc_url( $reviewer_link ); ?>" style="text-decoration: none; color: inherit;"><?php echo esc_html( $reviewer['name'] ); ?></a></span>
+                        <?php if ( $reviewer_linkedin !== '' ) : ?>
+                        <a href="<?php echo esc_url( $reviewer_linkedin ); ?>" class="blog-v2-sidebar__linkedin" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+                            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/linkedin.png' ); ?>" alt="LinkedIn">
+                        </a>
+                        <?php endif; ?>
+                    </div>
+                    <span><?php echo esc_html( $reviewer['job'] ); ?></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
+
+    <?php if ( $whitepaper_post ) : ?>
+    <div class="blog-v2-cards-container cols1 blog-v2-cards-container--whitepaper">
+        <div class="blog-v2-card blog-v2-card--whitepaper">
+            <div class="blog-v2-card__content">
+                <span class="blog-v2-card_whitepaper-heading-prefix">Whitepaper</span>
+                <h4 class="blog-v2-card__whitepaper-heading"><?php echo esc_html( get_the_title( $whitepaper_post ) ); ?></h4>
+                <a href="<?php echo esc_url( get_permalink( $whitepaper_post ) ); ?>" class="blog-v2-card__btn" aria-label="Download PDF">Download PDF</a>
+            </div>
+        </div>
+    </div>
+    <?php endif; ?>
 </aside>

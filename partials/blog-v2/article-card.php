@@ -39,6 +39,7 @@ $categories = get_the_category( $post_id );
 $category_name = '';
 if ( ! empty( $categories ) ) {
     $category_name = $categories[0]->name;
+    $category_name = html_entity_decode( $category_name, ENT_QUOTES, 'UTF-8' );
 }
 
 wp_reset_postdata();
@@ -56,7 +57,7 @@ wp_reset_postdata();
     <div class="blog-v2-article-card__content">
         <?php if ( $category_name ) : ?>
             <div class="blog-v2-article-card__category">
-                <?php echo esc_html( strtoupper( $category_name ) ); ?>
+                <?php echo esc_html( mb_strtoupper( $category_name, 'UTF-8' ) ); ?>
             </div>
         <?php endif; ?>
         

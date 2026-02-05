@@ -118,20 +118,44 @@ function gcheck_scripts() {
             true // Load in footer
         );
 
-        // Mobile cards repositioning script
-        $mobile_cards_js_path = get_template_directory() . '/assets/js/blog-v2-mobile-cards.js';
-        $mobile_cards_js_version = file_exists($mobile_cards_js_path) ? filemtime($mobile_cards_js_path) : '1.0.0';
-        
+        // Expert insight block (pale cyan blue): truncate, see more, Charm attribution
+        $expert_insight_js_path = get_template_directory() . '/assets/js/blog-v2-expert-insight.js';
+        $expert_insight_js_version = file_exists($expert_insight_js_path) ? filemtime($expert_insight_js_path) : '1.0.0';
         wp_enqueue_script(
-            'blog-v2-mobile-cards', // Unique handle
-            get_template_directory_uri() . '/assets/js/blog-v2-mobile-cards.js', // Path to script
-            array('jquery'), // Dependencies
-            $mobile_cards_js_version, // Version with cache busting
-            true // Load in footer
+            'blog-v2-expert-insight',
+            get_template_directory_uri() . '/assets/js/blog-v2-expert-insight.js',
+            array(),
+            $expert_insight_js_version,
+            true
+        );
+        $expert_insight_data = array(
+            'charmAvatarUrl' => '',
+            'charmLink'      => 'https://gcheck.com/blog/author/charm/',
+        );
+        if ( function_exists( 'blog_v2_expert_insight_experts' ) ) {
+            $expert_insight_data['experts'] = blog_v2_expert_insight_experts( get_the_ID() );
+        } else {
+            $expert_insight_data['experts'] = array();
+        }
+        wp_localize_script(
+            'blog-v2-expert-insight',
+            'blogV2ExpertInsight',
+            $expert_insight_data
         );
     }
 }
 add_action('wp_enqueue_scripts', 'gcheck_scripts');
+
+/**
+ * Load Blog V2 functions only on single post views (author helpers, content filters, related post, shortcode).
+ * Expand condition later if [article_card] or other blog-v2 logic is needed on pages/archives.
+ */
+function maybe_load_blog_v2_functions() {
+    if ( is_singular( 'post' ) ) {
+        require_once get_template_directory() . '/partials/blog-v2/blog-v2-functions.php';
+    }
+}
+add_action( 'wp', 'maybe_load_blog_v2_functions' );
 
 /*
  * Enqueue global CSS with automatic cache busting based on source SCSS and compiled CSS file modification time
@@ -694,27 +718,3 @@ function generate_mega_featured_whitepaper( $menu_name = '' ) {
     return $html;
 }
 */
-
-/**
- * Shortcode: Blog Article Card
- * Usage: [article_card id="123"] or [article_card id="123" /]
- * Displays a blog post card with featured image, category, title, date, and author
- */
-function blog_v2_article_card_shortcode( $atts ) {
-    $atts = shortcode_atts( array(
-        'id' => '',
-    ), $atts, 'article_card' );
-    
-    if ( empty( $atts['id'] ) || ! is_numeric( $atts['id'] ) ) {
-        return '';
-    }
-    
-    $post_id = intval( $atts['id'] );
-    
-    set_query_var( 'article_post_id', $post_id );
-    
-    ob_start();
-    get_template_part( 'partials/blog-v2/article-card' );
-    return ob_get_clean();
-}
-add_shortcode( 'article_card', 'blog_v2_article_card_shortcode' );

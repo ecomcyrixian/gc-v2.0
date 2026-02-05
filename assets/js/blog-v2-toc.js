@@ -1,8 +1,8 @@
 /**
  * Blog V2 Table of Contents Generator
- * Generates TOC from headings with .toc-item class in .blog-v2-content
- * Supports H2, H3, H4, H5, H6 with mixed levels
- * Highlights active section on scroll
+ * Builds TOC from H2.wp-block-heading in .blog-v2-content.
+ * Excludes H2s inside Key Takeaways (._article-keytakeaways).
+ * First item label is "Introduction". Highlights active section on scroll.
  */
 
 (function($) {
@@ -11,9 +11,18 @@
     $(document).ready(function() {
         const $tocList = $('#blog-v2-toc-list');
         const $content = $('.blog-v2-content');
-        
+
         if (!$tocList.length || !$content.length) {
             return;
+        }
+
+        // H2s that are wp-block-heading and NOT inside Key Takeaways (or similar wrapper divs)
+        const excludedContainers = '._article-keytakeaways, .wp-block-group._article-keytakeaways';
+
+        function getTOCHeadings() {
+            return $content.find('h2.wp-block-heading').filter(function() {
+                return !$(this).closest(excludedContainers).length;
+            });
         }
 
         function generateId(text) {
@@ -27,13 +36,13 @@
         }
 
         function buildTOC() {
-            const headings = $content.find('h2.toc-item, h3.toc-item, h4.toc-item, h5.toc-item, h6.toc-item');
+            const $headings = getTOCHeadings();
             const tocItems = [];
 
-            headings.each(function(index) {
+            $headings.each(function(index) {
                 const $heading = $(this);
                 const text = $heading.text().trim();
-                
+
                 if (!text) return;
 
                 let id = $heading.attr('id');
@@ -49,12 +58,13 @@
                     $heading.attr('id', id);
                 }
 
-                const level = parseInt($heading.prop('tagName').substring(1));
+                // First item label in sidebar is "Introduction", not the H2 text
+                const label = index === 0 ? 'Introduction' : text;
 
                 tocItems.push({
                     id: id,
-                    text: text,
-                    level: level,
+                    text: label,
+                    level: 2,
                     index: index + 1
                 });
             });
@@ -69,23 +79,23 @@
             }
 
             $tocList.empty();
-            
+
             tocItems.forEach(function(item) {
                 const $li = $('<li>', {
-                    class: 'blog-v2-toc__item blog-v2-toc__item--level-' + item.level
+                    class: 'blog-v2-toc__item blog-v2-toc__item--level-2'
                 });
 
                 const $link = $('<a>', {
                     href: '#' + item.id,
                     text: item.text,
-                    class: 'blog-v2-toc__link blog-v2-toc__link--level-' + item.level
+                    class: 'blog-v2-toc__link blog-v2-toc__link--level-2'
                 });
 
                 $link.on('click', function(e) {
                     e.preventDefault();
                     const targetId = $(this).attr('href');
                     const $target = $(targetId);
-                    
+
                     if ($target.length) {
                         const offset = 130;
                         $('html, body').animate({
@@ -107,22 +117,23 @@
             const contentBottom = $content.offset().top + $content.outerHeight();
             const maxScrollTop = $(document).height() - windowHeight;
 
-            let currentActive = null;
-            let currentActiveIndex = -1;
-            const headings = $content.find('h2.toc-item, h3.toc-item, h4.toc-item, h5.toc-item, h6.toc-item');
+            const $headings = getTOCHeadings();
             const allLinks = $tocList.find('.blog-v2-toc__link');
 
-            if (headings.length === 0) {
+            if ($headings.length === 0) {
                 return;
             }
 
-            headings.each(function(index) {
+            let currentActive = null;
+            let currentActiveIndex = -1;
+
+            $headings.each(function(index) {
                 const $heading = $(this);
                 const id = $heading.attr('id');
                 if (!id) return;
 
                 const headingTop = $heading.offset().top;
-                
+
                 if (headingTop <= scrollBottom) {
                     currentActive = id;
                     const $link = $tocList.find('a[href="#' + id + '"]');
@@ -132,8 +143,8 @@
                 }
             });
 
-            if ((documentBottom >= contentBottom - 10 || scrollTop >= maxScrollTop - 2) && headings.length > 0) {
-                const lastHeading = headings.last();
+            if ((documentBottom >= contentBottom - 10 || scrollTop >= maxScrollTop - 2) && $headings.length > 0) {
+                const lastHeading = $headings.last();
                 const lastId = lastHeading.attr('id');
                 if (lastId) {
                     const $lastLink = $tocList.find('a[href="#' + lastId + '"]');
@@ -144,7 +155,7 @@
             }
 
             allLinks.removeClass('is-active is-visited');
-            
+
             if (currentActiveIndex >= 0) {
                 allLinks.each(function(index) {
                     const $link = $(this);
@@ -173,7 +184,5 @@
         });
 
         updateActiveTOC();
-
     });
-
 })(jQuery);

@@ -107,19 +107,6 @@
         gap: $gap40;
     }
 
-    .blog-v2-mobile-cards {
-        display: none !important;
-
-        @include media($tablet) {
-            display: block !important;
-        }
-
-        @include media($mobile) {
-            display: block !important;
-            margin-bottom: $gap40;
-        }
-    }
-
     .blog-v2-cta {  
         text-align: center;
 
