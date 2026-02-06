@@ -1638,15 +1638,6 @@ body.search h4 span {
   display: block;
   overflow: visible;
 }
-.blog-v2-content .blog-v2-expert-insight.is-expanded > p.has-pale-cyan-blue-background-color.has-background.has-medium-font-size::after {
-  content: "”";
-  display: inline;
-  font-size: 40px;
-  line-height: 1;
-  color: #CDD6E0;
-  font-family: Georgia, serif;
-  pointer-events: none;
-}
 .blog-v2-content .blog-v2-expert-insight .blog-v2-expert-insight__see-more {
   display: inline-block;
   margin: 0;

@@ -683,16 +683,6 @@
         &.is-expanded > p.has-pale-cyan-blue-background-color.has-background.has-medium-font-size {
             display: block;
             overflow: visible;
-
-            &::after {
-                content: "\201D";
-                display: inline;
-                font-size: 40px;
-                line-height: 1;
-                color: $gray75;
-                font-family: Georgia, serif;
-                pointer-events: none;
-            }
         }
 
         .blog-v2-expert-insight__see-more {
