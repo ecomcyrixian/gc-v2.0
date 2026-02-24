@@ -36,6 +36,6 @@
         </span>
     </div>
     <div>
-        <img src="<?= $image ?>" alt="<?= $h1 ?>">
+        <img fetchpriority="high" src="<?= $image ?>" alt="<?= $h1 ?>">
     </div>
 </section>

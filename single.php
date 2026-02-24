@@ -19,7 +19,7 @@ endif;
 <div class="blog-v2-footer-sections">
     <section class="blog-v2-cta">
         <div class="blog-v2-cta__inner">
-            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/home-header-bg.jpg' ); ?>" alt="" class="blog-v2-cta__bg-image">
+            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/home-header-bg.jpg' ); ?>" alt="" class="blog-v2-cta__bg-image" width="1327" height="400" loading="lazy" decoding="async">
             <div class="blog-v2-cta__content">
                 <h2>Need Fast Background Checks Without Compromising Accuracy?</h2>
                 <p><span>Contact us today</span> for efficient, FCRA-compliant screening solutions<br/> designed to keep your hiring process moving safely and smoothly.</p>
@@ -94,7 +94,7 @@ endif;
                     ?>
                         <div>
                             <span class="featured-image">
-                                <img src="<?php the_post_thumbnail_url( 'large' ); ?>" alt="<?php the_title(); ?>">
+                                <?php echo get_the_post_thumbnail( get_the_ID(), 'large', array( 'loading' => 'lazy', 'decoding' => 'async' ) ); ?>
                             </span>
                             <div class="articles-info">
                                 <span class="category">
@@ -122,7 +122,7 @@ endif;
                                     <?php echo wp_trim_words( get_the_excerpt(), 50, '...' ); ?>
                                 </div>
                                 <span class="btn">
-                                    <a class="button readmore" href="<?php echo get_permalink(); ?>">Read More</a>
+                                    <a class="button readmore" href="<?php echo get_permalink(); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Read more: %s', 'gc-v2' ), get_the_title() ) ); ?>">Read More</a>
                                 </span>
                             </div>
                         </div>

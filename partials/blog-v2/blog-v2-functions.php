@@ -211,37 +211,6 @@ function blog_v2_user_id_from_value( $value ) {
 }
 
 /**
- * Whether the current post has a reviewer (PublishPress Reviewer category, Article Options, or _blog_reviewer_slug).
- *
- * @param int|null $post_id Post ID.
- * @return bool
- */
-function blog_v2_has_reviewer( $post_id = null ) {
-    if ( ! $post_id ) {
-        $post_id = get_the_ID();
-    }
-    if ( ! $post_id ) {
-        return false;
-    }
-    // PublishPress Authors: Reviewer category.
-    if ( function_exists( 'ppma_post_authors_categorized' ) ) {
-        $categorized = ppma_post_authors_categorized( $post_id, array( 'reviewer' ) );
-        if ( ! empty( $categorized['reviewer'] ) && is_array( $categorized['reviewer'] ) ) {
-            return true;
-        }
-    }
-    if ( blog_v2_get_reviewer_user_id( $post_id ) > 0 ) {
-        return true;
-    }
-    $slug = get_post_meta( $post_id, '_blog_reviewer_slug', true );
-    $slug = is_string( $slug ) ? trim( $slug ) : '';
-    if ( $slug !== '' && isset( blog_v2_reviewers_registry()[ $slug ] ) ) {
-        return true;
-    }
-    return false;
-}
-
-/**
  * Build reviewer display array from a PublishPress Author object (Reviewer category).
  *
  * @param object $author PublishPress Author object (from ppma_post_authors_categorized).
@@ -749,6 +718,65 @@ function blog_v2_author_display_data( $post_id = null ) {
 // --- Content filters, related post, shortcode ---
 
 /**
+ * Do not render the core Post Author block on single posts; theme uses "About The Creator" instead.
+ * Prevents duplicate author box (block above + about-creator-inline below).
+ */
+function blog_v2_remove_post_author_block( $block_content, $block ) {
+    if ( ! is_singular( 'post' ) ) {
+        return $block_content;
+    }
+    $hide = array( 'core/post-author', 'core/post-author-name', 'core/post-author-biography' );
+    if ( isset( $block['blockName'] ) && in_array( $block['blockName'], $hide, true ) ) {
+        return '';
+    }
+    return $block_content;
+}
+add_filter( 'render_block', 'blog_v2_remove_post_author_block', 10, 2 );
+
+/**
+ * Remove PublishPress Authors box from single post content (theme uses "About The Creator" instead).
+ * Strips the div with class pp-multiple-authors-boxes-wrapper and all its contents.
+ */
+function blog_v2_remove_pp_authors_box( $content ) {
+    if ( ! is_singular( 'post' ) ) {
+        return $content;
+    }
+    $needle = 'pp-multiple-authors-boxes-wrapper';
+    $pos = strpos( $content, $needle );
+    if ( $pos === false ) {
+        return $content;
+    }
+    // Find the opening <div that contains this class (scan backward for opening tag).
+    $start = strrpos( substr( $content, 0, $pos ), '<div' );
+    if ( $start === false ) {
+        return $content;
+    }
+    // From the opening div, find the matching closing </div> by counting nesting.
+    $depth = 0;
+    $i = $start;
+    $len = strlen( $content );
+    while ( $i < $len ) {
+        if ( substr( $content, $i, 4 ) === '<div' ) {
+            $depth++;
+            $i += 4;
+            continue;
+        }
+        if ( substr( $content, $i, 6 ) === '</div>' ) {
+            $depth--;
+            if ( $depth === 0 ) {
+                $content = substr_replace( $content, '', $start, $i + 6 - $start );
+                return $content;
+            }
+            $i += 6;
+            continue;
+        }
+        $i++;
+    }
+    return $content;
+}
+add_filter( 'the_content', 'blog_v2_remove_pp_authors_box', 15 );
+
+/**
  * Remove empty paragraphs and standalone wp-block-separator hr from blog post content (single posts only).
  * Removes <p></p> or <p class="..."></p> with nothing between the tags.
  * Also removes <hr class="wp-block-separator has-alpha-channel-opacity"/> (and variants).
@@ -763,6 +791,205 @@ function blog_v2_remove_empty_p_tags( $content ) {
     return $content;
 }
 add_filter( 'the_content', 'blog_v2_remove_empty_p_tags', 20 );
+
+/**
+ * Generate URL-safe slug from heading text (matches blog-v2-toc.js generateId).
+ *
+ * @param string $text Heading text.
+ * @return string Slug for id attribute.
+ */
+function blog_v2_toc_heading_slug( $text ) {
+    $text = trim( wp_strip_all_tags( $text ) );
+    $text = strtolower( $text );
+    $text = preg_replace( '/[^\w\s-]/', '', $text );
+    $text = preg_replace( '/\s+/', '-', $text );
+    $text = preg_replace( '/-+/', '-', $text );
+    return trim( $text, '-' );
+}
+
+/**
+ * Add id attributes to H2 headings in post content (for TOC and anchor links).
+ * Excludes H2s inside ._article-keytakeaways. Runs only on single posts.
+ *
+ * @param string $content Post content HTML.
+ * @return string Modified content.
+ */
+function blog_v2_toc_add_heading_ids( $content ) {
+    if ( ! is_singular( 'post' ) ) {
+        return $content;
+    }
+    if ( strpos( $content, 'wp-block-heading' ) === false ) {
+        return $content;
+    }
+
+    $used_ids = array();
+    $dom      = new DOMDocument();
+    $libxml_prev = libxml_use_internal_errors( true );
+    $dom->loadHTML(
+        '<div id="blog-v2-toc-root">' . $content . '</div>',
+        LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
+    );
+    libxml_use_internal_errors( $libxml_prev );
+
+    $root = $dom->getElementById( 'blog-v2-toc-root' );
+    if ( ! $root ) {
+        return $content;
+    }
+
+    $h2_list = $root->getElementsByTagName( 'h2' );
+    foreach ( $h2_list as $h2 ) {
+        $class = $h2->getAttribute( 'class' );
+        if ( strpos( $class, 'wp-block-heading' ) === false ) {
+            continue;
+        }
+        $ancestor = $h2->parentNode;
+        $inside_keytakeaways = false;
+        while ( $ancestor && $ancestor !== $root ) {
+            $ac = $ancestor->getAttribute( 'class' );
+            if ( $ac && strpos( $ac, '_article-keytakeaways' ) !== false ) {
+                $inside_keytakeaways = true;
+                break;
+            }
+            $ancestor = $ancestor->parentNode;
+        }
+        if ( $inside_keytakeaways ) {
+            continue;
+        }
+
+        $id = $h2->getAttribute( 'id' );
+        $id = trim( $id );
+        if ( $id === '' ) {
+            $text = $h2->textContent;
+            $id   = blog_v2_toc_heading_slug( $text );
+            if ( $id === '' ) {
+                continue;
+            }
+            $unique_id = $id;
+            $counter   = 1;
+            while ( in_array( $unique_id, $used_ids, true ) ) {
+                $unique_id = $id . '-' . $counter;
+                $counter++;
+            }
+            $used_ids[] = $unique_id;
+            $h2->setAttribute( 'id', $unique_id );
+        }
+    }
+
+    $out = '';
+    foreach ( $root->childNodes as $child ) {
+        $out .= $dom->saveHTML( $child );
+    }
+    return $out;
+}
+add_filter( 'the_content', 'blog_v2_toc_add_heading_ids', 12 );
+
+/**
+ * Add srcset and sizes to content images that have wp-image-{id} class but lack srcset (improve image delivery).
+ *
+ * @param string $content Post content HTML.
+ * @return string Modified content.
+ */
+function blog_v2_content_images_add_srcset( $content ) {
+    if ( ! is_singular( 'post' ) || strpos( $content, 'wp-image-' ) === false ) {
+        return $content;
+    }
+    if ( ! preg_match_all( '/<img\s([^>]*?)class="[^"]*wp-image-(\d+)[^"]*"[^>]*>/i', $content, $matches, PREG_SET_ORDER ) ) {
+        return $content;
+    }
+    foreach ( $matches as $m ) {
+        $full_tag = $m[0];
+        if ( strpos( $full_tag, 'srcset=' ) !== false ) {
+            continue;
+        }
+        $attachment_id = (int) $m[2];
+        if ( $attachment_id < 1 ) {
+            continue;
+        }
+        $srcset = wp_get_attachment_image_srcset( $attachment_id, 'full' );
+        if ( ! $srcset ) {
+            continue;
+        }
+        $sizes = wp_get_attachment_image_sizes( $attachment_id, 'full' );
+        if ( ! $sizes ) {
+            $sizes = '(max-width: 768px) 100vw, 720px';
+        }
+        $insert = ' srcset="' . esc_attr( $srcset ) . '" sizes="' . esc_attr( $sizes ) . '"';
+        $content = str_replace( $full_tag, preg_replace( '/\s*src=/', $insert . ' src=', $full_tag, 1 ), $content );
+    }
+    return $content;
+}
+add_filter( 'the_content', 'blog_v2_content_images_add_srcset', 11 );
+
+/**
+ * Get TOC items for the current post (H2s from content, excluding Key Takeaways).
+ * Used by sidebar-left to render "In This Article" server-side (avoids CLS from JS-built TOC).
+ *
+ * @param int|null $post_id Post ID (default current post).
+ * @return array List of array( 'id' => string, 'label' => string ). First label is "Introduction".
+ */
+function blog_v2_get_toc_items( $post_id = null ) {
+    if ( ! $post_id ) {
+        $post_id = get_the_ID();
+    }
+    if ( ! $post_id ) {
+        return array();
+    }
+
+    $content = get_post_field( 'post_content', $post_id );
+    $content = apply_filters( 'the_content', $content );
+
+    if ( strpos( $content, 'wp-block-heading' ) === false ) {
+        return array();
+    }
+
+    $dom = new DOMDocument();
+    $libxml_prev = libxml_use_internal_errors( true );
+    $dom->loadHTML(
+        '<div id="blog-v2-toc-root">' . $content . '</div>',
+        LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
+    );
+    libxml_use_internal_errors( $libxml_prev );
+
+    $root = $dom->getElementById( 'blog-v2-toc-root' );
+    if ( ! $root ) {
+        return array();
+    }
+
+    $items = array();
+    $h2_list = $root->getElementsByTagName( 'h2' );
+    foreach ( $h2_list as $h2 ) {
+        $class = $h2->getAttribute( 'class' );
+        if ( strpos( $class, 'wp-block-heading' ) === false ) {
+            continue;
+        }
+        $ancestor = $h2->parentNode;
+        $inside_keytakeaways = false;
+        while ( $ancestor && $ancestor !== $root ) {
+            $ac = $ancestor->getAttribute( 'class' );
+            if ( $ac && strpos( $ac, '_article-keytakeaways' ) !== false ) {
+                $inside_keytakeaways = true;
+                break;
+            }
+            $ancestor = $ancestor->parentNode;
+        }
+        if ( $inside_keytakeaways ) {
+            continue;
+        }
+
+        $id = trim( $h2->getAttribute( 'id' ) );
+        $text = trim( $h2->textContent );
+        if ( $text === '' ) {
+            continue;
+        }
+        if ( $id === '' ) {
+            $id = blog_v2_toc_heading_slug( $text );
+        }
+        $label = count( $items ) === 0 ? 'Introduction' : $text;
+        $items[] = array( 'id' => $id, 'label' => $label );
+    }
+
+    return $items;
+}
 
 /**
  * Pick one related post from a list by keyword match (current title words in candidate title).
@@ -838,6 +1065,224 @@ function blog_v2_inject_related_article_above_references( $content ) {
     return $content;
 }
 add_filter( 'the_content', 'blog_v2_inject_related_article_above_references', 15 );
+
+/**
+ * Wrap Expert Insight paragraphs (pale cyan blue) in .blog-v2-expert-insight and output see-more + attribution server-side to avoid CLS.
+ * JS only toggles expand/collapse on the button.
+ */
+function blog_v2_expert_insight_content_filter( $content ) {
+    if ( ! is_singular( 'post' ) ) {
+        return $content;
+    }
+    if ( strpos( $content, 'has-pale-cyan-blue-background-color' ) === false ) {
+        return $content;
+    }
+
+    $post_id = get_the_ID();
+    $experts = function_exists( 'blog_v2_expert_insight_experts' ) ? blog_v2_expert_insight_experts( $post_id ) : array();
+    $charm_link = 'https://gcheck.com/blog/author/charm/';
+    $default_name = 'Charm Paz, CHRP';
+    $default_title = 'Recruiter and Editor, GCheck';
+
+    $dom = new DOMDocument();
+    $libxml_prev = libxml_use_internal_errors( true );
+    $dom->loadHTML(
+        '<div id="blog-v2-ei-root">' . $content . '</div>',
+        LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
+    );
+    libxml_use_internal_errors( $libxml_prev );
+
+    $root = $dom->getElementById( 'blog-v2-ei-root' );
+    if ( ! $root ) {
+        return $content;
+    }
+
+    $paragraphs = $root->getElementsByTagName( 'p' );
+    $to_wrap = array();
+    foreach ( $paragraphs as $p ) {
+        $class = $p->getAttribute( 'class' );
+        if ( strpos( $class, 'has-pale-cyan-blue-background-color' ) === false || strpos( $class, 'has-background' ) === false ) {
+            continue;
+        }
+        $ancestor = $p->parentNode;
+        $inside = false;
+        while ( $ancestor && $ancestor !== $root ) {
+            $ac = $ancestor->getAttribute( 'class' );
+            if ( $ac && strpos( $ac, 'blog-v2-expert-insight' ) !== false ) {
+                $inside = true;
+                break;
+            }
+            $ancestor = $ancestor->parentNode;
+        }
+        if ( $inside ) {
+            continue;
+        }
+        $to_wrap[] = $p;
+    }
+
+    foreach ( $to_wrap as $p ) {
+        $expert_slug = '';
+        $author_links = $p->getElementsByTagName( 'a' );
+        foreach ( $author_links as $a ) {
+            $href = $a->getAttribute( 'href' );
+            if ( $href && strpos( $href, 'author/' ) !== false && preg_match( '#author/([^/?#]+)#', $href, $m ) ) {
+                $expert_slug = strtolower( $m[1] );
+                break;
+            }
+        }
+
+        $expert = null;
+        if ( $expert_slug && isset( $experts[ $expert_slug ] ) ) {
+            $expert = $experts[ $expert_slug ];
+        }
+        if ( ! $expert ) {
+            $expert = array(
+                'name'  => $default_name,
+                'title' => $default_title,
+                'avatar' => '',
+                'link'  => $charm_link,
+            );
+        }
+
+        $wrapper = $dom->createElement( 'div' );
+        $wrapper->setAttribute( 'class', 'blog-v2-expert-insight' );
+
+        $p_clone = $p->cloneNode( true );
+        blog_v2_expert_insight_clean_paragraph( $p_clone );
+        $wrapper->appendChild( $p_clone );
+
+        $text_only = trim( $p->textContent );
+        $needs_truncate = strlen( $text_only ) > 180;
+        if ( $needs_truncate ) {
+            $btn = $dom->createElement( 'button' );
+            $btn->setAttribute( 'type', 'button' );
+            $btn->setAttribute( 'class', 'blog-v2-expert-insight__see-more' );
+            $btn->setAttribute( 'aria-expanded', 'false' );
+            $btn->appendChild( $dom->createTextNode( '… show more' ) );
+            $wrapper->appendChild( $btn );
+        }
+
+        $name  = isset( $expert['name'] ) ? $expert['name'] : $default_name;
+        $title = isset( $expert['title'] ) ? $expert['title'] : $default_title;
+        $link  = isset( $expert['link'] ) ? $expert['link'] : $charm_link;
+        $avatar = isset( $expert['avatar'] ) ? $expert['avatar'] : '';
+        $initials = blog_v2_expert_insight_initials( $name );
+
+        $attr_div = $dom->createElement( 'div' );
+        $attr_div->setAttribute( 'class', 'blog-v2-expert-insight__attribution' );
+        $attr_link = $dom->createElement( 'a' );
+        $attr_link->setAttribute( 'href', $link );
+        $attr_link->setAttribute( 'class', 'blog-v2-expert-insight__attribution-link' );
+        $attr_span_avatar = $dom->createElement( 'span' );
+        $attr_span_avatar->setAttribute( 'class', 'blog-v2-expert-insight__attribution-avatar' . ( $avatar ? '' : ' blog-v2-expert-insight__attribution-avatar--initials' ) );
+        if ( $avatar ) {
+            $img = $dom->createElement( 'img' );
+            $img->setAttribute( 'src', $avatar );
+            $img->setAttribute( 'alt', esc_attr( $name ) );
+            $img->setAttribute( 'width', '40' );
+            $img->setAttribute( 'height', '40' );
+            $img->setAttribute( 'class', 'blog-v2-expert-insight__attribution-img' );
+            $attr_span_avatar->appendChild( $img );
+            $initials_span = $dom->createElement( 'span' );
+            $initials_span->setAttribute( 'class', 'blog-v2-expert-insight__attribution-avatar-initials' );
+            $initials_span->setAttribute( 'aria-hidden', 'true' );
+            $attr_span_avatar->appendChild( $initials_span );
+        } else {
+            $initials_span = $dom->createElement( 'span' );
+            $initials_span->setAttribute( 'class', 'blog-v2-expert-insight__attribution-avatar-initials' );
+            $initials_span->setAttribute( 'aria-hidden', 'true' );
+            $initials_span->appendChild( $dom->createTextNode( $initials ) );
+            $attr_span_avatar->appendChild( $initials_span );
+        }
+        $attr_link->appendChild( $attr_span_avatar );
+        $attr_text = $dom->createElement( 'div' );
+        $attr_text->setAttribute( 'class', 'blog-v2-expert-insight__attribution-text' );
+        $name_span = $dom->createElement( 'span', $name );
+        $name_span->setAttribute( 'class', 'blog-v2-expert-insight__attribution-name' );
+        $title_span = $dom->createElement( 'span', $title );
+        $title_span->setAttribute( 'class', 'blog-v2-expert-insight__attribution-title' );
+        $attr_text->appendChild( $name_span );
+        $attr_text->appendChild( $title_span );
+        $attr_link->appendChild( $attr_text );
+        $attr_div->appendChild( $attr_link );
+        $wrapper->appendChild( $attr_div );
+
+        $p->parentNode->replaceChild( $wrapper, $p );
+    }
+
+    $out = '';
+    foreach ( $root->childNodes as $child ) {
+        $out .= $dom->saveHTML( $child );
+    }
+    return $out;
+}
+
+/**
+ * Remove "EXPERT INSIGHT:" strong and author links from a paragraph node (in place).
+ *
+ * @param DOMNode $p Paragraph element.
+ */
+function blog_v2_expert_insight_clean_paragraph( $p ) {
+    $doc = $p->ownerDocument;
+    $strongs = $p->getElementsByTagName( 'strong' );
+    $to_remove_strong = array();
+    $to_unwrap_strong = array();
+    foreach ( $strongs as $s ) {
+        $t = trim( $s->textContent );
+        if ( preg_match( '/^\s*EXPERT INSIGHT\s*:?\s*$/i', $t ) ) {
+            $to_remove_strong[] = $s;
+        } elseif ( preg_match( '/^[—\-–]\s*Charm Paz/i', $t ) || preg_match( '/^Charm Paz,?\s*CHRP/i', $t ) ) {
+            $to_unwrap_strong[] = $s;
+        }
+    }
+    foreach ( $to_unwrap_strong as $s ) {
+        if ( $s->parentNode ) {
+            $text = $doc->createTextNode( $s->textContent );
+            $s->parentNode->replaceChild( $text, $s );
+        }
+    }
+    foreach ( $to_remove_strong as $s ) {
+        if ( $s->parentNode ) {
+            $s->parentNode->removeChild( $s );
+        }
+    }
+    $links = $p->getElementsByTagName( 'a' );
+    $to_remove_links = array();
+    foreach ( $links as $a ) {
+        if ( strpos( $a->getAttribute( 'href' ), 'author/' ) !== false ) {
+            $to_remove_links[] = $a;
+        }
+    }
+    foreach ( $to_remove_links as $a ) {
+        $prev = $a->previousSibling;
+        if ( $prev && $prev->nodeType === XML_TEXT_NODE ) {
+            $prev->nodeValue = preg_replace( '/\s*[–\-—]\s*$/', '', $prev->nodeValue );
+        }
+        if ( $a->parentNode ) {
+            $a->parentNode->removeChild( $a );
+        }
+    }
+}
+
+/**
+ * Get initials from expert name (e.g. "Charm Paz" -> "CP").
+ *
+ * @param string $name Display name.
+ * @return string Two-letter initials.
+ */
+function blog_v2_expert_insight_initials( $name ) {
+    $name = trim( wp_strip_all_tags( $name ) );
+    if ( $name === '' ) {
+        return '';
+    }
+    $parts = preg_split( '/\s+/', $name, 2, PREG_SPLIT_NO_EMPTY );
+    if ( count( $parts ) >= 2 ) {
+        return strtoupper( mb_substr( $parts[0], 0, 1 ) . mb_substr( $parts[1], 0, 1 ) );
+    }
+    return strtoupper( mb_substr( $name, 0, 2 ) );
+}
+
+add_filter( 'the_content', 'blog_v2_expert_insight_content_filter', 18 );
 
 /**
  * Shortcode: Blog Article Card

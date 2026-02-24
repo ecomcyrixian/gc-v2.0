@@ -5,6 +5,12 @@
 add_theme_support( 'post-thumbnails' );
 
 /*
+ * Blog hero image size: ~540px width so srcset can serve smaller file when displayed at 535px (mobile LCP).
+ * Regenerate thumbnails for existing uploads to get this size.
+ */
+add_image_size( 'blog_hero', 540, 0, false );
+
+/*
  * Specific script and styles per page
  * Automatic cache busting based on source SCSS and compiled CSS file modification time
  * Uses whichever is newer (industry-standard hybrid approach)
@@ -145,6 +151,8 @@ function gcheck_scripts() {
     }
 }
 add_action('wp_enqueue_scripts', 'gcheck_scripts');
+
+
 
 /**
  * Load Blog V2 functions only on single post views (author helpers, content filters, related post, shortcode).

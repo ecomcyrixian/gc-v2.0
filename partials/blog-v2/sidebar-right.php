@@ -66,7 +66,7 @@ if ( $wpq->have_posts() ) {
             ?>
             <div class="blog-v2-sidebar__author-container">
                 <?php if ( $creator_avatar_url ) : ?>
-                    <img src="<?php echo esc_url( $creator_avatar_url ); ?>" alt="<?php echo esc_attr( $creator['name'] ); ?>" class="blog-v2-sidebar__avatar">
+                    <img src="<?php echo esc_url( $creator_avatar_url ); ?>" alt="<?php echo esc_attr( $creator['name'] ); ?>" class="blog-v2-sidebar__avatar" width="50" height="50" loading="lazy">
                 <?php else : ?>
                     <div class="blog-v2-sidebar__avatar blog-v2-sidebar__avatar--initials" style="background-color:<?php echo esc_attr( isset( $creator['color'] ) ? $creator['color'] : '#6B7280' ); ?>"><?php echo esc_html( isset( $creator['initials'] ) ? $creator['initials'] : '' ); ?></div>
                 <?php endif; ?>
@@ -75,7 +75,7 @@ if ( $wpq->have_posts() ) {
                         <?php $creator_link = ! empty( $creator['link'] ) ? $creator['link'] : '#'; ?>
                         <span><a href="<?php echo esc_url( $creator_link ); ?>" style="text-decoration: none; color: inherit;"><?php echo esc_html( $creator['name'] ); ?></a></span>
                         <a href="<?php echo esc_url( ! empty( $creator['link'] ) ? $creator['link'] : '#' ); ?>" class="blog-v2-sidebar__linkedin" aria-label="LinkedIn">
-                            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/linkedin.png' ); ?>" alt="LinkedIn">
+                            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/linkedin.png' ); ?>" alt="LinkedIn" width="16" height="16">
                         </a>
                     </div>
                     <?php if ( ! empty( $creator['job'] ) ) : ?><span><?php echo esc_html( $creator['job'] ); ?></span><?php endif; ?>
@@ -95,15 +95,15 @@ if ( $wpq->have_posts() ) {
     ?>
     <div class="blog-v2-sidebar__reviewer">
         <div class="blog-v2-sidebar__card">
-            <div class="blog-v2-sidebar__title">About The Reviewer</div>
+            <h3 class="blog-v2-sidebar__title">About The Reviewer</h3>
             <div class="blog-v2-sidebar__author-container">
-                <img src="<?php echo esc_url( $reviewer['avatar'] ); ?>" alt="<?php echo esc_attr( $reviewer['name'] ); ?>" class="blog-v2-sidebar__avatar">
+                <img src="<?php echo esc_url( $reviewer['avatar'] ); ?>" alt="<?php echo esc_attr( $reviewer['name'] ); ?>" class="blog-v2-sidebar__avatar" width="50" height="50" loading="lazy">
                 <div class="blog-v2-sidebar__author-info">
                     <div class="blog-v2-sidebar__author-name-wrapper">
                         <span><a href="<?php echo esc_url( $reviewer_link ); ?>" style="text-decoration: none; color: inherit;"><?php echo esc_html( $reviewer['name'] ); ?></a></span>
                         <?php if ( $reviewer_linkedin !== '' ) : ?>
                         <a href="<?php echo esc_url( $reviewer_linkedin ); ?>" class="blog-v2-sidebar__linkedin" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
-                            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/linkedin.png' ); ?>" alt="LinkedIn">
+                            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/linkedin.png' ); ?>" alt="LinkedIn" width="16" height="16">
                         </a>
                         <?php endif; ?>
                     </div>

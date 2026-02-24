@@ -803,7 +803,7 @@
         .blog-v2-about-creator__label {
             font-size: 10px;
             font-weight: $fSemiBold;
-            color: $gray100;
+            color: $gray300;
             text-transform: uppercase;
         }
 
@@ -871,6 +871,12 @@
             font-size: $fsize14;
             color: $gray300;
             font-weight: $fSemiBold;
+        }
+
+        .blog-v2-about-creator__bio {
+            p, strong {
+                color: $gray300; /* Sufficient contrast on white (WCAG AA) */
+            }
         }
 
         // Remove gap after About The Creator section
