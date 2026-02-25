@@ -95,7 +95,7 @@ function gcheck_scripts() {
         get_template_directory_uri() . '/assets/js/global-new.js', // Path to your script
         array('jquery'), // Array of dependencies (jQuery in this case)
         $global_js_version, // Version number - automatically updates when file changes
-        false // Load in header (false) to match current head.php placement
+        true // Load in footer to avoid render-blocking (was in header)
     );
 
     // Enqueue blog V2 scripts for single posts
@@ -152,7 +152,74 @@ function gcheck_scripts() {
 }
 add_action('wp_enqueue_scripts', 'gcheck_scripts');
 
+/**
+ * Reduce unused CSS: dequeue dashicons on front-end when admin bar is not shown.
+ * Saves ~35 KiB. Dashicons is required for admin bar and block editor; safe to remove on front when not used.
+ */
+function theme_dequeue_dashicons_on_front() {
+    if ( is_admin() || is_customize_preview() ) {
+        return;
+    }
+    if ( ! is_admin_bar_showing() ) {
+        wp_dequeue_style( 'dashicons' );
+        wp_deregister_style( 'dashicons' );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'theme_dequeue_dashicons_on_front', 999 );
 
+/**
+ * Dequeue Font Awesome from plugins (cdnjs all.min.css) when not needed.
+ * Saves ~22 KiB on single posts only. Other pages keep FA if a plugin enqueues it.
+ */
+function theme_dequeue_font_awesome_css() {
+    if ( is_admin() || ! is_singular( 'post' ) ) {
+        return;
+    }
+    $wp_styles = wp_styles();
+    if ( ! $wp_styles || empty( $wp_styles->registered ) ) {
+        return;
+    }
+    foreach ( $wp_styles->registered as $handle => $obj ) {
+        if ( empty( $obj->src ) ) {
+            continue;
+        }
+        $src = is_string( $obj->src ) ? $obj->src : '';
+        if ( strpos( $src, 'all.min.css' ) !== false && ( strpos( $src, 'cdnjs' ) !== false || strpos( $src, 'cloudflare' ) !== false ) ) {
+            wp_dequeue_style( $handle );
+            wp_deregister_style( $handle );
+        }
+    }
+}
+add_action( 'wp_enqueue_scripts', 'theme_dequeue_font_awesome_css', 999 );
+add_action( 'wp_print_styles', 'theme_dequeue_font_awesome_css', 999 );
+
+/**
+ * Strip Font Awesome link from output on single posts only (plugin may print outside queue).
+ * Other pages keep FA. Runs when each style tag is output.
+ */
+function theme_strip_font_awesome_style_tag( $tag, $handle, $href, $media ) {
+    if ( ! is_singular( 'post' ) ) {
+        return $tag;
+    }
+    if ( empty( $href ) || ! is_string( $href ) ) {
+        return $tag;
+    }
+    if ( strpos( $href, 'all.min.css' ) !== false && ( strpos( $href, 'cdnjs' ) !== false || strpos( $href, 'cloudflare' ) !== false ) ) {
+        return '';
+    }
+    return $tag;
+}
+add_filter( 'style_loader_tag', 'theme_strip_font_awesome_style_tag', 10, 4 );
+
+/**
+ * Last-chance dequeue dashicons right before styles are printed (in case re-enqueued by plugin).
+ */
+function theme_dequeue_dashicons_before_print() {
+    if ( ! is_admin() && ! is_admin_bar_showing() && ! is_customize_preview() ) {
+        wp_dequeue_style( 'dashicons' );
+    }
+}
+add_action( 'wp_print_styles', 'theme_dequeue_dashicons_before_print', 999 );
 
 /**
  * Load Blog V2 functions only on single post views (author helpers, content filters, related post, shortcode).

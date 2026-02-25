@@ -269,18 +269,24 @@
         position: relative;
         width: 100%;
         height: 473px;
+        min-height: 473px;
+        aspect-ratio: 480 / 473;
         overflow: hidden;
         border-radius: $corners8;
 
         @include media($tablet) {
             order: 2;
             height: 400px;
+            min-height: 400px;
+            aspect-ratio: 480 / 400;
             max-width: 480px;
             margin: 0 auto;
         }
 
         @include media($mobile) {
             height: 300px;
+            min-height: 300px;
+            aspect-ratio: 16 / 15;
             width: 100%;
             max-width: 100%;
             margin: 0;

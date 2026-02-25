@@ -884,7 +884,8 @@ function blog_v2_toc_add_heading_ids( $content ) {
 add_filter( 'the_content', 'blog_v2_toc_add_heading_ids', 12 );
 
 /**
- * Add srcset and sizes to content images that have wp-image-{id} class but lack srcset (improve image delivery).
+ * Gutenberg/blog content images: add explicit width/height (avoid CLS) and srcset/sizes (reduce download, 380px display).
+ * Matches any <img> that contains wp-image-{id} anywhere in the tag (handles any attribute order).
  *
  * @param string $content Post content HTML.
  * @return string Modified content.
@@ -893,32 +894,63 @@ function blog_v2_content_images_add_srcset( $content ) {
     if ( ! is_singular( 'post' ) || strpos( $content, 'wp-image-' ) === false ) {
         return $content;
     }
-    if ( ! preg_match_all( '/<img\s([^>]*?)class="[^"]*wp-image-(\d+)[^"]*"[^>]*>/i', $content, $matches, PREG_SET_ORDER ) ) {
+    // Match any img tag that contains wp-image-{attachment_id} (anywhere in tag for Gutenberg flexibility)
+    if ( ! preg_match_all( '/<img\s[^>]*?wp-image-(\d+)[^>]*>/is', $content, $matches, PREG_SET_ORDER ) ) {
         return $content;
     }
     foreach ( $matches as $m ) {
         $full_tag = $m[0];
-        if ( strpos( $full_tag, 'srcset=' ) !== false ) {
-            continue;
-        }
-        $attachment_id = (int) $m[2];
+        $attachment_id = (int) $m[1];
         if ( $attachment_id < 1 ) {
             continue;
         }
-        $srcset = wp_get_attachment_image_srcset( $attachment_id, 'full' );
-        if ( ! $srcset ) {
+        $meta = wp_get_attachment_metadata( $attachment_id );
+        $width  = isset( $meta['width'] ) ? (int) $meta['width'] : 0;
+        $height = isset( $meta['height'] ) ? (int) $meta['height'] : 0;
+        $new_tag = $full_tag;
+
+        // Always add explicit width/height from attachment (fix "Image elements do not have explicit width and height")
+        if ( $width > 0 && $height > 0 && ( strpos( $full_tag, 'width=' ) === false || strpos( $full_tag, 'height=' ) === false ) ) {
+            $new_tag = preg_replace( '/<img\s/i', '<img width="' . esc_attr( $width ) . '" height="' . esc_attr( $height ) . '" ', $new_tag, 1 );
+        }
+
+        if ( strpos( $new_tag, 'srcset=' ) !== false ) {
+            $content = str_replace( $full_tag, $new_tag, $content );
             continue;
         }
-        $sizes = wp_get_attachment_image_sizes( $attachment_id, 'full' );
+        $srcset = wp_get_attachment_image_srcset( $attachment_id, 'medium_large' );
+        if ( ! $srcset ) {
+            $content = str_replace( $full_tag, $new_tag, $content );
+            continue;
+        }
+        $sizes = wp_get_attachment_image_sizes( $attachment_id, 'medium_large' );
         if ( ! $sizes ) {
-            $sizes = '(max-width: 768px) 100vw, 720px';
+            $sizes = '(max-width: 768px) 100vw, 380px';
         }
         $insert = ' srcset="' . esc_attr( $srcset ) . '" sizes="' . esc_attr( $sizes ) . '"';
-        $content = str_replace( $full_tag, preg_replace( '/\s*src=/', $insert . ' src=', $full_tag, 1 ), $content );
+        $new_tag = preg_replace( '/\s*src=/i', $insert . ' src=', $new_tag, 1 );
+        $content = str_replace( $full_tag, $new_tag, $content );
     }
     return $content;
 }
 add_filter( 'the_content', 'blog_v2_content_images_add_srcset', 11 );
+
+/**
+ * Limit hero image srcset to max 1070w so browser doesn't load 1333px image for 535px display (saves ~66 KiB).
+ */
+function blog_v2_limit_hero_srcset( $sources, $size_array, $image_src, $image_meta, $attachment_id ) {
+    if ( empty( $size_array[0] ) || $size_array[0] > 768 ) {
+        return $sources;
+    }
+    $max_w = 1070; // 535 * 2 for 2x density
+    foreach ( $sources as $w => $data ) {
+        if ( (int) $w > $max_w ) {
+            unset( $sources[ $w ] );
+        }
+    }
+    return $sources;
+}
+add_filter( 'wp_calculate_image_srcset', 'blog_v2_limit_hero_srcset', 10, 5 );
 
 /**
  * Get TOC items for the current post (H2s from content, excluding Key Takeaways).

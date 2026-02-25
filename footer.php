@@ -147,14 +147,14 @@
                 </div>
                 <div class="footer-contact-info">
                     <div class="footer-address">
-                        <img src="<?php echo get_template_directory_uri() . '/assets/images/address.svg' ?>" alt="Address" width="48" height="48">
+                        <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/address.svg' ); ?>" alt="Address" width="48" height="48" loading="lazy" decoding="async">
                         <div>
                             <p>8335 W Sunset Blvd Suite 240</p>
                             <p>Los Angeles, CA 90069</p>
                         </div>
                     </div>
                     <div class="footer-phone">
-                        <img src="<?php echo get_template_directory_uri() . '/assets/images/phone.svg' ?>" alt="Phone" width="48" height="48">
+                        <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/phone.svg' ); ?>" alt="Phone" width="48" height="48" loading="lazy" decoding="async">
                         <div>
                             <p>Talk to an Expert</p>
                             <p>844-424-3254 / 1-844-GCHECK-4</p>
@@ -172,17 +172,17 @@
                 </div>
                 <div class="copyright-badges">
                     <span>
-                        <a href="https://credential.thepbsa.org/114492a9-638f-4bc4-bda1-bd465b3a5c2b#acc.Pw2lZ9sL" target="_blank">
-                            <img src="<?php echo get_template_directory_uri() . '/assets/images/PBSA logo.png' ?>" alt="PBSA">
+                        <a href="https://credential.thepbsa.org/114492a9-638f-4bc4-bda1-bd465b3a5c2b#acc.Pw2lZ9sL" target="_blank" rel="noopener noreferrer">
+                            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/PBSA logo.png' ); ?>" alt="PBSA" width="100" height="100" loading="lazy" decoding="async">
                         </a>
                     </span>
                     <span>
-                        <a href="https://www.bbb.org/us/ca/los-angeles/profile/employment-background-check/gcheck-1216-1000042700" target="_blank">
-                            <img src="<?php echo get_template_directory_uri() . '/assets/images/bbb-logo copy.png' ?>" alt="BBB Accredited Business">
+                        <a href="https://www.bbb.org/us/ca/los-angeles/profile/employment-background-check/gcheck-1216-1000042700" target="_blank" rel="noopener noreferrer">
+                            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/bbb-logo copy.png' ); ?>" alt="BBB Accredited Business" width="100" height="100" loading="lazy" decoding="async">
                         </a>
                     </span>
                     <span>
-                        <img src="<?php echo get_template_directory_uri() . '/assets/images/footer-logo copy.png' ?>" alt="SHRM, ASA Accreditations">
+                        <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/footer-logo copy.png' ); ?>" alt="SHRM, ASA Accreditations" width="100" height="100" loading="lazy" decoding="async">
                     </span>
                 </div>
             </div>

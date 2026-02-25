@@ -3,16 +3,30 @@
  * TOC is built server-side (PHP). This script only handles:
  * - Scroll-based active section highlighting
  * - Smooth scroll on link click
+ * Init delayed with requestIdleCallback to reduce main-thread work on mobile.
  */
 
 (function($) {
     'use strict';
 
-    $(document).ready(function() {
+    function runWhenIdle(cb) {
+        var timeout = 2000;
+        if (typeof requestIdleCallback !== 'undefined') {
+            requestIdleCallback(cb, { timeout: timeout });
+        } else {
+            setTimeout(cb, 1);
+        }
+    }
+
+    function initTOC() {
         const $tocList = $('#blog-v2-toc-list');
         const $content = $('.blog-v2-content');
 
         if (!$tocList.length || !$content.length) {
+            return;
+        }
+        // Skip TOC on mobile (sidebar is hidden) to avoid forced reflow from offset()/outerHeight()
+        if (typeof window.innerWidth !== 'undefined' && window.innerWidth < 768) {
             return;
         }
 
@@ -22,6 +36,28 @@
             return $content.find('h2.wp-block-heading').filter(function() {
                 return !$(this).closest(excludedContainers).length;
             });
+        }
+
+        var cachedContentBottom = null;
+        var cachedHeadingTops = null;
+
+        function getContentBottom() {
+            if (cachedContentBottom !== null) return cachedContentBottom;
+            var off = $content.offset();
+            var h = $content.outerHeight();
+            if (off && h) cachedContentBottom = off.top + h;
+            return cachedContentBottom;
+        }
+
+        function getHeadingTops($headings) {
+            if (cachedHeadingTops !== null && cachedHeadingTops.length === $headings.length) return cachedHeadingTops;
+            var tops = [];
+            $headings.each(function() {
+                var o = $(this).offset();
+                tops.push(o ? o.top : 0);
+            });
+            cachedHeadingTops = tops;
+            return tops;
         }
 
         $tocList.find('.blog-v2-toc__link').on('click', function(e) {
@@ -41,16 +77,17 @@
             const windowHeight = $(window).height();
             const scrollBottom = scrollTop + windowHeight / 3;
             const documentBottom = scrollTop + windowHeight;
-            const contentBottom = $content.offset().top + $content.outerHeight();
+            const contentBottom = getContentBottom();
             const maxScrollTop = $(document).height() - windowHeight;
 
             const $headings = getTOCHeadings();
             const allLinks = $tocList.find('.blog-v2-toc__link');
 
-            if ($headings.length === 0) {
+            if ($headings.length === 0 || contentBottom == null) {
                 return;
             }
 
+            var headingTops = getHeadingTops($headings);
             let currentActive = null;
             let currentActiveIndex = -1;
 
@@ -59,7 +96,7 @@
                 const id = $heading.attr('id');
                 if (!id) return;
 
-                const headingTop = $heading.offset().top;
+                const headingTop = headingTops[index] != null ? headingTops[index] : 0;
 
                 if (headingTop <= scrollBottom) {
                     currentActive = id;
@@ -108,5 +145,14 @@
         });
 
         updateActiveTOC();
+
+        $(window).on('resize', function() {
+            cachedContentBottom = null;
+            cachedHeadingTops = null;
+        });
+    }
+
+    $(document).ready(function() {
+        runWhenIdle(initTOC);
     });
 })(jQuery);

@@ -1,32 +1,37 @@
 jQuery(document).ready(function($) {
-  
-    /* on scroll */
-    var topOfOthDiv = $('#header-cont').offset().top;
+
+    /* Header scroll class: read offset on first scroll only to avoid forced reflow on load */
+    var topOfOthDiv = null;
     $(window).scroll(function() {
-        if($(window).scrollTop() > topOfOthDiv) { 
-            console.log('true');
+        if (topOfOthDiv === null) {
+            var $header = $('#header-cont');
+            if ($header.length) topOfOthDiv = $header.offset().top;
+        }
+        if (topOfOthDiv !== null && $(window).scrollTop() > topOfOthDiv) {
             $('#header-cont').addClass('scroll');
         } else {
-            console.log('false');
             $('#header-cont').removeClass('scroll');
         }
     });
-       
-    // click event for hamburger menu
+
+    /* Hamburger menu */
     function debounce(func, delay) {
-        let timeout;
-        return function(...args) {
-            const context = this;
+        var timeout;
+        return function() {
+            var context = this;
+            var args = arguments;
             clearTimeout(timeout);
-            timeout = setTimeout(() => func.apply(context, args), delay);
+            timeout = setTimeout(function() { func.apply(context, args); }, delay);
         };
     }
-    const myDebouncedFunction = debounce(() => {
-        jQuery('#header-cont').toggleClass('active');
-        //jQuery('#mobile-nav').toggleClass('active');
-        $("#mobile-nav").slideToggle("fast");
-    }, 300); // Adjust delay as needed
-    document.getElementById('mobile-menu').addEventListener('click', myDebouncedFunction);
+    var myDebouncedFunction = debounce(function() {
+        $('#header-cont').toggleClass('active');
+        $('#mobile-nav').slideToggle('fast');
+    }, 300);
+    var mobileMenuEl = document.getElementById('mobile-menu');
+    if (mobileMenuEl) {
+        mobileMenuEl.addEventListener('click', myDebouncedFunction);
+    }
 
     // Close menus when resizing to mobile view
     // This ensures mega panels are hidden when switching from desktop to mobile
@@ -43,7 +48,3 @@ jQuery(document).ready(function($) {
     });
 
 });
-
-
-      
-    

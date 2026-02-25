@@ -2,9 +2,19 @@
  * Blog V2 Expert Insight block
  * Structure (wrapper, see more, attribution) is output server-side to avoid CLS.
  * This script only toggles expand/collapse when "see more" is clicked.
+ * Init delayed with requestIdleCallback to reduce main-thread work on mobile.
  */
 (function () {
     'use strict';
+
+    function runWhenIdle(cb) {
+        var timeout = 2000;
+        if (typeof requestIdleCallback !== 'undefined') {
+            requestIdleCallback(cb, { timeout: timeout });
+        } else {
+            setTimeout(cb, 1);
+        }
+    }
 
     function init() {
         var buttons = document.querySelectorAll('.blog-v2-expert-insight__see-more');
@@ -34,9 +44,12 @@
         });
     }
 
+    function runInit() {
+        runWhenIdle(init);
+    }
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
+        document.addEventListener('DOMContentLoaded', runInit);
     } else {
-        init();
+        runInit();
     }
 })();

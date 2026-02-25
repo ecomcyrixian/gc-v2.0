@@ -37,15 +37,19 @@ $hero_image_url   = null;
 $hero_image_w     = 480;
 $hero_image_h     = 473;
 $hero_thumb_id   = 0;
+$hero_size_name   = 'blog_hero';
 if ( has_post_thumbnail() ) {
     $hero_thumb_id = get_post_thumbnail_id( get_the_ID() );
-    $hero_image_url = get_the_post_thumbnail_url( get_the_ID(), 'large' );
-    if ( $hero_thumb_id ) {
-        $img = wp_get_attachment_image_src( $hero_thumb_id, 'large' );
-        if ( $img && isset( $img[1], $img[2] ) ) {
-            $hero_image_w = (int) $img[1];
-            $hero_image_h = (int) $img[2];
-        }
+    $img = $hero_thumb_id ? wp_get_attachment_image_src( $hero_thumb_id, 'blog_hero' ) : null;
+    // Fallback to medium_large (768px) if blog_hero not generated or returns full-size (saves ~66 KiB)
+    if ( ! $img || ( isset( $img[1] ) && (int) $img[1] > 800 ) ) {
+        $img = $hero_thumb_id ? wp_get_attachment_image_src( $hero_thumb_id, 'medium_large' ) : null;
+        $hero_size_name = 'medium_large';
+    }
+    if ( $img && isset( $img[0], $img[1], $img[2] ) ) {
+        $hero_image_url = $img[0];
+        $hero_image_w   = (int) $img[1];
+        $hero_image_h   = (int) $img[2];
     }
 }
 ?>
@@ -54,8 +58,8 @@ if ( has_post_thumbnail() ) {
     <?php if ( $hero_image_url && $hero_thumb_id ) : ?>
     <div class="blog-v2-hero__media">
         <?php
-        $hero_srcset = wp_get_attachment_image_srcset( $hero_thumb_id, 'large' );
-        $hero_sizes  = '(max-width: 768px) 100vw, 480px';
+        $hero_srcset = wp_get_attachment_image_srcset( $hero_thumb_id, $hero_size_name );
+        $hero_sizes  = '(max-width: 768px) 100vw, 535px';
         ?>
         <img fetchpriority="high" src="<?php echo esc_url( $hero_image_url ); ?>" alt="<?php echo esc_attr( $hero_title_plain ); ?>" class="blog-v2-hero__image" width="<?php echo (int) $hero_image_w; ?>" height="<?php echo (int) $hero_image_h; ?>" loading="eager" decoding="async"<?php echo $hero_srcset ? ' srcset="' . esc_attr( $hero_srcset ) . '" sizes="' . esc_attr( $hero_sizes ) . '"' : ''; ?> />
     </div>

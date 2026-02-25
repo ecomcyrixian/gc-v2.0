@@ -10,10 +10,22 @@
 <?php
     if ( is_singular( 'post' ) ) {
         $post_id = get_queried_object_id();
+        $hero_bg_slug   = 'blog-card-bg';
+        $hero_bg_webp   = get_template_directory() . '/assets/images/' . $hero_bg_slug . '.webp';
+        $hero_bg_url    = file_exists( $hero_bg_webp )
+            ? get_template_directory_uri() . '/assets/images/' . $hero_bg_slug . '.webp'
+            : get_template_directory_uri() . '/assets/images/' . $hero_bg_slug . '.png';
+        if ( $hero_bg_url ) {
+            echo '<link rel="preload" as="image" href="' . esc_url( $hero_bg_url ) . '" fetchpriority="high">' . "\n";
+        }
         if ( $post_id && has_post_thumbnail( $post_id ) ) {
-            $lcp_url = get_the_post_thumbnail_url( $post_id, 'large' );
-            if ( $lcp_url ) {
-                echo '<link rel="preload" as="image" href="' . esc_url( $lcp_url ) . '" fetchpriority="high">' . "\n";
+            $tid = get_post_thumbnail_id( $post_id );
+            $img = $tid ? wp_get_attachment_image_src( $tid, 'blog_hero' ) : null;
+            if ( ! $img || ( isset( $img[1] ) && (int) $img[1] > 800 ) ) {
+                $img = $tid ? wp_get_attachment_image_src( $tid, 'medium_large' ) : null;
+            }
+            if ( $img && ! empty( $img[0] ) ) {
+                echo '<link rel="preload" as="image" href="' . esc_url( $img[0] ) . '" fetchpriority="high">' . "\n";
             }
         }
     }
