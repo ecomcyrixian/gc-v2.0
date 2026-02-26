@@ -61,7 +61,7 @@ wp_reset_postdata();
     <?php if ( $featured_image ) : ?>
         <div class="blog-v2-article-card__image">
             <a href="<?php echo esc_url( $permalink ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Read article: %s', 'gc-v2' ), $title ) ); ?>">
-                <img src="<?php echo esc_url( $featured_image ); ?>" alt="<?php echo esc_attr( $title ); ?>">
+                <img src="<?php echo esc_url( $featured_image ); ?>" alt="<?php echo esc_attr( $title ); ?>" width="100" height="100">
             </a>
         </div>
     <?php endif; ?>

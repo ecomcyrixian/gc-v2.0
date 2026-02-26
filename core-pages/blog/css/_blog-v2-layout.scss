@@ -232,11 +232,12 @@
         p {
             font-size: $fsize12;
             line-height: 20px;
-            color: $gray100;
+            color: $gray300;
             margin: 0 auto;
 
             strong {
                 font-weight: $fSemiBold;
+                color: $gray300;
             }
         }
 

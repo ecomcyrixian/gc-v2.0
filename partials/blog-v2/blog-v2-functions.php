@@ -7,6 +7,29 @@
 // --- Author display (Created by / About The Creator) ---
 
 /**
+ * Return a smaller image URL when the given URL is a local attachment (e.g. for 50x50 avatar display).
+ * Reduces download size when the original is large (e.g. 512x512).
+ *
+ * @param string $url Full image URL.
+ * @param int    $size Width/height for the requested size (default 100 for 50x50 display at 2x).
+ * @return string URL to use for img src (smaller when possible, otherwise original).
+ */
+function blog_v2_avatar_url_for_display( $url, $size = 100 ) {
+    if ( empty( $url ) || ! is_string( $url ) ) {
+        return $url;
+    }
+    $attachment_id = attachment_url_to_postid( $url );
+    if ( ! $attachment_id ) {
+        return $url;
+    }
+    $src = wp_get_attachment_image_src( $attachment_id, array( $size, $size ) );
+    if ( is_array( $src ) && ! empty( $src[0] ) ) {
+        return $src[0];
+    }
+    return $url;
+}
+
+/**
  * Default blog author when post has no author or for fallback (Pat).
  */
 function blog_v2_default_author() {

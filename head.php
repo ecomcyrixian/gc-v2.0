@@ -6,7 +6,7 @@
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <title><?php wp_title('|', true, 'right'); bloginfo('name'); ?></title>
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 <?php
     if ( is_singular( 'post' ) ) {
         $post_id = get_queried_object_id();

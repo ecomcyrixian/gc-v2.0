@@ -5,13 +5,14 @@
  */
 $creator = function_exists( 'blog_v2_author_display_data' ) ? blog_v2_author_display_data() : array( 'name' => 'Pat Hartonian', 'job' => 'VP of Operations, GCheck', 'url' => get_template_directory_uri() . '/assets/images/pat-hat.png', 'initials' => 'PH', 'color' => '#6B7280' );
 $creator_avatar_url = ! empty( $creator['url'] ) ? $creator['url'] : '';
+$creator_avatar_src = $creator_avatar_url && function_exists( 'blog_v2_avatar_url_for_display' ) ? blog_v2_avatar_url_for_display( $creator_avatar_url, 100 ) : $creator_avatar_url;
 $creator_bio       = function_exists( 'blog_v2_creator_bio' ) ? blog_v2_creator_bio() : ( function_exists( 'blog_v2_default_gcheck_editorial_bio' ) ? blog_v2_default_gcheck_editorial_bio() : '' );
 ?>
 <div class="wp-block-group _article-about-creator">
     <div class="blog-v2-about-creator__header">
         <div class="blog-v2-about-creator__avatar">
-            <?php if ( $creator_avatar_url ) : ?>
-                <img src="<?php echo esc_url( $creator_avatar_url ); ?>" alt="<?php echo esc_attr( $creator['name'] ); ?>">
+            <?php if ( $creator_avatar_src ) : ?>
+                <img src="<?php echo esc_url( $creator_avatar_src ); ?>" alt="<?php echo esc_attr( $creator['name'] ); ?>" width="50" height="50" loading="lazy">
             <?php else : ?>
                 <div class="blog-v2-about-creator__initials" style="background-color:<?php echo esc_attr( isset( $creator['color'] ) ? $creator['color'] : '#6B7280' ); ?>"><?php echo esc_html( isset( $creator['initials'] ) ? $creator['initials'] : '' ); ?></div>
             <?php endif; ?>

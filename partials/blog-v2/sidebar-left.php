@@ -42,10 +42,22 @@ $toc_items = function_exists( 'blog_v2_get_toc_items' ) ? blog_v2_get_toc_items(
     </div>
     <div class="blog-v2-cards-container">
         <div class="blog-v2-card">
-            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/blog-card-bg.png' ); ?>" alt="" class="blog-v2-card__bg-image" width="288" height="200" loading="lazy">
+            <?php
+            $blog_card_bg_png = get_template_directory_uri() . '/assets/images/blog-card-bg.png';
+            $blog_card_bg_webp = get_template_directory() . '/assets/images/blog-card-bg.webp';
+            $blog_card_bg_webp_url = file_exists( $blog_card_bg_webp ) ? get_template_directory_uri() . '/assets/images/blog-card-bg.webp' : '';
+            ?>
+            <?php if ( $blog_card_bg_webp_url ) : ?>
+            <picture>
+                <source type="image/webp" srcset="<?php echo esc_url( $blog_card_bg_webp_url ); ?>">
+                <img src="<?php echo esc_url( $blog_card_bg_png ); ?>" alt="" class="blog-v2-card__bg-image" width="288" height="200" loading="lazy" decoding="async">
+            </picture>
+            <?php else : ?>
+            <img src="<?php echo esc_url( $blog_card_bg_png ); ?>" alt="" class="blog-v2-card__bg-image" width="288" height="200" loading="lazy" decoding="async">
+            <?php endif; ?>
             <div class="blog-v2-card__content">
                 <div class="blog-v2-card__heading-prefix">Hire with Confidence</div>
-                <h4 class="blog-v2-card__heading">Stay Compliant.</h4>
+                <h3 class="blog-v2-card__heading">Stay Compliant.</h3>
                 <div class="blog-v2-card__details">The only FCRA compliance platform that gives you instant, job-specific guidance for every hire across all 50 states.</div>
                 <a href="https://compliance.gcheck.com/?_gl=1*1pp1g4c*_gcl_au*MjAyMzgwMzQ1NC4xNzY1ODgxNTAx*_ga*ODA0NjI3MjYuMTc2NTg4MTUwMQ..*_ga_JHFG7MMVGL*czE3Njk3NTYxNzMkbzczJGcwJHQxNzY5NzU2MTczJGo2MCRsMCRoMA.." class="blog-v2-card__btn">Check Compliance Now</a>
             </div>
