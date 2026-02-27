@@ -47,7 +47,7 @@
 
         function getProgressBarWidth() {
             if (cachedMaxWidth !== null) return cachedMaxWidth;
-            cachedMaxWidth = $(window).width();
+            cachedMaxWidth = document.documentElement.clientWidth;
             return cachedMaxWidth;
         }
 

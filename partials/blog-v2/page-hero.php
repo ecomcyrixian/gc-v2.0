@@ -54,21 +54,22 @@ if ( has_post_thumbnail() ) {
 }
 ?>
 
-<header class="blog-v2-hero<?php echo ! $hero_image_url ? ' blog-v2-hero--no-image' : ''; ?>" data-bg-image="<?php echo esc_url( $hero_bg_image_url ); ?>" style="--bg-image: url('<?php echo esc_url( $hero_bg_image_url ); ?>');">
-    <?php if ( $hero_image_url && $hero_thumb_id ) : ?>
-    <div class="blog-v2-hero__media">
-        <?php
-        $hero_srcset = wp_get_attachment_image_srcset( $hero_thumb_id, $hero_size_name );
-        $hero_sizes  = '(max-width: 768px) 100vw, 535px';
-        ?>
-        <img fetchpriority="high" src="<?php echo esc_url( $hero_image_url ); ?>" alt="<?php echo esc_attr( $hero_title_plain ); ?>" class="blog-v2-hero__image" width="<?php echo (int) $hero_image_w; ?>" height="<?php echo (int) $hero_image_h; ?>" loading="eager" decoding="async"<?php echo $hero_srcset ? ' srcset="' . esc_attr( $hero_srcset ) . '" sizes="' . esc_attr( $hero_sizes ) . '"' : ''; ?> />
-    </div>
-    <?php elseif ( $hero_image_url ) : ?>
-    <div class="blog-v2-hero__media">
-        <img fetchpriority="high" src="<?php echo esc_url( $hero_image_url ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" class="blog-v2-hero__image" width="<?php echo (int) $hero_image_w; ?>" height="<?php echo (int) $hero_image_h; ?>" loading="eager" decoding="async" />
-    </div>
-    <?php endif; ?>
-    <div class="blog-v2-hero__content">
+<header class="blog-v2-hero-bleed" data-bg-image="<?php echo esc_url( $hero_bg_image_url ); ?>" style="--bg-image: url('<?php echo esc_url( $hero_bg_image_url ); ?>');">
+    <div class="blog-v2-hero<?php echo ! $hero_image_url ? ' blog-v2-hero--no-image' : ''; ?>">
+        <?php if ( $hero_image_url && $hero_thumb_id ) : ?>
+        <div class="blog-v2-hero__media">
+            <?php
+            $hero_srcset = wp_get_attachment_image_srcset( $hero_thumb_id, $hero_size_name );
+            $hero_sizes  = '(max-width: 768px) 100vw, 535px';
+            ?>
+            <img fetchpriority="high" src="<?php echo esc_url( $hero_image_url ); ?>" alt="<?php echo esc_attr( $hero_title_plain ); ?>" class="blog-v2-hero__image" width="<?php echo (int) $hero_image_w; ?>" height="<?php echo (int) $hero_image_h; ?>" loading="eager" decoding="async"<?php echo $hero_srcset ? ' srcset="' . esc_attr( $hero_srcset ) . '" sizes="' . esc_attr( $hero_sizes ) . '"' : ''; ?> />
+        </div>
+        <?php elseif ( $hero_image_url ) : ?>
+        <div class="blog-v2-hero__media">
+            <img fetchpriority="high" src="<?php echo esc_url( $hero_image_url ); ?>" alt="<?php echo esc_attr( get_the_title() ); ?>" class="blog-v2-hero__image" width="<?php echo (int) $hero_image_w; ?>" height="<?php echo (int) $hero_image_h; ?>" loading="eager" decoding="async" />
+        </div>
+        <?php endif; ?>
+        <div class="blog-v2-hero__content">
         <div class="blog-v2-hero__meta">
             <?php
             $categories = get_the_category();
@@ -122,8 +123,10 @@ if ( has_post_thumbnail() ) {
                     $creator = function_exists( 'blog_v2_author_display_data' ) ? blog_v2_author_display_data() : blog_v2_default_author();
                     $creator_avatar_url = ! empty( $creator['url'] ) ? $creator['url'] : '';
                     ?>
-                    <?php if ( $creator_avatar_url ) : ?>
-                        <img src="<?php echo esc_url( $creator_avatar_url ); ?>" alt="<?php echo esc_attr( $creator['name'] ); ?>" width="50" height="50" loading="lazy" fetchpriority="low">
+                    <?php if ( $creator_avatar_url ) :
+                        $creator_hero_avatar = function_exists( 'blog_v2_avatar_url_for_display' ) ? blog_v2_avatar_url_for_display( $creator_avatar_url, 100 ) : $creator_avatar_url;
+                    ?>
+                        <img src="<?php echo esc_url( $creator_hero_avatar ); ?>" alt="<?php echo esc_attr( $creator['name'] ); ?>" width="50" height="50" loading="lazy" fetchpriority="low">
                     <?php else : ?>
                         <div class="blog-hero-authors__initials" style="background-color:<?php echo esc_attr( isset( $creator['color'] ) ? $creator['color'] : '#6B7280' ); ?>"><?php echo esc_html( isset( $creator['initials'] ) ? $creator['initials'] : '' ); ?></div>
                     <?php endif; ?>
@@ -144,7 +147,8 @@ if ( has_post_thumbnail() ) {
             <div class="reviewed-by">
                 <p>Reviewed by</p>
                 <div class="blog-hero-authors__author">
-                    <img src="<?php echo esc_url( $reviewer['avatar'] ); ?>" alt="<?php echo esc_attr( $reviewer['name'] ); ?>" width="50" height="50" fetchpriority="high">
+                    <?php $reviewer_hero_avatar = function_exists( 'blog_v2_avatar_url_for_display' ) ? blog_v2_avatar_url_for_display( $reviewer['avatar'], 100 ) : $reviewer['avatar']; ?>
+                    <img src="<?php echo esc_url( $reviewer_hero_avatar ); ?>" alt="<?php echo esc_attr( $reviewer['name'] ); ?>" width="50" height="50" fetchpriority="low" loading="lazy">
                     <div class="blog-hero-authors__author-info">
                         <strong><?php echo esc_html( $reviewer['name'] ); ?></strong>
                         <span><?php echo esc_html( $reviewer['job'] ); ?></span>
@@ -152,6 +156,7 @@ if ( has_post_thumbnail() ) {
                 </div>
             </div>
             <?php endif; ?>
+        </div>
         </div>
     </div>
 </header>

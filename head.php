@@ -32,10 +32,22 @@
 ?>
     <?php wp_head(); ?>
 
+    <style>
+    @font-face {
+        font-family: 'Inter Fallback';
+        src: local('Arial');
+        size-adjust: 107.64%;
+        ascent-override: 90.49%;
+        descent-override: 22.56%;
+        line-gap-override: 0%;
+    }
+    body, .blog-v2-content, .blog-v2-hero, .button, input, button, select, textarea {
+        font-family: "Inter", "Inter Fallback", sans-serif;
+    }
+    </style>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet"> -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" onload="this.onload=null;this.rel='stylesheet';this.removeAttribute('as')" as="style" fetchpriority="high">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=optional" onload="this.onload=null;this.rel='stylesheet';this.removeAttribute('as')" as="style" fetchpriority="high">
 
     <!-- global.css and global.js are now loaded via wp_enqueue_style/wp_enqueue_script in functions.php with cache busting -->
 

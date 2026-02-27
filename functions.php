@@ -212,6 +212,37 @@ function theme_strip_font_awesome_style_tag( $tag, $handle, $href, $media ) {
 add_filter( 'style_loader_tag', 'theme_strip_font_awesome_style_tag', 10, 4 );
 
 /**
+ * Dequeue wp-block-library CSS on non-blog pages (saves ~15 KiB).
+ * Single posts keep it but load it deferred (non-render-blocking).
+ */
+function theme_dequeue_block_library_on_non_blog() {
+    if ( is_admin() ) {
+        return;
+    }
+    if ( ! is_singular( 'post' ) ) {
+        wp_dequeue_style( 'wp-block-library' );
+        wp_dequeue_style( 'wp-block-library-theme' );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'theme_dequeue_block_library_on_non_blog', 999 );
+
+/**
+ * Make wp-block-library non-render-blocking on single posts.
+ * Switches from <link rel="stylesheet"> to preload + onload pattern.
+ */
+function theme_defer_block_library_css( $tag, $handle, $href, $media ) {
+    if ( is_admin() || ! is_singular( 'post' ) ) {
+        return $tag;
+    }
+    if ( $handle !== 'wp-block-library' ) {
+        return $tag;
+    }
+    return '<link rel="preload" href="' . esc_url( $href ) . '" as="style" onload="this.onload=null;this.rel=\'stylesheet\'" media="' . esc_attr( $media ) . '">'
+         . '<noscript>' . $tag . '</noscript>' . "\n";
+}
+add_filter( 'style_loader_tag', 'theme_defer_block_library_css', 10, 4 );
+
+/**
  * Last-chance dequeue dashicons right before styles are printed (in case re-enqueued by plugin).
  */
 function theme_dequeue_dashicons_before_print() {

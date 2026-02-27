@@ -15,6 +15,11 @@
 @import 'blog-v2-sidebar-left';
 @import 'blog-v2-sidebar-right';
 
+body.single-post {
+    overflow-x: hidden;
+    overflow-x: clip;
+}
+
 .blog-v2-layout {
     display: grid;
     grid-template-columns: 288px 1fr 288px;

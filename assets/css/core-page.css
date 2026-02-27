@@ -712,7 +712,7 @@ body.page .form-template .gcheck-contact-container {
   background: transparent;
   max-width: 100%;
   border-radius: 1;
-  font-family: "Inter", sans-serif;
+  font-family: "Inter", "Inter Fallback", sans-serif;
 }
 body.page .form-template .gcheck-contact-container::before {
   display: none;

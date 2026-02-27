@@ -12,14 +12,7 @@
     min-height: 3px;
     width: 100%;
     flex-shrink: 0;
-
-    /* When bar is fixed, keep wrapper height so layout doesn't shift (placeholder "in return") */
-    &.is-sticky-active::after {
-        content: '';
-        display: block;
-        height: 3px;
-        width: 100%;
-    }
+    overflow: hidden;
 }
 
 .blog-v2-progress {
@@ -37,7 +30,6 @@
         position: fixed;
         top: 0;
         left: 0;
-        right: 0;
         width: 100%;
     }
 }

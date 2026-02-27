@@ -597,7 +597,7 @@
 }
 #pricing #boxes strong {
   color: #FFFFFF;
-  font-size: "Inter", sans-serif;
+  font-size: "Inter", "Inter Fallback", sans-serif;
   font-weight: 600;
 }
 #pricing #price-boxes {
