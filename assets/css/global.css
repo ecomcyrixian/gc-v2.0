@@ -1367,18 +1367,18 @@ footer .footer-bottom-row {
 footer .footer-links {
   font-size: 14px;
 }
-footer .footer-links h5 {
+footer .footer-links h4 {
   color: #777E8C;
   margin-bottom: 24px;
   font-size: 14px;
   letter-spacing: 0.16em;
 }
-footer .footer-links h5 a {
+footer .footer-links h4 a {
   color: #777E8C;
   text-decoration: none;
   transition: color 0.2s ease;
 }
-footer .footer-links h5 a:hover {
+footer .footer-links h4 a:hover {
   color: #3FC5FD;
 }
 footer .footer-links a {
@@ -1730,17 +1730,27 @@ body.blog .recent-articles .cards {
   display: flex;
   flex-direction: column;
 }
-.articles-posts .articles-info h4, .articles-posts .articles-info .read-time, .articles-posts .articles-info .category,
+.articles-posts .articles-info h3, .articles-posts .articles-info h4, .articles-posts .articles-info .read-time, .articles-posts .articles-info .category,
+.recent-articles .articles-info h3,
 .recent-articles .articles-info h4,
 .recent-articles .articles-info .read-time,
 .recent-articles .articles-info .category,
+.latest-articles .articles-info h3,
 .latest-articles .articles-info h4,
 .latest-articles .articles-info .read-time,
 .latest-articles .articles-info .category {
   margin: 0;
 }
-.articles-posts .articles-info h4 a,
+.articles-posts .articles-info h3,
+.recent-articles .articles-info h3,
+.latest-articles .articles-info h3 {
+  font-size: 24px;
+  font-weight: 600;
+}
+.articles-posts .articles-info h3 a, .articles-posts .articles-info h4 a,
+.recent-articles .articles-info h3 a,
 .recent-articles .articles-info h4 a,
+.latest-articles .articles-info h3 a,
 .latest-articles .articles-info h4 a {
   color: #1A1C1E;
   font-size: 18px;
@@ -2076,30 +2086,30 @@ body.search h4 span {
     width: 100%;
   }
 }
-.cards h4 {
+.cards h3, .cards h4 {
   gap: 24px;
   display: flex;
   align-items: flex-start;
   margin-bottom: 10px;
 }
-.cards h4 p {
+.cards h3 p, .cards h4 p {
   font-size: 24px;
   line-height: normal;
 }
-.cards h4 > span:first-child {
+.cards h3 > span:first-child, .cards h4 > span:first-child {
   flex: 1;
 }
 @media screen and (max-width: 1311px) {
-  .cards h4 br {
+  .cards h3 br, .cards h4 br {
     display: none;
   }
 }
-.cards h4:has(.pillar-title) {
+.cards h3:has(.pillar-title), .cards h4:has(.pillar-title) {
   align-items: center;
   justify-content: center;
   text-align: center;
 }
-.cards h4:has(.pillar-title) > span:first-child {
+.cards h3:has(.pillar-title) > span:first-child, .cards h4:has(.pillar-title) > span:first-child {
   flex: none;
   width: 100%;
 }

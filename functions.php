@@ -77,12 +77,28 @@ add_action( 'wp_enqueue_scripts', 'theme_styles_script' );
 
 
 /*
+ * Defer jQuery and all theme scripts so nothing is render-blocking.
+ * Deferred scripts execute in document order after parsing, so jQuery
+ * is guaranteed to run before its dependents regardless of head vs footer placement.
+ */
+function theme_defer_scripts( $tag, $handle, $src ) {
+    if ( is_admin() ) {
+        return $tag;
+    }
+    $defer_handles = array( 'jquery-core', 'jquery-migrate', 'my-custom-script', 'blog-v2' );
+    if ( in_array( $handle, $defer_handles, true ) && false === strpos( $tag, ' defer' ) ) {
+        $tag = str_replace( '<script ', '<script defer ', $tag );
+    }
+    return $tag;
+}
+add_filter( 'script_loader_tag', 'theme_defer_scripts', 10, 3 );
+
+/*
  * Enqueue jQuery (WordPress's built-in version)
  * Automatic cache busting based on file modification time
  */
     
 function gcheck_scripts() {
-    // Enqueue jQuery (WordPress's built-in version)
     wp_enqueue_script('jquery');
 
     // Enqueue your custom script, with jQuery as a dependency
@@ -98,42 +114,19 @@ function gcheck_scripts() {
         true // Load in footer to avoid render-blocking (was in header)
     );
 
-    // Enqueue blog V2 scripts for single posts
+    // Enqueue combined blog V2 bundle for single posts (progress bar + TOC + expert insight)
     if ( is_single() ) {
-        // Progress bar script
-        $progress_js_path = get_template_directory() . '/assets/js/blog-v2-progress.js';
-        $progress_js_version = file_exists($progress_js_path) ? filemtime($progress_js_path) : '1.0.0';
-        
-        wp_enqueue_script(
-            'blog-v2-progress', // Unique handle
-            get_template_directory_uri() . '/assets/js/blog-v2-progress.js', // Path to script
-            array('jquery'), // Dependencies
-            $progress_js_version, // Version with cache busting
-            true // Load in footer
-        );
+        $blog_v2_js_path = get_template_directory() . '/assets/js/blog-v2.js';
+        $blog_v2_js_version = file_exists($blog_v2_js_path) ? filemtime($blog_v2_js_path) : '1.0.0';
 
-        // TOC script
-        $toc_js_path = get_template_directory() . '/assets/js/blog-v2-toc.js';
-        $toc_js_version = file_exists($toc_js_path) ? filemtime($toc_js_path) : '1.0.0';
-        
         wp_enqueue_script(
-            'blog-v2-toc', // Unique handle
-            get_template_directory_uri() . '/assets/js/blog-v2-toc.js', // Path to script
-            array('jquery'), // Dependencies
-            $toc_js_version, // Version with cache busting
-            true // Load in footer
-        );
-
-        // Expert insight block (pale cyan blue): truncate, see more, Charm attribution
-        $expert_insight_js_path = get_template_directory() . '/assets/js/blog-v2-expert-insight.js';
-        $expert_insight_js_version = file_exists($expert_insight_js_path) ? filemtime($expert_insight_js_path) : '1.0.0';
-        wp_enqueue_script(
-            'blog-v2-expert-insight',
-            get_template_directory_uri() . '/assets/js/blog-v2-expert-insight.js',
-            array(),
-            $expert_insight_js_version,
+            'blog-v2',
+            get_template_directory_uri() . '/assets/js/blog-v2.js',
+            array('jquery'),
+            $blog_v2_js_version,
             true
         );
+
         $expert_insight_data = array(
             'charmAvatarUrl' => '',
             'charmLink'      => 'https://gcheck.com/blog/author/charm/',
@@ -144,7 +137,7 @@ function gcheck_scripts() {
             $expert_insight_data['experts'] = array();
         }
         wp_localize_script(
-            'blog-v2-expert-insight',
+            'blog-v2',
             'blogV2ExpertInsight',
             $expert_insight_data
         );
@@ -212,26 +205,27 @@ function theme_strip_font_awesome_style_tag( $tag, $handle, $href, $media ) {
 add_filter( 'style_loader_tag', 'theme_strip_font_awesome_style_tag', 10, 4 );
 
 /**
- * Dequeue wp-block-library CSS on non-blog pages (saves ~15 KiB).
- * Single posts keep it but load it deferred (non-render-blocking).
+ * Dequeue wp-block-library CSS on non-Gutenberg pages (archives, category, search, etc.).
+ * Keep it on any singular content (posts and pages) where Gutenberg blocks render.
+ * Defer it on those pages so it's non-render-blocking.
  */
-function theme_dequeue_block_library_on_non_blog() {
+function theme_dequeue_block_library() {
     if ( is_admin() ) {
         return;
     }
-    if ( ! is_singular( 'post' ) ) {
+    if ( ! is_singular() ) {
         wp_dequeue_style( 'wp-block-library' );
         wp_dequeue_style( 'wp-block-library-theme' );
     }
 }
-add_action( 'wp_enqueue_scripts', 'theme_dequeue_block_library_on_non_blog', 999 );
+add_action( 'wp_enqueue_scripts', 'theme_dequeue_block_library', 999 );
 
 /**
- * Make wp-block-library non-render-blocking on single posts.
+ * Make wp-block-library non-render-blocking on singular pages.
  * Switches from <link rel="stylesheet"> to preload + onload pattern.
  */
 function theme_defer_block_library_css( $tag, $handle, $href, $media ) {
-    if ( is_admin() || ! is_singular( 'post' ) ) {
+    if ( is_admin() || ! is_singular() ) {
         return $tag;
     }
     if ( $handle !== 'wp-block-library' ) {

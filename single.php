@@ -108,11 +108,11 @@ endif;
                                     }
                                     ?>
                                 </span>
-                                <h4>
+                                <h3>
                                     <a class="title" href="<?php echo get_permalink(); ?>" aria-label="<?php the_title(); ?>">
                                         <?php the_title(); ?>
                                     </a>
-                                </h4>
+                                </h3>
                                 <span class="read-time">
                                     <span class="post-date"><?php echo $post_date; ?></span>
                                     <strong>•</strong>
