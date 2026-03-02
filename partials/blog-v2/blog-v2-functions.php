@@ -406,13 +406,11 @@ function blog_v2_name_to_slug( $name ) {
 function blog_v2_expert_insight_experts( $post_id = null ) {
     $registry = blog_v2_reviewers_registry();
     $out      = array();
-    $no_asset_slugs = array( 'charm', 'charm-paz', 'emile' );
     foreach ( $registry as $slug => $r ) {
-        $avatar = in_array( $slug, $no_asset_slugs, true ) ? '' : $r['avatar'];
         $out[ $slug ] = array(
             'name'   => $r['name'],
             'title'  => $r['job'],
-            'avatar' => $avatar,
+            'avatar' => $r['avatar'],
             'link'   => $r['link'],
         );
     }
@@ -434,6 +432,12 @@ function blog_v2_expert_insight_experts( $post_id = null ) {
             $name_slug = blog_v2_name_to_slug( $reviewer['name'] );
             if ( $name_slug !== '' ) {
                 $out[ $name_slug ] = $expert;
+            }
+            // Propagate the real avatar to all slug variants sharing the same name
+            foreach ( $out as $s => $e ) {
+                if ( strcasecmp( $e['name'], $reviewer['name'] ) === 0 ) {
+                    $out[ $s ]['avatar'] = $reviewer['avatar'];
+                }
             }
         }
     }
@@ -1209,10 +1213,20 @@ function blog_v2_expert_insight_content_filter( $content ) {
             $expert = $experts[ $expert_slug ];
         }
         if ( ! $expert ) {
+            $para_text = strtolower( $p->textContent );
+            foreach ( $experts as $e ) {
+                $first_last = trim( explode( ',', $e['name'], 2 )[0] );
+                if ( $first_last !== '' && strpos( $para_text, strtolower( $first_last ) ) !== false ) {
+                    $expert = $e;
+                    break;
+                }
+            }
+        }
+        if ( ! $expert ) {
             $expert = array(
                 'name'  => $default_name,
                 'title' => $default_title,
-                'avatar' => '',
+                'avatar' => isset( $experts['charm']['avatar'] ) ? $experts['charm']['avatar'] : ( isset( $experts['charm-paz']['avatar'] ) ? $experts['charm-paz']['avatar'] : '' ),
                 'link'  => $charm_link,
             );
         }
@@ -1254,6 +1268,8 @@ function blog_v2_expert_insight_content_filter( $content ) {
             $img->setAttribute( 'alt', esc_attr( $name ) );
             $img->setAttribute( 'width', '40' );
             $img->setAttribute( 'height', '40' );
+            $img->setAttribute( 'loading', 'lazy' );
+            $img->setAttribute( 'decoding', 'async' );
             $img->setAttribute( 'class', 'blog-v2-expert-insight__attribution-img' );
             $attr_span_avatar->appendChild( $img );
             $initials_span = $dom->createElement( 'span' );
