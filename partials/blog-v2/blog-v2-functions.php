@@ -849,10 +849,16 @@ function blog_v2_toc_add_heading_ids( $content ) {
     $dom      = new DOMDocument();
     $libxml_prev = libxml_use_internal_errors( true );
     $dom->loadHTML(
-        '<div id="blog-v2-toc-root">' . $content . '</div>',
+        '<?xml encoding="utf-8" ?><div id="blog-v2-toc-root">' . $content . '</div>',
         LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
     );
     libxml_use_internal_errors( $libxml_prev );
+    foreach ( $dom->childNodes as $node ) {
+        if ( $node->nodeType === XML_PI_NODE ) {
+            $dom->removeChild( $node );
+            break;
+        }
+    }
 
     $root = $dom->getElementById( 'blog-v2-toc-root' );
     if ( ! $root ) {
@@ -1000,10 +1006,16 @@ function blog_v2_get_toc_items( $post_id = null ) {
     $dom = new DOMDocument();
     $libxml_prev = libxml_use_internal_errors( true );
     $dom->loadHTML(
-        '<div id="blog-v2-toc-root">' . $content . '</div>',
+        '<?xml encoding="utf-8" ?><div id="blog-v2-toc-root">' . $content . '</div>',
         LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
     );
     libxml_use_internal_errors( $libxml_prev );
+    foreach ( $dom->childNodes as $node ) {
+        if ( $node->nodeType === XML_PI_NODE ) {
+            $dom->removeChild( $node );
+            break;
+        }
+    }
 
     $root = $dom->getElementById( 'blog-v2-toc-root' );
     if ( ! $root ) {
@@ -1142,10 +1154,16 @@ function blog_v2_expert_insight_content_filter( $content ) {
     $dom = new DOMDocument();
     $libxml_prev = libxml_use_internal_errors( true );
     $dom->loadHTML(
-        '<div id="blog-v2-ei-root">' . $content . '</div>',
+        '<?xml encoding="utf-8" ?><div id="blog-v2-ei-root">' . $content . '</div>',
         LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD
     );
     libxml_use_internal_errors( $libxml_prev );
+    foreach ( $dom->childNodes as $node ) {
+        if ( $node->nodeType === XML_PI_NODE ) {
+            $dom->removeChild( $node );
+            break;
+        }
+    }
 
     $root = $dom->getElementById( 'blog-v2-ei-root' );
     if ( ! $root ) {
