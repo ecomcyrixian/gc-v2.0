@@ -1,49 +1,44 @@
 /**
  * Blog V2 – combined bundle (progress bar, TOC, expert insight).
  * Loaded only on single posts via is_single().
- * Each feature is a self-contained IIFE with its own guard clause
- * so it silently no-ops when its DOM elements are absent.
+ * Pure vanilla JS – no jQuery dependency.
  */
 
 /* ── Progress Bar ────────────────────────────────────────────── */
-(function($) {
+(function() {
     'use strict';
 
     function runWhenIdle(cb) {
-        var timeout = 2000;
         if (typeof requestIdleCallback !== 'undefined') {
-            requestIdleCallback(cb, { timeout: timeout });
+            requestIdleCallback(cb, { timeout: 2000 });
         } else {
             setTimeout(cb, 1);
         }
     }
 
     function initProgressBar() {
-        const $progressBar = $('#blog-hero-progress-bar');
-        const $progressFill = $('#blog-hero-progress-fill');
-        const $wrapper = $progressBar.closest('.blog-v2-progress-wrapper');
-        
-        if (!$progressBar.length || !$progressFill.length) {
-            return;
-        }
+        var progressBar = document.getElementById('blog-hero-progress-bar');
+        var progressFill = document.getElementById('blog-hero-progress-fill');
+        if (!progressBar || !progressFill) return;
 
-        const progressColor = $progressBar.data('progress-color') || '#4F51FD';
-        $progressFill.css('background-color', progressColor);
+        var wrapper = progressBar.closest('.blog-v2-progress-wrapper');
+        var progressColor = progressBar.getAttribute('data-progress-color') || '#4F51FD';
+        progressFill.style.backgroundColor = progressColor;
 
-        const $header = $('#header-cont');
-        const $layoutContainer = $('.blog-v2-layout');
-        const $content = $('.blog-v2-content');
-        const initialWidth = 150;
+        var header = document.getElementById('header-cont');
+        var layoutContainer = document.querySelector('.blog-v2-layout');
+        var content = document.querySelector('.blog-v2-content');
+        var initialWidth = 150;
 
-        let layoutContainerTop = null;
-        let contentBottom = null;
-        let cachedNavbarHeight = null;
-        let cachedMaxWidth = null;
+        var layoutContainerTop = null;
+        var contentBottom = null;
+        var cachedNavbarHeight = null;
+        var cachedMaxWidth = null;
 
         function getNavbarHeight() {
             if (cachedNavbarHeight !== null) return cachedNavbarHeight;
-            if (!$header.length) return 0;
-            cachedNavbarHeight = $header.outerHeight() || 0;
+            if (!header) return 0;
+            cachedNavbarHeight = header.offsetHeight || 0;
             return cachedNavbarHeight;
         }
 
@@ -54,40 +49,27 @@
         }
 
         function calculateLayoutTop() {
-            if ($layoutContainer.length) {
-                const layoutOffset = $layoutContainer.offset();
-                if (layoutOffset) {
-                    return layoutOffset.top;
-                }
-            }
-            return null;
+            if (!layoutContainer) return null;
+            var rect = layoutContainer.getBoundingClientRect();
+            return rect.top + window.pageYOffset;
         }
 
         function calculateContentBottom() {
-            if ($content.length) {
-                const contentOffset = $content.offset();
-                const contentHeight = $content.outerHeight();
-                if (contentOffset && contentHeight) {
-                    return contentOffset.top + contentHeight;
-                }
-            }
-            return null;
+            if (!content) return null;
+            var rect = content.getBoundingClientRect();
+            return rect.top + window.pageYOffset + content.offsetHeight;
         }
 
         function updateProgressBar() {
-            const windowHeight = $(window).height();
-            const scrollTop = $(window).scrollTop();
-            const maxWidth = getProgressBarWidth();
+            var windowHeight = window.innerHeight;
+            var scrollTop = window.pageYOffset;
+            var maxWidth = getProgressBarWidth();
 
             if (layoutContainerTop === null) {
                 layoutContainerTop = calculateLayoutTop();
                 if (layoutContainerTop === null) {
-                    const progressBarOffset = $progressBar.offset();
-                    if (progressBarOffset) {
-                        layoutContainerTop = progressBarOffset.top;
-                    } else {
-                        return;
-                    }
+                    var barRect = progressBar.getBoundingClientRect();
+                    layoutContainerTop = barRect.top + window.pageYOffset;
                 }
             }
             if (contentBottom === null) {
@@ -95,60 +77,55 @@
                 if (contentBottom === null) return;
             }
 
-            const navbarHeight = getNavbarHeight();
-            const sidebarStickyTop = 130;
-            const stickyTriggerPoint = layoutContainerTop - sidebarStickyTop;
-            const documentBottom = scrollTop + windowHeight;
-            const scrollableContentHeight = contentBottom - layoutContainerTop;
-            const scrolledPastLayout = scrollTop - layoutContainerTop;
+            var navbarHeight = getNavbarHeight();
+            var sidebarStickyTop = 130;
+            var stickyTriggerPoint = layoutContainerTop - sidebarStickyTop;
+            var documentBottom = scrollTop + windowHeight;
+            var scrollableContentHeight = contentBottom - layoutContainerTop;
+            var scrolledPastLayout = scrollTop - layoutContainerTop;
 
-            const isSticky = scrollTop >= stickyTriggerPoint;
-            let progress = 0;
+            var isSticky = scrollTop >= stickyTriggerPoint;
+            var progress = 0;
             if (scrollableContentHeight > 0) {
                 progress = Math.min(Math.max(scrolledPastLayout / scrollableContentHeight, 0), 1);
             } else {
                 progress = 1;
             }
             if (documentBottom >= contentBottom - 50) progress = 1;
-            const currentWidth = isSticky
+
+            var currentWidth = isSticky
                 ? initialWidth + (progress * (maxWidth - initialWidth))
                 : initialWidth;
 
             if (isSticky) {
-                if (!$progressBar.hasClass('is-sticky')) {
-                    $progressBar.addClass('is-sticky');
-                    if ($wrapper.length) $wrapper.addClass('is-sticky-active');
+                if (!progressBar.classList.contains('is-sticky')) {
+                    progressBar.classList.add('is-sticky');
+                    if (wrapper) wrapper.classList.add('is-sticky-active');
                 }
-                $progressBar.css('top', navbarHeight + 'px');
-                $progressFill.css('width', currentWidth + 'px');
+                progressBar.style.top = navbarHeight + 'px';
+                progressFill.style.width = currentWidth + 'px';
             } else {
-                if ($progressBar.hasClass('is-sticky')) {
-                    $progressBar.removeClass('is-sticky');
-                    if ($wrapper.length) $wrapper.removeClass('is-sticky-active');
+                if (progressBar.classList.contains('is-sticky')) {
+                    progressBar.classList.remove('is-sticky');
+                    if (wrapper) wrapper.classList.remove('is-sticky-active');
                 }
-                $progressBar.css('top', '');
-                $progressFill.css('width', currentWidth + 'px');
+                progressBar.style.top = '';
+                progressFill.style.width = currentWidth + 'px';
             }
         }
 
-        var didFirstRun = false;
-        function onScroll() {
-            if (!didFirstRun) {
-                didFirstRun = true;
-                updateProgressBar();
-            }
+        var ticking = false;
+        window.addEventListener('scroll', function() {
             if (!ticking) {
-                window.requestAnimationFrame(function() {
+                requestAnimationFrame(function() {
                     updateProgressBar();
                     ticking = false;
                 });
                 ticking = true;
             }
-        }
-        let ticking = false;
-        $(window).on('scroll', onScroll);
+        }, { passive: true });
 
-        $(window).on('resize', function() {
+        window.addEventListener('resize', function() {
             layoutContainerTop = null;
             contentBottom = null;
             cachedNavbarHeight = null;
@@ -157,179 +134,161 @@
         });
     }
 
-    $(document).ready(function() {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() { runWhenIdle(initProgressBar); });
+    } else {
         runWhenIdle(initProgressBar);
-    });
-
-})(jQuery);
+    }
+})();
 
 /* ── Table of Contents ───────────────────────────────────────── */
-(function($) {
+(function() {
     'use strict';
 
     function runWhenIdle(cb) {
-        var timeout = 2000;
         if (typeof requestIdleCallback !== 'undefined') {
-            requestIdleCallback(cb, { timeout: timeout });
+            requestIdleCallback(cb, { timeout: 2000 });
         } else {
             setTimeout(cb, 1);
         }
     }
 
     function initTOC() {
-        const $tocList = $('#blog-v2-toc-list');
-        const $content = $('.blog-v2-content');
+        var tocList = document.getElementById('blog-v2-toc-list');
+        var content = document.querySelector('.blog-v2-content');
+        if (!tocList || !content) return;
+        if (window.innerWidth < 768) return;
 
-        if (!$tocList.length || !$content.length) {
-            return;
-        }
-        if (typeof window.innerWidth !== 'undefined' && window.innerWidth < 768) {
-            return;
-        }
-
-        const excludedContainers = '._article-keytakeaways, .wp-block-group._article-keytakeaways';
-
-        function getTOCHeadings() {
-            return $content.find('h2.wp-block-heading').filter(function() {
-                return !$(this).closest(excludedContainers).length;
-            });
-        }
-
+        var excludedSelector = '._article-keytakeaways, .wp-block-group._article-keytakeaways';
         var cachedContentBottom = null;
         var cachedHeadingTops = null;
 
+        function getTOCHeadings() {
+            var all = content.querySelectorAll('h2.wp-block-heading');
+            var filtered = [];
+            all.forEach(function(h) {
+                if (!h.closest(excludedSelector)) filtered.push(h);
+            });
+            return filtered;
+        }
+
         function getContentBottom() {
             if (cachedContentBottom !== null) return cachedContentBottom;
-            var off = $content.offset();
-            var h = $content.outerHeight();
-            if (off && h) cachedContentBottom = off.top + h;
+            var rect = content.getBoundingClientRect();
+            cachedContentBottom = rect.top + window.pageYOffset + content.offsetHeight;
             return cachedContentBottom;
         }
 
-        function getHeadingTops($headings) {
-            if (cachedHeadingTops !== null && cachedHeadingTops.length === $headings.length) return cachedHeadingTops;
-            var tops = [];
-            $headings.each(function() {
-                var o = $(this).offset();
-                tops.push(o ? o.top : 0);
+        function getHeadingTops(headings) {
+            if (cachedHeadingTops !== null && cachedHeadingTops.length === headings.length) return cachedHeadingTops;
+            cachedHeadingTops = headings.map(function(h) {
+                var r = h.getBoundingClientRect();
+                return r.top + window.pageYOffset;
             });
-            cachedHeadingTops = tops;
-            return tops;
+            return cachedHeadingTops;
         }
 
-        $tocList.find('.blog-v2-toc__link').on('click', function(e) {
-            e.preventDefault();
-            const targetId = $(this).attr('href');
-            const $target = $(targetId);
-            if ($target.length) {
-                const offset = 130;
-                $('html, body').animate({
-                    scrollTop: $target.offset().top - offset
-                }, 500);
-            }
+        tocList.querySelectorAll('.blog-v2-toc__link').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                var targetId = link.getAttribute('href');
+                var target = document.querySelector(targetId);
+                if (target) {
+                    var top = target.getBoundingClientRect().top + window.pageYOffset - 130;
+                    window.scrollTo({ top: top, behavior: 'smooth' });
+                }
+            });
         });
 
         function updateActiveTOC() {
-            const scrollTop = $(window).scrollTop();
-            const windowHeight = $(window).height();
-            const scrollBottom = scrollTop + windowHeight / 3;
-            const documentBottom = scrollTop + windowHeight;
-            const contentBottom = getContentBottom();
-            const maxScrollTop = $(document).height() - windowHeight;
+            var scrollTop = window.pageYOffset;
+            var windowHeight = window.innerHeight;
+            var scrollBottom = scrollTop + windowHeight / 3;
+            var documentBottom = scrollTop + windowHeight;
+            var cBottom = getContentBottom();
+            var maxScrollTop = document.documentElement.scrollHeight - windowHeight;
 
-            const $headings = getTOCHeadings();
-            const allLinks = $tocList.find('.blog-v2-toc__link');
+            var headings = getTOCHeadings();
+            var allLinks = tocList.querySelectorAll('.blog-v2-toc__link');
+            if (headings.length === 0 || cBottom == null) return;
 
-            if ($headings.length === 0 || contentBottom == null) {
-                return;
-            }
+            var headingTops = getHeadingTops(headings);
+            var currentActiveIndex = -1;
 
-            var headingTops = getHeadingTops($headings);
-            let currentActive = null;
-            let currentActiveIndex = -1;
-
-            $headings.each(function(index) {
-                const $heading = $(this);
-                const id = $heading.attr('id');
+            headings.forEach(function(h, index) {
+                var id = h.getAttribute('id');
                 if (!id) return;
-
-                const headingTop = headingTops[index] != null ? headingTops[index] : 0;
-
+                var headingTop = headingTops[index] || 0;
                 if (headingTop <= scrollBottom) {
-                    currentActive = id;
-                    const $link = $tocList.find('a[href="#' + id + '"]');
-                    if ($link.length) {
-                        currentActiveIndex = allLinks.index($link);
+                    var link = tocList.querySelector('a[href="#' + id + '"]');
+                    if (link) {
+                        var linkArr = Array.prototype.slice.call(allLinks);
+                        currentActiveIndex = linkArr.indexOf(link);
                     }
                 }
             });
 
-            if ((documentBottom >= contentBottom - 10 || scrollTop >= maxScrollTop - 2) && $headings.length > 0) {
-                const lastHeading = $headings.last();
-                const lastId = lastHeading.attr('id');
+            if ((documentBottom >= cBottom - 10 || scrollTop >= maxScrollTop - 2) && headings.length > 0) {
+                var lastH = headings[headings.length - 1];
+                var lastId = lastH.getAttribute('id');
                 if (lastId) {
-                    const $lastLink = $tocList.find('a[href="#' + lastId + '"]');
-                    if ($lastLink.length) {
-                        currentActiveIndex = allLinks.index($lastLink);
+                    var lastLink = tocList.querySelector('a[href="#' + lastId + '"]');
+                    if (lastLink) {
+                        var linkArr = Array.prototype.slice.call(allLinks);
+                        currentActiveIndex = linkArr.indexOf(lastLink);
                     }
                 }
             }
 
-            allLinks.removeClass('is-active is-visited');
-
-            if (currentActiveIndex >= 0) {
-                allLinks.each(function(index) {
-                    const $link = $(this);
-                    if (index <= currentActiveIndex) {
-                        $link.addClass('is-visited');
-                        if (index === currentActiveIndex) {
-                            $link.addClass('is-active');
-                        }
-                    }
-                });
-            }
+            allLinks.forEach(function(link, index) {
+                link.classList.remove('is-active', 'is-visited');
+                if (currentActiveIndex >= 0 && index <= currentActiveIndex) {
+                    link.classList.add('is-visited');
+                    if (index === currentActiveIndex) link.classList.add('is-active');
+                }
+            });
         }
 
-        let ticking = false;
-        $(window).on('scroll', function() {
+        var ticking = false;
+        window.addEventListener('scroll', function() {
             if (!ticking) {
-                window.requestAnimationFrame(function() {
+                requestAnimationFrame(function() {
                     updateActiveTOC();
                     ticking = false;
                 });
                 ticking = true;
             }
-        });
+        }, { passive: true });
 
         updateActiveTOC();
 
-        $(window).on('resize', function() {
+        window.addEventListener('resize', function() {
             cachedContentBottom = null;
             cachedHeadingTops = null;
         });
     }
 
-    $(document).ready(function() {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() { runWhenIdle(initTOC); });
+    } else {
         runWhenIdle(initTOC);
-    });
-})(jQuery);
+    }
+})();
 
 /* ── Expert Insight ──────────────────────────────────────────── */
 (function () {
     'use strict';
 
     function runWhenIdle(cb) {
-        var timeout = 2000;
         if (typeof requestIdleCallback !== 'undefined') {
-            requestIdleCallback(cb, { timeout: timeout });
+            requestIdleCallback(cb, { timeout: 2000 });
         } else {
             setTimeout(cb, 1);
         }
     }
 
     function init() {
-        var buttons = document.querySelectorAll('.blog-v2-expert-insight__see-more');
-        buttons.forEach(function (seeMore) {
+        document.querySelectorAll('.blog-v2-expert-insight__see-more').forEach(function (seeMore) {
             var wrapper = seeMore.closest('.blog-v2-expert-insight');
             if (!wrapper) return;
 
@@ -354,12 +313,9 @@
         });
     }
 
-    function runInit() {
-        runWhenIdle(init);
-    }
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', runInit);
+        document.addEventListener('DOMContentLoaded', function() { runWhenIdle(init); });
     } else {
-        runInit();
+        runWhenIdle(init);
     }
 })();

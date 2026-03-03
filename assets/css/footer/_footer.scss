@@ -12,6 +12,8 @@ footer{
     font-size: $base-fsize;
     padding: $gap60 0;
     background: $darkblue;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
     
     @include media(1320px){
         padding: $gap60 $gap16;

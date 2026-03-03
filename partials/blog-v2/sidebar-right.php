@@ -76,7 +76,7 @@ if ( $wpq->have_posts() ) {
                         <?php $creator_link = ! empty( $creator['link'] ) ? $creator['link'] : '#'; ?>
                         <span><a href="<?php echo esc_url( $creator_link ); ?>" style="text-decoration: none; color: inherit;"><?php echo esc_html( $creator['name'] ); ?></a></span>
                         <a href="<?php echo esc_url( ! empty( $creator['link'] ) ? $creator['link'] : '#' ); ?>" class="blog-v2-sidebar__linkedin" aria-label="<?php echo esc_attr( $creator['name'] . ' LinkedIn profile' ); ?>">
-                            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/linkedin.png' ); ?>" alt="LinkedIn" width="16" height="16">
+                            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/linkedin.png' ); ?>" alt="LinkedIn" width="16" height="16" loading="lazy">
                         </a>
                     </div>
                     <?php if ( ! empty( $creator['job'] ) ) : ?><span><?php echo esc_html( $creator['job'] ); ?></span><?php endif; ?>
@@ -105,7 +105,7 @@ if ( $wpq->have_posts() ) {
                         <span><a href="<?php echo esc_url( $reviewer_link ); ?>" style="text-decoration: none; color: inherit;"><?php echo esc_html( $reviewer['name'] ); ?></a></span>
                         <?php if ( $reviewer_linkedin !== '' ) : ?>
                         <a href="<?php echo esc_url( $reviewer_linkedin ); ?>" class="blog-v2-sidebar__linkedin" aria-label="<?php echo esc_attr( $reviewer['name'] . ' LinkedIn profile' ); ?>" target="_blank" rel="noopener noreferrer">
-                            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/linkedin.png' ); ?>" alt="LinkedIn" width="16" height="16">
+                            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/linkedin.png' ); ?>" alt="LinkedIn" width="16" height="16" loading="lazy">
                         </a>
                         <?php endif; ?>
                     </div>

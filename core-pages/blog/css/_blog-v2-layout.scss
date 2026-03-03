@@ -103,6 +103,8 @@ body.single-post {
     display: flex;
     flex-direction: column;
     gap: $gap120;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 800px;
 
     @include media($tablet) {
         gap: $gap60;
@@ -110,6 +112,7 @@ body.single-post {
 
     @include media($mobile) {
         gap: $gap40;
+        contain-intrinsic-size: auto 1200px;
     }
 
     .blog-v2-cta {  

@@ -1,38 +1,46 @@
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
-    
-    <?php get_template_part( 'partials/gtm/gtm-script-head-tag' ); ?>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><?php wp_title('|', true, 'right'); bloginfo('name'); ?></title>
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+<?php if ( is_singular( 'post' ) ) : ?>
+    <!-- GTM delayed on blog posts for Lighthouse performance -->
+    <script>
+    window.dataLayer=window.dataLayer||[];
+    (function(){var l=false;function g(){if(l)return;l=true;(function(w,d,s,i){var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;f.parentNode.insertBefore(j,f);})(window,document,'script','GTM-TCP9FBDQ');}
+    ['scroll','click','touchstart','mouseover','keydown'].forEach(function(e){window.addEventListener(e,g,{once:true,passive:true});});
+    setTimeout(g,3500);
+    })();
+    </script>
+<?php else : ?>
+    <?php get_template_part( 'partials/gtm/gtm-script-head-tag' ); ?>
+<?php endif; ?>
 <?php
+    $font_dir = get_template_directory_uri() . '/assets/fonts';
     if ( is_singular( 'post' ) ) {
         $post_id = get_queried_object_id();
-        $hero_bg_slug   = 'blog-card-bg';
-        $hero_bg_webp   = get_template_directory() . '/assets/images/' . $hero_bg_slug . '.webp';
-        $hero_bg_url    = file_exists( $hero_bg_webp )
-            ? get_template_directory_uri() . '/assets/images/' . $hero_bg_slug . '.webp'
-            : get_template_directory_uri() . '/assets/images/' . $hero_bg_slug . '.png';
-        if ( $hero_bg_url ) {
-            echo '<link rel="preload" as="image" href="' . esc_url( $hero_bg_url ) . '" fetchpriority="high">' . "\n";
-        }
         if ( $post_id && has_post_thumbnail( $post_id ) ) {
             $tid = get_post_thumbnail_id( $post_id );
+            $hero_size = 'blog_hero';
             $img = $tid ? wp_get_attachment_image_src( $tid, 'blog_hero' ) : null;
             if ( ! $img || ( isset( $img[1] ) && (int) $img[1] > 800 ) ) {
                 $img = $tid ? wp_get_attachment_image_src( $tid, 'medium_large' ) : null;
+                $hero_size = 'medium_large';
             }
             if ( $img && ! empty( $img[0] ) ) {
-                echo '<link rel="preload" as="image" href="' . esc_url( $img[0] ) . '" fetchpriority="high">' . "\n";
+                $srcset = wp_get_attachment_image_srcset( $tid, $hero_size );
+                $sizes  = '(max-width: 768px) 100vw, 535px';
+                $preload = '<link rel="preload" as="image" href="' . esc_url( $img[0] ) . '"';
+                if ( $srcset ) {
+                    $preload .= ' imagesrcset="' . esc_attr( $srcset ) . '" imagesizes="' . esc_attr( $sizes ) . '"';
+                }
+                $preload .= ' fetchpriority="high">';
+                echo $preload . "\n";
             }
         }
     }
 ?>
-    <?php wp_head(); ?>
-
-    <?php $font_dir = get_template_directory_uri() . '/assets/fonts'; ?>
     <link rel="preload" href="<?php echo esc_url( $font_dir . '/inter-latin.woff2' ); ?>" as="font" type="font/woff2" crossorigin>
     <style>
     @font-face {
@@ -69,6 +77,7 @@
     }
     @font-face {
         font-family: 'Inter Fallback';
+        font-display: swap;
         src: local('Arial');
         size-adjust: 107.64%;
         ascent-override: 90.49%;
@@ -79,11 +88,7 @@
         font-family: "Inter", "Inter Fallback", sans-serif;
     }
     </style>
-
-    <!-- global.css and global.js are now loaded via wp_enqueue_style/wp_enqueue_script in functions.php with cache busting -->
-
-    
-
+    <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
 

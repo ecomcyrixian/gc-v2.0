@@ -94,7 +94,11 @@ endif;
                     ?>
                         <div>
                             <span class="featured-image">
-                                <?php echo get_the_post_thumbnail( get_the_ID(), 'large', array( 'loading' => 'lazy', 'decoding' => 'async' ) ); ?>
+                                <?php echo get_the_post_thumbnail( get_the_ID(), 'medium_large', array(
+                                    'loading'  => 'lazy',
+                                    'decoding' => 'async',
+                                    'sizes'    => '(max-width: 768px) 92vw, 380px',
+                                ) ); ?>
                             </span>
                             <div class="articles-info">
                                 <span class="category">

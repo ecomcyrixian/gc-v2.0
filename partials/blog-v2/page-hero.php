@@ -54,7 +54,10 @@ if ( has_post_thumbnail() ) {
 }
 ?>
 
-<header class="blog-v2-hero-bleed" data-bg-image="<?php echo esc_url( $hero_bg_image_url ); ?>" style="--bg-image: url('<?php echo esc_url( $hero_bg_image_url ); ?>');">
+<header class="blog-v2-hero-bleed" data-bg-image="<?php echo esc_url( $hero_bg_image_url ); ?>">
+    <script>
+    (function(){var h=document.querySelector('.blog-v2-hero-bleed');if(!h)return;var u=h.getAttribute('data-bg-image');if(!u)return;if(window.innerWidth>768){h.style.setProperty('--bg-image',"url('"+u+"')");}else{requestAnimationFrame(function(){h.style.setProperty('--bg-image',"url('"+u+"')");});}})();
+    </script>
     <div class="blog-v2-hero<?php echo ! $hero_image_url ? ' blog-v2-hero--no-image' : ''; ?>">
         <?php if ( $hero_image_url && $hero_thumb_id ) : ?>
         <div class="blog-v2-hero__media">
@@ -126,7 +129,7 @@ if ( has_post_thumbnail() ) {
                     <?php if ( $creator_avatar_url ) :
                         $creator_hero_avatar = function_exists( 'blog_v2_avatar_url_for_display' ) ? blog_v2_avatar_url_for_display( $creator_avatar_url, 100 ) : $creator_avatar_url;
                     ?>
-                        <img src="<?php echo esc_url( $creator_hero_avatar ); ?>" alt="<?php echo esc_attr( $creator['name'] ); ?>" width="50" height="50" loading="lazy" fetchpriority="low">
+                        <img src="<?php echo esc_url( $creator_hero_avatar ); ?>" alt="<?php echo esc_attr( $creator['name'] ); ?>" width="50" height="50">
                     <?php else : ?>
                         <div class="blog-hero-authors__initials" style="background-color:<?php echo esc_attr( isset( $creator['color'] ) ? $creator['color'] : '#6B7280' ); ?>"><?php echo esc_html( isset( $creator['initials'] ) ? $creator['initials'] : '' ); ?></div>
                     <?php endif; ?>
@@ -148,7 +151,7 @@ if ( has_post_thumbnail() ) {
                 <p>Reviewed by</p>
                 <div class="blog-hero-authors__author">
                     <?php $reviewer_hero_avatar = function_exists( 'blog_v2_avatar_url_for_display' ) ? blog_v2_avatar_url_for_display( $reviewer['avatar'], 100 ) : $reviewer['avatar']; ?>
-                    <img src="<?php echo esc_url( $reviewer_hero_avatar ); ?>" alt="<?php echo esc_attr( $reviewer['name'] ); ?>" width="50" height="50" fetchpriority="low" loading="lazy">
+                    <img src="<?php echo esc_url( $reviewer_hero_avatar ); ?>" alt="<?php echo esc_attr( $reviewer['name'] ); ?>" width="50" height="50">
                     <div class="blog-hero-authors__author-info">
                         <strong><?php echo esc_html( $reviewer['name'] ); ?></strong>
                         <span><?php echo esc_html( $reviewer['job'] ); ?></span>

@@ -85,36 +85,35 @@ function theme_defer_scripts( $tag, $handle, $src ) {
     if ( is_admin() ) {
         return $tag;
     }
+    if ( false !== strpos( $tag, ' defer' ) || false !== strpos( $tag, ' async' ) ) {
+        return $tag;
+    }
     $defer_handles = array( 'jquery-core', 'jquery-migrate', 'my-custom-script', 'blog-v2' );
-    if ( in_array( $handle, $defer_handles, true ) && false === strpos( $tag, ' defer' ) ) {
-        $tag = str_replace( '<script ', '<script defer ', $tag );
+    if ( in_array( $handle, $defer_handles, true ) ) {
+        return str_replace( '<script ', '<script defer ', $tag );
     }
     return $tag;
 }
 add_filter( 'script_loader_tag', 'theme_defer_scripts', 10, 3 );
 
 /*
- * Enqueue jQuery (WordPress's built-in version)
+ * Enqueue jQuery and theme scripts
  * Automatic cache busting based on file modification time
  */
-    
 function gcheck_scripts() {
     wp_enqueue_script('jquery');
 
-    // Enqueue your custom script, with jQuery as a dependency
-    // Version updates automatically when global-new.js file is modified
     $js_file_path = get_template_directory() . '/assets/js/global-new.js';
     $global_js_version = file_exists($js_file_path) ? filemtime($js_file_path) : '1.0.0';
     
     wp_enqueue_script(
-        'my-custom-script', // Unique handle for your script
-        get_template_directory_uri() . '/assets/js/global-new.js', // Path to your script
-        array('jquery'), // Array of dependencies (jQuery in this case)
-        $global_js_version, // Version number - automatically updates when file changes
-        true // Load in footer to avoid render-blocking (was in header)
+        'my-custom-script',
+        get_template_directory_uri() . '/assets/js/global-new.js',
+        array('jquery'),
+        $global_js_version,
+        true
     );
 
-    // Enqueue combined blog V2 bundle for single posts (progress bar + TOC + expert insight)
     if ( is_single() ) {
         $blog_v2_js_path = get_template_directory() . '/assets/js/blog-v2.js';
         $blog_v2_js_version = file_exists($blog_v2_js_path) ? filemtime($blog_v2_js_path) : '1.0.0';
@@ -122,7 +121,7 @@ function gcheck_scripts() {
         wp_enqueue_script(
             'blog-v2',
             get_template_directory_uri() . '/assets/js/blog-v2.js',
-            array('jquery'),
+            array(),
             $blog_v2_js_version,
             true
         );
@@ -245,6 +244,20 @@ function theme_dequeue_dashicons_before_print() {
     }
 }
 add_action( 'wp_print_styles', 'theme_dequeue_dashicons_before_print', 999 );
+
+/**
+ * Dequeue Contact Form 7 JS + CSS on single blog posts (no forms present).
+ * Saves ~136 ms main-thread blocking + 2 network requests.
+ */
+function theme_dequeue_cf7_on_blog_posts() {
+    if ( ! is_singular( 'post' ) ) {
+        return;
+    }
+    wp_dequeue_script( 'contact-form-7' );
+    wp_dequeue_script( 'swv' );
+    wp_dequeue_style( 'contact-form-7' );
+}
+add_action( 'wp_enqueue_scripts', 'theme_dequeue_cf7_on_blog_posts', 999 );
 
 /**
  * Load Blog V2 functions only on single post views (author helpers, content filters, related post, shortcode).

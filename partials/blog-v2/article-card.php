@@ -29,7 +29,7 @@ setup_postdata( $post );
 
 $title = get_the_title( $post_id );
 $permalink = get_permalink( $post_id );
-$featured_image = get_the_post_thumbnail_url( $post_id, 'medium' );
+$has_thumbnail = has_post_thumbnail( $post_id );
 $date = get_the_date( 'd M Y', $post_id );
 
 $author_name = '';
@@ -58,10 +58,14 @@ wp_reset_postdata();
 ?>
 
 <article class="blog-v2-article-card">
-    <?php if ( $featured_image ) : ?>
+    <?php if ( $has_thumbnail ) : ?>
         <div class="blog-v2-article-card__image">
             <a href="<?php echo esc_url( $permalink ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'Read article: %s', 'gc-v2' ), $title ) ); ?>">
-                <img src="<?php echo esc_url( $featured_image ); ?>" alt="<?php echo esc_attr( $title ); ?>" width="100" height="100">
+                <?php echo get_the_post_thumbnail( $post_id, 'medium', array(
+                    'loading'  => 'lazy',
+                    'decoding' => 'async',
+                    'sizes'    => '(max-width: 768px) 92vw, 200px',
+                ) ); ?>
             </a>
         </div>
     <?php endif; ?>
