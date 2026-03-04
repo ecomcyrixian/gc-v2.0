@@ -19,6 +19,14 @@
 <?php
     $font_dir = get_template_directory_uri() . '/assets/fonts';
     if ( is_singular( 'post' ) ) {
+        $hero_bg_slug = 'blog-card-bg';
+        $hero_bg_webp = get_template_directory() . '/assets/images/' . $hero_bg_slug . '.webp';
+        $hero_bg_url  = file_exists( $hero_bg_webp )
+            ? get_template_directory_uri() . '/assets/images/' . $hero_bg_slug . '.webp'
+            : get_template_directory_uri() . '/assets/images/' . $hero_bg_slug . '.png';
+        $hero_bg_type = file_exists( $hero_bg_webp ) ? ' type="image/webp"' : '';
+        echo '<link rel="preload" as="image" href="' . esc_url( $hero_bg_url ) . '"' . $hero_bg_type . ' fetchpriority="high">' . "\n";
+
         $post_id = get_queried_object_id();
         if ( $post_id && has_post_thumbnail( $post_id ) ) {
             $tid = get_post_thumbnail_id( $post_id );

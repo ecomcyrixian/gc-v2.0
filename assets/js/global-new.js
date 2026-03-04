@@ -1,16 +1,32 @@
 jQuery(document).ready(function($) {
 
-    /* Header scroll class: read offset on first scroll only to avoid forced reflow on load */
+    /* Header scroll class: read offset on first scroll only to avoid forced reflow on load.
+       Adds body padding to compensate when header leaves flow (position:fixed) to prevent CLS. */
     var topOfOthDiv = null;
+    var headerHeight = null;
+    var isHomePage = !!document.getElementById('home');
     $(window).scroll(function() {
+        var $header = $('#header-cont');
         if (topOfOthDiv === null) {
-            var $header = $('#header-cont');
             if ($header.length) topOfOthDiv = $header.offset().top;
         }
+        if (headerHeight === null && $header.length) {
+            headerHeight = $header.outerHeight();
+        }
         if (topOfOthDiv !== null && $(window).scrollTop() > topOfOthDiv) {
-            $('#header-cont').addClass('scroll');
+            if (!$header.hasClass('scroll')) {
+                $header.addClass('scroll');
+                if (!isHomePage && headerHeight) {
+                    document.body.style.paddingTop = headerHeight + 'px';
+                }
+            }
         } else {
-            $('#header-cont').removeClass('scroll');
+            if ($header.hasClass('scroll')) {
+                $header.removeClass('scroll');
+                if (!isHomePage) {
+                    document.body.style.paddingTop = '';
+                }
+            }
         }
     });
 

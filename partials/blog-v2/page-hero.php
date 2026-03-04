@@ -54,10 +54,7 @@ if ( has_post_thumbnail() ) {
 }
 ?>
 
-<header class="blog-v2-hero-bleed" data-bg-image="<?php echo esc_url( $hero_bg_image_url ); ?>">
-    <script>
-    (function(){var h=document.querySelector('.blog-v2-hero-bleed');if(!h)return;var u=h.getAttribute('data-bg-image');if(!u)return;if(window.innerWidth>768){h.style.setProperty('--bg-image',"url('"+u+"')");}else{requestAnimationFrame(function(){h.style.setProperty('--bg-image',"url('"+u+"')");});}})();
-    </script>
+<header class="blog-v2-hero-bleed" style="--bg-image: url('<?php echo esc_url( $hero_bg_image_url ); ?>')">
     <div class="blog-v2-hero<?php echo ! $hero_image_url ? ' blog-v2-hero--no-image' : ''; ?>">
         <?php if ( $hero_image_url && $hero_thumb_id ) : ?>
         <div class="blog-v2-hero__media">
