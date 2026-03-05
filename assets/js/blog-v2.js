@@ -275,6 +275,43 @@
     }
 })();
 
+/* ── Share / Copy Link button ────────────────────────────────── */
+(function () {
+    'use strict';
+
+    function showCheckmark(btn) {
+        var svg = btn.querySelector('svg');
+        var orig = svg.innerHTML;
+        svg.innerHTML = '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="#16a34a" transform="translate(4,4) scale(0.8)"/>';
+        setTimeout(function () { svg.innerHTML = orig; }, 1500);
+    }
+
+    function initShareButton() {
+        var shareBtn = document.querySelector('.blog-v2-hero__copy-link');
+        if (!shareBtn) return;
+
+        shareBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            var url = this.getAttribute('data-url');
+            var title = this.getAttribute('data-title') || document.title;
+
+            if (navigator.share) {
+                navigator.share({ title: title, url: url }).catch(function () {});
+            } else {
+                navigator.clipboard.writeText(url).then(function () {
+                    showCheckmark(shareBtn);
+                });
+            }
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initShareButton);
+    } else {
+        initShareButton();
+    }
+})();
+
 /* ── Expert Insight ──────────────────────────────────────────── */
 (function () {
     'use strict';

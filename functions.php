@@ -77,31 +77,6 @@ add_action( 'wp_enqueue_scripts', 'theme_styles_script' );
 
 
 /*
- * Defer jQuery and all theme scripts so nothing is render-blocking.
- * Deferred scripts execute in document order after parsing, so jQuery
- * is guaranteed to run before its dependents regardless of head vs footer placement.
- */
-function theme_defer_scripts( $tag, $handle, $src ) {
-    if ( is_admin() ) {
-        return $tag;
-    }
-    if ( false !== strpos( $tag, ' defer' ) || false !== strpos( $tag, ' async' ) ) {
-        return $tag;
-    }
-
-    if ( ! is_singular( 'post' ) ) {
-        return $tag;
-    }
-
-    $defer_handles = array( 'jquery-core', 'jquery-migrate', 'my-custom-script', 'blog-v2' );
-    if ( in_array( $handle, $defer_handles, true ) ) {
-        return str_replace( '<script ', '<script defer ', $tag );
-    }
-    return $tag;
-}
-add_filter( 'script_loader_tag', 'theme_defer_scripts', 10, 3 );
-
-/*
  * Enqueue jQuery and theme scripts
  * Automatic cache busting based on file modification time
  */
