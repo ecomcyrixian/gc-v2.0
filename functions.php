@@ -88,6 +88,11 @@ function theme_defer_scripts( $tag, $handle, $src ) {
     if ( false !== strpos( $tag, ' defer' ) || false !== strpos( $tag, ' async' ) ) {
         return $tag;
     }
+
+    if ( ! is_singular( 'post' ) ) {
+        return $tag;
+    }
+
     $defer_handles = array( 'jquery-core', 'jquery-migrate', 'my-custom-script', 'blog-v2' );
     if ( in_array( $handle, $defer_handles, true ) ) {
         return str_replace( '<script ', '<script defer ', $tag );
