@@ -41,12 +41,6 @@ body.single-post {
         padding: $gap40 $gap16;
     }
 
-    &,
-    &__content,
-    .site-main,
-    article {
-        overflow: visible;
-    }
 }
 
 .blog-v2-sidebar {
@@ -92,10 +86,11 @@ body.single-post {
 
 .blog-v2-content {
     min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
 
     @include media($mobile) {
         width: 100%;
-        overflow-x: hidden;
     }
 }
 
