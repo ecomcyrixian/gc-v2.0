@@ -36,7 +36,7 @@
                     
                     <div>
                             <span class="featured-image">
-                            <img src="<?php the_post_thumbnail_url('large'); ?>" alt="<?php the_title(); ?>">
+                            <?php echo get_the_post_thumbnail( get_the_ID(), 'large', array( 'alt' => get_the_title(), 'loading' => 'lazy', 'decoding' => 'async' ) ); ?>
                         </span>
                         <div class="articles-info">
                             <span class="category">                                       

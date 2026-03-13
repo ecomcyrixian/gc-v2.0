@@ -23,6 +23,8 @@ header{
     
 
     &#typical{
+        position: sticky;
+        top: 0;
 
         .gCheck-logo{
         .gcText{
@@ -340,6 +342,8 @@ header{
     }
     &.scroll{
         top: 0;
+    }
+    header#home &.scroll{
         position: fixed;
     }
    

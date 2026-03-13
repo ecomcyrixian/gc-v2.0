@@ -1,31 +1,21 @@
 jQuery(document).ready(function($) {
 
-    /* Header scroll class: read offset on first scroll only to avoid forced reflow on load.
-       Adds body padding to compensate when header leaves flow (position:fixed) to prevent CLS. */
+    /* Header scroll class: toggles .scroll for visual changes on scroll.
+       Typical pages use CSS position:sticky — no body padding needed.
+       Home page keeps position:fixed via CSS scoped to header#home. */
     var topOfOthDiv = null;
-    var headerHeight = null;
-    var isHomePage = !!document.getElementById('home');
     $(window).scroll(function() {
         var $header = $('#header-cont');
         if (topOfOthDiv === null) {
             if ($header.length) topOfOthDiv = $header.offset().top;
         }
-        if (headerHeight === null && $header.length) {
-            headerHeight = $header.outerHeight();
-        }
         if (topOfOthDiv !== null && $(window).scrollTop() > topOfOthDiv) {
             if (!$header.hasClass('scroll')) {
                 $header.addClass('scroll');
-                if (!isHomePage && headerHeight) {
-                    document.body.style.paddingTop = headerHeight + 'px';
-                }
             }
         } else {
             if ($header.hasClass('scroll')) {
                 $header.removeClass('scroll');
-                if (!isHomePage) {
-                    document.body.style.paddingTop = '';
-                }
             }
         }
     });

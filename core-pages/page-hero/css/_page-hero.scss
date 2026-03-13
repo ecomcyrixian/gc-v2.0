@@ -151,6 +151,12 @@
       max-width: 620px;
       overflow: hidden;
       border-radius: $corners8;
+
+      img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
     }
   }
 

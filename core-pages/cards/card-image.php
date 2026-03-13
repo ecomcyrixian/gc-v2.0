@@ -34,10 +34,18 @@
                     <?php
                         $details = get_sub_field('details');
                         $image = get_sub_field('image');
+
+                        $card_img_url = is_array( $image ) ? $image['url'] : $image;
+                        $card_img_w   = '';
+                        $card_img_h   = '';
+                        if ( is_array( $image ) && ! empty( $image['width'] ) ) {
+                            $card_img_w = (int) $image['width'];
+                            $card_img_h = (int) $image['height'];
+                        }
                     ?>
                     
                     <span>
-                        <img src="<?= $image ?>"> 
+                        <img src="<?= esc_url( $card_img_url ) ?>" alt=""<?php if ( $card_img_w && $card_img_h ) echo ' width="' . $card_img_w . '" height="' . $card_img_h . '"'; ?> loading="lazy" decoding="async"> 
                     </span>
                     <span class="desc">
                         <?= $details ?>

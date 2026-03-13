@@ -26,7 +26,7 @@
             <div class="container">
 
                 <div class="author-avatar">
-                    <img src="<?php echo esc_url( get_avatar_url( $author->ID ) ); ?>" alt=" <?php echo $first_name ?> <?php echo $last_name ?> "/>
+                    <img src="<?php echo esc_url( get_avatar_url( $author->ID ) ); ?>" alt="<?php echo esc_attr( $first_name . ' ' . $last_name ); ?>" width="156" height="156" loading="lazy" decoding="async"/>
                 </div>
                 
                  <div class="author-desc">
@@ -128,7 +128,7 @@
                             
                             <div>
                                     <span class="featured-image">
-                                    <img src="<?php the_post_thumbnail_url('large'); ?>" alt="<?php the_title(); ?>">
+                                    <?php echo get_the_post_thumbnail( get_the_ID(), 'large', array( 'alt' => get_the_title(), 'loading' => 'lazy', 'decoding' => 'async' ) ); ?>
                                 </span>
                                 <div class="articles-info">
                                     <span class="category">                                       
