@@ -415,3 +415,13 @@ ul.bullet-x-outline{
     }
 
 }
+
+/* Whitepaper page hero: heading paragraph and search spacing (loads globally so they apply without recompiling core-page) */
+#whitepaper .page-hero .container .heading p {
+  padding: 20px 0 !important;
+}
+
+#whitepaper .page-hero .search-form {
+  margin-top: $gap60 !important;
+  margin-bottom: $gap80 !important;
+}
