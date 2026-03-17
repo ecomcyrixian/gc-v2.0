@@ -53,19 +53,19 @@ function blog_v2_reviewers_registry() {
             'name'   => 'Charm Paz, CHRP',
             'job'    => 'Recruiter and Editor, GCheck',
             'avatar' => $base . 'charm-paz.png',
-            'link'   => 'https://gcheck.com/blog/author/charm/',
+            'link'   => home_url('/blog/author/charm/'),
         ),
         'charm' => array(
             'name'   => 'Charm Paz, CHRP',
             'job'    => 'Recruiter and Editor, GCheck',
             'avatar' => $base . 'charm-paz.png',
-            'link'   => 'https://gcheck.com/blog/author/charm/',
+            'link'   => home_url('/blog/author/charm/'),
         ),
         'emile' => array(
             'name'   => 'Emile Garcia, SHRM-SCP, CHRP, CHRBP',
             'job'    => 'Recruiter and Editor, GCheck',
             'avatar' => $base . 'emile-garcia.png',
-            'link'   => 'https://gcheck.com/blog/author/emile/',
+            'link'   => home_url('/blog/author/emile/'),
         ),
     );
 }
@@ -655,7 +655,7 @@ function blog_v2_creator_data_from_ppma_author( $author ) {
         $link = '#';
     }
     if ( $is_editorial_team ) {
-        $link = 'https://gcheck.com/blog/author/marc/';
+        $link = home_url('/blog/author/marc/');
     }
     $avatar_url = '';
     if ( method_exists( $author, 'get_avatar_url' ) ) {
@@ -727,7 +727,7 @@ function blog_v2_author_display_data( $post_id = null ) {
         $job = blog_v2_default_author_job();
     }
     $initials = blog_v2_author_initials( $author_name );
-    $link = $is_editorial_team ? 'https://gcheck.com/blog/author/marc/' : get_author_posts_url( $author_id );
+    $link = $is_editorial_team ? home_url('/blog/author/marc/') : get_author_posts_url( $author_id );
     $color = blog_v2_author_initials_color( $author_name );
     $avatar_url = get_avatar_url( $author_id, array( 'size' => 96 ) );
     $avatar_url = is_string( $avatar_url ) ? trim( $avatar_url ) : '';
@@ -1151,7 +1151,7 @@ function blog_v2_expert_insight_content_filter( $content ) {
 
     $post_id = get_the_ID();
     $experts = function_exists( 'blog_v2_expert_insight_experts' ) ? blog_v2_expert_insight_experts( $post_id ) : array();
-    $charm_link = 'https://gcheck.com/blog/author/charm/';
+    $charm_link = home_url('/blog/author/charm/');
     $default_name = 'Charm Paz, CHRP';
     $default_title = 'Recruiter and Editor, GCheck';
 

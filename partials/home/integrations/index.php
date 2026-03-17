@@ -48,7 +48,7 @@
                 <?php
                 foreach ($all_logos_flat as $logo_file) {
                     $integration_name = str_replace('.png', '', $logo_file);
-                    $integration_url = 'https://gcheck.com/integrations/' . $integration_name . '/';
+                    $integration_url = home_url('/integrations/' . $integration_name . '/');
                     $logo_path = get_template_directory_uri() . '/assets/images/ats-logo/' . $logo_file;
                     $logo_alt = ucwords(str_replace('-', ' ', $integration_name)) . ' Integration';
                     
@@ -93,7 +93,7 @@
                     <?php
                     foreach ($row as $logo_file) {
                         $integration_name = str_replace('.png', '', $logo_file);
-                        $integration_url = 'https://gcheck.com/integrations/' . $integration_name . '/';
+                        $integration_url = home_url('/integrations/' . $integration_name . '/');
                         $logo_path = get_template_directory_uri() . '/assets/images/ats-logo/' . $logo_file;
                         $logo_alt = ucwords(str_replace('-', ' ', $integration_name)) . ' Integration';
                         
@@ -138,7 +138,7 @@
         </div>
 
         <div class="integrations-cta">
-            <a href="https://gcheck.com/integrations/" target="_parent" class="button blue">
+            <a href="<?php echo esc_url( home_url('/integrations/') ); ?>" target="_parent" class="button blue">
                 Explore All Integrations
             </a>
         </div>

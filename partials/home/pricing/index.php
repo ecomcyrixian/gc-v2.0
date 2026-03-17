@@ -98,7 +98,7 @@
                         </ul>
                     </div>
                      <div class="buttons">
-                        <a href="https://gcheck.com/contact-us/" target="_parent" class="button white">
+                        <a href="<?php echo esc_url( home_url('/contact-us/') ); ?>" target="_parent" class="button white">
                             Get Started
                         </a>
                     </div>
@@ -155,7 +155,7 @@
                         </ul>
                     </div>
                      <div class="buttons">
-                        <a href="https://gcheck.com/contact-us/" target="_parent" class="button blue">
+                        <a href="<?php echo esc_url( home_url('/contact-us/') ); ?>" target="_parent" class="button blue">
                             Get Started
                         </a>
                     </div>
@@ -216,7 +216,7 @@
                         </ul>
                     </div>
                      <div class="buttons">
-                        <a href="https://gcheck.com/contact-us/" target="_parent" class="button white">
+                        <a href="<?php echo esc_url( home_url('/contact-us/') ); ?>" target="_parent" class="button white">
                             Get Started
                         </a>
                     </div>

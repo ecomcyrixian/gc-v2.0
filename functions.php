@@ -108,7 +108,7 @@ function gcheck_scripts() {
 
         $expert_insight_data = array(
             'charmAvatarUrl' => '',
-            'charmLink'      => 'https://gcheck.com/blog/author/charm/',
+            'charmLink'      => home_url('/blog/author/charm/'),
         );
         if ( function_exists( 'blog_v2_expert_insight_experts' ) ) {
             $expert_insight_data['experts'] = blog_v2_expert_insight_experts( get_the_ID() );
@@ -455,12 +455,12 @@ class Desktop_Mega_Walker extends Walker_Nav_Menu_With_Description {
             if ( ! empty( $args->mega_panel_title ) ) {
                 // Map panel titles to their URLs
                 $title_url_map = array(
-                    'Identity' => 'https://gcheck.com/identity',
-                    'Background Checks' => 'https://gcheck.com/background-checks',
-                    'Verifications' => 'https://gcheck.com/verifications',
-                    'Drug & Health' => 'https://gcheck.com/drug-health',
-                    'Continuous Monitoring' => 'https://gcheck.com/risk-monitoring',
-                    'Compliance' => 'https://gcheck.com/compliance-automation',
+                    'Identity' => home_url('/identity'),
+                    'Background Checks' => home_url('/background-checks'),
+                    'Verifications' => home_url('/verifications'),
+                    'Drug & Health' => home_url('/drug-health'),
+                    'Continuous Monitoring' => home_url('/risk-monitoring'),
+                    'Compliance' => home_url('/compliance-automation'),
                 );
                 $title_url = isset( $title_url_map[ $args->mega_panel_title ] ) ? $title_url_map[ $args->mega_panel_title ] : '#';
                 $output .= "{$indent}<a href=\"" . esc_url( $title_url ) . "\" class=\"mega-title\">" . esc_html( $args->mega_panel_title ) . "</a>{$n}";

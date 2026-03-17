@@ -5,7 +5,12 @@ body.blog{
 
   .heading{
     margin-bottom: 0;
-    padding-bottom: $gap80;
+    padding: 0;
+    padding-bottom: $gap60;
+
+    p{
+      padding: 20px 0 !important;
+    }
   }
 
   .cols{

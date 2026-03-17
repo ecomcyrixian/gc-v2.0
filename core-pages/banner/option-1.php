@@ -5,7 +5,7 @@
                 <h2>See GCheck in Action</h2>
                 <p>Discover how the hiring process becomes faster and more reliable. From entering candidate information to receiving fully compliant background reports, every step is automated to save you time and ensure accuracy.</p>
                 <div class="buttons">
-                    <a href="https://gcheck.com/contact-us/" target="_parent" class="button blue">
+                    <a href="<?php echo esc_url( home_url('/contact-us/') ); ?>" target="_parent" class="button blue">
                          Get Started with GCheck
                     </a>
                     <!-- <a href="" target="_parent" class="button blue">

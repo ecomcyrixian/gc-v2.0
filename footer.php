@@ -16,7 +16,7 @@
             <div class="footer-top-row">
                 <!-- Identity & Trust -->
                 <div class="footer-links">
-                    <h4><a href="https://gcheck.com/identity">Identity & Trust</a></h4>
+                    <h4><a href="<?php echo esc_url( home_url('/identity') ); ?>">Identity & Trust</a></h4>
                     <?php 
                         wp_nav_menu( array(
                             'menu' => 'GCv2.0 Footer : Identity & Trust',
@@ -28,7 +28,7 @@
                 
                 <!-- Background Checks -->
                 <div class="footer-links">
-                    <h4><a href="https://gcheck.com/background-checks">Background Checks</a></h4>
+                    <h4><a href="<?php echo esc_url( home_url('/background-checks') ); ?>">Background Checks</a></h4>
                     <?php 
                         wp_nav_menu( array(
                             'menu' => 'GCv2.0 Footer : Background Checks',
@@ -40,7 +40,7 @@
                 
                 <!-- Verifications & Credentialing -->
                 <div class="footer-links">
-                    <h4><a href="https://gcheck.com/verifications">Verifications & Credentialing</a></h4>
+                    <h4><a href="<?php echo esc_url( home_url('/verifications') ); ?>">Verifications & Credentialing</a></h4>
                     <?php 
                         wp_nav_menu( array(
                             'menu' => 'GCv2.0 Footer : Verifications & Credentialing',
@@ -52,7 +52,7 @@
                 
                 <!-- Drug & Health -->
                 <div class="footer-links">
-                    <h4><a href="https://gcheck.com/drug-health">Drug & Health</a></h4>
+                    <h4><a href="<?php echo esc_url( home_url('/drug-health') ); ?>">Drug & Health</a></h4>
                     <?php 
                         wp_nav_menu( array(
                             'menu' => 'GCv2.0 Footer : Drug & Health',
@@ -67,7 +67,7 @@
             <div class="footer-bottom-row">
                 <!-- Risk Monitoring -->
                 <div class="footer-links">
-                    <h4><a href="https://gcheck.com/risk-monitoring">Risk Monitoring</a></h4>
+                    <h4><a href="<?php echo esc_url( home_url('/risk-monitoring') ); ?>">Risk Monitoring</a></h4>
                     <?php 
                         wp_nav_menu( array(
                             'menu' => 'GCv2.0 Footer : Risk Monitoring',
@@ -79,7 +79,7 @@
                 
                 <!-- Compliance Automation -->
                 <div class="footer-links">
-                    <h4><a href="https://gcheck.com/compliance-automation">Compliance Automation</a></h4>
+                    <h4><a href="<?php echo esc_url( home_url('/compliance-automation') ); ?>">Compliance Automation</a></h4>
                     <?php 
                         wp_nav_menu( array(
                             'menu' => 'GCv2.0 Footer : Compliance Automation',
@@ -167,7 +167,7 @@
         <section id="copyright" class="container">
             <div class="copyright-row">
                 <div class="copyright-left">
-                    <span><a href="https://gcheck.com/privacy-policy/">Privacy Policy</a></span>
+                    <span><a href="<?php echo esc_url( home_url('/privacy-policy/') ); ?>">Privacy Policy</a></span>
                     <span>&copy; <?php echo date('Y'); ?> GCheck. All rights reserved.</span>
                 </div>
                 <div class="copyright-badges">

@@ -25,10 +25,10 @@
             <!-- <p>AI Powered FCRA-Compliant Background Checks in Only 24-48 Hours</p> -->
              <p>Accurate 24-48 hour results with audit-grade data and built-in FCRA compliance</p>
             <span class="buttons">
-                <a href="https://gcheck.com/contact-us/" target="_parent" class="button blue">
+                <a href="<?php echo esc_url( home_url('/contact-us/') ); ?>" target="_parent" class="button blue">
                     Get Started Today
                 </a>
-                <a href="https://gcheck.com/pricing-packages/" target="_parent" class="button white">
+                <a href="<?php echo esc_url( home_url('/pricing-packages/') ); ?>" target="_parent" class="button white">
                     Get Volume Pricing
                 </a>
             </span>
