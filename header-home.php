@@ -56,7 +56,7 @@
     </div>
 
     <div class="container screenshot">
-        <img src="<?php echo get_template_directory_uri() . '/assets/images/header-img2.png' ?>" alt="gceck" width="1080" height="638" loading="lazy" decoding="async">
+        <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/header-img2.png' ); ?>" alt="gceck">
     </div>
     
 </header>

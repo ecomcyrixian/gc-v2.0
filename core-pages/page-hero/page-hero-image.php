@@ -9,12 +9,6 @@
     $image = get_sub_field('image');
 
     $hero_img_url = is_array( $image ) ? $image['url'] : $image;
-    $hero_img_w   = '';
-    $hero_img_h   = '';
-    if ( is_array( $image ) && ! empty( $image['width'] ) ) {
-        $hero_img_w = (int) $image['width'];
-        $hero_img_h = (int) $image['height'];
-    }
 ?>
 <section class="cols cols2 <?= $ImageAlignment ?>">
     
@@ -43,6 +37,6 @@
         </span>
     </div>
     <div>
-        <img fetchpriority="high" src="<?= esc_url( $hero_img_url ) ?>" alt="<?= esc_attr( $h1 ) ?>"<?php if ( $hero_img_w && $hero_img_h ) echo ' width="' . $hero_img_w . '" height="' . $hero_img_h . '"'; ?> loading="eager" decoding="async">
+        <img src="<?= esc_url( $hero_img_url ) ?>" alt="<?= esc_attr( $h1 ) ?>">
     </div>
 </section>

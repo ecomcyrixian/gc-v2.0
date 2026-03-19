@@ -77,7 +77,7 @@
                     }
                     ?>
                     <a href="<?php echo esc_url($integration_url); ?>" class="integration-logo-link" target="_self" aria-label="<?php echo esc_attr($logo_alt); ?>">
-                        <img src="<?php echo esc_url($logo_path); ?>" alt="<?php echo esc_attr($logo_alt); ?>" loading="lazy" style="width: <?php echo esc_attr($img_width); ?>px; height: <?php echo esc_attr($img_height); ?>px; object-fit: <?php echo esc_attr($img_fit); ?>;">
+                        <img src="<?php echo esc_url($logo_path); ?>" alt="<?php echo esc_attr($logo_alt); ?>" style="width: <?php echo esc_attr($img_width); ?>px; height: <?php echo esc_attr($img_height); ?>px; object-fit: <?php echo esc_attr($img_fit); ?>;">
                     </a>
                     <?php
                 }
@@ -122,7 +122,7 @@
                         }
                         ?>
                         <a href="<?php echo esc_url($integration_url); ?>" class="integration-logo-link" target="_self" aria-label="<?php echo esc_attr($logo_alt); ?>">
-                            <img src="<?php echo esc_url($logo_path); ?>" alt="<?php echo esc_attr($logo_alt); ?>" loading="lazy" style="width: <?php echo esc_attr($img_width); ?>px; height: <?php echo esc_attr($img_height); ?>px; object-fit: <?php echo esc_attr($img_fit); ?>;">
+                            <img src="<?php echo esc_url($logo_path); ?>" alt="<?php echo esc_attr($logo_alt); ?>" style="width: <?php echo esc_attr($img_width); ?>px; height: <?php echo esc_attr($img_height); ?>px; object-fit: <?php echo esc_attr($img_fit); ?>;">
                         </a>
                         <?php
                     }
