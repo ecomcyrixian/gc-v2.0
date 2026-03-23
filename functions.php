@@ -3,6 +3,7 @@
  * featured image
  */
 add_theme_support( 'post-thumbnails' );
+add_theme_support( 'title-tag' );
 
 /*
  * Blog hero image size: ~540px width so srcset can serve smaller file when displayed at 535px (mobile LCP).

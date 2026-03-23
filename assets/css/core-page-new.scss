@@ -1125,14 +1125,18 @@ body.page{
             position: relative;
         }
 
-        .category a{
+        .category {
             color: #4F51FD;
             font-size: 0.75em;
             font-weight: 600;
             text-transform: uppercase;
-            text-decoration: none;
             margin-bottom: $gap8;
             display: block;
+
+            a {
+                color: inherit;
+                text-decoration: none;
+            }
         }
 
          .hidden {

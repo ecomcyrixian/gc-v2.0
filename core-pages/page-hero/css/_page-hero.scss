@@ -831,14 +831,14 @@
 
 /* About This Research (page-hero) */
 .page-hero:has(.about-research) {
-  padding: 0;
+  padding: $gap60 0 0 0;
 
   @include media($tablet) {
     padding: $gap20;
   }
 
   @include media($mobile) {
-    padding: 0 $gap20;
+    padding: $gap20;
   }
 
   & > .container {
@@ -857,6 +857,18 @@
     .btns {
       margin: 0;
     }
+  }
+}
+
+.page-hero:has(.about-research.mid) {
+  padding: 0;
+
+  @include media($tablet) {
+    padding: 0 $gap20;
+  }
+
+  @include media($mobile) {
+    padding: 0 $gap20;
   }
 }
 
@@ -922,15 +934,26 @@
 
 /* Page hero — overlap */
 .page-hero.page-hero--overlap {
-  padding-top: $gap120;
-  padding-bottom: 0;
+  padding: $gap120 0;
+
+  &:has(.hero-overlap-card__inner.mid) {
+    padding: 0;
+  }
 
   @include media($tablet) {
     padding: $gap60 $gap20;
+
+    &:has(.hero-overlap-card__inner.mid) {
+      padding: $gap60 $gap20;
+    }
   }
 
   @include media($mobile) {
     padding: $gap40 $gap20;
+
+    &:has(.hero-overlap-card__inner.mid) {
+      padding: $gap40 $gap20;
+    }
   }
 
   & > .container {
@@ -1036,6 +1059,20 @@
   display: flex;
   align-items: center;
   gap: $gap16;
+
+  img {
+    width: auto;
+    max-width: 60px;
+    height: auto;
+    max-height: 60px;
+    flex-shrink: 0;
+    object-fit: contain;
+
+    @include media($mobile) {
+      max-width: 40px;
+      max-height: 40px;
+    }
+  }
 
   @include media($mobile) {
     flex-direction: row;

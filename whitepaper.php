@@ -61,12 +61,16 @@ get_header();
                                     <?php
                                         $categories = get_the_category();
                                         if ( ! empty( $categories ) ) {
-                                            $category = $categories[0];
+                                            $category       = $categories[0];
                                             $category_title = $category->name;
-                                            $category_link = get_category_link( $category->term_id );
-                                            echo '<a href="' . esc_url( $category_link ) . '" rel="category tag">';
-                                            echo esc_html( $category_title );
-                                            echo '</a>';
+                                            if ( strtolower( $category->slug ) === 'whitepapers' ) {
+                                                echo esc_html( $category_title );
+                                            } else {
+                                                $category_link = get_category_link( $category->term_id );
+                                                echo '<a href="' . esc_url( $category_link ) . '" rel="category tag">';
+                                                echo esc_html( $category_title );
+                                                echo '</a>';
+                                            }
                                         }
                                     ?>
                                     
