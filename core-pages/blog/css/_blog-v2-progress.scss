@@ -2,9 +2,9 @@
 @import '../../../assets/css/_tools/mixins';
 
 /**
- * Blog V2 Progress Bar Styles
- * Wrapper reserves space to prevent CLS when bar becomes position:fixed.
- * When bar is sticky, wrapper keeps same height via ::after placeholder (space "in return").
+ * Blog V2 Progress bar
+ * Wrapper fixed height (3px) reserves space in flow so toggling the inner bar to
+ * position:fixed does not shift the layout (CLS). JS mirrors height on init/resize.
  */
 
 .blog-v2-progress-wrapper {
@@ -12,7 +12,7 @@
     min-height: 3px;
     width: 100%;
     flex-shrink: 0;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .blog-v2-progress {
@@ -25,12 +25,14 @@
     padding: 0;
     overflow: hidden;
     z-index: 98;
+    pointer-events: none;
 
     &.is-sticky {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
+        z-index: 99990;
     }
 }
 
@@ -39,6 +41,4 @@
     height: 100%;
     width: 150px;
     background-color: #4F51FD;
-    transition: width 0.1s ease-out;
-    will-change: width;
 }

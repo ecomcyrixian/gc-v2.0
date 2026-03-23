@@ -352,21 +352,34 @@
     // ====================
     // TABLES
     // ====================
-
     figure.wp-block-table {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
         overflow-x: auto;
+        overflow-y: visible;
         -webkit-overflow-scrolling: touch;
         margin: 0;
+        overscroll-behavior-x: contain;
     }
 
     table {
-        min-width: 100%;
+        width: 100%;
+        max-width: 100%;
+        table-layout: auto;
         border-collapse: collapse;
         border: none;
         font-size: $fsize14;
         border-radius: $corners8;
         overflow: hidden;
         background-color: $white;
+    }
+
+    figure.wp-block-table table:has(tr:first-child > :nth-child(6)) {
+        width: max-content;
+        min-width: 100%;
+        max-width: none;
     }
 
     thead {
@@ -378,6 +391,9 @@
         text-align: left;
         font-weight: $fSemiBold;
         color: $white;
+        overflow-wrap: break-word;
+        word-break: normal;
+        white-space: normal;
 
         @include media($mobile) {
             padding: $gap12 $gap16;
@@ -388,6 +404,9 @@
         padding: $gap16 $gap20;
         border: none;
         color: $gray300;
+        overflow-wrap: break-word;
+        word-break: normal;
+        white-space: normal;
 
         @include media($mobile) {
             padding: $gap12 $gap16;

@@ -1,5 +1,6 @@
 @import '_tools/variable'; 
-@import '_tools/mixins'; 
+@import '_tools/mixins';
+@import '../../core-pages/custom-whitepaper/css/custom-whitepaper-hero'; 
 
 body.page{
 
@@ -11,7 +12,9 @@ body.page{
         justify-content: flex-start;
 
         @include media($mobile){
-            display: block;
+            &:not(.Top) {
+                display: block;
+            }
         }
 
         &>div{

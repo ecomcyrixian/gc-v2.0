@@ -87,7 +87,8 @@ body.single-post {
 .blog-v2-content {
     min-width: 0;
     max-width: 100%;
-    overflow: hidden;
+    overflow-x: clip;
+    overflow-y: visible;
 
     @include media($mobile) {
         width: 100%;

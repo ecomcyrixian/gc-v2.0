@@ -10,6 +10,52 @@ add_theme_support( 'post-thumbnails' );
  */
 add_image_size( 'blog_hero', 540, 0, false );
 
+/**
+ * Build width/height attributes for <img> to reserve space (CLS). Does not affect download speed.
+ *
+ * @param mixed $image ACF image field (array or ID), attachment ID, or other value passed to gc_get_acf_image_src.
+ * @return string Attributes with trailing space, e.g. width="800" height="600" , or empty.
+ */
+function gc_theme_img_dimension_attrs( $image ) {
+	if ( $image === null || $image === '' || $image === array() ) {
+		return '';
+	}
+	$w = 0;
+	$h = 0;
+	if ( function_exists( 'gc_get_acf_image_src' ) ) {
+		$src = gc_get_acf_image_src( $image );
+		if ( is_array( $src ) && ! empty( $src['width'] ) && ! empty( $src['height'] ) ) {
+			$w = (int) $src['width'];
+			$h = (int) $src['height'];
+		}
+	}
+	if ( ( $w < 1 || $h < 1 ) && is_array( $image ) ) {
+		if ( ! empty( $image['width'] ) && ! empty( $image['height'] ) ) {
+			$w = (int) $image['width'];
+			$h = (int) $image['height'];
+		} else {
+			$aid = isset( $image['ID'] ) ? (int) $image['ID'] : ( isset( $image['id'] ) ? (int) $image['id'] : 0 );
+			if ( $aid && function_exists( 'wp_get_attachment_image_src' ) ) {
+				$meta = wp_get_attachment_image_src( $aid, 'full' );
+				if ( $meta && isset( $meta[1], $meta[2] ) ) {
+					$w = (int) $meta[1];
+					$h = (int) $meta[2];
+				}
+			}
+		}
+	} elseif ( ( $w < 1 || $h < 1 ) && is_numeric( $image ) && function_exists( 'wp_get_attachment_image_src' ) ) {
+		$meta = wp_get_attachment_image_src( (int) $image, 'full' );
+		if ( $meta && isset( $meta[1], $meta[2] ) ) {
+			$w = (int) $meta[1];
+			$h = (int) $meta[2];
+		}
+	}
+	if ( $w > 0 && $h > 0 ) {
+		return 'width="' . esc_attr( (string) $w ) . '" height="' . esc_attr( (string) $h ) . '" ';
+	}
+	return '';
+}
+
 /*
  * Specific script and styles per page
  * Automatic cache busting based on source SCSS and compiled CSS file modification time
@@ -37,6 +83,7 @@ function theme_styles_script() {
     } elseif ( is_page() ) {
         $core_page_scss = get_template_directory() . '/assets/css/core-page.scss';
         $page_hero_scss = get_template_directory() . '/core-pages/page-hero/css/_page-hero.scss';
+        $custom_whitepaper_scss = get_template_directory() . '/core-pages/custom-whitepaper/css/_custom-whitepaper-hero.scss';
         $core_page_css = get_template_directory() . '/assets/css/core-page-new.css';
         
         $scss_times = array();
@@ -45,6 +92,9 @@ function theme_styles_script() {
         }
         if (file_exists($page_hero_scss)) {
             $scss_times[] = filemtime($page_hero_scss);
+        }
+        if (file_exists($custom_whitepaper_scss)) {
+            $scss_times[] = filemtime($custom_whitepaper_scss);
         }
         
         $css_time = file_exists($core_page_css) ? filemtime($core_page_css) : 0;

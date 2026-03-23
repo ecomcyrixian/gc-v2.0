@@ -1,8 +1,6 @@
 jQuery(document).ready(function($) {
 
-    /* Header scroll class: toggles .scroll for visual changes on scroll.
-       Typical pages use CSS position:sticky — no body padding needed.
-       Home page keeps position:fixed via CSS scoped to header#home. */
+    /* Header scroll */
     var topOfOthDiv = null;
     $(window).scroll(function() {
         var $header = $('#header-cont');
@@ -39,14 +37,11 @@ jQuery(document).ready(function($) {
         mobileMenuEl.addEventListener('click', myDebouncedFunction);
     }
 
-    // Close menus when resizing to mobile view
-    // This ensures mega panels are hidden when switching from desktop to mobile
     let resizeTimeout;
     $(window).on('resize', function() {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(function() {
             if ($(window).width() <= 1230) {
-                // Force hide mega panels on mobile by removing any active classes
                 $('#desktop-nav .menu-block').removeClass('active');
                 $('.hamburger-desktop').removeClass('active');
             }
@@ -54,3 +49,41 @@ jQuery(document).ready(function($) {
     });
 
 });
+
+/* Hero copy link */
+(function () {
+    'use strict';
+
+    function initHeroCopyLink() {
+        document.querySelectorAll('.blog-v2-hero__copy-link').forEach(function (btn) {
+            if (btn.dataset.gcCopyLinkBound) {
+                return;
+            }
+            btn.dataset.gcCopyLinkBound = '1';
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                var url = this.getAttribute('data-url');
+                var title = this.getAttribute('data-title') || document.title;
+                var el = this;
+                if (navigator.share) {
+                    navigator.share({ title: title, url: url }).catch(function () {});
+                    return;
+                }
+                if (navigator.clipboard && url && typeof navigator.clipboard.writeText === 'function') {
+                    navigator.clipboard.writeText(url).then(function () {
+                        el.classList.add('is-copy-success');
+                        window.setTimeout(function () {
+                            el.classList.remove('is-copy-success');
+                        }, 1500);
+                    }).catch(function () {});
+                }
+            });
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initHeroCopyLink);
+    } else {
+        initHeroCopyLink();
+    }
+})();

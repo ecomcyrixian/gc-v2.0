@@ -80,10 +80,6 @@
     font-weight: $fSemiBold;
     line-height: normal;
 
-    // br{
-    //     // display: none;
-    // }
-
     pre {
       height: auto;
     }
@@ -125,13 +121,20 @@
     align-items: center;
 
     @include media(1300px) {
-      padding: $gap40 $gap16;
       flex-direction: column;
       justify-content: flex-start;
 
       & > div {
         width: 100%;
         max-width: 100% !important;
+      }
+
+      &:not(.Top) {
+        padding: $gap40 $gap16;
+      }
+
+      &.Top {
+        padding: 0;
       }
     }
 
@@ -144,7 +147,7 @@
       display: flex;
       flex-direction: column;
       span:last-child {
-        margin: $gap24 0;
+        margin: 0;
       }
     }
     & > div:last-child {
@@ -152,12 +155,53 @@
       overflow: hidden;
       border-radius: $corners8;
 
-      img {
+      img:not(.hero-overlap-card__icon) {
         width: 100%;
         height: auto;
         display: block;
       }
     }
+
+    &.Top {
+      flex-direction: column;
+      gap: $gap40;
+
+      .page-hero__image-wrap {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+        border-radius: $corners8;
+
+        img {
+          width: 100%;
+          height: auto;
+          display: block;
+        }
+      }
+
+      & > div:first-child {
+        max-width: 100%;
+      }
+
+      & > div:last-child {
+        max-width: 100%;
+      }
+    }
+  }
+
+  &:has(.cols2.Top) {
+    padding: $gap120 0 $gap100 0;
+
+    @include media($tablet) {
+      padding: $gap60 $gap20;
+    }
+
+    @include media($mobile) {
+      padding: 0 $gap20;
+    }
+  }
+  &:has(.cols2.Top) > .container {
+    max-width: 1095px;
   }
 
   .logos {
@@ -392,6 +436,83 @@
           }
         }
       }
+    }
+  }
+
+  /* Trust report share bar */
+  .trust-report {
+    &.trust-gap-cta .btns {
+      margin: $gap24 0;
+    }
+
+    &.trust-gap-cta .trust-gap-cta__row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: $gap24;
+      flex-wrap: wrap;
+      min-height: 40px;
+
+      @include media($mobile) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    &.trust-gap-cta .trust-gap-cta__intro {
+      margin: 0;
+      padding: 0;
+      font-size: $fsize18;
+      line-height: 1.4;
+      color: $gray300;
+
+      strong {
+        font-weight: $fSemiBold;
+        color: $gray300;
+      }
+    }
+
+    &.trust-gap-cta .trust-gap-cta__socials,
+    &.trust-gap-cta .blog-v2-hero__socials {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: $gap12;
+      margin: 0;
+      flex-wrap: wrap;
+      min-height: 32px;
+
+      @include media($mobile) {
+        justify-content: flex-start;
+      }
+
+      a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
+        color: inherit;
+        text-decoration: none;
+
+        &:hover {
+          opacity: 0.8;
+        }
+
+        svg {
+          display: block;
+          width: 32px;
+          height: 32px;
+        }
+      }
+    }
+
+    .share-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: $gap10;
     }
   }
 
@@ -704,6 +825,345 @@
           max-width: 190px;
         }
       }
+    }
+  }
+}
+
+/* About This Research (page-hero) */
+.page-hero:has(.about-research) {
+  padding: 0;
+
+  @include media($tablet) {
+    padding: $gap20;
+  }
+
+  @include media($mobile) {
+    padding: 0 $gap20;
+  }
+
+  & > .container {
+    max-width: 1080px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .text-only {
+    padding: 0;
+
+    .heading {
+      margin: 0;
+    }
+
+    .btns {
+      margin: 0;
+    }
+  }
+}
+
+/* About This Research */
+.about-research {
+  display: flex;
+  flex-direction: column;
+  gap: $gap24;
+
+  @include media($mobile) {
+    gap: $gap16;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: $gap16;
+
+    @include media($mobile) {
+      gap: $gap12;
+    }
+
+    img,
+    svg {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      object-fit: contain;
+
+      @include media($mobile) {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+
+  &__title {
+    font-weight: $fSemiBold;
+    font-size: $fsize28;
+    margin: 0;
+    color: $gray300;
+
+    @include media($mobile) {
+      font-size: $fsize18;
+    }
+  }
+
+  p {
+    font-size: $base-fsize;
+    line-height: 1.5;
+    margin: 0;
+    color: $gray300;
+
+    @include media($mobile) {
+      font-size: $fsize14;
+    }
+
+    strong {
+      color: $blue300;
+    }
+  }
+}
+
+/* Page hero — overlap */
+.page-hero.page-hero--overlap {
+  padding-top: $gap120;
+  padding-bottom: 0;
+
+  @include media($tablet) {
+    padding: $gap60 $gap20;
+  }
+
+  @include media($mobile) {
+    padding: $gap40 $gap20;
+  }
+
+  & > .container {
+    max-width: 1095px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+  }
+
+  .text-only {
+    padding: 0;
+
+    .heading {
+      margin: 0;
+    }
+  }
+
+  .page-hero__overlap-card {
+    h1, h2,
+    .hero-overlap-card__title {
+      margin: 0;
+      padding-bottom: 0;
+    }
+  }
+}
+
+.page-hero:has(.hero-overlap-card__inner.right) {
+  padding: 0 0 $gap60 0;
+}
+
+.page-hero:has(.hero-overlap-card__inner.right) > .container {
+  max-width: 1095px;
+}
+
+.page-hero__overlap-wrap {
+  position: relative;
+  margin-bottom: 0;
+}
+
+.page-hero__overlap-image {
+  width: 100%;
+  max-width: 900px;
+  margin-left: 0;
+  margin-right: auto;
+  border-radius: $corners8;
+  overflow: hidden;
+  aspect-ratio: 900 / 636;
+  background-color: $gray100;
+
+  @include media($tablet) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+.page-hero__overlap-card {
+  background-color: $gray50;
+  width: 100%;
+  max-width: 875px;
+  padding: $gap40;
+  border-radius: $corners8;
+  font-size: $base-fsize;
+  margin-top: -280px;
+  margin-left: auto;
+  margin-right: 0;
+  position: relative;
+  z-index: 1;
+
+  @include media($tablet) {
+    margin-top: -60px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: $gap24;
+    max-width: 100%;
+  }
+
+  @include media($mobile) {
+    margin-top: -40px;
+    margin-right: auto;
+    padding: $gap20;
+  }
+}
+
+.hero-overlap-card__inner {
+  display: flex;
+  flex-direction: column;
+  gap: $gap40;
+
+  @include media($mobile) {
+    gap: $gap20;
+  }
+}
+
+.hero-overlap-card__header {
+  display: flex;
+  align-items: center;
+  gap: $gap16;
+
+  @include media($mobile) {
+    flex-direction: row;
+    gap: $gap12;
+  }
+}
+
+.hero-overlap-card__body_grid {
+  display: flex;
+  gap: $gap40;
+
+  @include media($mobile) {
+    flex-direction: column;
+    gap: $gap24;
+  }
+
+  font-size: $base-fsize;
+  line-height: 1.6;
+  color: $gray300;
+  margin: 0;
+
+  p {
+    margin: 0 0 $gap16 0;
+    color: $gray300;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  @include media($mobile) {
+    font-size: $fsize14;
+
+    p {
+      margin-bottom: $gap12;
+    }
+  }
+}
+
+/* Override global img (width/max-width 100%) so icon keeps fixed size */
+.hero-overlap-card__icon {
+  width: 60px;
+  max-width: none;
+  height: 60px;
+  flex-shrink: 0;
+  object-fit: contain;
+
+  img {
+    width: auto;
+    height: auto;
+  }
+
+  @include media($mobile) {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.hero-overlap-card__title {
+  color: $gray300;
+  font-weight: $fSemiBold;
+  font-size: $fsize40;
+  margin: 0;
+
+  @include media($tablet) {
+    font-size: $fsize32;
+  }
+
+  @include media($mobile) {
+    font-size: $fsize18;
+  }
+}
+
+.hero-overlap-card__body {
+  font-size: $base-fsize;
+  line-height: 1.6;
+  color: $gray300;
+  margin: 0;
+
+  p {
+    margin: 0 0 $gap16 0;
+    color: $gray300;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  @include media($mobile) {
+    font-size: $fsize14;
+
+    p {
+      margin-bottom: $gap12;
+    }
+  }
+}
+
+.hero-overlap-card__list {
+  list-style: none;
+  margin: 0 0 $gap16 0;
+  padding-left: 0;
+
+  li {
+    position: relative;
+    padding-left: $gap24;
+    margin-bottom: $gap12;
+    font-size: $base-fsize;
+    line-height: 1.5;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.4em;
+      width: 10px;
+      height: 10px;
+      background-color: $blue300;
+      flex-shrink: 0;
+      background-image: none;
+    }
+
+    @include media($mobile) {
+      font-size: $fsize14;
+      margin-bottom: $gap10;
     }
   }
 }

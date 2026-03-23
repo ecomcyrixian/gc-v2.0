@@ -1,10 +1,8 @@
 /**
- * Blog V2 – combined bundle (progress bar, TOC, expert insight).
- * Loaded only on single posts via is_single().
- * Pure vanilla JS – no jQuery dependency.
+ * Blog V2
  */
 
-/* ── Progress Bar ────────────────────────────────────────────── */
+/* Progress Bar */
 (function() {
     'use strict';
 
@@ -22,6 +20,13 @@
         if (!progressBar || !progressFill) return;
 
         var wrapper = progressBar.closest('.blog-v2-progress-wrapper');
+        if (wrapper) {
+            var reserveH = progressBar.offsetHeight || 3;
+            wrapper.style.minHeight = reserveH + 'px';
+            wrapper.style.height = reserveH + 'px';
+            wrapper.style.overflow = 'visible';
+        }
+
         var progressColor = progressBar.getAttribute('data-progress-color') || '#4F51FD';
         progressFill.style.backgroundColor = progressColor;
 
@@ -30,59 +35,52 @@
         var content = document.querySelector('.blog-v2-content');
         var initialWidth = 150;
 
-        var layoutContainerTop = null;
-        var contentBottom = null;
-        var cachedNavbarHeight = null;
-        var cachedMaxWidth = null;
-
-        function getNavbarHeight() {
-            if (cachedNavbarHeight !== null) return cachedNavbarHeight;
-            if (!header) return 0;
-            cachedNavbarHeight = header.offsetHeight || 0;
-            return cachedNavbarHeight;
+        function getScrollTop() {
+            var se = document.scrollingElement || document.documentElement;
+            return se.scrollTop != null ? se.scrollTop : window.pageYOffset || 0;
         }
 
-        function getProgressBarWidth() {
-            if (cachedMaxWidth !== null) return cachedMaxWidth;
-            cachedMaxWidth = document.documentElement.clientWidth;
-            return cachedMaxWidth;
+        function getProgressBarTopPx() {
+            if (!header) return 0;
+            var hr = header.getBoundingClientRect();
+            if (hr.bottom <= 0) return 0;
+            return Math.max(0, Math.round(hr.bottom));
         }
 
         function calculateLayoutTop() {
             if (!layoutContainer) return null;
             var rect = layoutContainer.getBoundingClientRect();
-            return rect.top + window.pageYOffset;
+            return rect.top + getScrollTop();
         }
 
         function calculateContentBottom() {
             if (!content) return null;
             var rect = content.getBoundingClientRect();
-            return rect.top + window.pageYOffset + content.offsetHeight;
+            return rect.top + getScrollTop() + content.offsetHeight;
         }
 
         function updateProgressBar() {
             var windowHeight = window.innerHeight;
-            var scrollTop = window.pageYOffset;
-            var maxWidth = getProgressBarWidth();
+            var scrollTop = getScrollTop();
+            var maxWidth = Math.max(
+                document.documentElement.clientWidth || window.innerWidth || 0,
+                1
+            );
 
-            if (layoutContainerTop === null) {
-                layoutContainerTop = calculateLayoutTop();
-                if (layoutContainerTop === null) {
-                    var barRect = progressBar.getBoundingClientRect();
-                    layoutContainerTop = barRect.top + window.pageYOffset;
-                }
+            var layoutTop = calculateLayoutTop();
+            if (layoutTop === null) {
+                var barRect = progressBar.getBoundingClientRect();
+                layoutTop = barRect.top + getScrollTop();
             }
-            if (contentBottom === null) {
-                contentBottom = calculateContentBottom();
-                if (contentBottom === null) return;
-            }
+            var contentBottom = calculateContentBottom();
+            if (contentBottom === null) return;
 
-            var navbarHeight = getNavbarHeight();
+            var headerOffset = getProgressBarTopPx();
             var sidebarStickyTop = 130;
-            var stickyTriggerPoint = layoutContainerTop - sidebarStickyTop;
+            var stickyTriggerPoint = layoutTop - sidebarStickyTop;
             var documentBottom = scrollTop + windowHeight;
-            var scrollableContentHeight = contentBottom - layoutContainerTop;
-            var scrolledPastLayout = scrollTop - layoutContainerTop;
+            var scrollableContentHeight = contentBottom - layoutTop;
+            var scrolledPastLayout = scrollTop - layoutTop;
 
             var isSticky = scrollTop >= stickyTriggerPoint;
             var progress = 0;
@@ -102,14 +100,28 @@
                     progressBar.classList.add('is-sticky');
                     if (wrapper) wrapper.classList.add('is-sticky-active');
                 }
-                progressBar.style.top = navbarHeight + 'px';
+                if (progressBar.parentNode !== document.body) {
+                    document.body.appendChild(progressBar);
+                }
+                progressBar.style.top = headerOffset + 'px';
+                progressBar.style.left = '0';
+                progressBar.style.right = '0';
+                progressBar.style.width = '100%';
+                progressBar.style.zIndex = '99990';
                 progressFill.style.width = currentWidth + 'px';
             } else {
                 if (progressBar.classList.contains('is-sticky')) {
                     progressBar.classList.remove('is-sticky');
                     if (wrapper) wrapper.classList.remove('is-sticky-active');
                 }
+                if (wrapper && progressBar.parentNode !== wrapper) {
+                    wrapper.appendChild(progressBar);
+                }
                 progressBar.style.top = '';
+                progressBar.style.left = '';
+                progressBar.style.right = '';
+                progressBar.style.width = '';
+                progressBar.style.zIndex = '';
                 progressFill.style.width = currentWidth + 'px';
             }
         }
@@ -126,12 +138,15 @@
         }, { passive: true });
 
         window.addEventListener('resize', function() {
-            layoutContainerTop = null;
-            contentBottom = null;
-            cachedNavbarHeight = null;
-            cachedMaxWidth = null;
+            if (wrapper) {
+                var rh = progressBar.offsetHeight || 3;
+                wrapper.style.minHeight = rh + 'px';
+                wrapper.style.height = rh + 'px';
+            }
             updateProgressBar();
         });
+
+        updateProgressBar();
     }
 
     if (document.readyState === 'loading') {
@@ -141,7 +156,7 @@
     }
 })();
 
-/* ── Table of Contents ───────────────────────────────────────── */
+/* Table of Contents */
 (function() {
     'use strict';
 
@@ -275,44 +290,7 @@
     }
 })();
 
-/* ── Share / Copy Link button ────────────────────────────────── */
-(function () {
-    'use strict';
-
-    function showCheckmark(btn) {
-        var svg = btn.querySelector('svg');
-        var orig = svg.innerHTML;
-        svg.innerHTML = '<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="#16a34a" transform="translate(4,4) scale(0.8)"/>';
-        setTimeout(function () { svg.innerHTML = orig; }, 1500);
-    }
-
-    function initShareButton() {
-        var shareBtn = document.querySelector('.blog-v2-hero__copy-link');
-        if (!shareBtn) return;
-
-        shareBtn.addEventListener('click', function (e) {
-            e.preventDefault();
-            var url = this.getAttribute('data-url');
-            var title = this.getAttribute('data-title') || document.title;
-
-            if (navigator.share) {
-                navigator.share({ title: title, url: url }).catch(function () {});
-            } else {
-                navigator.clipboard.writeText(url).then(function () {
-                    showCheckmark(shareBtn);
-                });
-            }
-        });
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initShareButton);
-    } else {
-        initShareButton();
-    }
-})();
-
-/* ── Expert Insight ──────────────────────────────────────────── */
+/* Expert Insight */
 (function () {
     'use strict';
 
