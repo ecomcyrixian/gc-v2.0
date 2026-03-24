@@ -7,7 +7,7 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  padding: $gap120 0;
+  padding: $gap60 0;
 
 
   @include media($tablet) {
@@ -222,13 +222,17 @@
     display: inline-block;
     width: fit-content;
     align-self: flex-start;
-    font-size: $fsize14;
+    font-size: $base-fsize;
     font-weight: $fSemiBold;
     text-transform: uppercase;
     color: $blue300;
     padding: $gap8;
     border-radius: $corners4;
     background-color: $white;
+
+    @include media($mobile) {
+      font-size: $fsize14;
+    }
   }
 
   &__details {

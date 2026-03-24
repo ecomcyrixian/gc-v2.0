@@ -126,6 +126,7 @@ function theme_styles_script() {
 }
 add_action( 'wp_enqueue_scripts', 'theme_styles_script' );
 
+require_once get_template_directory() . '/core-pages/custom-whitepaper/gcheck-pdf-form.php';
 
 /*
  * Enqueue jQuery and theme scripts

@@ -40,7 +40,11 @@ $cwp_hero_dim_attrs = function_exists( 'gc_theme_img_dimension_attrs' ) ? gc_the
 					<?php endif; ?>
 				</div>
 				<div class="custom-whitepaper-hero__form" id="gcheck-pdf-request-form" tabindex="-1">
-					<?php echo do_shortcode( '[gcheck_pdf_request_form]' ); ?>
+					<?php
+					if ( function_exists( 'gc_render_post_pdf_request_form_in_hero' ) ) {
+						gc_render_post_pdf_request_form_in_hero();
+					}
+					?>
 				</div>
 			</div>
 		<?php elseif ( $is_default ) : ?>

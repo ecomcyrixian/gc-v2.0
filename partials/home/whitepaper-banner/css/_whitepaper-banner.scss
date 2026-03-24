@@ -7,7 +7,8 @@
     padding-top: $gap120;
 
     @include media($mobile) {
-        padding: $gap60 0;
+        padding-bottom: $gap60;
+        padding-top: 0;
     }
 
     .wb-card {
@@ -26,8 +27,8 @@
         @include media($mobile) {
             flex-direction: column;
             align-items: flex-start;
-            gap: $gap8;
-            padding: $gap20;
+            gap: $gap40;
+            padding: $gap40;
         }
     }
 
@@ -51,14 +52,6 @@
             font-weight: $fSemiBold;
             color: $gray300;
             line-height: 1.25;
-
-            @include media($tablet) {
-                font-size: $fsize32;
-            }
-
-            @include media($mobile) {
-                font-size: $fsize24;
-            }
         }
     }
 
@@ -92,12 +85,6 @@
             color: $gray300;
             line-height: 24px;
             margin-bottom: $gap24;
-
-            @include media($mobile) {
-                font-size: $fsize14;
-                line-height: 20px;
-                margin-bottom: $gap16;
-            }
         }
 
         .button {

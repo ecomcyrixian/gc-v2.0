@@ -9,7 +9,7 @@
         </div>
         <div class="wb-info">
             <p>Discover how to detect deception and make the hiring process faster and more reliable. From entering candidate information to receiving fully compliant background reports, every step is automated to save you time and ensure accuracy.</p>
-            <a href="<?php echo esc_url( home_url('/whitepapers/trust-in-hiring-report/') ); ?>" class="button blue">Access the Findings</a>
+            <a href="<?php echo esc_url( home_url('/whitepapers/trust-in-hiring-report/') ); ?>" class="button blue">Get the Report</a>
         </div>
     </div>
 </div>
