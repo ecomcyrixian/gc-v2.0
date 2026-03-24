@@ -1,13 +1,14 @@
 <?php
 /**
  * Template Part: Blog V2 Right Sidebar
- * About The Creator, About The Reviewer, whitepaper card (related or random), compliance CTA.
+ * About The Creator, About The Reviewer, whitepaper card (related or default page), compliance CTA.
  * No ACF; no card.php.
  */
 
-// Whitepaper card: query pages in category "whitepapers", pick one related to current post title or random.
-$current_post_title = wp_strip_all_tags( get_the_title() );
-$whitepaper_post    = null;
+// Whitepaper card: query pages in category "whitepapers", pick one related to current post title; if no match, use default page ID.
+$blog_v2_whitepaper_fallback_id = 22046;
+$current_post_title             = wp_strip_all_tags( get_the_title() );
+$whitepaper_post                = null;
 
 $wpq = new WP_Query( array(
     'post_type'      => 'page',
@@ -51,7 +52,14 @@ if ( $wpq->have_posts() ) {
             }
         }
 
-        $whitepaper_post = $best_score > 0 ? $whitepapers[ $best_index ] : $whitepapers[ array_rand( $whitepapers ) ];
+        if ( $best_score > 0 ) {
+            $whitepaper_post = $whitepapers[ $best_index ];
+        } else {
+            $fallback_post = get_post( $blog_v2_whitepaper_fallback_id );
+            if ( $fallback_post && $fallback_post->post_status === 'publish' ) {
+                $whitepaper_post = $fallback_post;
+            }
+        }
     }
 }
 ?>

@@ -8,6 +8,10 @@
         if( get_row_layout() == 'page_hero' ):
             get_template_part( 'core-pages/page-hero' );
 
+        // Case: About Hero (snippet, H2, details, image, optional quote)
+        elseif( get_row_layout() == 'about_hero' ):
+            get_template_part( 'core-pages/about-hero/about-hero' );
+
         // Case: Custom Whitepaper Hero Widget
         elseif( get_row_layout() == 'custom_whitepaper_hero' ):
             get_template_part( 'core-pages/custom-whitepaper/hero' );    

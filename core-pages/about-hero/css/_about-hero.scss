@@ -1,0 +1,201 @@
+@import "../../../assets/css/_tools/variable";
+@import "../../../assets/css/_tools/mixins";
+
+.about-hero {
+  background: $white;
+  padding: $gap60 $gap16 $gap80;
+
+  @include media($mobile) {
+    padding-top: $gap40;
+    padding-bottom: $gap60;
+  }
+
+  &__inner.container {
+    max-width: 1200px;
+  }
+
+  &__hero {
+    text-align: center;
+    margin-bottom: $gap60;
+
+    @include media($mobile) {
+      margin-bottom: $gap40;
+    }
+  }
+
+  &__eyebrow {
+    margin: 0 0 $gap16;
+    font-size: $fsize14;
+    font-weight: $fSemiBold;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: $gray300;
+  }
+
+  &__heading {
+    color: $gray300;
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-size: $fsize48;
+      font-weight: $fSemiBold;
+      line-height: 1.15;
+      color: inherit;
+
+      @include media($mobile) {
+        font-size: $fsize32;
+      }
+    }
+
+    p {
+      margin: 0;
+      font-size: $fsize48;
+      font-weight: $fSemiBold;
+      line-height: 1.15;
+
+      @include media($mobile) {
+        font-size: $fsize32;
+      }
+    }
+
+    p + p,
+    h1 + p,
+    h2 + p,
+    h3 + p {
+      margin-top: $gap8;
+    }
+
+    strong,
+    b {
+      color: $blue300;
+      font-weight: $fBold;
+    }
+  }
+
+  &__mission {
+    gap: $gap60;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    margin-bottom: $gap60;
+
+    @include media($tablet) {
+      gap: $gap40;
+      grid-template-columns: 1fr;
+    }
+
+    @include media($mobile) {
+      margin-bottom: $gap40;
+    }
+
+    &--text-only {
+      grid-template-columns: 1fr;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    &--image-only {
+      grid-template-columns: 1fr;
+      justify-items: center;
+    }
+
+    &--image-left {
+      .about-hero__mission-copy {
+        order: 2;
+      }
+
+      .about-hero__mission-visual {
+        order: 1;
+      }
+
+      @include media($tablet) {
+        .about-hero__mission-copy,
+        .about-hero__mission-visual {
+          order: unset;
+        }
+      }
+    }
+  }
+
+  &__mission-body {
+    font-size: $base-fsize;
+    line-height: 1.6;
+    color: $gray300;
+
+    p {
+      margin: 0 0 $gap16;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    h3,
+    h4 {
+      margin: 0 0 $gap12;
+      font-weight: $fSemiBold;
+      color: $gray300;
+    }
+  }
+
+  &__mission-visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__mission-glow {
+    position: absolute;
+    width: 92%;
+    height: 92%;
+    max-width: 520px;
+    border-radius: 24px;
+    background: radial-gradient(
+      ellipse at center,
+      rgba($blue300, 0.22) 0%,
+      rgba($blue200, 0.08) 45%,
+      transparent 70%
+    );
+    filter: blur(12px);
+    z-index: 0;
+  }
+
+  &__mission-img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 560px;
+    height: auto;
+    display: block;
+  }
+
+  &__quote-wrap {
+    margin: 0 auto;
+    max-width: 900px;
+    text-align: center;
+
+    blockquote,
+    p {
+      margin: 0;
+      font-size: $fsize24;
+      font-style: italic;
+      line-height: 1.45;
+      color: $gray300;
+
+      @include media($mobile) {
+        font-size: $fsize18;
+      }
+    }
+
+    strong,
+    b {
+      font-style: italic;
+      font-weight: $fBold;
+      color: $blue300;
+    }
+  }
+}
