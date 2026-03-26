@@ -284,6 +284,48 @@
         display: inline-block;
       }
     }
+
+    .about-page-footer {
+      display: flex;
+      flex-direction: column;
+      gap: $gap40;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+
+      @include media($mobile) {
+        max-width: 100%;
+        margin: 0;
+      }
+
+      h1 {
+        padding-bottom: 0;
+        font-size: $fsize56;
+        font-weight: $fSemiBold;
+        line-height: 72px;
+        
+        @include media($mobile) {
+          font-size: $fsize48;
+          line-height: 100%;
+        }
+
+        > span {
+          display: inline;
+          color: $blue300;
+          font-size: inherit;
+          line-height: inherit;
+          font-weight: inherit;
+          text-transform: none;
+        }
+      }
+
+      ._actions {
+        display: flex;
+        gap: $gap8;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+    }
   }
 
   .text-only:has(.ats-integration),

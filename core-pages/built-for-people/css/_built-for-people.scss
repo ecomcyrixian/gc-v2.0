@@ -5,14 +5,14 @@
 .built-for-people {
   position: relative;
   width: 100%;
-  min-height: 916px;
+  min-height: 1110px;
 
   @include media($tablet) {
-    min-height: 620px;
+    min-height: 720px;
   }
 
   @include media($mobile) {
-    min-height: 440px;
+    min-height: 700px;
   }
 
   &__frame {
@@ -21,17 +21,22 @@
     width: 100%;
     margin: 0;
     padding: $gap80 0;
+    padding-top: calc(#{$gap40} + 50px);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: $gap40;
+    gap: $gap24;
 
     @include media($tablet) {
-      padding: $gap60 $gap20;
+      padding-top: calc(#{$gap40} + 50px);
+      padding-bottom: calc(#{$gap40} + 160px);
+      padding-left: $gap20;
+      padding-right: $gap20;
     }
 
     @include media($mobile) {
       padding: $gap20;
+      padding-bottom: calc(#{$gap40} + 160px);
       gap: $gap24;
     }
   }
@@ -60,6 +65,62 @@
     }
   }
 
+  .title-row {
+    display: flex;
+    align-items: center;
+    gap: $gap80;
+    width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
+    text-align: left;
+    margin-bottom: $gap24;
+
+
+    .row-heading,
+    .desc {
+      flex: 1 1 0;
+      min-width: 0;
+    }
+
+    .row-heading {
+      margin: 0;
+      font-size: $fsize56;
+      font-weight: $fSemiBold;
+      color: $gray300;
+      line-height: 1.15;
+
+      @include media($tablet) {
+        font-size: $fsize48;
+      }
+
+      span {
+        color: $blue300;
+      }
+    }
+
+    .desc {
+      font-size: $fsize18;
+      color: $gray300;
+      line-height: 32px;
+
+      p {
+        margin: 0;
+      }
+    }
+
+    @include media($tablet) {
+      flex-direction: column;
+      gap: $gap24;
+      max-width: 100%;
+
+      .row-heading,
+      .desc {
+        flex: none;
+        width: 100%;
+      }
+    }
+  }
+
   &__grid {
     display: grid;
     grid-template-rows: auto auto;
@@ -83,6 +144,38 @@
       & > *:nth-child(3) { grid-column: auto; grid-row: auto; }
       & > *:nth-child(4) { grid-column: auto; grid-row: auto; }
       & > *:nth-child(5) { grid-column: auto; grid-row: auto; }
+    }
+
+    @include media($mobile) {
+      grid-template-columns: 1fr;
+      gap: $gap20;
+    }
+  }
+
+  &__grid--7 {
+    /* Row 1: four equal columns; row 2: three cards centered (24-col track; 5-card layout unchanged above) */
+    grid-template-columns: repeat(24, minmax(0, 1fr));
+    grid-template-rows: auto auto;
+
+    & > *:nth-child(1) { grid-column: 1 / 7; grid-row: 1; }
+    & > *:nth-child(2) { grid-column: 7 / 13; grid-row: 1; }
+    & > *:nth-child(3) { grid-column: 13 / 19; grid-row: 1; }
+    & > *:nth-child(4) { grid-column: 19 / 25; grid-row: 1; }
+    & > *:nth-child(5) { grid-column: 4 / 10; grid-row: 2; }
+    & > *:nth-child(6) { grid-column: 10 / 16; grid-row: 2; }
+    & > *:nth-child(7) { grid-column: 16 / 22; grid-row: 2; }
+
+    @include media($tablet) {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: auto;
+
+      & > *:nth-child(1) { grid-column: auto; grid-row: auto; }
+      & > *:nth-child(2) { grid-column: auto; grid-row: auto; }
+      & > *:nth-child(3) { grid-column: auto; grid-row: auto; }
+      & > *:nth-child(4) { grid-column: auto; grid-row: auto; }
+      & > *:nth-child(5) { grid-column: auto; grid-row: auto; }
+      & > *:nth-child(6) { grid-column: auto; grid-row: auto; }
+      & > *:nth-child(7) { grid-column: auto; grid-row: auto; }
     }
 
     @include media($mobile) {
@@ -166,20 +259,20 @@
       display: block;
     }
 
-    top: 286px;
+    top: calc(286px + #{$gap120} + #{$gap80});
     bottom: auto;
     height: 630px;
 
     @include media($tablet) {
       top: auto;
       bottom: 0;
-      height: 420px;
+      height: 380px;
     }
 
     @include media($mobile) {
       top: auto;
       bottom: 0;
-      height: 280px;
+      height: 370px;
     }
   }
 }

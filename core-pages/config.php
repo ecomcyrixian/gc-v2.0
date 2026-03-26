@@ -8,7 +8,7 @@
         if( get_row_layout() == 'page_hero' ):
             get_template_part( 'core-pages/page-hero' );
 
-        // Case: About Hero (snippet, H2, details, image, optional quote)
+        // Case: About Hero Widget
         elseif( get_row_layout() == 'about_hero' ):
             get_template_part( 'core-pages/about-hero/about-hero' );
 

@@ -11,6 +11,7 @@ $with_header = get_sub_field( 'with_header' ) === 'Yes';
 $h2         = get_sub_field( 'h2' );
 $details    = get_sub_field( 'details' );
 $cards      = get_sub_field( 'cards' );
+$card_count = ( ! empty( $cards ) && is_array( $cards ) ) ? count( $cards ) : 0;
 
 $theme_dir = get_template_directory();
 $theme_uri = get_template_directory_uri();
@@ -33,7 +34,13 @@ if ( $base ) {
 		<?php endif; ?>
 
 		<?php if ( ! empty( $cards ) && is_array( $cards ) ) : ?>
-			<div class="built-for-people__grid">
+			<?php
+			$grid_classes = array( 'built-for-people__grid' );
+			if ( 7 === $card_count ) {
+				$grid_classes[] = 'built-for-people__grid--7';
+			}
+			?>
+			<div class="<?php echo esc_attr( implode( ' ', $grid_classes ) ); ?>">
 				<?php foreach ( $cards as $card ) : ?>
 					<?php
 					$heading = isset( $card['h4'] ) ? $card['h4'] : '';

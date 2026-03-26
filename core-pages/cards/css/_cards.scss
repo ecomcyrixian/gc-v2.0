@@ -18,8 +18,211 @@
         margin: 0 auto;
     }
 
+    &.cards--whitepaper-bg{
+        position: relative;
+        z-index: 0;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        padding: $gap80 0;
+
+        @include media($tablet){
+            padding: 0;
+        }
+
+        @include media($mobile){
+            padding: 0
+        }
+
+        &:has(.card-same-height) {
+            @include media($tablet){
+                padding: $gap60 0;
+            }
+        }
+    }
+
+    &.cards--layout-row{
+        > .container{
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: $gap80;
+            max-width: 1089px;
+            margin: 0 auto;
+
+            @include media($tablet){
+                flex-direction: column;
+                gap: $gap20;
+                padding: 0 $gap20;
+            }
+
+            @include media($mobile) {
+                padding: 0;
+            }
+        }
+
+        .heading{
+            flex: 0 0 auto;
+            max-width: 439px;
+            width: 100%;
+            text-align: left;
+
+            .title {
+                font-size: $fsize56;
+                font-weight: $fSemiBold;
+                color: $gray300;
+                line-height: 72px;
+                margin-bottom: $gap40;
+
+                span {
+                    color: $blue300;
+                }
+
+                @include media($mobile){
+                    font-size: $fsize48;
+                    line-height: 100%;
+                }
+            }
+
+            p {
+                font-size: $base-fsize;
+            }
+
+            @include media($tablet){
+                max-width: 100%;
+                margin-bottom: $gap40;
+            }
+
+            @include media($mobile){
+                padding: 0 $gap16;
+            }
+        }
+
+        .card-cont{
+            flex: 1;
+            min-width: 0;
+
+            &.card-cont--row-stagger{
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+                gap: $gap24;
+
+                .card-cont__col{
+                    flex: 1;
+                    min-width: 0;
+                    display: flex;
+                    flex-direction: column;
+                    gap: $gap24;
+
+                    & > a,
+                    & > .card-item{
+                        width: 100%;
+                    }
+                }
+
+                .card-cont__col--left{
+                    margin-top: $gap40;
+                }
+
+                @include media($mobile){
+                    flex-direction: column;
+
+                    .card-cont__col--left{
+                        margin-top: 0;
+                    }
+                }
+            }
+
+            &:not(.card-cont--row-stagger){
+                display: grid;
+                gap: $gap24;
+                align-content: start;
+                align-items: start;
+                justify-items: stretch;
+
+                & > *{
+                    min-width: 0;
+                    align-self: start;
+                }
+
+                &.cols2{
+                    grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
+
+                &.cols3{
+                    grid-template-columns: repeat(3, minmax(0, 1fr));
+                }
+
+                &.cols4{
+                    grid-template-columns: repeat(4, minmax(0, 1fr));
+                }
+
+                &.cols5{
+                    grid-template-columns: repeat(5, minmax(0, 1fr));
+                }
+
+                &.cols2,
+                &.cols3,
+                &.cols4,
+                &.cols5{
+                    & > div,
+                    & > a{
+                        width: auto;
+                    }
+                }
+
+                & > a{
+                    width: auto;
+                }
+
+                @include media($mobile){
+                    &.cols2,
+                    &.cols3,
+                    &.cols4,
+                    &.cols5{
+                        grid-template-columns: 1fr;
+                    }
+                }
+            }
+        }
+    }
+
     &>.container{
         padding: 0;
+    }
+
+    .heading .card-same-height {
+        max-width: 800px;
+        margin: 0 auto;
+        
+        @include media($mobile) {
+            max-width: 100%;
+            text-align: left;
+        }
+
+        h2 {
+            display: flex;
+            justify-content: center;
+            font-size: 58px;
+            font-weight: $fSemiBold;
+            color: $gray300;
+            line-height: 72px;
+
+            @include media($mobile) {
+                font-size: 40px;
+                line-height: 100%;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            span {
+                color: $blue300;
+                font-size: inherit;
+                line-height: inherit;
+                font-weight: inherit;
+            }
+        }
     }
 
     img{
@@ -52,6 +255,121 @@
 
         @include media($mobile){
             padding: $gap20;
+        }
+    }
+
+    .card-item__divider {
+        display: none;
+    }
+
+    &:has(.heading .card-padding-40) {
+        .heading {
+            padding-top: 0;
+        }
+
+        .card-item,
+        .card-cont:not(.card-cont--row-stagger) > div {
+            padding: $gap40;
+
+            @include media($mobile) {
+                padding: $gap24;
+            }
+        }
+
+        .card-item__divider {
+            display: block;
+            border: 0;
+            border-top: 1px solid $gray75;
+            margin: $gap24 0 $gap16;
+            width: 100%;
+            height: 0;
+        }
+    }
+    
+    &:has(.card-cont.card-same-height),
+    &:has(.heading .card-same-height),
+    &.card-same-height {
+        > .container {
+            max-width: 1120px;
+        }
+
+        .card-cont:not(.card-cont--row-stagger) {
+            align-items: stretch;
+            align-content: flex-start;
+
+            & > a,
+            & > div {
+                display: flex;
+                flex-direction: column;
+                min-height: 0;
+            }
+        }
+
+        &.cards--layout-row .card-cont:not(.card-cont--row-stagger) {
+            align-items: stretch;
+
+            & > * {
+                align-self: stretch;
+                min-height: 0;
+            }
+        }
+
+        .card-link {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 0;
+        }
+
+        .card-item {
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 auto;
+            min-height: 0;
+            height: auto;
+        }
+
+        .card-item h4,
+        .card-item .card-item__divider {
+            flex-shrink: 0;
+        }
+
+        .card-item h3 p,
+        .card-item h4 p {
+            font-size: 20px;
+        }
+    }
+
+    ul.blue-list {
+        margin: 0;
+        padding-left: 0;
+        list-style: none;
+        list-style-type: none;
+
+        li {
+            list-style: none;
+            list-style-type: none;
+            position: relative;
+            padding-left: $gap24;
+            margin-bottom: $gap8;
+            padding-bottom: 0;
+            font-size: $fsize14;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            &::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                width: 10px;
+                height: 10px;
+                background-color: $blue300;
+                background-image: none;
+                display: block;
+                top: 8px;
+            }
         }
     }
 
@@ -131,6 +449,20 @@
                 }
             }
         }
+    }
+
+    /* Placed after `.card-cont { gap: $gap40 }` so 24px wins cascade; !important beats generic gap */
+    &:has(.card-cont.card-same-height) .card-cont:not(.card-cont--row-stagger),
+    &:has(.heading .card-same-height) .card-cont:not(.card-cont--row-stagger),
+    &.card-same-height .card-cont:not(.card-cont--row-stagger) {
+        gap: $gap24 !important;
+    }
+
+    .card-cont.card-cont--row-stagger > div.card-cont__col{
+        padding: 0;
+        background: transparent;
+        border-radius: 0;
+        box-shadow: none;
     }
 
     h3,h4{
