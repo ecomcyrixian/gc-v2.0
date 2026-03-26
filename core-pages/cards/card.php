@@ -12,11 +12,7 @@
 	$setting = get_sub_field( 'setting' );
 	$finalSetting = str_replace( ' ', '-', strtolower( $setting ) );
 
-	$click_raw = get_sub_field( 'make_cards_clikable' );
-	if ( null === $click_raw || '' === $click_raw ) {
-		$click_raw = get_sub_field( 'make_cards_clickable' );
-	}
-	$cards_clickable = strtolower( (string) $click_raw ) === 'yes';
+	$cards_clickable = get_sub_field( 'make_cards_clickable' ) === 'Yes';
 
 	$layout_raw    = get_sub_field( 'layout' );
 	$is_row_layout = strtolower( (string) $layout_raw ) === 'row';
@@ -32,7 +28,7 @@
 				'h4'       => get_sub_field( 'h4' ),
 				'details'  => get_sub_field( 'details' ),
 				'svg_icon' => get_sub_field( 'svg_icon' ),
-				'link'     => $cards_clickable ? get_sub_field( 'card_link' ) : null,
+				'link'     => get_sub_field( 'card_link' ),
 			);
 		}
 	}
@@ -41,6 +37,20 @@
 	$use_row_two_col_stagger = $is_row_layout && 2 === $columns_int && ! empty( $cards_data );
 
 	$same_height_cards = strtolower( (string) get_sub_field( 'same_height_cards' ) ) === 'yes';
+
+	if ( ! function_exists( 'gc_card_link_url_target' ) ) {
+		function gc_card_link_url_target( $link ) {
+			$url    = '';
+			$target = '_self';
+			if ( is_array( $link ) ) {
+				$url    = isset( $link['url'] ) ? (string) $link['url'] : '';
+				$target = ! empty( $link['target'] ) ? (string) $link['target'] : '_self';
+			} elseif ( is_string( $link ) && $link !== '' ) {
+				$url = $link;
+			}
+			return array( $url, $target );
+		}
+	}
 ?>
 
 <?php if ( $display_selection ) : ?>
@@ -77,8 +87,7 @@ if ( $use_whitepaper_background ) {
 							$details = $card['details'] ?? '';
 							$icon    = $card['svg_icon'] ?? '';
 							$link    = $cards_clickable ? ( $card['link'] ?? null ) : null;
-							$url     = is_array( $link ) ? ( $link['url'] ?? '' ) : '';
-							$target  = is_array( $link ) ? ( $link['target'] ?? '_self' ) : '_self';
+							list( $url, $target ) = gc_card_link_url_target( $link );
 							?>
 							<?php if ( $cards_clickable && $url ) : ?>
 								<a href="<?php echo esc_url( $url ); ?>" target="<?php echo esc_attr( $target ); ?>" class="card-link">
@@ -103,8 +112,7 @@ if ( $use_whitepaper_background ) {
 							$details = $card['details'] ?? '';
 							$icon    = $card['svg_icon'] ?? '';
 							$link    = $cards_clickable ? ( $card['link'] ?? null ) : null;
-							$url     = is_array( $link ) ? ( $link['url'] ?? '' ) : '';
-							$target  = is_array( $link ) ? ( $link['target'] ?? '_self' ) : '_self';
+							list( $url, $target ) = gc_card_link_url_target( $link );
 							?>
 							<?php if ( $cards_clickable && $url ) : ?>
 								<a href="<?php echo esc_url( $url ); ?>" target="<?php echo esc_attr( $target ); ?>" class="card-link">
@@ -131,8 +139,7 @@ if ( $use_whitepaper_background ) {
 						$details = $card['details'] ?? '';
 						$icon    = $card['svg_icon'] ?? '';
 						$link    = $cards_clickable ? ( $card['link'] ?? null ) : null;
-						$url     = is_array( $link ) ? ( $link['url'] ?? '' ) : '';
-						$target  = is_array( $link ) ? ( $link['target'] ?? '_self' ) : '_self';
+						list( $url, $target ) = gc_card_link_url_target( $link );
 						?>
 						<?php if ( $cards_clickable && $url ) : ?>
 							<a href="<?php echo esc_url( $url ); ?>" target="<?php echo esc_attr( $target ); ?>" class="card-link">

@@ -239,8 +239,17 @@
         width: 100%;
         text-decoration: none;
         color: inherit;
+        cursor: pointer;
+        position: relative;
+        z-index: 1;
+        border-radius: $corners8;
+        outline-offset: 3px;
 
-        &:hover{
+        &:focus-visible {
+            outline: 2px solid $blue300;
+        }
+
+        &:hover {
             text-decoration: none;
         }
     }
@@ -250,7 +259,7 @@
         padding: $gap20;
         background: $white;
         border-radius: $corners8;
-        transition: transform .2s ease, box-shadow .2s ease;
+        transition: transform .2s ease, box-shadow .2s ease, color .2s ease;
         cursor: pointer;
 
         @include media($mobile){
