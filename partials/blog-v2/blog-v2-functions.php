@@ -524,7 +524,11 @@ function blog_v2_creator_bio( $post_id = null ) {
         $description = $ppma_creator->get_meta( 'description' );
         $description = is_string( $description ) ? trim( $description ) : '';
         if ( $description !== '' ) {
-            return wp_kses_post( nl2br( $description ) );
+            $plain = wp_strip_all_tags( $description, false );
+            $html  = function_exists( 'gc_author_bio_format_pbsa_fcra_link' )
+                ? gc_author_bio_format_pbsa_fcra_link( $plain )
+                : esc_html( $plain );
+            return wp_kses_post( nl2br( $html ) );
         }
         return blog_v2_default_gcheck_editorial_bio();
     }
@@ -538,7 +542,11 @@ function blog_v2_creator_bio( $post_id = null ) {
     $description = get_the_author_meta( 'description', $author_id );
     $description = is_string( $description ) ? trim( $description ) : '';
     if ( $description !== '' ) {
-        return wp_kses_post( nl2br( $description ) );
+        $plain = wp_strip_all_tags( $description, false );
+        $html  = function_exists( 'gc_author_bio_format_pbsa_fcra_link' )
+            ? gc_author_bio_format_pbsa_fcra_link( $plain )
+            : esc_html( $plain );
+        return wp_kses_post( nl2br( $html ) );
     }
     $name = get_the_author_meta( 'display_name', $author_id );
     $is_pat = $name && stripos( $name, 'Pat Hartonian' ) !== false;

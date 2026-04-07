@@ -38,16 +38,27 @@ body.tax-author {
 
         .author-avatar{
              img{
-                // height: 156px;
-                // width: 156px;
+                width: auto;
+                max-width: 156px;
+                height: auto;
+                display: block;
                 border-radius: 50%;
                 overflow: hidden;
-                margin: 0  auto;
+                margin: 0 auto;
             }
         }
         
         .author-desc{
             flex: 1;
+
+            .author-desc__bio .author-bio-credential--nowrap {
+                white-space: nowrap;
+            }
+
+            .author-desc__bio .author-bio-credential__link {
+                white-space: nowrap;
+                text-decoration: none;
+            }
         }
 
         .name-socmed{

@@ -6,7 +6,7 @@
 ?>
 <?php get_header('home'); ?>
 
-<!-- <?php get_template_part('partials/home/whitepaper-banner/index') ?> -->
+<?php get_template_part('partials/home/whitepaper-banner/index') ?>
 <?php get_template_part('partials/home/grid-layout/index') ?>
 <?php get_template_part('core-pages/banner/option-1') ?>
 <?php get_template_part('partials/home/key-features/index') ?>

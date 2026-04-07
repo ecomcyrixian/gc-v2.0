@@ -102,6 +102,10 @@ body.tax-author .author-page .author-info > .container {
 }
 body.author .author-page .author-avatar img,
 body.tax-author .author-page .author-avatar img {
+  width: auto;
+  max-width: 156px;
+  height: auto;
+  display: block;
   border-radius: 50%;
   overflow: hidden;
   margin: 0 auto;
@@ -109,6 +113,15 @@ body.tax-author .author-page .author-avatar img {
 body.author .author-page .author-desc,
 body.tax-author .author-page .author-desc {
   flex: 1;
+}
+body.author .author-page .author-desc .author-desc__bio .author-bio-credential--nowrap,
+body.tax-author .author-page .author-desc .author-desc__bio .author-bio-credential--nowrap {
+  white-space: nowrap;
+}
+body.author .author-page .author-desc .author-desc__bio .author-bio-credential__link,
+body.tax-author .author-page .author-desc .author-desc__bio .author-bio-credential__link {
+  white-space: nowrap;
+  text-decoration: none;
 }
 body.author .author-page .name-socmed,
 body.tax-author .author-page .name-socmed {

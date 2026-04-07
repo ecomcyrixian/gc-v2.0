@@ -5,6 +5,8 @@
 add_theme_support( 'post-thumbnails' );
 add_theme_support( 'title-tag' );
 
+require_once get_template_directory() . '/partials/publishpress-author-sync.php';
+
 /*
  * Blog hero image size: ~540px width so srcset can serve smaller file when displayed at 535px (mobile LCP).
  * Regenerate thumbnails for existing uploads to get this size.

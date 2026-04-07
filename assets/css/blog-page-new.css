@@ -103,6 +103,10 @@ body.tax-author .author-page .author-info > .container {
 }
 body.author .author-page .author-avatar img,
 body.tax-author .author-page .author-avatar img {
+  width: auto;
+  max-width: 156px;
+  height: auto;
+  display: block;
   border-radius: 50%;
   overflow: hidden;
   margin: 0 auto;
@@ -110,6 +114,15 @@ body.tax-author .author-page .author-avatar img {
 body.author .author-page .author-desc,
 body.tax-author .author-page .author-desc {
   flex: 1;
+}
+body.author .author-page .author-desc .author-desc__bio .author-bio-credential--nowrap,
+body.tax-author .author-page .author-desc .author-desc__bio .author-bio-credential--nowrap {
+  white-space: nowrap;
+}
+body.author .author-page .author-desc .author-desc__bio .author-bio-credential__link,
+body.tax-author .author-page .author-desc .author-desc__bio .author-bio-credential__link {
+  white-space: nowrap;
+  text-decoration: none;
 }
 body.author .author-page .name-socmed,
 body.tax-author .author-page .name-socmed {
@@ -1842,6 +1855,14 @@ body.search h4 span {
 }
 .blog-v2-content .wp-block-group._article-about-creator .blog-v2-about-creator__bio p, .blog-v2-content .wp-block-group._article-about-creator .blog-v2-about-creator__bio strong {
   color: #1A1C1E; /* Sufficient contrast on white (WCAG AA) */
+}
+.blog-v2-content .wp-block-group._article-about-creator .blog-v2-about-creator__bio .author-bio-credential--nowrap {
+  white-space: nowrap;
+}
+.blog-v2-content .wp-block-group._article-about-creator .blog-v2-about-creator__bio .author-bio-credential__link {
+  white-space: nowrap;
+  text-decoration: none;
+  color: inherit;
 }
 .blog-v2-content .wp-block-group._article-about-creator {
   margin-bottom: -40px;

@@ -899,6 +899,16 @@
             p, strong {
                 color: $gray300; /* Sufficient contrast on white (WCAG AA) */
             }
+
+            .author-bio-credential--nowrap {
+                white-space: nowrap;
+            }
+
+            .author-bio-credential__link {
+                white-space: nowrap;
+                text-decoration: none;
+                color: inherit;
+            }
         }
 
         // Remove gap after About The Creator section
