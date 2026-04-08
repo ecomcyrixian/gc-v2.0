@@ -179,6 +179,44 @@ function gcheck_scripts() {
 add_action('wp_enqueue_scripts', 'gcheck_scripts');
 
 /**
+ * Bing UET: consent bar styles/scripts (front-end only). Tag + default consent load from head.php partial.
+ */
+function gc_bing_uet_consent_assets() {
+	if ( is_admin() ) {
+		return;
+	}
+	$css_path = get_template_directory() . '/assets/css/bing-consent.css';
+	$js_path  = get_template_directory() . '/assets/js/bing-consent.js';
+	$v_css    = file_exists( $css_path ) ? filemtime( $css_path ) : '1';
+	$v_js     = file_exists( $js_path ) ? filemtime( $js_path ) : '1';
+	wp_enqueue_style(
+		'gc-bing-consent',
+		get_template_directory_uri() . '/assets/css/bing-consent.css',
+		array(),
+		$v_css
+	);
+	wp_enqueue_script(
+		'gc-bing-consent',
+		get_template_directory_uri() . '/assets/js/bing-consent.js',
+		array(),
+		$v_js,
+		true
+	);
+}
+add_action( 'wp_enqueue_scripts', 'gc_bing_uet_consent_assets' );
+
+/**
+ * Bing UET: cookie consent bar markup (Accept / Reject → localStorage + uetq consent update).
+ */
+function gc_bing_uet_consent_banner() {
+	if ( is_admin() ) {
+		return;
+	}
+	get_template_part( 'partials/bing/bing-consent-banner' );
+}
+add_action( 'wp_footer', 'gc_bing_uet_consent_banner', 5 );
+
+/**
  * Reduce unused CSS: dequeue dashicons on front-end when admin bar is not shown.
  * Saves ~35 KiB. Dashicons is required for admin bar and block editor; safe to remove on front when not used.
  */
