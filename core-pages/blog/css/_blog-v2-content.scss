@@ -900,14 +900,22 @@
                 color: $gray300; /* Sufficient contrast on white (WCAG AA) */
             }
 
+            a {
+                color: $blue300;
+                text-decoration: none;
+
+                &:hover,
+                &:focus-visible {
+                    color: $blue200;
+                }
+            }
+
             .author-bio-credential--nowrap {
                 white-space: nowrap;
             }
 
             .author-bio-credential__link {
                 white-space: nowrap;
-                text-decoration: none;
-                color: inherit;
             }
         }
 

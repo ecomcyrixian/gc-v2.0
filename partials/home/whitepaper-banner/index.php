@@ -18,3 +18,32 @@ $wb_report_url = home_url( '/whitepapers/trust-in-hiring-report/' );
         </div>
     </div>
 </div>
+<div id="as-featured-in">
+    <div class="container">
+        <div class="as-featured-in-title">As Featured In</div>
+    </div>
+    <div class="as-featured-in-logos">
+        <div class="as-featured-in-logos-item">
+            <img src="<?php echo esc_url( get_template_directory_uri() . '/partials/home/whitepaper-banner/images/inc-logo.webp' ); ?>" alt="<?php esc_attr_e( 'Inc-logo' ); ?>" loading="lazy" decoding="async">
+        </div>
+        <div class="as-featured-in-logos-item">
+            <img src="<?php echo esc_url( get_template_directory_uri() . '/partials/home/whitepaper-banner/images/hr-1-logo.webp' ); ?>" alt="<?php esc_attr_e( 'HR-1-logo' ); ?>" loading="lazy" decoding="async">
+        </div>
+        <div class="as-featured-in-logos-item">
+            <img src="<?php echo esc_url( get_template_directory_uri() . '/partials/home/whitepaper-banner/images/shrm-logo.webp' ); ?>" alt="<?php esc_attr_e( 'SHRM-logo' ); ?>" loading="lazy" decoding="async">
+        </div>
+        <div class="as-featured-in-logos-item">
+            <img src="<?php echo esc_url( get_template_directory_uri() . '/partials/home/whitepaper-banner/images/hr-2-logo.webp' ); ?>" alt="<?php esc_attr_e( 'HR-2-logo' ); ?>" loading="lazy" decoding="async">
+        </div>
+        <div class="as-featured-in-logos-item">
+            <img src="<?php echo esc_url( get_template_directory_uri() . '/partials/home/whitepaper-banner/images/pulse-logo.webp' ); ?>" alt="<?php esc_attr_e( 'Pulse-logo' ); ?>" loading="lazy" decoding="async">
+        </div>
+        <div class="as-featured-in-logos-item">
+            <img src="<?php echo esc_url( get_template_directory_uri() . '/partials/home/whitepaper-banner/images/advisor-logo.webp' ); ?>" alt="<?php esc_attr_e( 'Advisor-logo' ); ?>" loading="lazy" decoding="async">
+        </div>
+        <div class="as-featured-in-logos-item">
+            <img src="<?php echo esc_url( get_template_directory_uri() . '/partials/home/whitepaper-banner/images/hrd-logo.webp' ); ?>" alt="<?php esc_attr_e( 'HRD-logo' ); ?>" loading="lazy" decoding="async">
+        </div>
+
+    </div>
+</div>

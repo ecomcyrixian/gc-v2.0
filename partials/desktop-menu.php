@@ -1,10 +1,6 @@
 <?php
-    // Helper function to get mega feature content
     function get_mega_feature_content( $menu_name, $feature_type = 'article' ) {
         if ( $feature_type === 'whitepaper' ) {
-            // Whitepaper function commented out for future use - Background Checks and Drug & Health now use articles
-            // return generate_mega_featured_whitepaper( $menu_name );
-            // Fallback to article if whitepaper is requested but function is commented out
             $post = get_mega_menu_featured_article( $menu_name );
             if ( $post ) {
                 return generate_mega_featured_article( $post );
@@ -16,7 +12,6 @@
             }
         }
         
-        // Fallback placeholder for articles only
         return <<<HTML
 <div class="mega-feature blog">
     <div class="feature-card">
@@ -121,17 +116,6 @@ HTML;
         
         <div class="hamburger-flyout">
             <ul class="hamburger-links">
-                <?php /* Industries link commented out - page not ready yet
-                <li>
-                    <a href="<?php echo esc_url( home_url('/industry/') ); ?>" target="_parent">
-                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="40" height="40" rx="4" fill="#F2F3FF"/>
-                            <path d="M15.3516 18.9062H24.7031C24.7141 18.9062 24.7277 18.9062 24.7387 18.9035C24.859 18.8844 24.9383 18.7723 24.9191 18.652L23.8199 11.8707C23.8035 11.7641 23.7105 11.6875 23.6039 11.6875H16.4508C16.3441 11.6875 16.2512 11.7641 16.2348 11.8707L15.1355 18.652C15.1328 18.6629 15.1328 18.6766 15.1328 18.6875C15.1328 18.8078 15.2312 18.9062 15.3516 18.9062ZM17.8453 13.5469H22.2066L22.7727 17.0469H17.2766L17.8453 13.5469ZM17.9137 21.277C17.8973 21.1703 17.8043 21.0938 17.6977 21.0938H10.5445C10.4379 21.0938 10.3449 21.1703 10.3285 21.277L9.2293 28.0582C9.22656 28.0691 9.22656 28.0828 9.22656 28.0938C9.22656 28.2141 9.325 28.3125 9.44531 28.3125H18.7969C18.8078 28.3125 18.8215 28.3125 18.8324 28.3098C18.9527 28.2906 19.032 28.1785 19.0129 28.0582L17.9137 21.277ZM11.373 26.4531L11.9391 22.9531H16.3004L16.8664 26.4531H11.373ZM30.7707 28.0582L29.6715 21.277C29.6551 21.1703 29.5621 21.0938 29.4555 21.0938H22.3023C22.1957 21.0938 22.1027 21.1703 22.0863 21.277L20.9871 28.0582C20.9844 28.0691 20.9844 28.0828 20.9844 28.0938C20.9844 28.2141 21.0828 28.3125 21.2031 28.3125H30.5547C30.5656 28.3125 30.5793 28.3125 30.5902 28.3098C30.7078 28.2906 30.7898 28.1785 30.7707 28.0582ZM23.1309 26.4531L23.6969 22.9531H28.0582L28.6242 26.4531H23.1309Z" fill="#4F51FD"/>
-                        </svg>
-                        <span>Industries</span> 
-                    </a>
-                </li>
-                */ ?>
                 <li>
                     <a href="<?php echo esc_url( home_url('/integrations/') ); ?>" target="_parent">
                         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">

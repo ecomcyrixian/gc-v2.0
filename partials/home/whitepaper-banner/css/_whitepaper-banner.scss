@@ -3,12 +3,18 @@
 
 #whitepaper-banner {
     max-width: 1320px;
-    margin: 0 auto;
-    padding-top: $gap120;
+    margin: -$gap120 auto 0;
+    padding-top: 0;
+    position: relative;
+    z-index: 2;
+
+    @include media($tablet) {
+        margin-top: -$gap40;
+        padding: $gap60 0;
+    }
 
     @include media($mobile) {
-        padding-bottom: $gap60;
-        padding-top: 0;
+        padding-top: $gap40;
     }
 
     .wb-card {
@@ -98,4 +104,44 @@
             
         }
     }
+}
+
+#as-featured-in {
+    max-width: 1032px;
+    margin: 0 auto;
+    padding-top: $gap120;
+    padding-bottom: $gap20;
+    text-align: center;
+
+    @include media($tablet) {
+        padding: 0 $gap20 $gap60;
+    }
+
+    @include media($mobile) {
+        padding-top: 0;
+        padding-bottom: $gap60;
+    }
+
+    .as-featured-in-title {
+        font-size: $fsize14;
+        font-weight: $fSemiBold;
+        color: $blue300;
+        margin-bottom: $gap40;
+        text-transform: uppercase;
+    }
+
+    .as-featured-in-logos {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        
+
+        @include media($mobile) {
+            height: auto;
+            gap: $gap24;
+            justify-content: center;
+        }
+    }
+
 }

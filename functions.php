@@ -105,7 +105,7 @@ function theme_styles_script() {
         $version = max($max_scss_time, $css_time) ?: '1';
         
         wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/core-page-new.css', array(), $version, 'screen' );
-    } elseif ( is_single() || is_search() || is_category() || is_author() ) {
+    } elseif ( is_single() || is_search() || is_category() || is_author() || is_tax( 'author' ) ) {
         $blog_page_scss = get_template_directory() . '/assets/css/blog-page-new.scss';
         $search_scss = get_template_directory() . '/core-pages/blog/css/_search.scss';
         $blog_page_css = get_template_directory() . '/assets/css/blog-page-new.css';

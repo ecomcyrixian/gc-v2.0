@@ -298,7 +298,7 @@ header#typical nav .hamburger-desktop .desktop-trigger {
   color: #000000;
 }
 header#home {
-  height: 1160px;
+  height: 800px;
   background: url(../images/home-header-bg.jpg) no-repeat top center #30319A;
   background-size: cover;
 }
@@ -339,8 +339,8 @@ header#home nav .icon-menu {
 }
 header#home > .container > div {
   color: #FFFFFF;
-  margin: 50px auto;
-  max-width: 1024px;
+  margin: 40px auto;
+  max-width: 1000px;
   text-align: center;
 }
 @media screen and (max-width: 767px) {
@@ -351,34 +351,42 @@ header#home > .container > div {
 }
 header#home > .container > div h1 {
   display: block;
-  margin: 0 auto 16px auto;
+  margin: 0 auto 40px auto;
   font-size: 4em;
   font-weight: 700;
   transform: skew(-8deg);
+  padding: 0 8px;
 }
 @media screen and (max-width: 767px) {
   header#home > .container > div h1 {
     font-size: 2.5em;
-    padding: 0 8px;
   }
 }
-header#home > .container > div h5 {
-  font-size: 2em;
-  font-weight: 400;
+header#home > .container > div > .header-subtitle-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  margin: 0 auto 24px;
+  width: 100%;
 }
-header#home > .container > div h5.header-subtitle {
-  font-weight: 700;
-  margin-bottom: 16px;
+header#home > .container > div > .header-subtitle-container h5 {
+  margin: 0;
+  margin-bottom: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+header#home > .container > div > .header-subtitle-container h5 > span {
+  font-size: 1.75em;
+  font-weight: 500;
+  color: inherit;
   transform: skew(-8deg);
 }
-header#home > .container > div h5.header-subtitle i {
-  font-weight: 400;
-  transform: skew(8deg);
-  font-style: normal;
-  display: inline-block;
-}
 @media screen and (max-width: 767px) {
-  header#home > .container > div h5 {
+  header#home > .container > div > .header-subtitle-container h5 > span {
     font-size: 1.25em;
   }
 }
@@ -392,18 +400,18 @@ header#home > .container > div p {
     font-size: 16px;
   }
 }
-header#home > .container > div span {
+header#home > .container > div > span:not(.buttons) {
   gap: 24px;
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
 }
 @media screen and (max-width: 767px) {
-  header#home > .container > div span {
+  header#home > .container > div > span:not(.buttons) {
     display: none;
     flex-wrap: wrap;
   }
-  header#home > .container > div span > p {
+  header#home > .container > div > span:not(.buttons) > p {
     width: 100%;
     padding: 10px;
     margin: 0;
@@ -412,12 +420,12 @@ header#home > .container > div span {
   }
 }
 @media screen and (max-width: 767px) and (max-width: 767px) {
-  header#home > .container > div span > p {
+  header#home > .container > div > span:not(.buttons) > p {
     flex-wrap: wrap;
     justify-content: center;
   }
 }
-header#home > .container > div span > p {
+header#home > .container > div > span:not(.buttons) > p {
   gap: 10px;
   display: flex;
   flex-wrap: nowrap;

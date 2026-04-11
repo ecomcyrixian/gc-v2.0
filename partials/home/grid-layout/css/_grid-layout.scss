@@ -218,10 +218,10 @@
         color:$white;
         span{
             width: 390px;
-            font-size: $fsize32;
+            font-size: $fsize30;
             @include media($mobile){
                 width: 100%;
-                font-size: $fsize28;
+                font-size: 26px;
             }
         }        
     }
