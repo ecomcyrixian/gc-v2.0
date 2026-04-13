@@ -121,12 +121,15 @@ $avatar_alt = trim( $first_name . ' ' . $last_name );
                             'orderby'   => 'date',
                             'order'     => 'DESC',
                         );
-                        if ( $ppma_author && $queried instanceof WP_Term ) {
+                        $ppma_term_id = ( $ppma_author && is_object( $ppma_author ) && ! empty( $ppma_author->term_id ) )
+                            ? (int) $ppma_author->term_id
+                            : 0;
+                        if ( $ppma_term_id > 0 ) {
                             $args['tax_query'] = array(
                                 array(
                                     'taxonomy' => 'author',
                                     'field'    => 'term_id',
-                                    'terms'    => (int) $queried->term_id,
+                                    'terms'    => $ppma_term_id,
                                 ),
                             );
                         } else {
