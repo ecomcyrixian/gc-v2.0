@@ -37,13 +37,20 @@
 /* media query */
 #whitepaper-banner {
   max-width: 1320px;
-  margin: 0 auto;
-  padding-top: 120px;
+  margin: -120px auto 0;
+  padding-top: 0;
+  position: relative;
+  z-index: 2;
+}
+@media screen and (max-width: 1023px) {
+  #whitepaper-banner {
+    margin-top: -40px;
+    padding: 60px 0;
+  }
 }
 @media screen and (max-width: 767px) {
   #whitepaper-banner {
-    padding-bottom: 60px;
-    padding-top: 0;
+    padding-top: 40px;
   }
 }
 #whitepaper-banner .wb-card {
@@ -126,6 +133,45 @@
 #whitepaper-banner .wb-info .button {
   display: inline-block;
   white-space: nowrap;
+}
+
+#as-featured-in {
+  max-width: 1032px;
+  margin: 0 auto;
+  padding-top: 120px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+@media screen and (max-width: 1023px) {
+  #as-featured-in {
+    padding: 0 20px 60px;
+  }
+}
+@media screen and (max-width: 767px) {
+  #as-featured-in {
+    padding-top: 0;
+    padding-bottom: 60px;
+  }
+}
+#as-featured-in .as-featured-in-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #4F51FD;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+}
+#as-featured-in .as-featured-in-logos {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+@media screen and (max-width: 767px) {
+  #as-featured-in .as-featured-in-logos {
+    height: auto;
+    gap: 24px;
+    justify-content: center;
+  }
 }
 
 /*
@@ -375,13 +421,13 @@
 #card-item-1 .card-front span,
 #card-item-1 .card-back span {
   width: 390px;
-  font-size: 2em;
+  font-size: 1.8em;
 }
 @media screen and (max-width: 767px) {
   #card-item-1 .card-front span,
   #card-item-1 .card-back span {
     width: 100%;
-    font-size: 1.75em;
+    font-size: 26px;
   }
 }
 

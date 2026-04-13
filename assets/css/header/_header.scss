@@ -52,7 +52,7 @@ header{
     
 
     &#home{
-        height: 1160px;
+        height: 800px;
         background: url(../images/home-header-bg.jpg) no-repeat top center $blue500;
         background-size: cover;
         .gCheck-logo{
@@ -101,9 +101,9 @@ header{
 
         &>.container>div{
             color: $white;
-            margin: $gap50 auto;
+            margin: $gap40 auto;
             // max-width: 984px;
-            max-width: 1024px;
+            max-width: 1000px;
             text-align: center;
 
             @include media($mobile){
@@ -113,34 +113,45 @@ header{
 
             h1{
                 display: block;
-                margin: 0 auto $gap16  auto;
+                margin: 0 auto $gap40 auto;
                 font-size: $fsize64;
                 font-weight: $fBold;
                 transform: skew(-8deg);
+                padding: 0 $gap8;
 
 
                 @include media($mobile){
                     font-size: $fsize40;
-                    padding: 0 $gap8;
                 }
             }
 
-            h5{
-                font-size: $fsize32;
-                font-weight: $fRegular;
-                &.header-subtitle{
-                    font-weight: $fBold;
-                    margin-bottom: $gap16;
-                    transform: skew(-8deg);
-                }
-                &.header-subtitle i{
-                    font-weight: $fRegular;
-                    transform: skew(8deg);
-                    font-style: normal;
-                    display: inline-block;
-                }
-                @include media($mobile){
-                    font-size: $fsize20;
+            &>.header-subtitle-container{
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+                gap: $gap24;
+                margin: 0 auto $gap24;
+                width: 100%;
+
+                h5{
+                    margin: 0;
+                    margin-bottom: $gap40;
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: $gap8;
+
+                    > span{
+                        font-size: $fsize28;
+                        font-weight: 500;
+                        color: inherit;
+                        transform: skew(-8deg);
+
+                        @include media($mobile){
+                            font-size: $fsize20;
+                        }
+                    }
                 }
             }
 
@@ -153,7 +164,7 @@ header{
                 }
             }
 
-            span{
+            > span:not(.buttons){
                 gap: $gap24;
                 display: flex;
                 flex-wrap: nowrap;
@@ -173,7 +184,7 @@ header{
                         }
                     }
                 }
-                
+
                 &>p{
                     gap: $gap10;
                     display: flex;
