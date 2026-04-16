@@ -6,7 +6,15 @@
       
         // Case: Page Hero Widget
         if( get_row_layout() == 'page_hero' ):
-            get_template_part( 'core-pages/page-hero' );    
+            get_template_part( 'core-pages/page-hero' );
+
+        // Case: About Hero Widget
+        elseif( get_row_layout() == 'about_hero' ):
+            get_template_part( 'core-pages/about-hero/about-hero' );
+
+        // Case: Custom Whitepaper Hero Widget
+        elseif( get_row_layout() == 'custom_whitepaper_hero' ):
+            get_template_part( 'core-pages/custom-whitepaper/hero' );    
 
         // Case: FAQ Widget
         elseif( get_row_layout() == 'faq' ):
@@ -23,6 +31,14 @@
         // Case: Card Image Widget
         elseif( get_row_layout() == 'card_image' ):
             get_template_part( 'core-pages/cards/card-image' );
+
+        // Case: Stats Grid Widget (Data Highlights / Key Findings)
+        elseif( get_row_layout() == 'stats_grid' ):
+            get_template_part( 'core-pages/stats-grid/stats-grid' );
+
+        // Case: Built for People Widget
+        elseif( get_row_layout() == 'built_for_people'):
+            get_template_part( 'core-pages/built-for-people/built-for-people' );
         
         // Case: Most Relevant Products Widget
         elseif( get_row_layout() == 'most_relevant_products' ):
@@ -77,7 +93,6 @@
 
     endwhile;
   else :
-      // Do something...
   endif;
 
 

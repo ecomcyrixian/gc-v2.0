@@ -18,7 +18,9 @@
 @import '../../core-pages/cards/css/cards.scss';
 @import '../../core-pages/banner/css/banner.scss';
 @import '../../core-pages/faq/css/faq'; 
-@import '../../core-pages/page-hero/css/page-hero'; 
+@import '../../core-pages/page-hero/css/page-hero';
+@import '../../core-pages/stats-grid/css/stats-grid';
+@import '../../core-pages/built-for-people/css/built-for-people';
 
 
 
@@ -52,6 +54,7 @@
 html {
     line-height: 1.5;
     font-size: 16px;
+    overflow-x: clip;
 }
 
 img, picture, video, canvas, svg {
@@ -77,6 +80,7 @@ body{
     background: $white75;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
 }
 
 input[type="text"],
@@ -412,4 +416,14 @@ ul.bullet-x-outline{
       
     }
 
+}
+
+/* Whitepaper page hero: heading paragraph and search spacing (loads globally so they apply without recompiling core-page) */
+#whitepaper .page-hero .container .heading p {
+  padding: 20px 0 !important;
+}
+
+#whitepaper .page-hero .search-form {
+  margin-top: $gap60 !important;
+  margin-bottom: $gap80 !important;
 }

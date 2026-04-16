@@ -8,17 +8,25 @@
     $colorSetting = str_replace(" ", "-", $colorLowerCase);
 
 ?>
+<?php
+    $overlap = $setting && (
+        get_sub_field( 'hero_layout_style' ) === 'overlap' ||
+        (bool) get_sub_field( 'hero_overlap_card' )
+    );
+?>
 <?php if ( $display_selection ) : ?>
     
-    <div class="page-hero <?= $alignment ?> <?= $colorSetting ?>">        
+    <div class="page-hero <?= $alignment ?> <?= $colorSetting ?> <?= $overlap ? 'page-hero--overlap' : '' ?>">        
         
         <div class="container">
             <?php
-                if ( $setting ){
+                if ( $overlap ) {
+                    get_template_part( 'core-pages/page-hero/page-hero-overlap' );
+                } elseif ( $setting ) {
                     get_template_part( 'core-pages/page-hero/page-hero-image' );
-                }else{
+                } else {
                     get_template_part( 'core-pages/page-hero/page-hero-text' );
-                };
+                }
             ?>
         </div>
 

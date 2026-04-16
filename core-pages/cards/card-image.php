@@ -34,10 +34,13 @@
                     <?php
                         $details = get_sub_field('details');
                         $image = get_sub_field('image');
+
+                        $card_img_url = is_array( $image ) ? $image['url'] : $image;
+                        $card_img_dim_attrs = function_exists( 'gc_theme_img_dimension_attrs' ) ? gc_theme_img_dimension_attrs( $image ) : '';
                     ?>
                     
                     <span>
-                        <img src="<?= $image ?>"> 
+                        <img src="<?= esc_url( $card_img_url ) ?>" alt="" <?php echo $card_img_dim_attrs; ?>>
                     </span>
                     <span class="desc">
                         <?= $details ?>

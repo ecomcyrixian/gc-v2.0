@@ -20,11 +20,11 @@
                 <pre>CERTIFIED INTEGRATION PARTNER</pre>
                 <ul class="logos">
                     <li><img loading="lazy" decoding="async" class="alignnone"
-                            src="https://gcheck.com/wp-content/uploads/2023/12/logo.svg"
+                            src="<?php echo esc_url( content_url('/uploads/2023/12/logo.svg') ); ?>"
                             alt="GCheck Background Screening" width="136" height="32"></li>
                     <li>VS</li>
                     <li><img loading="lazy" decoding="async" class="alignnone size-full wp-image-13116"
-                            src="https://gcheck.com/wp-content/themes/gc-v2.0/assets/images/<?= $imageSetting ?>-logo.png" alt=""
+                            src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/' . $imageSetting . '-logo.png' ); ?>" alt=""
                             width="60" height="60"></li>
                 </ul>
                 <h1>Streamline Your Hiring with<br>
@@ -130,7 +130,7 @@
             <div>
 
                 <span>
-                    <img src="https://gcheck.com/wp-content/uploads/2025/11/<?= $imageSetting ?>-benefits-img1.jpg">
+                    <img src="<?php echo esc_url( content_url('/uploads/2025/11/' . $imageSetting . '-benefits-img1.jpg') ); ?>">
                 </span>
                 <span class="desc">
                     <h3>One-Click Screening</h3>
@@ -143,7 +143,7 @@
             <div>
 
                 <span>
-                    <img src="https://gcheck.com/wp-content/uploads/2025/11/<?= $imageSetting ?>-benefits-img2.jpg">
+                    <img src="<?php echo esc_url( content_url('/uploads/2025/11/' . $imageSetting . '-benefits-img2.jpg') ); ?>">
                 </span>
                 <span class="desc">
                     <h3>Real-Time Visibility</h3>
@@ -155,7 +155,7 @@
             <div>
 
                 <span>
-                    <img src="https://gcheck.com/wp-content/uploads/2025/11/<?= $imageSetting ?>-benefits-img3.jpg">
+                    <img src="<?php echo esc_url( content_url('/uploads/2025/11/' . $imageSetting . '-benefits-img3.jpg') ); ?>">
                 </span>
                 <span class="desc">
                     <h3>Built-in Compliance</h3>
@@ -729,8 +729,8 @@ GCheck for <?= $brandname ?> Integration</pre>
                     </span>
                     <span>
                         <p><img loading="lazy" decoding="async" class="alignnone wp-image-14327"
-                                src="https://gcheck.com/wp-content/uploads/2025/12/1.png" alt="" width="56" height="56"
-                                srcset="https://gcheck.com/wp-content/uploads/2025/12/1.png 180w, https://gcheck.com/wp-content/uploads/2025/12/1-150x150.png 150w"
+                                src="<?php echo esc_url( content_url('/uploads/2025/12/1.png') ); ?>" alt="" width="56" height="56"
+                                srcset="<?php echo esc_url( content_url('/uploads/2025/12/1.png') ); ?> 180w, <?php echo esc_url( content_url('/uploads/2025/12/1-150x150.png') ); ?> 150w"
                                 sizes="(max-width: 56px) 100vw, 56px"></p>
                     </span>
                 </h4>
@@ -749,9 +749,9 @@ GCheck for <?= $brandname ?> Integration</pre>
                     </span>
                     <span>
                         <p><img loading="lazy" decoding="async"
-                                src="https://gcheck.com/wp-content/uploads/2025/12/2.png" alt="" width="56" height="56"
+                                src="<?php echo esc_url( content_url('/uploads/2025/12/2.png') ); ?>" alt="" width="56" height="56"
                                 class="alignnone size-full wp-image-14335"
-                                srcset="https://gcheck.com/wp-content/uploads/2025/12/2.png 180w, https://gcheck.com/wp-content/uploads/2025/12/2-150x150.png 150w"
+                                srcset="<?php echo esc_url( content_url('/uploads/2025/12/2.png') ); ?> 180w, <?php echo esc_url( content_url('/uploads/2025/12/2-150x150.png') ); ?> 150w"
                                 sizes="(max-width: 56px) 100vw, 56px"></p>
                     </span>
                 </h4>
@@ -770,9 +770,9 @@ GCheck for <?= $brandname ?> Integration</pre>
                     </span>
                     <span>
                         <p><img loading="lazy" decoding="async"
-                                src="https://gcheck.com/wp-content/uploads/2025/12/3.png" alt="" width="56" height="56"
+                                src="<?php echo esc_url( content_url('/uploads/2025/12/3.png') ); ?>" alt="" width="56" height="56"
                                 class="alignnone size-full wp-image-14338"
-                                srcset="https://gcheck.com/wp-content/uploads/2025/12/3.png 180w, https://gcheck.com/wp-content/uploads/2025/12/3-150x150.png 150w"
+                                srcset="<?php echo esc_url( content_url('/uploads/2025/12/3.png') ); ?> 180w, <?php echo esc_url( content_url('/uploads/2025/12/3-150x150.png') ); ?> 150w"
                                 sizes="(max-width: 56px) 100vw, 56px"></p>
                     </span>
                 </h4>
@@ -791,8 +791,8 @@ GCheck for <?= $brandname ?> Integration</pre>
                     </span>
                     <span>
                         <p><img loading="lazy" decoding="async" class="alignnone size-full wp-image-14339"
-                                src="https://gcheck.com/wp-content/uploads/2025/12/4.png" alt="" width="56" height="56"
-                                srcset="https://gcheck.com/wp-content/uploads/2025/12/4.png 180w, https://gcheck.com/wp-content/uploads/2025/12/4-150x150.png 150w"
+                                src="<?php echo esc_url( content_url('/uploads/2025/12/4.png') ); ?>" alt="" width="56" height="56"
+                                srcset="<?php echo esc_url( content_url('/uploads/2025/12/4.png') ); ?> 180w, <?php echo esc_url( content_url('/uploads/2025/12/4-150x150.png') ); ?> 150w"
                                 sizes="(max-width: 56px) 100vw, 56px"></p>
                     </span>
                 </h4>

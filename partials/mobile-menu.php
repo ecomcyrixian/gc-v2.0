@@ -170,26 +170,26 @@
                 <ul class="quick-links-list">
                     <?php /* Industries link commented out - page not ready yet
                     <li>
-                        <a href="https://gcheck.com/industry/" target="_parent">
+                        <a href="<?php echo esc_url( home_url('/industry/') ); ?>" target="_parent">
                             <span class="icon-box ico-industries"></span>
                             <span>Industries</span>
                         </a>
                     </li>
                     */ ?>
                     <li>
-                        <a href="https://gcheck.com/integrations/" target="_parent">
+                        <a href="<?php echo esc_url( home_url('/integrations/') ); ?>" target="_parent">
                             <span class="icon-box ico-integrations"></span>
                             <span>Integrations</span>
                         </a>
                     </li>
                     <li>
-                        <a href="https://gcheck.com/company/" target="_parent">
+                        <a href="<?php echo esc_url( home_url('/company/') ); ?>" target="_parent">
                             <span class="icon-box ico-company"></span>
                             <span>Company</span>
                         </a>
                     </li>
                     <li>
-                        <a href="https://gcheck.com/pricing-packages/" target="_parent">
+                        <a href="<?php echo esc_url( home_url('/pricing-packages/') ); ?>" target="_parent">
                             <span class="icon-box ico-pricing"></span>
                             <span>Pricing</span>
                         </a>
@@ -200,7 +200,7 @@
         </div>
         
         <div id="buttons">
-            <a href="https://gcheck.com/contact-us/" target="_parent" class="button blue full">
+            <a href="<?php echo esc_url( home_url('/contact-us/') ); ?>" target="_parent" class="button blue full">
                 Get Started Today
             </a>
             <a href="https://app.gcheck.com/sdocs/secure_home.html" target="_parent" class="button outline login-button full">

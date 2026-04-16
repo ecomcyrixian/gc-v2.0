@@ -73,39 +73,58 @@
 /* font family weight */
 /* media query */
 @media (max-width: 768px) {
-  body.author .author-page {
+  body.author .author-page,
+  body.tax-author .author-page {
     padding: 20px;
   }
 }
-body.author .author-page .wrap {
+body.author .author-page .wrap,
+body.tax-author .author-page .wrap {
   margin: 0 auto;
   max-width: 1200px;
 }
-body.author .author-page .author-info {
+body.author .author-page .author-info,
+body.tax-author .author-page .author-info {
   padding: 100px 10px;
   background: #EDEEFF;
 }
-body.author .author-page .author-info > .container {
+body.author .author-page .author-info > .container,
+body.tax-author .author-page .author-info > .container {
   gap: 20px;
   display: flex;
   flex-direction: row;
 }
 @media screen and (max-width: 767px) {
-  body.author .author-page .author-info > .container {
+  body.author .author-page .author-info > .container,
+  body.tax-author .author-page .author-info > .container {
     flex-direction: column;
   }
 }
-body.author .author-page .author-avatar img {
-  height: 156px;
-  width: 156px;
+body.author .author-page .author-avatar img,
+body.tax-author .author-page .author-avatar img {
+  width: auto;
+  max-width: 156px;
+  height: auto;
+  display: block;
   border-radius: 50%;
   overflow: hidden;
   margin: 0 auto;
 }
-body.author .author-page .author-desc {
+body.author .author-page .author-desc,
+body.tax-author .author-page .author-desc {
   flex: 1;
 }
-body.author .author-page .name-socmed {
+body.author .author-page .author-desc .author-desc__bio .author-bio-credential--nowrap,
+body.tax-author .author-page .author-desc .author-desc__bio .author-bio-credential--nowrap {
+  white-space: nowrap;
+}
+body.author .author-page .author-desc .author-desc__bio .author-bio-credential__link,
+body.tax-author .author-page .author-desc .author-desc__bio .author-bio-credential__link {
+  white-space: nowrap;
+  text-decoration: none;
+}
+body.author .author-page .name-socmed,
+body.tax-author .author-page .name-socmed {
   gap: 10px;
   display: flex;
   flex-direction: row;
@@ -211,7 +230,7 @@ body.single article [class*=-banner] {
 }
 @media screen and (max-width: 1023px) {
   body.single article [class*=-banner] {
-    height: 8uto;
+    height: auto;
   }
 }
 body.single article [class*=-banner]:after {
@@ -287,9 +306,6 @@ body.single article .reviewer-user .ppma-author-category-wrap > span {
 body.single article .reviewer-user .pp-multiple-authors-layout-simple_list ul li {
   padding: 0 !important;
   margin: 0 !important;
-}
-body.single article .reviewer-user {
-  /* overwrite styles */
 }
 body.single article .reviewer-user .pp-author-boxes-avatar-details {
   width: 586px;

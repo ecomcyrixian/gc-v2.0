@@ -3,6 +3,61 @@
  * featured image
  */
 add_theme_support( 'post-thumbnails' );
+add_theme_support( 'title-tag' );
+
+require_once get_template_directory() . '/partials/publishpress-author-sync.php';
+
+/*
+ * Blog hero image size: ~540px width so srcset can serve smaller file when displayed at 535px (mobile LCP).
+ * Regenerate thumbnails for existing uploads to get this size.
+ */
+add_image_size( 'blog_hero', 540, 0, false );
+
+/**
+ * Build width/height attributes for <img> to reserve space (CLS). Does not affect download speed.
+ *
+ * @param mixed $image ACF image field (array or ID), attachment ID, or other value passed to gc_get_acf_image_src.
+ * @return string Attributes with trailing space, e.g. width="800" height="600" , or empty.
+ */
+function gc_theme_img_dimension_attrs( $image ) {
+	if ( $image === null || $image === '' || $image === array() ) {
+		return '';
+	}
+	$w = 0;
+	$h = 0;
+	if ( function_exists( 'gc_get_acf_image_src' ) ) {
+		$src = gc_get_acf_image_src( $image );
+		if ( is_array( $src ) && ! empty( $src['width'] ) && ! empty( $src['height'] ) ) {
+			$w = (int) $src['width'];
+			$h = (int) $src['height'];
+		}
+	}
+	if ( ( $w < 1 || $h < 1 ) && is_array( $image ) ) {
+		if ( ! empty( $image['width'] ) && ! empty( $image['height'] ) ) {
+			$w = (int) $image['width'];
+			$h = (int) $image['height'];
+		} else {
+			$aid = isset( $image['ID'] ) ? (int) $image['ID'] : ( isset( $image['id'] ) ? (int) $image['id'] : 0 );
+			if ( $aid && function_exists( 'wp_get_attachment_image_src' ) ) {
+				$meta = wp_get_attachment_image_src( $aid, 'full' );
+				if ( $meta && isset( $meta[1], $meta[2] ) ) {
+					$w = (int) $meta[1];
+					$h = (int) $meta[2];
+				}
+			}
+		}
+	} elseif ( ( $w < 1 || $h < 1 ) && is_numeric( $image ) && function_exists( 'wp_get_attachment_image_src' ) ) {
+		$meta = wp_get_attachment_image_src( (int) $image, 'full' );
+		if ( $meta && isset( $meta[1], $meta[2] ) ) {
+			$w = (int) $meta[1];
+			$h = (int) $meta[2];
+		}
+	}
+	if ( $w > 0 && $h > 0 ) {
+		return 'width="' . esc_attr( (string) $w ) . '" height="' . esc_attr( (string) $h ) . '" ';
+	}
+	return '';
+}
 
 /*
  * Specific script and styles per page
@@ -31,6 +86,7 @@ function theme_styles_script() {
     } elseif ( is_page() ) {
         $core_page_scss = get_template_directory() . '/assets/css/core-page.scss';
         $page_hero_scss = get_template_directory() . '/core-pages/page-hero/css/_page-hero.scss';
+        $custom_whitepaper_scss = get_template_directory() . '/core-pages/custom-whitepaper/css/_custom-whitepaper-hero.scss';
         $core_page_css = get_template_directory() . '/assets/css/core-page-new.css';
         
         $scss_times = array();
@@ -40,13 +96,16 @@ function theme_styles_script() {
         if (file_exists($page_hero_scss)) {
             $scss_times[] = filemtime($page_hero_scss);
         }
+        if (file_exists($custom_whitepaper_scss)) {
+            $scss_times[] = filemtime($custom_whitepaper_scss);
+        }
         
         $css_time = file_exists($core_page_css) ? filemtime($core_page_css) : 0;
         $max_scss_time = !empty($scss_times) ? max($scss_times) : 0;
         $version = max($max_scss_time, $css_time) ?: '1';
         
         wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/core-page-new.css', array(), $version, 'screen' );
-    } elseif ( is_single() || is_search() || is_category() || is_author() ) {
+    } elseif ( is_single() || is_search() || is_category() || is_author() || is_tax( 'author' ) ) {
         $blog_page_scss = get_template_directory() . '/assets/css/blog-page-new.scss';
         $search_scss = get_template_directory() . '/core-pages/blog/css/_search.scss';
         $blog_page_css = get_template_directory() . '/assets/css/blog-page-new.css';
@@ -69,68 +128,41 @@ function theme_styles_script() {
 }
 add_action( 'wp_enqueue_scripts', 'theme_styles_script' );
 
+require_once get_template_directory() . '/core-pages/custom-whitepaper/gcheck-pdf-form.php';
 
 /*
- * Enqueue jQuery (WordPress's built-in version)
+ * Enqueue jQuery and theme scripts
  * Automatic cache busting based on file modification time
  */
-    
 function gcheck_scripts() {
-    // Enqueue jQuery (WordPress's built-in version)
     wp_enqueue_script('jquery');
 
-    // Enqueue your custom script, with jQuery as a dependency
-    // Version updates automatically when global-new.js file is modified
     $js_file_path = get_template_directory() . '/assets/js/global-new.js';
     $global_js_version = file_exists($js_file_path) ? filemtime($js_file_path) : '1.0.0';
     
     wp_enqueue_script(
-        'my-custom-script', // Unique handle for your script
-        get_template_directory_uri() . '/assets/js/global-new.js', // Path to your script
-        array('jquery'), // Array of dependencies (jQuery in this case)
-        $global_js_version, // Version number - automatically updates when file changes
-        false // Load in header (false) to match current head.php placement
+        'my-custom-script',
+        get_template_directory_uri() . '/assets/js/global-new.js',
+        array('jquery'),
+        $global_js_version,
+        true
     );
 
-    // Enqueue blog V2 scripts for single posts
     if ( is_single() ) {
-        // Progress bar script
-        $progress_js_path = get_template_directory() . '/assets/js/blog-v2-progress.js';
-        $progress_js_version = file_exists($progress_js_path) ? filemtime($progress_js_path) : '1.0.0';
-        
-        wp_enqueue_script(
-            'blog-v2-progress', // Unique handle
-            get_template_directory_uri() . '/assets/js/blog-v2-progress.js', // Path to script
-            array('jquery'), // Dependencies
-            $progress_js_version, // Version with cache busting
-            true // Load in footer
-        );
+        $blog_v2_js_path = get_template_directory() . '/assets/js/blog-v2.js';
+        $blog_v2_js_version = file_exists($blog_v2_js_path) ? filemtime($blog_v2_js_path) : '1.0.0';
 
-        // TOC script
-        $toc_js_path = get_template_directory() . '/assets/js/blog-v2-toc.js';
-        $toc_js_version = file_exists($toc_js_path) ? filemtime($toc_js_path) : '1.0.0';
-        
         wp_enqueue_script(
-            'blog-v2-toc', // Unique handle
-            get_template_directory_uri() . '/assets/js/blog-v2-toc.js', // Path to script
-            array('jquery'), // Dependencies
-            $toc_js_version, // Version with cache busting
-            true // Load in footer
-        );
-
-        // Expert insight block (pale cyan blue): truncate, see more, Charm attribution
-        $expert_insight_js_path = get_template_directory() . '/assets/js/blog-v2-expert-insight.js';
-        $expert_insight_js_version = file_exists($expert_insight_js_path) ? filemtime($expert_insight_js_path) : '1.0.0';
-        wp_enqueue_script(
-            'blog-v2-expert-insight',
-            get_template_directory_uri() . '/assets/js/blog-v2-expert-insight.js',
+            'blog-v2',
+            get_template_directory_uri() . '/assets/js/blog-v2.js',
             array(),
-            $expert_insight_js_version,
+            $blog_v2_js_version,
             true
         );
+
         $expert_insight_data = array(
             'charmAvatarUrl' => '',
-            'charmLink'      => 'https://gcheck.com/blog/author/charm/',
+            'charmLink'      => home_url('/blog/author/charm/'),
         );
         if ( function_exists( 'blog_v2_expert_insight_experts' ) ) {
             $expert_insight_data['experts'] = blog_v2_expert_insight_experts( get_the_ID() );
@@ -138,13 +170,151 @@ function gcheck_scripts() {
             $expert_insight_data['experts'] = array();
         }
         wp_localize_script(
-            'blog-v2-expert-insight',
+            'blog-v2',
             'blogV2ExpertInsight',
             $expert_insight_data
         );
     }
 }
 add_action('wp_enqueue_scripts', 'gcheck_scripts');
+
+/**
+ * Bing UET: consent bar styles/scripts (front-end only). Tag + default consent load from head.php partial.
+ */
+function gc_bing_uet_consent_assets() {
+	if ( is_admin() ) {
+		return;
+	}
+	$css_path = get_template_directory() . '/assets/css/bing-consent.css';
+	$js_path  = get_template_directory() . '/assets/js/bing-consent.js';
+	$v_css    = file_exists( $css_path ) ? filemtime( $css_path ) : '1';
+	$v_js     = file_exists( $js_path ) ? filemtime( $js_path ) : '1';
+	wp_enqueue_style(
+		'gc-bing-consent',
+		get_template_directory_uri() . '/assets/css/bing-consent.css',
+		array(),
+		$v_css
+	);
+	wp_enqueue_script(
+		'gc-bing-consent',
+		get_template_directory_uri() . '/assets/js/bing-consent.js',
+		array(),
+		$v_js,
+		true
+	);
+}
+add_action( 'wp_enqueue_scripts', 'gc_bing_uet_consent_assets' );
+
+/**
+ * Bing UET: cookie consent bar markup (Accept / Reject → localStorage + uetq consent update).
+ */
+function gc_bing_uet_consent_banner() {
+	if ( is_admin() ) {
+		return;
+	}
+	get_template_part( 'partials/bing/bing-consent-banner' );
+}
+add_action( 'wp_footer', 'gc_bing_uet_consent_banner', 5 );
+
+/**
+ * Reduce unused CSS: dequeue dashicons on front-end when admin bar is not shown.
+ * Saves ~35 KiB. Dashicons is required for admin bar and block editor; safe to remove on front when not used.
+ */
+function theme_dequeue_dashicons_on_front() {
+    if ( is_admin() || is_customize_preview() ) {
+        return;
+    }
+    if ( ! is_admin_bar_showing() ) {
+        wp_dequeue_style( 'dashicons' );
+        wp_deregister_style( 'dashicons' );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'theme_dequeue_dashicons_on_front', 999 );
+
+/**
+ * Dequeue Font Awesome from plugins (cdnjs all.min.css) when not needed.
+ * Saves ~22 KiB on single posts only. Other pages keep FA if a plugin enqueues it.
+ */
+function theme_dequeue_font_awesome_css() {
+    if ( is_admin() || ! is_singular( 'post' ) ) {
+        return;
+    }
+    $wp_styles = wp_styles();
+    if ( ! $wp_styles || empty( $wp_styles->registered ) ) {
+        return;
+    }
+    foreach ( $wp_styles->registered as $handle => $obj ) {
+        if ( empty( $obj->src ) ) {
+            continue;
+        }
+        $src = is_string( $obj->src ) ? $obj->src : '';
+        if ( strpos( $src, 'all.min.css' ) !== false && ( strpos( $src, 'cdnjs' ) !== false || strpos( $src, 'cloudflare' ) !== false ) ) {
+            wp_dequeue_style( $handle );
+            wp_deregister_style( $handle );
+        }
+    }
+}
+add_action( 'wp_enqueue_scripts', 'theme_dequeue_font_awesome_css', 999 );
+add_action( 'wp_print_styles', 'theme_dequeue_font_awesome_css', 999 );
+
+/**
+ * Strip Font Awesome link from output on single posts only (plugin may print outside queue).
+ * Other pages keep FA. Runs when each style tag is output.
+ */
+function theme_strip_font_awesome_style_tag( $tag, $handle, $href, $media ) {
+    if ( ! is_singular( 'post' ) ) {
+        return $tag;
+    }
+    if ( empty( $href ) || ! is_string( $href ) ) {
+        return $tag;
+    }
+    if ( strpos( $href, 'all.min.css' ) !== false && ( strpos( $href, 'cdnjs' ) !== false || strpos( $href, 'cloudflare' ) !== false ) ) {
+        return '';
+    }
+    return $tag;
+}
+add_filter( 'style_loader_tag', 'theme_strip_font_awesome_style_tag', 10, 4 );
+
+/**
+ * Dequeue wp-block-library CSS on non-Gutenberg pages (archives, category, search, etc.).
+ * Keep it on any singular content (posts and pages) where Gutenberg blocks render.
+ * Defer it on those pages so it's non-render-blocking.
+ */
+function theme_dequeue_block_library() {
+    if ( is_admin() ) {
+        return;
+    }
+    if ( ! is_singular() ) {
+        wp_dequeue_style( 'wp-block-library' );
+        wp_dequeue_style( 'wp-block-library-theme' );
+    }
+}
+add_action( 'wp_enqueue_scripts', 'theme_dequeue_block_library', 999 );
+
+
+/**
+ * Last-chance dequeue dashicons right before styles are printed (in case re-enqueued by plugin).
+ */
+function theme_dequeue_dashicons_before_print() {
+    if ( ! is_admin() && ! is_admin_bar_showing() && ! is_customize_preview() ) {
+        wp_dequeue_style( 'dashicons' );
+    }
+}
+add_action( 'wp_print_styles', 'theme_dequeue_dashicons_before_print', 999 );
+
+/**
+ * Dequeue Contact Form 7 JS + CSS on single blog posts (no forms present).
+ * Saves ~136 ms main-thread blocking + 2 network requests.
+ */
+function theme_dequeue_cf7_on_blog_posts() {
+    if ( ! is_singular( 'post' ) ) {
+        return;
+    }
+    wp_dequeue_script( 'contact-form-7' );
+    wp_dequeue_script( 'swv' );
+    wp_dequeue_style( 'contact-form-7' );
+}
+add_action( 'wp_enqueue_scripts', 'theme_dequeue_cf7_on_blog_posts', 999 );
 
 /**
  * Load Blog V2 functions only on single post views (author helpers, content filters, related post, shortcode).
@@ -377,12 +547,12 @@ class Desktop_Mega_Walker extends Walker_Nav_Menu_With_Description {
             if ( ! empty( $args->mega_panel_title ) ) {
                 // Map panel titles to their URLs
                 $title_url_map = array(
-                    'Identity' => 'https://gcheck.com/identity',
-                    'Background Checks' => 'https://gcheck.com/background-checks',
-                    'Verifications' => 'https://gcheck.com/verifications',
-                    'Drug & Health' => 'https://gcheck.com/drug-health',
-                    'Continuous Monitoring' => 'https://gcheck.com/risk-monitoring',
-                    'Compliance' => 'https://gcheck.com/compliance-automation',
+                    'Identity' => home_url('/identity'),
+                    'Background Checks' => home_url('/background-checks'),
+                    'Verifications' => home_url('/verifications'),
+                    'Drug & Health' => home_url('/drug-health'),
+                    'Continuous Monitoring' => home_url('/risk-monitoring'),
+                    'Compliance' => home_url('/compliance-automation'),
                 );
                 $title_url = isset( $title_url_map[ $args->mega_panel_title ] ) ? $title_url_map[ $args->mega_panel_title ] : '#';
                 $output .= "{$indent}<a href=\"" . esc_url( $title_url ) . "\" class=\"mega-title\">" . esc_html( $args->mega_panel_title ) . "</a>{$n}";

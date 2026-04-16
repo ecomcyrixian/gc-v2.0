@@ -8,9 +8,19 @@
     $details = get_sub_field('details');
     $image = get_sub_field('image');
 
+    $hero_img_url = is_array( $image ) ? ( $image['url'] ?? '' ) : $image;
+
+    $hero_img_dim_attrs = function_exists( 'gc_theme_img_dimension_attrs' ) ? gc_theme_img_dimension_attrs( $image ) : '';
+
+    $image_on_top = strtolower( (string) $ImageAlignment ) === 'top';
+    $section_class = 'cols cols2 ' . esc_attr( $ImageAlignment );
 ?>
-<section class="cols cols2 <?= $ImageAlignment ?>">
-    
+<section class="<?= $section_class ?>">
+    <?php if ( $image_on_top ) : ?>
+    <div class="page-hero__image-wrap">
+        <img src="<?= esc_url( $hero_img_url ) ?>" alt="<?= esc_attr( $h1 ) ?>" <?php echo $hero_img_dim_attrs; ?>decoding="async" fetchpriority="high">
+    </div>
+    <?php endif; ?>
     <div>
             <span class="logos <?= $alignment ?> ">
             <?= $logos ?>
@@ -35,7 +45,11 @@
 
         </span>
     </div>
+    <?php if ( ! $image_on_top ) : ?>
     <div>
-        <img src="<?= $image ?>" alt="<?= $h1 ?>">
+        <div class="page-hero__image-wrap">
+            <img src="<?= esc_url( $hero_img_url ) ?>" alt="<?= esc_attr( $h1 ) ?>" <?php echo $hero_img_dim_attrs; ?>decoding="async" fetchpriority="high">
+        </div>
     </div>
+    <?php endif; ?>
 </section>

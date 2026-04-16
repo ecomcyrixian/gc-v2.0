@@ -15,6 +15,11 @@
 @import 'blog-v2-sidebar-left';
 @import 'blog-v2-sidebar-right';
 
+body.single-post {
+    overflow-x: hidden;
+    overflow-x: clip;
+}
+
 .blog-v2-layout {
     display: grid;
     grid-template-columns: 288px 1fr 288px;
@@ -36,12 +41,6 @@
         padding: $gap40 $gap16;
     }
 
-    &,
-    &__content,
-    .site-main,
-    article {
-        overflow: visible;
-    }
 }
 
 .blog-v2-sidebar {
@@ -87,10 +86,12 @@
 
 .blog-v2-content {
     min-width: 0;
+    max-width: 100%;
+    overflow-x: clip;
+    overflow-y: visible;
 
     @include media($mobile) {
         width: 100%;
-        overflow-x: hidden;
     }
 }
 
@@ -232,11 +233,12 @@
         p {
             font-size: $fsize12;
             line-height: 20px;
-            color: $gray100;
+            color: $gray300;
             margin: 0 auto;
 
             strong {
                 font-weight: $fSemiBold;
+                color: $gray300;
             }
         }
 

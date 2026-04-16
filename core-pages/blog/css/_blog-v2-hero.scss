@@ -8,37 +8,33 @@
  * Scoped to blog-v2-hero classes only
  */
 
+.blog-v2-hero-bleed {
+    background-image: var(--bg-image);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: $gap100 0;
+
+    @include media($tablet) {
+        padding: $gap40 $gap20;
+    }
+
+    @include media($mobile) {
+        padding: $gap40 $gap20;
+    }
+}
+
 .blog-v2-hero {
     display: grid;
     grid-template-columns: 1fr 480px;
     gap: $gap40;
     align-items: center;
     min-height: 473px;
-    padding: $gap100 0;
     max-width: 1320px;
     margin: 0 auto;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     position: relative;
-    z-index: 1; 
-    border-bottom: none; 
-
-    &[data-bg-image]::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100vw;
-        height: 100%;
-        background-image: var(--bg-image);
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        z-index: -1;
-        pointer-events: none;
-    }
+    z-index: 1;
+    border-bottom: none;
 
     &.blog-v2-hero--no-image {
         grid-template-columns: 1fr;
@@ -46,18 +42,14 @@
 
     @include media($tablet) {
         grid-template-columns: 1fr;
-        padding: $gap40 $gap20;
         min-height: auto;
-    }
-
-    @include media($mobile) {
-        padding: $gap40 $gap20;
     }
 
     &__content {
         display: flex;
         flex-direction: column;
         gap: $gap40;
+        order: 1;
 
         .blog-v2-hero--no-image & {
             grid-column: 1 / -1;
@@ -264,21 +256,28 @@
     }
 
     &__media {
+        order: 2;
         position: relative;
         width: 100%;
         height: 473px;
+        min-height: 473px;
+        aspect-ratio: 480 / 473;
         overflow: hidden;
         border-radius: $corners8;
 
         @include media($tablet) {
             order: 2;
             height: 400px;
+            min-height: 400px;
+            aspect-ratio: 480 / 400;
             max-width: 480px;
             margin: 0 auto;
         }
 
         @include media($mobile) {
             height: 300px;
+            min-height: 300px;
+            aspect-ratio: 16 / 15;
             width: 100%;
             max-width: 100%;
             margin: 0;

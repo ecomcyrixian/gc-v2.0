@@ -1,0 +1,222 @@
+@import '../../../assets/css/_tools/variable';
+@import '../../../assets/css/_tools/mixins';
+
+/* Stats Grid */
+.stats-grid {
+  padding: $gap60 0;
+
+  @include media($tablet) {
+    padding: $gap40 $gap20;
+  }
+
+  @include media($mobile) {
+    padding: $gap20 0;
+  }
+
+  &__container,
+  & > .container {
+    max-width: 1120px;
+  }
+
+  &__title {
+    margin-bottom: $gap24;
+    font-size: $base-fsize;
+    line-height: 1.5;
+    color: $gray300;
+
+    @include media($mobile) {
+      margin-bottom: $gap20;
+    }
+  }
+
+  &__cards {
+    display: grid;
+    gap: $gap24;
+
+    &--cols-1 {
+      grid-template-columns: 1fr;
+    }
+    &--cols-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    &--cols-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    &--cols-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    @include media($tablet) {
+      &--cols-2,
+      &--cols-3,
+      &--cols-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @include media($mobile) {
+      grid-template-columns: 1fr;
+      gap: $gap20;
+
+      &--cols-2,
+      &--cols-3,
+      &--cols-4 {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+
+  &__card {
+    border-radius: $corners8;
+    overflow: hidden;
+
+    &--intro {
+      height: 100%;
+      min-height: 200px;
+
+      .stats-grid__card-inner--intro {
+        height: 100%;
+        min-height: 200px;
+        background-color: $gray100;
+        padding: $gap24;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: $corners8;
+
+        @include media($mobile) {
+          padding: $gap20;
+          min-height: 120px;
+        }
+
+        &:has(.has-arrow-below) {
+          background-color: $gray75;
+        }
+
+        img,
+        svg {
+          max-width: 48px;
+          max-height: 48px;
+          margin-bottom: $gap12;
+        }
+
+        .stats-grid__intro-arrow {
+          display: none;
+          margin-top: auto;
+          align-self: flex-end;
+
+          svg {
+            width: 29px;
+            height: 29px;
+            max-width: none;
+            max-height: none;
+            margin-bottom: 0;
+            display: block;
+          }
+        }
+
+        &:has(.has-arrow-below) .stats-grid__intro-arrow {
+          display: block;
+        }
+
+        p {
+          margin: 0;
+          font-size: $fsize40;
+          font-weight: $fSemiBold;
+          line-height: 1.2;
+
+          @include media($mobile) {
+            font-size: $fsize32;
+          }
+        }
+      }
+    }
+
+    &--stat {
+      .stats-grid__card-inner--stat {
+        position: relative;
+        background: $white;
+        padding: $gap20;
+        border-radius: $corners8;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        @include media($mobile) {
+          padding: $gap20;
+        }
+      }
+
+      .stats-grid__card-icon {
+        position: absolute;
+        top: $gap24;
+        right: $gap24;
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+
+        @include media($mobile) {
+          top: $gap20;
+          right: $gap20;
+          width: 40px;
+          height: 40px;
+        }
+
+        svg {
+          width: 100%;
+          height: 100%;
+          display: block;
+        }
+      }
+
+      .stats-grid__card-title {
+        font-size: $fsize40;
+        font-weight: $fBold;
+        color: $gray300;
+        line-height: 1.2;
+        margin: 0 0 $gap12 0;
+
+        @include media($mobile) {
+          font-size: $fsize32;
+        }
+      }
+
+      .stats-grid__card-details {
+        font-size: $fsize14;
+        line-height: 1.5;
+        color: $gray300;
+        margin: 0;
+
+        @include media($mobile) {
+          font-size: $fsize12;
+        }
+
+        p {
+          margin: 0 0 $gap8 0;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+
+  &__footer {
+    margin-top: $gap24;
+    text-align: center;
+    font-size: $fsize14;
+    font-style: italic;
+    color: $gray300;
+    line-height: 1.5;
+
+    @include media($mobile) {
+      margin-top: $gap20;
+      font-size: $fsize14;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+}

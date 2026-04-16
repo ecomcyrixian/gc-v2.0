@@ -48,7 +48,7 @@
                 <?php
                 foreach ($all_logos_flat as $logo_file) {
                     $integration_name = str_replace('.png', '', $logo_file);
-                    $integration_url = 'https://gcheck.com/integrations/' . $integration_name . '/';
+                    $integration_url = home_url('/integrations/' . $integration_name . '/');
                     $logo_path = get_template_directory_uri() . '/assets/images/ats-logo/' . $logo_file;
                     $logo_alt = ucwords(str_replace('-', ' ', $integration_name)) . ' Integration';
                     
@@ -77,7 +77,7 @@
                     }
                     ?>
                     <a href="<?php echo esc_url($integration_url); ?>" class="integration-logo-link" target="_self" aria-label="<?php echo esc_attr($logo_alt); ?>">
-                        <img src="<?php echo esc_url($logo_path); ?>" alt="<?php echo esc_attr($logo_alt); ?>" loading="lazy" style="width: <?php echo esc_attr($img_width); ?>px; height: <?php echo esc_attr($img_height); ?>px; object-fit: <?php echo esc_attr($img_fit); ?>;">
+                        <img src="<?php echo esc_url($logo_path); ?>" alt="<?php echo esc_attr($logo_alt); ?>" style="width: <?php echo esc_attr($img_width); ?>px; height: <?php echo esc_attr($img_height); ?>px; object-fit: <?php echo esc_attr($img_fit); ?>;">
                     </a>
                     <?php
                 }
@@ -93,7 +93,7 @@
                     <?php
                     foreach ($row as $logo_file) {
                         $integration_name = str_replace('.png', '', $logo_file);
-                        $integration_url = 'https://gcheck.com/integrations/' . $integration_name . '/';
+                        $integration_url = home_url('/integrations/' . $integration_name . '/');
                         $logo_path = get_template_directory_uri() . '/assets/images/ats-logo/' . $logo_file;
                         $logo_alt = ucwords(str_replace('-', ' ', $integration_name)) . ' Integration';
                         
@@ -122,7 +122,7 @@
                         }
                         ?>
                         <a href="<?php echo esc_url($integration_url); ?>" class="integration-logo-link" target="_self" aria-label="<?php echo esc_attr($logo_alt); ?>">
-                            <img src="<?php echo esc_url($logo_path); ?>" alt="<?php echo esc_attr($logo_alt); ?>" loading="lazy" style="width: <?php echo esc_attr($img_width); ?>px; height: <?php echo esc_attr($img_height); ?>px; object-fit: <?php echo esc_attr($img_fit); ?>;">
+                            <img src="<?php echo esc_url($logo_path); ?>" alt="<?php echo esc_attr($logo_alt); ?>" style="width: <?php echo esc_attr($img_width); ?>px; height: <?php echo esc_attr($img_height); ?>px; object-fit: <?php echo esc_attr($img_fit); ?>;">
                         </a>
                         <?php
                     }
@@ -138,7 +138,7 @@
         </div>
 
         <div class="integrations-cta">
-            <a href="https://gcheck.com/integrations/" target="_parent" class="button blue">
+            <a href="<?php echo esc_url( home_url('/integrations/') ); ?>" target="_parent" class="button blue">
                 Explore All Integrations
             </a>
         </div>

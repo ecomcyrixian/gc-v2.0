@@ -1,3 +1,4 @@
+@use "sass:math";
 @import '../../../../assets/css/_tools/variable';
 @import '../../../../assets/css/_tools/mixins';
 
@@ -101,7 +102,7 @@
             }
 
             .integration-logo-link{
-                width: calc(33.333% - #{$gap16 * 2 / 3});
+                width: calc(33.333% - #{math.div($gap16 * 2, 3)});
                 max-width: 200px;
             }
         }
@@ -132,7 +133,7 @@
             }
 
             .integration-logo-link{
-                width: calc(50% - #{$gap12 / 2});
+                width: calc(50% - #{math.div($gap12, 2)});
                 height: auto;
                 min-height: 100px;
                 aspect-ratio: 2 / 1;

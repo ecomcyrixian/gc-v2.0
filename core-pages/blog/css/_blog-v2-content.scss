@@ -17,9 +17,6 @@
     flex-direction: column;
     gap: 40px;
 
-    // Reset any parent overflow issues
-    overflow: visible;
-
     @include media($mobile) {
         font-size: 15px;
         line-height: 1.6;
@@ -355,15 +352,34 @@
     // ====================
     // TABLES
     // ====================
+    figure.wp-block-table {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        overflow-x: auto;
+        overflow-y: visible;
+        -webkit-overflow-scrolling: touch;
+        margin: 0;
+        overscroll-behavior-x: contain;
+    }
 
     table {
         width: 100%;
+        max-width: 100%;
+        table-layout: auto;
         border-collapse: collapse;
         border: none;
         font-size: $fsize14;
         border-radius: $corners8;
         overflow: hidden;
         background-color: $white;
+    }
+
+    figure.wp-block-table table:has(tr:first-child > :nth-child(6)) {
+        width: max-content;
+        min-width: 100%;
+        max-width: none;
     }
 
     thead {
@@ -375,6 +391,9 @@
         text-align: left;
         font-weight: $fSemiBold;
         color: $white;
+        overflow-wrap: break-word;
+        word-break: normal;
+        white-space: normal;
 
         @include media($mobile) {
             padding: $gap12 $gap16;
@@ -385,6 +404,9 @@
         padding: $gap16 $gap20;
         border: none;
         color: $gray300;
+        overflow-wrap: break-word;
+        word-break: normal;
+        white-space: normal;
 
         @include media($mobile) {
             padding: $gap12 $gap16;
@@ -803,7 +825,7 @@
         .blog-v2-about-creator__label {
             font-size: 10px;
             font-weight: $fSemiBold;
-            color: $gray100;
+            color: $gray300;
             text-transform: uppercase;
         }
 
@@ -871,6 +893,30 @@
             font-size: $fsize14;
             color: $gray300;
             font-weight: $fSemiBold;
+        }
+
+        .blog-v2-about-creator__bio {
+            p, strong {
+                color: $gray300; /* Sufficient contrast on white (WCAG AA) */
+            }
+
+            a {
+                color: $blue300;
+                text-decoration: none;
+
+                &:hover,
+                &:focus-visible {
+                    color: $blue200;
+                }
+            }
+
+            .author-bio-credential--nowrap {
+                white-space: nowrap;
+            }
+
+            .author-bio-credential__link {
+                white-space: nowrap;
+            }
         }
 
         // Remove gap after About The Creator section

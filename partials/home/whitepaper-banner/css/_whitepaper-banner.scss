@@ -1,0 +1,147 @@
+@import '../../../../assets/css/_tools/variable';
+@import '../../../../assets/css/_tools/mixins';
+
+#whitepaper-banner {
+    max-width: 1320px;
+    margin: -$gap120 auto 0;
+    padding-top: 0;
+    position: relative;
+    z-index: 2;
+
+    @include media($tablet) {
+        margin-top: -$gap40;
+        padding: $gap60 0;
+    }
+
+    @include media($mobile) {
+        padding-top: $gap40;
+    }
+
+    .wb-card {
+        display: flex;
+        align-items: center;
+        gap: $gap40;
+        padding: $gap40;
+        background: white;
+        border-radius: $corners8;
+
+        @include media($tablet) {
+            gap: $gap24;
+            padding: $gap24;
+        }
+
+        @include media($mobile) {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: $gap40;
+            padding: $gap40;
+        }
+    }
+
+    .wb-content {
+        flex: 1;
+        min-width: 0;
+        text-align: center;
+
+        pre {
+            display: block;
+            color: $blue300;
+            font-size: $fsize14;
+            text-transform: uppercase;
+            font-weight: $fSemiBold;
+            letter-spacing: 0.05em;
+            margin-bottom: $gap8;
+        }
+
+        h2 {
+            font-size: $fsize40;
+            font-weight: $fSemiBold;
+            color: $gray300;
+            line-height: 1.25;
+
+            a {
+                color: inherit;
+                text-decoration: none;
+            }
+        }
+    }
+
+    .wb-thumbnail {
+        flex-shrink: 0;
+        width: 326px;
+
+        @include media($tablet) {
+            width: 160px;
+        }
+
+        @include media($mobile) {
+            width: 100%;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: $corners4;
+        }
+    }
+
+    .wb-info {
+        flex: 1;
+        min-width: 0;
+        text-align: center;
+
+        p {
+            font-size: $base-fsize;
+            color: $gray300;
+            line-height: 24px;
+            margin-bottom: $gap24;
+        }
+
+        .button {
+            display: inline-block;
+            white-space: nowrap;
+            
+        }
+    }
+}
+
+#as-featured-in {
+    max-width: 1032px;
+    margin: 0 auto;
+    padding-top: $gap120;
+    padding-bottom: $gap20;
+    text-align: center;
+
+    @include media($tablet) {
+        padding: 0 $gap20 $gap60;
+    }
+
+    @include media($mobile) {
+        padding-top: 0;
+        padding-bottom: $gap60;
+    }
+
+    .as-featured-in-title {
+        font-size: $fsize14;
+        font-weight: $fSemiBold;
+        color: $blue300;
+        margin-bottom: $gap40;
+        text-transform: uppercase;
+    }
+
+    .as-featured-in-logos {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        
+
+        @include media($mobile) {
+            height: auto;
+            gap: $gap24;
+            justify-content: center;
+        }
+    }
+
+}

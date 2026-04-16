@@ -38,7 +38,7 @@
                 </li>
             </ul>
             <div class="buttons">
-                <a href="https://gcheck.com/contact-us/" target="_parent" class="button blue">
+                <a href="<?php echo esc_url( home_url('/contact-us/') ); ?>" target="_parent" class="button blue">
                          Get Started with gcheck
                     </a>
                 <!-- <a href="" target="_parent" class="button blue">

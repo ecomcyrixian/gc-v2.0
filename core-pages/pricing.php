@@ -257,7 +257,7 @@
             </div>
         </section>
         <div id="btn" class="container">
-            <a class="button blue" href="https://gcheck.com/contact-us/" target="_self" aria-label="Talk to Our Sales Team About Our Packages">Talk to Our Sales Team About Our Packages</a>
+            <a class="button blue" href="<?php echo esc_url( home_url('/contact-us/') ); ?>" target="_self" aria-label="Talk to Our Sales Team About Our Packages">Talk to Our Sales Team About Our Packages</a>
             <p>Additional third-party fees may apply.</p>
         </div>
     

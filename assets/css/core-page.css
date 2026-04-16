@@ -712,7 +712,7 @@ body.page .form-template .gcheck-contact-container {
   background: transparent;
   max-width: 100%;
   border-radius: 1;
-  font-family: "Inter", sans-serif;
+  font-family: "Inter", "Inter Fallback", sans-serif;
 }
 body.page .form-template .gcheck-contact-container::before {
   display: none;
@@ -971,14 +971,17 @@ body.page #whitepaper .button.outline:link, body.page #whitepaper .button.outlin
 body.page #whitepaper .cards .card-cont > div {
   position: relative;
 }
-body.page #whitepaper .category a {
+body.page #whitepaper .category {
   color: #4F51FD;
   font-size: 0.75em;
   font-weight: 600;
   text-transform: uppercase;
-  text-decoration: none;
   margin-bottom: 8px;
   display: block;
+}
+body.page #whitepaper .category a {
+  color: inherit;
+  text-decoration: none;
 }
 body.page #whitepaper .hidden {
   display: none;
