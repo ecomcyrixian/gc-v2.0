@@ -653,7 +653,103 @@ body.page #landing-page:has(~ .custom-whitepaper-hero) {
 }
 @media screen and (max-width: 767px) {
   .about-hero__heading h1 p {
-    font-size: 48px;
+    font-size: 36px;
+    line-height: 1.05;
+  }
+}
+.about-hero--tagline .tagline {
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1.25em;
+}
+@media screen and (max-width: 767px) {
+  .about-hero--tagline .tagline {
+    font-size: 16px;
+  }
+}
+.about-hero--tagline-photo {
+  position: relative;
+  overflow: visible;
+  padding: 0;
+  background-image: var(--about-hero-bg-url);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center bottom;
+  margin-bottom: 40px;
+}
+.about-hero--tagline-photo .about-hero__inner.container {
+  overflow: visible;
+}
+.about-hero--tagline-photo .about-hero__tagline-layout {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+.about-hero--tagline-photo .about-hero__tagline-layout-inner {
+  display: flex;
+  flex-direction: column;
+  max-width: 1440px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  justify-content: flex-start;
+  min-height: 960px;
+}
+@media screen and (max-width: 1023px) {
+  .about-hero--tagline-photo .about-hero__tagline-layout-inner {
+    height: auto;
+    min-height: 720px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .about-hero--tagline-photo .about-hero__tagline-layout-inner {
+    min-height: 0;
+  }
+}
+.about-hero--tagline-photo .about-hero__tagline-content {
+  padding: 80px 0;
+}
+@media screen and (max-width: 1023px) {
+  .about-hero--tagline-photo .about-hero__tagline-content {
+    padding-top: 40px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .about-hero--tagline-photo .about-hero__tagline-content {
+    padding: 20px 0;
+  }
+}
+@media screen and (max-width: 1023px) {
+  .about-hero--tagline-photo {
+    background-image: none;
+  }
+  .about-hero--tagline-photo::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 320px;
+    background-image: var(--about-hero-bg-url);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .about-hero--tagline-photo .about-hero__inner.container,
+  .about-hero--tagline-photo .about-hero__tagline-layout,
+  .about-hero--tagline-photo .about-hero__tagline-layout-inner,
+  .about-hero--tagline-photo .about-hero__tagline-content {
+    position: relative;
+    z-index: 1;
+  }
+  .about-hero--tagline-photo .about-hero__tagline-layout-inner {
+    padding-bottom: 100px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .about-hero--tagline-photo .about-hero__tagline-layout-inner {
+    padding-bottom: 100px;
   }
 }
 .about-hero__mission {
@@ -1629,6 +1725,144 @@ body.page #landing-page .gcheck-form-group input[type=text] {
   background: #FFFFFF;
   border-radius: 4px !important;
   border: 1px solid #CDD6E0;
+}
+body.page #landing-page .book-a-demo-container {
+  padding: 20px;
+  text-align: center;
+}
+body.page #landing-page .book-a-demo-container .snippet {
+  font-size: 14px;
+  font-weight: 600;
+  color: #777E8C;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 22px;
+}
+body.page #landing-page .book-a-demo-container .title {
+  font-size: 2.5em;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 16px auto;
+}
+body.page #landing-page .book-a-demo-container .title span {
+  color: #4F51FD;
+}
+body.page #landing-page .book-a-demo-container .description {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #1A1C1E;
+  margin: 0 auto;
+  max-width: 800px;
+}
+body.page #landing-page .booking-confirmed-container {
+  width: 100%;
+  max-width: 640px;
+  margin: 80px auto;
+  padding: 40px;
+  background: #FFFFFF;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+body.page #landing-page .booking-confirmed-container ._header-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+body.page #landing-page .booking-confirmed-container .animation-figure {
+  flex: 0 0 auto;
+  width: 102.67px;
+  max-width: 100%;
+  height: 100px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: #FFFFFF;
+}
+body.page #landing-page .booking-confirmed-container .animation-figure video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+body.page #landing-page .booking-confirmed-container ._header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+body.page #landing-page .booking-confirmed-container ._header-text .snippet {
+  font-size: 1.125em;
+  font-weight: 600;
+  color: #4F51FD;
+}
+body.page #landing-page .booking-confirmed-container ._header-text .title {
+  font-size: 24px;
+  font-weight: 600;
+}
+body.page #landing-page .booking-confirmed-container ._header-text > p {
+  font-size: 16px;
+  padding-bottom: 0;
+}
+body.page #landing-page .booking-confirmed-container ._booking-info-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 20px;
+  background: #F2F3FF;
+  border-radius: 8px;
+}
+body.page #landing-page .booking-confirmed-container ._booking-info-container ._sub-container {
+  max-width: 281px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+body.page #landing-page .booking-confirmed-container ._booking-info-container ._text {
+  font-size: 16px;
+  font-weight: 600;
+}
+body.page #landing-page .booking-confirmed-container ._booking-info-container ._sub-text {
+  font-size: 16px;
+}
+body.page #landing-page .booking-confirmed-container .separator {
+  border-top: 1px solid #CDD6E0;
+}
+body.page #landing-page .booking-confirmed-container .closing-text p {
+  font-size: 16px;
+  padding-bottom: 0;
+}
+@media screen and (max-width: 767px) {
+  body.page #landing-page .booking-confirmed-container {
+    padding: 20px;
+    margin: 20px auto;
+  }
+  body.page #landing-page .booking-confirmed-container ._header-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  body.page #landing-page .booking-confirmed-container .animation-figure {
+    width: 100px;
+    height: 98px;
+  }
+  body.page #landing-page .booking-confirmed-container ._header-text {
+    text-align: center;
+  }
+  body.page #landing-page .booking-confirmed-container ._header-text > p {
+    margin-top: 12px;
+  }
+  body.page #landing-page .booking-confirmed-container ._booking-info-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+  }
+  body.page #landing-page .booking-confirmed-container .closing-text {
+    text-align: center;
+  }
 }
 body.page #blog {
   margin: 100px 0;

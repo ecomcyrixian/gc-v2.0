@@ -30,10 +30,10 @@
                     </a>
                     <!-- <a href="" target="_parent" class="button blue">
                         Start Free Trial
-                    </a>
-                    <a href="" target="_parent" class="button white">
-                        Book A Demo
                     </a> -->
+                    <a href="<?php echo esc_url( home_url('/book-a-demo/') ); ?>" target="_parent" class="button white">
+                        Book a Demo
+                    </a>
                 </div>
             </div>
             <em><img src="<?php echo esc_url( get_template_directory_uri() . '/core-pages/banner/images/dotted-img.webp' ); ?>" alt="gceck"></em>

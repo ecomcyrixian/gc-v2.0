@@ -966,6 +966,171 @@ body.page{
 
             
         }
+
+        .book-a-demo-container {
+            padding: $gap20;
+            text-align: center;
+
+
+            .snippet {
+                font-size: $fsize14;
+                font-weight: $fSemiBold;
+                color: $gray100;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                line-height: 22px;
+            }
+
+            .title {
+                font-size: $fsize40;
+                font-weight: $fSemiBold;
+                line-height: 1.5;
+                margin: $gap16 auto;
+
+                span{
+                    color: $blue300;
+                }
+            }
+
+            .description {
+                font-size: $base-fsize;
+                font-weight: $fRegular;
+                line-height: 24px;
+                color: $gray300;
+                margin: 0 auto;
+                max-width: 800px;
+            }
+        }
+
+        .booking-confirmed-container {
+            width: 100%;
+            max-width: 640px;
+            margin: $gap80 auto;
+            padding: $gap40;
+            background: $white;
+            border-radius: $corners8;
+            display: flex;
+            flex-direction: column;
+            gap: $gap40;
+
+            ._header-container {
+                display: flex;
+                align-items: center;
+                gap: $gap16;
+            }
+
+            .animation-figure {
+                flex: 0 0 auto;
+                width: 102.67px;
+                max-width: 100%;
+                height: 100px;
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+                background: $white;
+
+                video {
+                    width: 100%;
+                    height: 100%;
+                    display: block;
+                    object-fit: cover;
+                    object-position: center;
+                }
+            }
+
+            ._header-text {
+                display: flex;
+                flex-direction: column;
+                gap: $gap4;
+
+                .snippet {
+                    font-size: $fsize18;
+                    font-weight: $fSemiBold;
+                    color: $blue300;
+                }
+
+                .title {
+                    font-size: $fsize24;
+                    font-weight: $fSemiBold;
+                }
+
+                > p {
+                    font-size: $base-fsize;
+                    padding-bottom: 0;
+                }
+            }
+
+            ._booking-info-container {
+                display: flex;
+                align-items: flex-end;
+                justify-content: space-between;
+                padding: $gap20;
+                background: $blue50;
+                border-radius: $corners8;
+
+                ._sub-container {
+                    max-width: 281px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: $gap4;
+                }
+
+                ._text {
+                    font-size: $base-fsize;
+                    font-weight: $fSemiBold;
+                }
+
+                ._sub-text {
+                    font-size: $base-fsize;
+                }
+            }
+
+            .separator {
+                border-top: 1px solid $gray75;
+            }
+
+            .closing-text {
+                p {
+                    font-size: $base-fsize;
+                    padding-bottom: 0;
+                }
+            }
+
+            @include media($mobile) {
+                padding: $gap20;
+                margin: $gap20 auto;
+
+                ._header-container {
+                    flex-direction: column;
+                    align-items: center;
+                    text-align: center;
+                }
+
+                .animation-figure {
+                    width: 100px;
+                    height: 98px;
+                }
+
+                ._header-text {
+                    text-align: center;
+
+                    > p {
+                        margin-top: $gap12;
+                    }
+                }
+
+                ._booking-info-container {
+                    flex-direction: column;
+                    align-items: center;
+                    text-align: center;
+                    gap: $gap16;
+                }
+
+                .closing-text {
+                    text-align: center;
+                }
+            }
+        }
     }
 
     #blog{

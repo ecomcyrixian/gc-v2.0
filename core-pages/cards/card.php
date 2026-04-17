@@ -12,6 +12,8 @@
 	$setting = get_sub_field( 'setting' );
 	$finalSetting = str_replace( ' ', '-', strtolower( $setting ) );
 
+	$is_compliance_heading = ( 'compliance' === $finalSetting );
+
 	$cards_clickable = get_sub_field( 'make_cards_clickable' ) === 'Yes';
 
 	$layout_raw    = get_sub_field( 'layout' );
@@ -64,11 +66,23 @@ if ( $use_whitepaper_background ) {
 
 		<?php if ( $with_header ) : ?>
 			<div class="heading">
-				<h2>
-					<span><?php echo esc_html( $snippet ); ?></span>
-					<pre><?php echo esc_html( $h2 ); ?></pre>
-				</h2>
-				<?php echo $H2details; ?>
+				<?php if ( $is_compliance_heading ) : ?>
+					<div class="card-same-height compliance">
+						<?php if ( $snippet ) : ?>
+							<p class="cards-heading__eyebrow"><?php echo esc_html( $snippet ); ?></p>
+						<?php endif; ?>
+						<?php if ( $h2 ) : ?>
+							<h2><?php echo wp_kses_post( $h2 ); ?></h2>
+						<?php endif; ?>
+						<?php echo $H2details; ?>
+					</div>
+				<?php else : ?>
+					<h2>
+						<span><?php echo esc_html( $snippet ); ?></span>
+						<pre><?php echo esc_html( $h2 ); ?></pre>
+					</h2>
+					<?php echo $H2details; ?>
+				<?php endif; ?>
 			</div>
 		<?php endif; ?>
 

@@ -20,7 +20,7 @@
                     </span>
                 </h4>
                 <p>
-                    At $15 per check, your 'cheaper' solution costs you $50,000 every time you lose a $100k candidate to a faster competitor. Speed isn't an expense—it's a competitive advantage.
+                At $15 per check, your 'cheaper' solution costs you $50,000 every time you lose a $100k candidate to a faster competitor. Speed isn't an expense. It's a competitive advantage.
                 </p>
             </div>
 
@@ -48,7 +48,7 @@
                     </span>
                 </h4>
                 <p>
-                    Speed doesn't mean shortcuts. Our reports include the same 7-year criminal history, employment verification, and education checks—we just deliver them faster through superior technology.
+                Speed doesn't mean shortcuts. Our reports include the same 7-year criminal history, employment verification, and education checks. We just deliver them faster through superior technology.
                 </p>
             </div>
 

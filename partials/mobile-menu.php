@@ -165,33 +165,58 @@
                 </div>
             </div>
             
-            <!-- Quick links: industries / integrations / company / pricing -->
             <div class="mobile-quick-links">
+                <h3 class="mobile-quick-links__label">Quick links</h3>
                 <ul class="quick-links-list">
-                    <?php /* Industries link commented out - page not ready yet
-                    <li>
+                    <!-- <li>
                         <a href="<?php echo esc_url( home_url('/industry/') ); ?>" target="_parent">
-                            <span class="icon-box ico-industries"></span>
+                            <svg class="quick-link-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M10 16L14 12L10 8" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
                             <span>Industries</span>
                         </a>
-                    </li>
-                    */ ?>
+                    </li> -->
                     <li>
                         <a href="<?php echo esc_url( home_url('/integrations/') ); ?>" target="_parent">
-                            <span class="icon-box ico-integrations"></span>
+                            <svg class="quick-link-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M10 16L14 12L10 8" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
                             <span>Integrations</span>
                         </a>
                     </li>
                     <li>
+                        <a href="<?php echo esc_url( home_url('/pricing-packages/') ); ?>" target="_parent">
+                            <svg class="quick-link-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M10 16L14 12L10 8" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Pricing</span>
+                        </a>
+                    </li>
+                </ul>
+                <h3 class="mobile-quick-links__label">Company</h3>
+                <ul class="quick-links-list">
+                    <li>
                         <a href="<?php echo esc_url( home_url('/company/') ); ?>" target="_parent">
-                            <span class="icon-box ico-company"></span>
-                            <span>Company</span>
+                            <svg class="quick-link-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M10 16L14 12L10 8" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>About Us</span>
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo esc_url( home_url('/pricing-packages/') ); ?>" target="_parent">
-                            <span class="icon-box ico-pricing"></span>
-                            <span>Pricing</span>
+                        <a href="<?php echo esc_url( home_url('/leadership-team/') ); ?>" target="_parent">
+                            <svg class="quick-link-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M10 16L14 12L10 8" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Leadership</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo esc_url( home_url('/compliance-for-good/') ); ?>" target="_parent">
+                            <svg class="quick-link-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M10 16L14 12L10 8" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span>Compliance for Good&trade;</span>
                         </a>
                     </li>
                 </ul>

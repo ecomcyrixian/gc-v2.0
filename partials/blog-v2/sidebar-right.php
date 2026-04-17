@@ -77,7 +77,7 @@ if ( ! $whitepaper_tih_post || $whitepaper_tih_post->post_status !== 'publish' )
         <div class="blog-v2-sidebar__card">
             <h3 class="blog-v2-sidebar__title">About The Creator</h3>
             <?php
-            $creator = function_exists( 'blog_v2_author_display_data' ) ? blog_v2_author_display_data() : array( 'name' => 'Pat Hartonian', 'job' => 'VP of Operations, GCheck', 'url' => get_template_directory_uri() . '/assets/images/pat-hat.png', 'link' => '#' );
+            $creator = function_exists( 'blog_v2_author_display_data' ) ? blog_v2_author_display_data() : array( 'name' => 'Pat Hartonian', 'job' => 'Chief Compliance Officer', 'url' => get_template_directory_uri() . '/assets/images/pat-hat.png', 'link' => '#' );
             $creator_avatar_url = ! empty( $creator['url'] ) ? $creator['url'] : '';
             $creator_avatar_src = $creator_avatar_url && function_exists( 'blog_v2_avatar_url_for_display' ) ? blog_v2_avatar_url_for_display( $creator_avatar_url, 100 ) : $creator_avatar_url;
             ?>
@@ -154,11 +154,29 @@ if ( ! $whitepaper_tih_post || $whitepaper_tih_post->post_status !== 'publish' )
     <div class="blog-v2-cards-container cols1 blog-v2-cards-container--whitepaper blog-v2-cards-container--whitepaper-tih">
         <div class="blog-v2-card blog-v2-card--whitepaper blog-v2-card--whitepaper-tih">
             <div class="blog-v2-card__content">
-                <span class="blog-v2-card_whitepaper-heading-prefix">Whitepaper</span>
-                <h4 class="blog-v2-card__whitepaper-heading"><?php echo esc_html( get_the_title( $whitepaper_tih_post ) ); ?></h4>
-                <a href="<?php echo esc_url( get_permalink( $whitepaper_tih_post ) ); ?>" class="blog-v2-card__btn" aria-label="Download PDF">Download PDF</a>
+                <div>
+                    <span class="blog-v2-card_whitepaper-heading-prefix">Whitepaper</span>
+                    <h4 class="blog-v2-card__whitepaper-heading"><?php echo esc_html( get_the_title( $whitepaper_tih_post ) ); ?></h4>
+                </div>
+                <div class="blog-v2-card__whitepaper-thumb">
+                    <img src="<?php echo esc_url( get_template_directory_uri() . '/partials/home/whitepaper-banner/images/Whitepaper-Thumbnail.webp' ); ?>" alt="<?php echo esc_attr( get_the_title( $whitepaper_tih_post ) ); ?>" class="blog-v2-card__whitepaper-image" width="216" height="200" loading="lazy" decoding="async">
+                </div>
+                <a href="<?php echo esc_url( get_permalink( $whitepaper_tih_post ) ); ?>" class="button white">Download PDF</a>
             </div>
         </div>
     </div>
     <?php endif; ?>
+
+    <?php
+    $blog_v2_book_demo_bg = get_template_directory_uri() . '/core-pages/banner/images/quote-5-bg.webp';
+    ?>
+    <div class="blog-v2-cards-container cols1 blog-v2-cards-container--book-demo">
+        <div class="blog-v2-card blog-v2-card--book-demo" style="background-image: url('<?php echo esc_url( $blog_v2_book_demo_bg ); ?>');">
+            <div class="blog-v2-card__content">
+                <p class="blog-v2-card__book-demo-eyebrow">Book a demo</p>
+                <h4 class="blog-v2-card__book-demo-heading">Experience Faster, Smarter Screening</h4>
+                <a href="<?php echo esc_url( home_url( '/book-a-demo/' ) ); ?>" class="button white">See GCheck in Action</a>
+            </div>
+        </div>
+    </div>
 </aside>

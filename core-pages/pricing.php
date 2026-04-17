@@ -19,7 +19,8 @@
                                     <span>Standard Check</span>
                                     <span class="badge">Popular</span>
                                 </h4>
-                                <p>Detailed check with county searches—ideal for roles needing deeper criminal review.</p>
+                                <p>Detailed check with county searches, ideal for roles needing deeper criminal review.
+                                </p>
                                 <h2 class="price">
                                     <span>$54.99</span>
                                     <strong>per background check</strong>
@@ -29,7 +30,7 @@
                                 <h4>
                                     <span>Advanced Check</span>
                                 </h4>
-                                <p>Comprehensive check with national, county, and federal searches—ideal for high-trust roles.</p>
+                                <p>Comprehensive check with national, county, and federal searches, ideal for high-trust roles.</p>
                                 <h2 class="price">
                                     <span>$79.99</span>
                                     <strong>per background check</strong>

@@ -4,10 +4,14 @@
     $h1 = get_sub_field('h1');
     $snippet = get_sub_field('snippet');
     $strong_p = get_sub_field('strong_p');
-    $details = get_sub_field('details');    
+    $details = get_sub_field('details');
+    $is_management_hero = is_string($details) && strpos($details, 'management-hero-frame') !== false;
+    $management_bg_asset = get_template_directory_uri() . '/assets/images/page-hero-bg-management-page.webp';
+    $section_classes = 'text-only' . ($is_management_hero ? ' text-only--management-team' : '');
+    $section_style = $is_management_hero ? 'background-image: url(' . esc_url($management_bg_asset) . ');' : '';
 ?>
 
-<section class="text-only">
+<section class="<?= esc_attr($section_classes); ?>"<?= $section_style ? ' style="' . esc_attr($section_style) . '"' : ''; ?>>
     <div>
         <span class="logos <?= $alignment ?> ">
                 <?= $logos ?>

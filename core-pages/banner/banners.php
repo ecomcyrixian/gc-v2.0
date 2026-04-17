@@ -20,6 +20,17 @@
         }elseif (get_sub_field('banner_setting') == "Option 4"){
             get_template_part( 'core-pages/banner/option-4' );
 
+        }elseif (get_sub_field('banner_setting') == "Option 5"){
+            get_template_part( 'core-pages/banner/option-5' );
+
+        }elseif (get_sub_field('banner_setting') == "Option 6"){
+            get_template_part( 'core-pages/banner/option-6' );
+
+        }elseif (get_sub_field('banner_setting') == "Option 7"){
+            get_template_part( 'core-pages/banner/option-7' );
+
+        }elseif (get_sub_field('banner_setting') == "Option 8"){
+            get_template_part( 'core-pages/banner/option-8' );
         };
 
         

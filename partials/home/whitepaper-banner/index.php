@@ -24,6 +24,9 @@ $wb_report_url = home_url( '/whitepapers/trust-in-hiring-report/' );
     </div>
     <div class="as-featured-in-logos">
         <div class="as-featured-in-logos-item">
+            <img src="<?php echo esc_url( get_template_directory_uri() . '/partials/home/whitepaper-banner/images/forbes-logo.webp' ); ?>" alt="<?php esc_attr_e( 'Forbes-logo' ); ?>" loading="lazy" decoding="async">
+        </div>
+        <div class="as-featured-in-logos-item">
             <img src="<?php echo esc_url( get_template_directory_uri() . '/partials/home/whitepaper-banner/images/inc-logo.webp' ); ?>" alt="<?php esc_attr_e( 'Inc-logo' ); ?>" loading="lazy" decoding="async">
         </div>
         <div class="as-featured-in-logos-item">

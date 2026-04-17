@@ -134,7 +134,7 @@
         </div>
 
         <div class="integrations-description">
-            <p>Integrate your ATS and HRIS to automate data flow and keep teams focused on what matters most—hiring great talent.</p>
+            <p>Integrate your ATS and HRIS to automate data flow and keep teams focused on what matters most: hiring great talent.</p>
         </div>
 
         <div class="integrations-cta">

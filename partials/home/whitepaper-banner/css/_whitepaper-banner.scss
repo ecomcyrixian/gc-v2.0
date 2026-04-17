@@ -3,7 +3,7 @@
 
 #whitepaper-banner {
     max-width: 1320px;
-    margin: -$gap120 auto 0;
+    margin: -200px auto 0;
     padding-top: 0;
     position: relative;
     z-index: 2;
@@ -107,10 +107,9 @@
 }
 
 #as-featured-in {
-    max-width: 1032px;
+    max-width: 1320px;
     margin: 0 auto;
-    padding-top: $gap120;
-    padding-bottom: $gap20;
+    padding-top: $gap80;
     text-align: center;
 
     @include media($tablet) {
@@ -135,12 +134,14 @@
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
+        padding: 0 $gap40;
         
 
         @include media($mobile) {
             height: auto;
             gap: $gap24;
             justify-content: center;
+            padding: 0;
         }
     }
 

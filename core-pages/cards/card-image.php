@@ -6,6 +6,7 @@
     
     $H2details = get_sub_field('details');
     $columns = get_sub_field('columns');
+    $is_executive_cards = is_string($H2details) && strpos($H2details, 'executive-header') !== false;
 
     $snippet = get_sub_field('snippet');
     $snippetLowerCase = strtolower($snippet);
@@ -14,16 +15,20 @@
 
 <?php if ( $display_selection ) : ?>
 
-    <div class="cards image <?= $snippetSetting ?>">
+    <div class="cards image <?= $snippetSetting ?><?= $is_executive_cards ? ' cards--executive-team' : '' ?>">
         <div class="container">
         
         <?php if ( $with_header ) : ?>            
             <div class="heading">
-                <h2>
-                    <span><?= $snippet ?></span>
-                    <pre><?= $h2 ?></pre>
-                </h2>
-                <?= $H2details ?>
+                <?php if ( $is_executive_cards ) : ?>
+                    <?= $H2details ?>
+                <?php else : ?>
+                    <h2>
+                        <span><?= $snippet ?></span>
+                        <pre><?= $h2 ?></pre>
+                    </h2>
+                    <?= $H2details ?>
+                <?php endif; ?>
             </div>
         <?php endif; ?> 
 

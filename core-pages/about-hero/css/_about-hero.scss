@@ -52,12 +52,115 @@
         }
 
         @include media($mobile) {
-          font-size: 48px;
+          font-size: 36px;
+          line-height: 1.05;
         }
       }
       
     }
 
+  }
+
+  &--tagline {
+    .tagline {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: $fsize20;
+
+      @include media($mobile) {
+        font-size: $base-fsize;
+      }
+    }
+  }
+
+  &--tagline-photo {
+    position: relative;
+    overflow: visible;
+    padding: 0;
+    background-image: var(--about-hero-bg-url);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center bottom;
+    margin-bottom: $gap40;
+
+    .about-hero__inner.container {
+      overflow: visible;
+    }
+
+    .about-hero__tagline-layout {
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
+    }
+
+    .about-hero__tagline-layout-inner {
+      display: flex;
+      flex-direction: column;
+      max-width: 1440px;
+      margin: 0 auto;
+      box-sizing: border-box;
+      justify-content: flex-start;
+      min-height: 960px;
+
+      @include media($tablet) {
+        height: auto;
+        min-height: 720px;
+      }
+
+      @include media($mobile) {
+        min-height: 0;
+      }
+    }
+
+    .about-hero__tagline-content {
+     padding: $gap80 0;
+
+      @include media($tablet) {
+        padding-top: $gap40;
+      }
+
+      @include media($mobile) {
+        padding: $gap20 0;
+      }
+    }
+
+   
+    @include media($tablet) {
+      background-image: none;
+
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 320px;
+        background-image: var(--about-hero-bg-url);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      .about-hero__inner.container,
+      .about-hero__tagline-layout,
+      .about-hero__tagline-layout-inner,
+      .about-hero__tagline-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .about-hero__tagline-layout-inner {
+        padding-bottom: $gap100;
+      }
+    }
+
+    @include media($mobile) {
+      .about-hero__tagline-layout-inner {
+        padding-bottom: $gap100;
+      }
+    }
   }
 
   &__mission {

@@ -14,6 +14,14 @@
     color: $gray300;
     margin-bottom: $gap60;
 
+    &:has(.heading .title.compliance){
+        margin-bottom: 0;
+    }
+
+    &:has(.card-same-height.management){
+        margin-bottom: 0;
+    }
+
     @include media($mobile){
         margin: 0 auto;
     }
@@ -82,6 +90,10 @@
                     font-size: $fsize48;
                     line-height: 100%;
                 }
+            }
+
+            .title.compliance {
+                margin-bottom: 0;
             }
 
             p {
@@ -186,6 +198,34 @@
                 }
             }
         }
+
+        &:has(.title.compliance) {
+            > .container {
+                align-items: center;
+                max-width: 1320px;
+            }
+
+            .heading {
+                max-width: 640px;
+
+                h2 span {
+                    letter-spacing: 16%;
+                }
+            }
+
+            .card-cont > div {
+                padding: $gap40;
+            }
+
+            .card-cont > a .card-item {
+                padding: $gap40;
+            }
+
+            h4 {
+                gap: 0;
+                margin-bottom: $gap40;
+            }
+        }
     }
 
     &>.container{
@@ -221,7 +261,57 @@
                 font-size: inherit;
                 line-height: inherit;
                 font-weight: inherit;
+                text-transform:none;
             }
+        }
+    }
+
+    .heading .card-same-height.management {
+        max-width: 600px;
+
+        h2 {
+            font-size: $gap40;
+            line-height: 1.2;
+            margin-bottom: $gap16;
+        }
+
+        p {
+            font-size: $fsize18;
+        }
+    }
+
+    &.compliance > .container > .heading {
+        max-width: 1200px;
+    }
+
+    .heading .card-same-height.compliance {
+        max-width: none;
+
+        @include media($mobile) {
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+            flex-wrap: wrap;
+            font-size: $fsize56;
+            line-height: 1.2;
+
+            @include media($mobile) {
+                font-size: $fsize48;
+                align-items: center;
+            }
+        }
+
+        h2 span {
+            margin-bottom: 0;
+            margin-left: $gap8;
+        }
+
+        p {
+            font-size: $base-fsize;
+            max-width: 692px;
+            margin: $gap16 auto 0;
         }
     }
 
@@ -260,11 +350,14 @@
         background: $white;
         border-radius: $corners8;
         transition: transform .2s ease, box-shadow .2s ease, color .2s ease;
-        cursor: pointer;
 
         @include media($mobile){
             padding: $gap20;
         }
+    }
+
+    .card-link .card-item {
+        cursor: pointer;
     }
 
     .card-item__divider {
@@ -274,6 +367,18 @@
     &:has(.heading .card-padding-40) {
         .heading {
             padding-top: 0;
+
+            h2 {
+                font-size: $fsize56;
+
+                @include media($mobile){
+                    font-size: $fsize48;
+                }
+            }
+
+            p {
+                font-size: $base-fsize;
+            }
         }
 
         .card-item,
@@ -460,11 +565,34 @@
         }
     }
 
-    /* Placed after `.card-cont { gap: $gap40 }` so 24px wins cascade; !important beats generic gap */
     &:has(.card-cont.card-same-height) .card-cont:not(.card-cont--row-stagger),
     &:has(.heading .card-same-height) .card-cont:not(.card-cont--row-stagger),
     &.card-same-height .card-cont:not(.card-cont--row-stagger) {
         gap: $gap24 !important;
+    }
+
+    &.compliance:has(.card-cont.card-same-height) > .container,
+    &.compliance:has(.heading .card-same-height) > .container,
+    &.compliance.card-same-height > .container {
+        max-width: 1200px;
+    }
+
+    &.compliance.card-same-height,
+    &.compliance:has(.card-cont.card-same-height) {
+        .card-cont > div,
+        .card-cont > a .card-item {
+            padding: $gap40;
+
+            @include media($mobile) {
+                padding: $gap24;
+            }
+        }
+    }
+
+    &.compliance:has(.card-cont.card-same-height) .card-cont:not(.card-cont--row-stagger),
+    &.compliance:has(.heading .card-same-height) .card-cont:not(.card-cont--row-stagger),
+    &.compliance.card-same-height .card-cont:not(.card-cont--row-stagger) {
+        gap: 31px !important;
     }
 
     .card-cont.card-cont--row-stagger > div.card-cont__col{
@@ -503,6 +631,11 @@
                 width: 100%;
             }
         }
+    }
+
+    &.compliance h3,
+    &.compliance h4 {
+        margin-bottom: $gap8;
     }
 
     .pillar-title{
@@ -570,6 +703,11 @@
         font-size: $fsize14;
     }
 
+    &.compliance p {
+        font-size: $base-fsize;
+        padding-bottom: 0;
+    }
+
     &.top-icon{
         .heading{ margin-bottom: 0; }
         h4{
@@ -595,7 +733,13 @@
     }
 
     &.left-icon{
-        .heading{ margin-bottom: 0; }
+        .heading{
+            margin-bottom: 0;
+
+            &:has(.card-same-height.management){
+                padding-top: 0;
+            }
+        }
         h4{
             flex-direction: row;
             align-items: center;
@@ -626,6 +770,183 @@
         .desc{
             display: block;
             padding: $gap20;
+        }
+    }
+
+    &.cards--executive-team{
+        margin-bottom: $gap100;
+
+        > .container{
+            padding: 0;
+        }
+
+        .heading{
+            margin-bottom: 0;
+        }
+
+        .executive-header{
+            max-width: 602px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: $gap8;
+
+            .snippet{
+                color: $blue300;
+                font-size: $fsize14;
+                letter-spacing: 16%;
+                text-transform: uppercase;
+                font-weight: $fSemiBold;
+            }
+
+            .title{
+                color: $gray300;
+                font-size: $fsize40;
+                line-height: 1.1;
+                font-weight: $fSemiBold;
+
+            }
+        }
+
+        .card-cont{
+            gap: $gap40;
+
+            & > div{
+                padding: 0;
+                display: flex;
+                align-items: stretch;
+                min-height: 594px;
+                overflow: hidden;
+            }
+
+            &.cols2{
+                & > div,
+                & > a{
+                    width: calc(50% - 20px);
+                }
+            }
+        }
+
+        .card-cont > div > span:first-child{
+            width: 200px;
+            min-width: 200px;
+            max-width: 200px;
+            display: block;
+            overflow: hidden;
+            line-height: 0;
+            background: #30319a;
+        }
+
+        .card-cont > div > span:first-child img{
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: left center;
+        }
+
+        .card-cont > div > .desc{
+            flex: 1;
+            padding: $gap20;
+        }
+
+        .leadership-member-info{
+            display: flex;
+            flex-direction: column;
+            color: $gray300;
+
+            .name{
+                font-size: 28px;
+                line-height: 1.5;
+                font-weight: $fSemiBold;
+                margin-bottom: 4px;
+            }
+
+            .position{
+                font-size: $fsize14;
+                line-height: 22px;
+                font-weight: $fSemiBold;
+                margin-bottom: $gap24;
+            }
+
+            .description{
+                font-size: $fsize14;
+
+                p {
+                    font-size: inherit;
+                }
+            }
+        }
+
+        @include media($tablet){
+            .executive-header .title{
+                font-size: 34px;
+            }
+
+            .card-cont{
+                gap: 24px;
+
+                &.cols2{
+                    & > div,
+                    & > a{
+                        width: 100%;
+                    }
+                }
+
+                & > div{
+                    min-height: 0;
+                }
+            }
+        }
+
+        @include media($mobile){
+
+            .executive-header{
+                .snippet{
+                    font-size: $fsize12;
+                }
+                .title{
+                    font-size: $gap24;
+                }
+            }
+
+            .card-cont{
+                gap: 24px;
+                padding: 0;
+            }
+
+            .card-cont > div{
+                display: block;
+            }
+
+            .card-cont > div > span:first-child{
+                width: 200px;
+                min-width: 200px;
+                max-width: 200px;
+                height: 280px;
+                margin: 0 auto;
+            }
+
+            .card-cont > div > span:first-child img{
+                height: 100%;
+                object-fit: contain;
+                object-position: center top;
+            }
+
+            .card-cont > div > .desc{
+                padding: 16px;
+            }
+
+            .leadership-member-info{
+                .name{
+                    font-size: $fsize20;
+                }
+
+                .position,
+                .description{
+                    font-size: $fsize12;
+                }
+            }
         }
     }
 
