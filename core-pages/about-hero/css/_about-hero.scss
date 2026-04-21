@@ -62,20 +62,24 @@
   }
 
   &--tagline {
+    .about-hero__hero {
+      max-width: 1440px;
+    }
+
     .tagline {
       max-width: 600px;
       margin: 0 auto;
       font-size: $fsize20;
 
       @include media($mobile) {
-        font-size: $base-fsize;
+        font-size: $fsize14;
       }
     }
   }
 
   &--tagline-photo {
     position: relative;
-    overflow: visible;
+    overflow: hidden;
     padding: 0;
     background-image: var(--about-hero-bg-url);
     background-repeat: no-repeat;
@@ -100,7 +104,7 @@
       margin: 0 auto;
       box-sizing: border-box;
       justify-content: flex-start;
-      min-height: 960px;
+      min-height: clamp(960px, 56.25vw, 1200px);
 
       @include media($tablet) {
         height: auto;
@@ -124,7 +128,7 @@
       }
     }
 
-   
+
     @include media($tablet) {
       background-image: none;
 
@@ -134,7 +138,9 @@
         left: 0;
         right: 0;
         bottom: 0;
-        height: 320px;
+        top: 0;
+        bottom: 0;
+        height: 100%;
         background-image: var(--about-hero-bg-url);
         background-repeat: no-repeat;
         background-size: cover;
@@ -152,15 +158,10 @@
       }
 
       .about-hero__tagline-layout-inner {
-        padding-bottom: $gap100;
+        padding-bottom: 200px;
       }
     }
 
-    @include media($mobile) {
-      .about-hero__tagline-layout-inner {
-        padding-bottom: $gap100;
-      }
-    }
   }
 
   &__mission {

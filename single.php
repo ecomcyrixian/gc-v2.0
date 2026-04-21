@@ -25,7 +25,7 @@ endif;
                 <p><span>Contact us today</span> for efficient, FCRA-compliant screening solutions<br/> designed to keep your hiring process moving safely and smoothly.</p>
                 <div class="blog-v2-cta__buttons">
                     <a href="<?php echo esc_url( home_url( '/contact-us' ) ); ?>" class="button blue">Get Started Today</a>
-                    <a href="<?php echo esc_url( home_url( '/contact-us' ) ); ?>" class="button white">Book a Demo</a>
+                    <a href="<?php echo esc_url( home_url( '/book-a-demo/' ) ); ?>" class="button white">Book a Demo</a>
                 </div>
             </div>
         </div>

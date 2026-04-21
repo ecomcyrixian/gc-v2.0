@@ -15,5 +15,6 @@
 <?php get_template_part('partials/home/hiring/index') ?>
 <?php get_template_part('core-pages/faq/faq-home') ?>
 <?php get_template_part('core-pages/banner/option-2') ?>
+<?php get_template_part('partials/home/floating-cta/index') ?>
 
 <?php get_footer(); ?>

@@ -657,6 +657,9 @@ body.page #landing-page:has(~ .custom-whitepaper-hero) {
     line-height: 1.05;
   }
 }
+.about-hero--tagline .about-hero__hero {
+  max-width: 1440px;
+}
 .about-hero--tagline .tagline {
   max-width: 600px;
   margin: 0 auto;
@@ -664,12 +667,12 @@ body.page #landing-page:has(~ .custom-whitepaper-hero) {
 }
 @media screen and (max-width: 767px) {
   .about-hero--tagline .tagline {
-    font-size: 16px;
+    font-size: 14px;
   }
 }
 .about-hero--tagline-photo {
   position: relative;
-  overflow: visible;
+  overflow: hidden;
   padding: 0;
   background-image: var(--about-hero-bg-url);
   background-repeat: no-repeat;
@@ -692,7 +695,7 @@ body.page #landing-page:has(~ .custom-whitepaper-hero) {
   margin: 0 auto;
   box-sizing: border-box;
   justify-content: flex-start;
-  min-height: 960px;
+  min-height: clamp(960px, 56.25vw, 1200px);
 }
 @media screen and (max-width: 1023px) {
   .about-hero--tagline-photo .about-hero__tagline-layout-inner {
@@ -728,7 +731,9 @@ body.page #landing-page:has(~ .custom-whitepaper-hero) {
     left: 0;
     right: 0;
     bottom: 0;
-    height: 320px;
+    top: 0;
+    bottom: 0;
+    height: 100%;
     background-image: var(--about-hero-bg-url);
     background-repeat: no-repeat;
     background-size: cover;
@@ -744,12 +749,7 @@ body.page #landing-page:has(~ .custom-whitepaper-hero) {
     z-index: 1;
   }
   .about-hero--tagline-photo .about-hero__tagline-layout-inner {
-    padding-bottom: 100px;
-  }
-}
-@media screen and (max-width: 767px) {
-  .about-hero--tagline-photo .about-hero__tagline-layout-inner {
-    padding-bottom: 100px;
+    padding-bottom: 200px;
   }
 }
 .about-hero__mission {
