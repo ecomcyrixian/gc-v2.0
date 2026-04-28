@@ -238,21 +238,37 @@ footer{
 
     .copyright-left{
         display: flex;
-        gap: $gap20;
+        flex-direction: column;
+        gap: $gap12;
         flex-wrap: wrap;
 
         @include media($mobile){
-            flex-direction: column;
+            align-items: flex-start;
             gap: $gap12;
         }
 
         a{
-            color: $cyan;
+            color: white;
             text-decoration: none;
         }
 
-        span{
+        .copyright-links{
+            display: flex;
+            flex-wrap: wrap;
+            gap: $gap24;
+            align-items: center;
+
+            span{
+                display: inline-flex;
+                align-items: center;
+                color: $white;
+                position: relative;
+            }
+        }
+
+        .copyright-text span{
             color: $white;
+            opacity: 0.95;
         }
     }
 

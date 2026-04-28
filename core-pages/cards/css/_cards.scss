@@ -14,6 +14,92 @@
     color: $gray300;
     margin-bottom: $gap60;
 
+    &:has(.thankyou-contact-card) {
+        max-width: 875px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: $gap80;
+
+        .heading {
+            padding: 0 0 $gap40 0;
+        }
+
+        .card-cont {
+            gap: $gap24;
+        }
+
+        .card-item h4 {
+            margin-bottom: 0;
+        }
+
+        .card-item p {
+            padding-bottom: 0;
+            font-size: $fsize20;
+        }
+
+        .thankyou-contact-card {
+            text-align: center;
+        }
+
+        .thankyou-contact-card_title {
+            font-size: $fsize40;
+            font-weight: $fSemiBold;
+            line-height: 1.5;
+
+            @include media($mobile){
+                font-size: $fsize32;
+            }
+        }
+
+        .thankyou-contact-card_subtext {
+            margin-top: $gap16;
+            font-size: $fsize18;
+            line-height: 1.5;
+        }
+
+        .card-item:has(.card-item__button) {
+            gap: $gap24;
+        }
+
+        .card-item__header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: $gap8;
+        }
+
+        .card-item__copy {
+            display: flex;
+            flex-direction: column;
+            gap: $gap8;
+
+            h4 {
+                font-size: $fsize20;
+            }
+
+            p {
+                font-size: $fsize14;
+            }
+        }
+
+        .card-item__icon {
+            flex: 0 0 auto;
+        }
+
+        .card-item__button {
+            margin-top: auto;
+        }
+
+        @include media($mobile) {
+            .card-item__header,
+            .card-item.icon-left .card-item__header,
+            .card-item.icon-right .card-item__header {
+                flex-direction: column-reverse;
+                align-items: flex-start;
+            }
+        }
+    }
+
     &:has(.heading .title.compliance){
         margin-bottom: 0;
     }
@@ -402,6 +488,7 @@
     
     &:has(.card-cont.card-same-height),
     &:has(.heading .card-same-height),
+    &:has(.thankyou-contact-card),
     &.card-same-height {
         > .container {
             max-width: 1120px;

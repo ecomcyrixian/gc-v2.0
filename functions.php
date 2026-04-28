@@ -60,21 +60,50 @@ function gc_theme_img_dimension_attrs( $image ) {
 }
 
 /*
- * Specific script and styles per page
- * Automatic cache busting based on source SCSS and compiled CSS file modification time
- * Uses whichever is newer (industry-standard hybrid approach)
+ * Build a cache-busting asset version from file dependency timestamps + target file hash.
+ * Keeps query-string versions changing when source files or built assets change.
  */
+function gc_theme_asset_version( $asset_file_path, $dependency_files = array() ) {
+    $times = array();
+
+    foreach ( $dependency_files as $dependency_file ) {
+        if ( file_exists( $dependency_file ) ) {
+            $times[] = filemtime( $dependency_file );
+        }
+    }
+
+    $asset_time = file_exists( $asset_file_path ) ? filemtime( $asset_file_path ) : 0;
+    if ( $asset_time ) {
+        $times[] = $asset_time;
+    }
+
+    $max_time = ! empty( $times ) ? max( $times ) : 0;
+    $asset_hash = file_exists( $asset_file_path ) ? md5_file( $asset_file_path ) : '';
+    $hash_suffix = $asset_hash ? substr( $asset_hash, 0, 8 ) : '';
+
+    if ( $max_time > 0 ) {
+        return $max_time . ( $hash_suffix ? '-' . $hash_suffix : '' );
+    }
+
+    return '1';
+}
+
 function theme_styles_script() {
 	
     global $post;
     
 	if ( is_front_page() ) {
     	$front_page_scss = get_template_directory() . '/assets/css/front-page-new.scss';
+        $whitepaper_banner_scss = get_template_directory() . '/partials/home/whitepaper-banner/css/_whitepaper-banner.scss';
     	$front_page_css = get_template_directory() . '/assets/css/front-page-new.css';
-    	
-    	$scss_time = file_exists($front_page_scss) ? filemtime($front_page_scss) : 0;
-    	$css_time = file_exists($front_page_css) ? filemtime($front_page_css) : 0;
-    	$front_page_version = max($scss_time, $css_time) ?: '1';
+
+        $front_page_version = gc_theme_asset_version(
+            $front_page_css,
+            array(
+                $front_page_scss,
+                $whitepaper_banner_scss,
+            )
+        );
     	
     	wp_enqueue_style( 'homepage-style', get_template_directory_uri() . '/assets/css/front-page-new.css', array(), $front_page_version, 'screen' );
         // If you uncomment this, it will automatically have cache busting
@@ -84,43 +113,31 @@ function theme_styles_script() {
     	// wp_enqueue_script( 'homepage-script' );
 
     } elseif ( is_page() ) {
-        $core_page_scss = get_template_directory() . '/assets/css/core-page.scss';
+        $core_page_scss = get_template_directory() . '/assets/css/core-page-new.scss';
         $page_hero_scss = get_template_directory() . '/core-pages/page-hero/css/_page-hero.scss';
         $custom_whitepaper_scss = get_template_directory() . '/core-pages/custom-whitepaper/css/_custom-whitepaper-hero.scss';
         $core_page_css = get_template_directory() . '/assets/css/core-page-new.css';
-        
-        $scss_times = array();
-        if (file_exists($core_page_scss)) {
-            $scss_times[] = filemtime($core_page_scss);
-        }
-        if (file_exists($page_hero_scss)) {
-            $scss_times[] = filemtime($page_hero_scss);
-        }
-        if (file_exists($custom_whitepaper_scss)) {
-            $scss_times[] = filemtime($custom_whitepaper_scss);
-        }
-        
-        $css_time = file_exists($core_page_css) ? filemtime($core_page_css) : 0;
-        $max_scss_time = !empty($scss_times) ? max($scss_times) : 0;
-        $version = max($max_scss_time, $css_time) ?: '1';
+        $version = gc_theme_asset_version(
+            $core_page_css,
+            array(
+                $core_page_scss,
+                $page_hero_scss,
+                $custom_whitepaper_scss,
+            )
+        );
         
         wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/core-page-new.css', array(), $version, 'screen' );
     } elseif ( is_single() || is_search() || is_category() || is_author() || is_tax( 'author' ) ) {
         $blog_page_scss = get_template_directory() . '/assets/css/blog-page-new.scss';
         $search_scss = get_template_directory() . '/core-pages/blog/css/_search.scss';
         $blog_page_css = get_template_directory() . '/assets/css/blog-page-new.css';
-        
-        $scss_times = array();
-        if (file_exists($blog_page_scss)) {
-            $scss_times[] = filemtime($blog_page_scss);
-        }
-        if (file_exists($search_scss)) {
-            $scss_times[] = filemtime($search_scss);
-        }
-        
-        $css_time = file_exists($blog_page_css) ? filemtime($blog_page_css) : 0;
-        $max_scss_time = !empty($scss_times) ? max($scss_times) : 0;
-        $version = max($max_scss_time, $css_time) ?: '1';
+        $version = gc_theme_asset_version(
+            $blog_page_css,
+            array(
+                $blog_page_scss,
+                $search_scss,
+            )
+        );
         
         wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/blog-page-new.css', array(), $version, 'screen' );
     }
@@ -132,13 +149,13 @@ require_once get_template_directory() . '/core-pages/custom-whitepaper/gcheck-pd
 
 /*
  * Enqueue jQuery and theme scripts
- * Automatic cache busting based on file modification time
+ * Automatic cache busting based on file timestamps + file hash
  */
 function gcheck_scripts() {
     wp_enqueue_script('jquery');
 
     $js_file_path = get_template_directory() . '/assets/js/global-new.js';
-    $global_js_version = file_exists($js_file_path) ? filemtime($js_file_path) : '1.0.0';
+    $global_js_version = gc_theme_asset_version( $js_file_path );
     
     wp_enqueue_script(
         'my-custom-script',
@@ -150,7 +167,7 @@ function gcheck_scripts() {
 
     if ( is_single() ) {
         $blog_v2_js_path = get_template_directory() . '/assets/js/blog-v2.js';
-        $blog_v2_js_version = file_exists($blog_v2_js_path) ? filemtime($blog_v2_js_path) : '1.0.0';
+        $blog_v2_js_version = gc_theme_asset_version( $blog_v2_js_path );
 
         wp_enqueue_script(
             'blog-v2',
@@ -178,43 +195,6 @@ function gcheck_scripts() {
 }
 add_action('wp_enqueue_scripts', 'gcheck_scripts');
 
-/**
- * Bing UET: consent bar styles/scripts (front-end only). Tag + default consent load from head.php partial.
- */
-function gc_bing_uet_consent_assets() {
-	if ( is_admin() ) {
-		return;
-	}
-	$css_path = get_template_directory() . '/assets/css/bing-consent.css';
-	$js_path  = get_template_directory() . '/assets/js/bing-consent.js';
-	$v_css    = file_exists( $css_path ) ? filemtime( $css_path ) : '1';
-	$v_js     = file_exists( $js_path ) ? filemtime( $js_path ) : '1';
-	wp_enqueue_style(
-		'gc-bing-consent',
-		get_template_directory_uri() . '/assets/css/bing-consent.css',
-		array(),
-		$v_css
-	);
-	wp_enqueue_script(
-		'gc-bing-consent',
-		get_template_directory_uri() . '/assets/js/bing-consent.js',
-		array(),
-		$v_js,
-		true
-	);
-}
-add_action( 'wp_enqueue_scripts', 'gc_bing_uet_consent_assets' );
-
-/**
- * Bing UET: cookie consent bar markup (Accept / Reject → localStorage + uetq consent update).
- */
-function gc_bing_uet_consent_banner() {
-	if ( is_admin() ) {
-		return;
-	}
-	get_template_part( 'partials/bing/bing-consent-banner' );
-}
-add_action( 'wp_footer', 'gc_bing_uet_consent_banner', 5 );
 
 /**
  * Reduce unused CSS: dequeue dashicons on front-end when admin bar is not shown.
@@ -337,33 +317,15 @@ function enqueue_global_styles() {
     $cards_scss = get_template_directory() . '/core-pages/cards/css/_cards.scss';
     $search_scss = get_template_directory() . '/core-pages/blog/css/_search.scss';
     $css_file_path = get_template_directory() . '/assets/css/global-new.css';
-    
-    $scss_times = array();
-    
-    if (file_exists($scss_file_path)) {
-        $scss_times[] = filemtime($scss_file_path);
-    }
-    if (file_exists($page_hero_scss)) {
-        $scss_times[] = filemtime($page_hero_scss);
-    }
-    if (file_exists($cards_scss)) {
-        $scss_times[] = filemtime($cards_scss);
-    }
-    if (file_exists($search_scss)) {
-        $scss_times[] = filemtime($search_scss);
-    }
-    
-    $css_time = file_exists($css_file_path) ? filemtime($css_file_path) : 0;
-    $max_scss_time = !empty($scss_times) ? max($scss_times) : 0;
-    
-    // Use content hash of the CSS file for reliable cache busting
-    // This ensures the version changes whenever the CSS file content actually changes
-    // Even if server-side caching affects file modification times
-    $css_hash = file_exists($css_file_path) ? md5_file($css_file_path) : '';
-    $hash_suffix = $css_hash ? substr($css_hash, 0, 8) : '';
-    
-    // Combine modification time with content hash for maximum reliability
-    $version = max($max_scss_time, $css_time) . ($hash_suffix ? '-' . $hash_suffix : '');
+    $version = gc_theme_asset_version(
+        $css_file_path,
+        array(
+            $scss_file_path,
+            $page_hero_scss,
+            $cards_scss,
+            $search_scss,
+        )
+    );
     
     wp_enqueue_style(
         'global-style',

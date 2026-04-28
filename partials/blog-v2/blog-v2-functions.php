@@ -35,7 +35,7 @@ function blog_v2_avatar_url_for_display( $url, $size = 100 ) {
 function blog_v2_default_author() {
     return array(
         'name'     => 'Pat Hartonian',
-        'job'      => 'VP of Operations, GCheck',
+        'job'      => 'Chief Compliance Officer',
         'avatar'   => 'pat',
         'url'      => get_template_directory_uri() . '/assets/images/pat-hat.png',
         'initials' => 'PH',
@@ -460,6 +460,31 @@ function blog_v2_author_initials( $name ) {
 }
 
 /**
+ * Force creator display name + title for specific people.
+ *
+ * @param string $name Display name.
+ * @param string $job  Job title.
+ * @return array{name:string,job:string}
+ */
+function blog_v2_force_creator_identity( $name, $job ) {
+    $name = is_string( $name ) ? trim( $name ) : '';
+    $job  = is_string( $job ) ? trim( $job ) : '';
+    $normalized = strtolower( preg_replace( '/\s+/', ' ', $name ) );
+
+    if ( strpos( $normalized, 'houman' ) !== false || strpos( $normalized, 'akhavan' ) !== false ) {
+        return array(
+            'name' => 'Houman Akhavan',
+            'job'  => 'Founder and CEO, GCheck',
+        );
+    }
+
+    return array(
+        'name' => $name,
+        'job'  => $job,
+    );
+}
+
+/**
  * Default job title when author has no job_title meta.
  */
 function blog_v2_default_author_job() {
@@ -652,6 +677,9 @@ function blog_v2_creator_data_from_ppma_author( $author ) {
         $job = $author->get_meta( 'job_title' );
     }
     $job = is_string( $job ) ? trim( $job ) : '';
+    $forced = blog_v2_force_creator_identity( $name, $job );
+    $name = $forced['name'];
+    $job  = $forced['job'];
     $is_editorial_team = blog_v2_ppma_author_is_gcheck_editorial_team( $author );
     if ( $is_editorial_team ) {
         $job = '';
@@ -728,6 +756,9 @@ function blog_v2_author_display_data( $post_id = null ) {
     }
     $job = get_the_author_meta( 'job_title', $author_id );
     $job = is_string( $job ) ? trim( $job ) : '';
+    $forced = blog_v2_force_creator_identity( $author_name, $job );
+    $author_name = $forced['name'];
+    $job         = $forced['job'];
     $is_editorial_team = blog_v2_is_gcheck_editorial_team( $author_id ) || ( $job === blog_v2_default_author_job() );
     if ( $is_editorial_team ) {
         $job = '';

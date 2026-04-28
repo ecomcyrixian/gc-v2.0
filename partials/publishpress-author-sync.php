@@ -126,6 +126,10 @@ function gc_author_bio_format_pbsa_fcra_link( $plain_text ) {
 		'gc_author_bio_pbsa_credential_phrases',
 		array(
 			array(
+				'phrase' => 'FCRA Advanced certification',
+				'url'    => 'https://credential.thepbsa.org/b3c23763-fb8a-4478-93bb-e8630f5cf451#acc.WEhM9fLe',
+			),
+			array(
 				'phrase' => 'Advanced FCRA certification from PBSA',
 				'url'    => 'https://credential.thepbsa.org/135098ec-8c34-46c3-aea6-16fa553d86aa#acc.TUb86aAu',
 			),

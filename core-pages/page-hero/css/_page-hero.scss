@@ -56,6 +56,14 @@
         }
       }
     }
+
+    &:has(.thankyou-contact-hero.dark) {
+      padding-top: 0;
+    }
+
+    &:has(.thankyou-contact-hero) {
+      padding-top: $gap80;
+    }
   }
 
   & > .container {
@@ -113,9 +121,7 @@
     font-size: $fsize18;
   }
 
-  p {
-    padding: 0;
-  }
+
 
   .cols.cols2 {
     align-items: center;
@@ -442,6 +448,10 @@
       padding: 0;
     }
 
+    &:has(.thankyou-contact-hero) .heading {
+      margin: 0;
+    }
+
     h1,
     h2 {
       padding-bottom: $gap20;
@@ -501,6 +511,99 @@
         justify-content: center;
         flex-wrap: wrap;
       }
+    }
+
+    .thankyou-contact-hero {
+      background: $blue50;
+      border: 1px solid $blue300;
+      border-radius: $corners8;
+      padding: $gap40;
+      max-width: 875px;
+      margin: 0 auto;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: $gap24;
+
+      @include media($mobile) {
+        padding: $gap20;
+      }
+
+      &.dark {
+        background: $gray300;
+        gap: $gap40;
+
+        .thankyou-contact-hero__title {
+          color: $cyan;
+        }
+
+        .thankyou-contact-hero__message {
+          color: $white;
+        }
+
+        .thankyou-contact-hero__content {
+          margin: 0 auto;
+        }
+
+        .thankyou-contact-hero__note {
+          margin-top: $gap8;
+          color: $white;
+        }
+      }
+    }
+
+    .thankyou-contact-hero__inner {
+      display: flex;
+      flex-direction: column;
+      gap: $gap4;
+    }
+
+    .thankyou-contact-hero__title {
+      font-size: $fsize40;
+      font-weight: $fSemiBold;
+      line-height: 1.5;
+
+      @include media($mobile) {
+        font-size: $fsize32;
+      }
+    }
+
+    .thankyou-contact-hero__subtext,
+    .thankyou-contact-hero_note,
+    .thankyou-contact-hero__message {
+      font-size: $base-fsize;
+      line-height: 1.5;
+    }
+
+    .thankyou-contact-hero__divider {
+      width: 100%;
+      height: 1px;
+      background: $gray75;
+    }
+
+    .thankyou-contact-hero__content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &:has(.thankyou-contact-hero) .btns {
+      margin: 0;
+    }
+
+    .thankyou-contact-hero__prompt {
+      font-size: $fsize20;
+      font-weight: $fSemiBold;
+      line-height: 1.5;
+    }
+
+    .thankyou-contact-hero__subtext {
+      color: $blue300;
+      font-weight: $fSemiBold;
+      margin-bottom: $gap30;
+    }
+    .thankyou-contact-hero__note {
+      font-style: italic;
+      margin-top: $gap30;
     }
 
     &.text-only--management-team {

@@ -6,7 +6,7 @@
 .floating-cta-btn {
     position: fixed;
     right: 0;
-    top: 78%;
+    top: 85%;
     transform: translateY(-50%);
     z-index: 9999;
     margin: 0 20px;

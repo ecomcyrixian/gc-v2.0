@@ -1646,21 +1646,35 @@ footer .copyright-row {
 }
 footer .copyright-left {
   display: flex;
-  gap: 20px;
+  flex-direction: column;
+  gap: 12px;
   flex-wrap: wrap;
 }
 @media screen and (max-width: 767px) {
   footer .copyright-left {
-    flex-direction: column;
+    align-items: flex-start;
     gap: 12px;
   }
 }
 footer .copyright-left a {
-  color: #3FC5FD;
+  color: white;
   text-decoration: none;
 }
-footer .copyright-left span {
+footer .copyright-left .copyright-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: center;
+}
+footer .copyright-left .copyright-links span {
+  display: inline-flex;
+  align-items: center;
   color: #FFFFFF;
+  position: relative;
+}
+footer .copyright-left .copyright-text span {
+  color: #FFFFFF;
+  opacity: 0.95;
 }
 footer .copyright-badges {
   display: flex;
@@ -2141,6 +2155,77 @@ body.search h4 span {
   color: #1A1C1E;
   margin-bottom: 60px;
 }
+.cards:has(.thankyou-contact-card) {
+  max-width: 875px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 80px;
+}
+.cards:has(.thankyou-contact-card) .heading {
+  padding: 0 0 40px 0;
+}
+.cards:has(.thankyou-contact-card) .card-cont {
+  gap: 24px;
+}
+.cards:has(.thankyou-contact-card) .card-item h4 {
+  margin-bottom: 0;
+}
+.cards:has(.thankyou-contact-card) .card-item p {
+  padding-bottom: 0;
+  font-size: 1.25em;
+}
+.cards:has(.thankyou-contact-card) .thankyou-contact-card {
+  text-align: center;
+}
+.cards:has(.thankyou-contact-card) .thankyou-contact-card_title {
+  font-size: 2.5em;
+  font-weight: 600;
+  line-height: 1.5;
+}
+@media screen and (max-width: 767px) {
+  .cards:has(.thankyou-contact-card) .thankyou-contact-card_title {
+    font-size: 2em;
+  }
+}
+.cards:has(.thankyou-contact-card) .thankyou-contact-card_subtext {
+  margin-top: 16px;
+  font-size: 1.125em;
+  line-height: 1.5;
+}
+.cards:has(.thankyou-contact-card) .card-item:has(.card-item__button) {
+  gap: 24px;
+}
+.cards:has(.thankyou-contact-card) .card-item__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+.cards:has(.thankyou-contact-card) .card-item__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.cards:has(.thankyou-contact-card) .card-item__copy h4 {
+  font-size: 1.25em;
+}
+.cards:has(.thankyou-contact-card) .card-item__copy p {
+  font-size: 14px;
+}
+.cards:has(.thankyou-contact-card) .card-item__icon {
+  flex: 0 0 auto;
+}
+.cards:has(.thankyou-contact-card) .card-item__button {
+  margin-top: auto;
+}
+@media screen and (max-width: 767px) {
+  .cards:has(.thankyou-contact-card) .card-item__header,
+  .cards:has(.thankyou-contact-card) .card-item.icon-left .card-item__header,
+  .cards:has(.thankyou-contact-card) .card-item.icon-right .card-item__header {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+  }
+}
 .cards:has(.heading .title.compliance) {
   margin-bottom: 0;
 }
@@ -2475,32 +2560,32 @@ body.search h4 span {
   width: 100%;
   height: 0;
 }
-.cards:has(.card-cont.card-same-height) > .container, .cards:has(.heading .card-same-height) > .container, .cards.card-same-height > .container {
+.cards:has(.card-cont.card-same-height) > .container, .cards:has(.heading .card-same-height) > .container, .cards:has(.thankyou-contact-card) > .container, .cards.card-same-height > .container {
   max-width: 1120px;
 }
-.cards:has(.card-cont.card-same-height) .card-cont:not(.card-cont--row-stagger), .cards:has(.heading .card-same-height) .card-cont:not(.card-cont--row-stagger), .cards.card-same-height .card-cont:not(.card-cont--row-stagger) {
+.cards:has(.card-cont.card-same-height) .card-cont:not(.card-cont--row-stagger), .cards:has(.heading .card-same-height) .card-cont:not(.card-cont--row-stagger), .cards:has(.thankyou-contact-card) .card-cont:not(.card-cont--row-stagger), .cards.card-same-height .card-cont:not(.card-cont--row-stagger) {
   align-items: stretch;
   align-content: flex-start;
 }
-.cards:has(.card-cont.card-same-height) .card-cont:not(.card-cont--row-stagger) > a, .cards:has(.card-cont.card-same-height) .card-cont:not(.card-cont--row-stagger) > div, .cards:has(.heading .card-same-height) .card-cont:not(.card-cont--row-stagger) > a, .cards:has(.heading .card-same-height) .card-cont:not(.card-cont--row-stagger) > div, .cards.card-same-height .card-cont:not(.card-cont--row-stagger) > a, .cards.card-same-height .card-cont:not(.card-cont--row-stagger) > div {
+.cards:has(.card-cont.card-same-height) .card-cont:not(.card-cont--row-stagger) > a, .cards:has(.card-cont.card-same-height) .card-cont:not(.card-cont--row-stagger) > div, .cards:has(.heading .card-same-height) .card-cont:not(.card-cont--row-stagger) > a, .cards:has(.heading .card-same-height) .card-cont:not(.card-cont--row-stagger) > div, .cards:has(.thankyou-contact-card) .card-cont:not(.card-cont--row-stagger) > a, .cards:has(.thankyou-contact-card) .card-cont:not(.card-cont--row-stagger) > div, .cards.card-same-height .card-cont:not(.card-cont--row-stagger) > a, .cards.card-same-height .card-cont:not(.card-cont--row-stagger) > div {
   display: flex;
   flex-direction: column;
   min-height: 0;
 }
-.cards:has(.card-cont.card-same-height).cards--layout-row .card-cont:not(.card-cont--row-stagger), .cards:has(.heading .card-same-height).cards--layout-row .card-cont:not(.card-cont--row-stagger), .cards.card-same-height.cards--layout-row .card-cont:not(.card-cont--row-stagger) {
+.cards:has(.card-cont.card-same-height).cards--layout-row .card-cont:not(.card-cont--row-stagger), .cards:has(.heading .card-same-height).cards--layout-row .card-cont:not(.card-cont--row-stagger), .cards:has(.thankyou-contact-card).cards--layout-row .card-cont:not(.card-cont--row-stagger), .cards.card-same-height.cards--layout-row .card-cont:not(.card-cont--row-stagger) {
   align-items: stretch;
 }
-.cards:has(.card-cont.card-same-height).cards--layout-row .card-cont:not(.card-cont--row-stagger) > *, .cards:has(.heading .card-same-height).cards--layout-row .card-cont:not(.card-cont--row-stagger) > *, .cards.card-same-height.cards--layout-row .card-cont:not(.card-cont--row-stagger) > * {
+.cards:has(.card-cont.card-same-height).cards--layout-row .card-cont:not(.card-cont--row-stagger) > *, .cards:has(.heading .card-same-height).cards--layout-row .card-cont:not(.card-cont--row-stagger) > *, .cards:has(.thankyou-contact-card).cards--layout-row .card-cont:not(.card-cont--row-stagger) > *, .cards.card-same-height.cards--layout-row .card-cont:not(.card-cont--row-stagger) > * {
   align-self: stretch;
   min-height: 0;
 }
-.cards:has(.card-cont.card-same-height) .card-link, .cards:has(.heading .card-same-height) .card-link, .cards.card-same-height .card-link {
+.cards:has(.card-cont.card-same-height) .card-link, .cards:has(.heading .card-same-height) .card-link, .cards:has(.thankyou-contact-card) .card-link, .cards.card-same-height .card-link {
   display: flex;
   flex-direction: column;
   height: 100%;
   min-height: 0;
 }
-.cards:has(.card-cont.card-same-height) .card-item, .cards:has(.heading .card-same-height) .card-item, .cards.card-same-height .card-item {
+.cards:has(.card-cont.card-same-height) .card-item, .cards:has(.heading .card-same-height) .card-item, .cards:has(.thankyou-contact-card) .card-item, .cards.card-same-height .card-item {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
@@ -2509,13 +2594,15 @@ body.search h4 span {
 }
 .cards:has(.card-cont.card-same-height) .card-item h4,
 .cards:has(.card-cont.card-same-height) .card-item .card-item__divider, .cards:has(.heading .card-same-height) .card-item h4,
-.cards:has(.heading .card-same-height) .card-item .card-item__divider, .cards.card-same-height .card-item h4,
+.cards:has(.heading .card-same-height) .card-item .card-item__divider, .cards:has(.thankyou-contact-card) .card-item h4,
+.cards:has(.thankyou-contact-card) .card-item .card-item__divider, .cards.card-same-height .card-item h4,
 .cards.card-same-height .card-item .card-item__divider {
   flex-shrink: 0;
 }
 .cards:has(.card-cont.card-same-height) .card-item h3 p,
 .cards:has(.card-cont.card-same-height) .card-item h4 p, .cards:has(.heading .card-same-height) .card-item h3 p,
-.cards:has(.heading .card-same-height) .card-item h4 p, .cards.card-same-height .card-item h3 p,
+.cards:has(.heading .card-same-height) .card-item h4 p, .cards:has(.thankyou-contact-card) .card-item h3 p,
+.cards:has(.thankyou-contact-card) .card-item h4 p, .cards.card-same-height .card-item h3 p,
 .cards.card-same-height .card-item h4 p {
   font-size: 20px;
 }
@@ -3932,6 +4019,12 @@ body.search h4 span {
 .page-hero.Center .bullets li::before {
   left: 0;
 }
+.page-hero.Center:has(.thankyou-contact-hero.dark) {
+  padding-top: 0;
+}
+.page-hero.Center:has(.thankyou-contact-hero) {
+  padding-top: 80px;
+}
 .page-hero > .container {
   padding: 0;
 }
@@ -3979,9 +4072,6 @@ body.search h4 span {
 }
 .page-hero strong {
   font-size: 1.125em;
-}
-.page-hero p {
-  padding: 0;
 }
 .page-hero .cols.cols2 {
   align-items: center;
@@ -4275,6 +4365,9 @@ body.search h4 span {
   margin: 16px 0;
   padding: 0;
 }
+.page-hero .text-only:has(.thankyou-contact-hero) .heading {
+  margin: 0;
+}
 .page-hero .text-only h1,
 .page-hero .text-only h2 {
   padding-bottom: 20px;
@@ -4333,6 +4426,87 @@ body.search h4 span {
   gap: 8px;
   justify-content: center;
   flex-wrap: wrap;
+}
+.page-hero .text-only .thankyou-contact-hero {
+  background: #F2F3FF;
+  border: 1px solid #4F51FD;
+  border-radius: 8px;
+  padding: 40px;
+  max-width: 875px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+@media screen and (max-width: 767px) {
+  .page-hero .text-only .thankyou-contact-hero {
+    padding: 20px;
+  }
+}
+.page-hero .text-only .thankyou-contact-hero.dark {
+  background: #1A1C1E;
+  gap: 40px;
+}
+.page-hero .text-only .thankyou-contact-hero.dark .thankyou-contact-hero__title {
+  color: #3FC5FD;
+}
+.page-hero .text-only .thankyou-contact-hero.dark .thankyou-contact-hero__message {
+  color: #FFFFFF;
+}
+.page-hero .text-only .thankyou-contact-hero.dark .thankyou-contact-hero__content {
+  margin: 0 auto;
+}
+.page-hero .text-only .thankyou-contact-hero.dark .thankyou-contact-hero__note {
+  margin-top: 8px;
+  color: #FFFFFF;
+}
+.page-hero .text-only .thankyou-contact-hero__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.page-hero .text-only .thankyou-contact-hero__title {
+  font-size: 2.5em;
+  font-weight: 600;
+  line-height: 1.5;
+}
+@media screen and (max-width: 767px) {
+  .page-hero .text-only .thankyou-contact-hero__title {
+    font-size: 2em;
+  }
+}
+.page-hero .text-only .thankyou-contact-hero__subtext,
+.page-hero .text-only .thankyou-contact-hero_note,
+.page-hero .text-only .thankyou-contact-hero__message {
+  font-size: 16px;
+  line-height: 1.5;
+}
+.page-hero .text-only .thankyou-contact-hero__divider {
+  width: 100%;
+  height: 1px;
+  background: #CDD6E0;
+}
+.page-hero .text-only .thankyou-contact-hero__content {
+  display: flex;
+  flex-direction: column;
+}
+.page-hero .text-only:has(.thankyou-contact-hero) .btns {
+  margin: 0;
+}
+.page-hero .text-only .thankyou-contact-hero__prompt {
+  font-size: 1.25em;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.page-hero .text-only .thankyou-contact-hero__subtext {
+  color: #4F51FD;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+.page-hero .text-only .thankyou-contact-hero__note {
+  font-style: italic;
+  margin-top: 30px;
 }
 .page-hero .text-only.text-only--management-team {
   padding: 96px 0 0;

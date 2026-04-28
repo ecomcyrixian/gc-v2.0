@@ -903,6 +903,97 @@ body.page{
     #landing-page{
         margin: $gap40 0;
 
+        .enzuzo-policy-card{
+            padding: $gap20;
+            background: $white;
+            border: 1px solid $gray75;
+            border-radius: $corners8;
+            box-shadow: 0 8px 24px rgba(10, 24, 48, 0.06);
+
+            #__enzuzo-root{
+                width: 100%;
+            }
+        }
+
+        .privacy-center{
+            padding: $gap40;
+            background: white;
+            border: 1px solid #dce4ef;
+            border-radius: 14px;
+            box-shadow: 0 16px 38px rgba(10, 24, 48, 0.1);
+
+            @include media($mobile){
+                padding: $gap20;
+            }
+
+            .privacy-center__title{
+                font-size: $fsize32;
+            }
+
+            .privacy-center__item{
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                gap: $gap20;
+                padding: $gap24;
+                margin-top: $gap16;
+                background: #ffffff;
+                border: 1px solid #e4eaf2;
+                border-radius: 12px;
+                box-shadow: 0 8px 18px rgba(10, 24, 48, 0.06);
+                position: relative;
+                overflow: hidden;
+
+                &::before{
+                    content: "";
+                    width: 4px;
+                    background: $blue300;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    bottom: 0;
+                }
+
+                &:first-child{
+                    margin-top: 0;
+                }
+
+                @include media($mobile){
+                    flex-direction: column;
+                    gap: $gap16;
+                    padding: $gap20;
+                }
+            }
+
+            .privacy-center__content{
+                flex: 1;
+
+                h4{
+                    margin-bottom: $gap8;
+                    font-size: $fsize24;
+                }
+
+                p{
+                    color: $gray300;
+                    font-size: $base-fsize;
+                }
+            }
+
+            .privacy-center__cta{
+                flex-shrink: 0;
+                align-self: center;
+
+                @include media($mobile){
+                    width: 100%;
+                    align-self: stretch;
+                }
+            }
+
+            .privacy-center__cta .button{
+                border-radius: 100px;
+            }
+        }
+
         
         h1,h2,h3{
             padding-bottom: $gap20;

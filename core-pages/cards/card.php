@@ -39,6 +39,8 @@
 	$use_row_two_col_stagger = $is_row_layout && 2 === $columns_int && ! empty( $cards_data );
 
 	$same_height_cards = strtolower( (string) get_sub_field( 'same_height_cards' ) ) === 'yes';
+	$is_thankyou_contact_card = is_string( $H2details ) && strpos( $H2details, 'thankyou-contact-card' ) !== false;
+	$use_thankyou_card_buttons = $is_thankyou_contact_card && $cards_clickable;
 
 	if ( ! function_exists( 'gc_card_link_url_target' ) ) {
 		function gc_card_link_url_target( $link ) {
@@ -102,19 +104,43 @@ if ( $use_whitepaper_background ) {
 							$icon    = $card['svg_icon'] ?? '';
 							$link    = $cards_clickable ? ( $card['link'] ?? null ) : null;
 							list( $url, $target ) = gc_card_link_url_target( $link );
+							$link_title = '';
+							if ( is_array( $link ) ) {
+								$link_title = isset( $link['title'] ) ? (string) $link['title'] : '';
+							}
+							if ( '' === $link_title ) {
+								$link_title = 'Read More';
+							}
 							?>
-							<?php if ( $cards_clickable && $url ) : ?>
+							<?php if ( ! $use_thankyou_card_buttons && $cards_clickable && $url ) : ?>
 								<a href="<?php echo esc_url( $url ); ?>" target="<?php echo esc_attr( $target ); ?>" class="card-link">
 							<?php endif; ?>
 								<div class="card-item">
-									<h4>
-										<span><?php echo $h4; ?></span>
-										<span><?php echo $icon; ?></span>
-									</h4>
-									<div class="card-item__divider" aria-hidden="true"></div>
-									<?php echo $details; ?>
+									<?php if ( $use_thankyou_card_buttons ) : ?>
+										<div class="card-item__header">
+											<div class="card-item__copy">
+												<h4><span><?php echo $h4; ?></span></h4>
+												<?php echo $details; ?>
+											</div>
+											<?php if ( $icon ) : ?>
+												<div class="card-item__icon"><?php echo $icon; ?></div>
+											<?php endif; ?>
+										</div>
+										<?php if ( $url ) : ?>
+											<a href="<?php echo esc_url( $url ); ?>" target="<?php echo esc_attr( $target ); ?>" class="button outline card-item__button" aria-label="<?php echo esc_attr( $link_title ); ?>">
+												<?php echo esc_html( $link_title ); ?>
+											</a>
+										<?php endif; ?>
+									<?php else : ?>
+										<h4>
+											<span><?php echo $h4; ?></span>
+											<span><?php echo $icon; ?></span>
+										</h4>
+										<div class="card-item__divider" aria-hidden="true"></div>
+										<?php echo $details; ?>
+									<?php endif; ?>
 								</div>
-							<?php if ( $cards_clickable && $url ) : ?>
+							<?php if ( ! $use_thankyou_card_buttons && $cards_clickable && $url ) : ?>
 								</a>
 							<?php endif; ?>
 						<?php endforeach; ?>
@@ -127,19 +153,43 @@ if ( $use_whitepaper_background ) {
 							$icon    = $card['svg_icon'] ?? '';
 							$link    = $cards_clickable ? ( $card['link'] ?? null ) : null;
 							list( $url, $target ) = gc_card_link_url_target( $link );
+							$link_title = '';
+							if ( is_array( $link ) ) {
+								$link_title = isset( $link['title'] ) ? (string) $link['title'] : '';
+							}
+							if ( '' === $link_title ) {
+								$link_title = 'Read More';
+							}
 							?>
-							<?php if ( $cards_clickable && $url ) : ?>
+							<?php if ( ! $use_thankyou_card_buttons && $cards_clickable && $url ) : ?>
 								<a href="<?php echo esc_url( $url ); ?>" target="<?php echo esc_attr( $target ); ?>" class="card-link">
 							<?php endif; ?>
 								<div class="card-item">
-									<h4>
-										<span><?php echo $h4; ?></span>
-										<span><?php echo $icon; ?></span>
-									</h4>
-									<div class="card-item__divider" aria-hidden="true"></div>
-									<?php echo $details; ?>
+									<?php if ( $use_thankyou_card_buttons ) : ?>
+										<div class="card-item__header">
+											<div class="card-item__copy">	
+												<h4><span><?php echo $h4; ?></span></h4>
+												<?php echo $details; ?>
+											</div>
+											<?php if ( $icon ) : ?>
+												<div class="card-item__icon"><?php echo $icon; ?></div>
+											<?php endif; ?>
+										</div>
+										<?php if ( $url ) : ?>
+											<a href="<?php echo esc_url( $url ); ?>" target="<?php echo esc_attr( $target ); ?>" class="button outline card-item__button" aria-label="<?php echo esc_attr( $link_title ); ?>">
+												<?php echo esc_html( $link_title ); ?>
+											</a>
+										<?php endif; ?>
+									<?php else : ?>
+										<h4>
+											<span><?php echo $h4; ?></span>
+											<span><?php echo $icon; ?></span>
+										</h4>
+										<div class="card-item__divider" aria-hidden="true"></div>
+										<?php echo $details; ?>
+									<?php endif; ?>
 								</div>
-							<?php if ( $cards_clickable && $url ) : ?>
+							<?php if ( ! $use_thankyou_card_buttons && $cards_clickable && $url ) : ?>
 								</a>
 							<?php endif; ?>
 						<?php endforeach; ?>
@@ -154,19 +204,43 @@ if ( $use_whitepaper_background ) {
 						$icon    = $card['svg_icon'] ?? '';
 						$link    = $cards_clickable ? ( $card['link'] ?? null ) : null;
 						list( $url, $target ) = gc_card_link_url_target( $link );
+						$link_title = '';
+						if ( is_array( $link ) ) {
+							$link_title = isset( $link['title'] ) ? (string) $link['title'] : '';
+						}
+						if ( '' === $link_title ) {
+							$link_title = 'Read More';
+						}
 						?>
-						<?php if ( $cards_clickable && $url ) : ?>
+						<?php if ( ! $use_thankyou_card_buttons && $cards_clickable && $url ) : ?>
 							<a href="<?php echo esc_url( $url ); ?>" target="<?php echo esc_attr( $target ); ?>" class="card-link">
 						<?php endif; ?>
 							<div class="card-item">
-								<h4>
-									<span><?php echo $h4; ?></span>
-									<span><?php echo $icon; ?></span>
-								</h4>
-								<div class="card-item__divider" aria-hidden="true"></div>
-								<?php echo $details; ?>
+								<?php if ( $use_thankyou_card_buttons ) : ?>
+									<div class="card-item__header">
+										<div class="card-item__copy">
+											<h4><span><?php echo $h4; ?></span></h4>
+											<?php echo $details; ?>
+										</div>
+										<?php if ( $icon ) : ?>
+											<div class="card-item__icon"><?php echo $icon; ?></div>
+										<?php endif; ?>
+									</div>
+									<?php if ( $url ) : ?>
+										<a href="<?php echo esc_url( $url ); ?>" target="<?php echo esc_attr( $target ); ?>" class="button outline card-item__button" aria-label="<?php echo esc_attr( $link_title ); ?>">
+											<?php echo esc_html( $link_title ); ?>
+										</a>
+									<?php endif; ?>
+								<?php else : ?>
+									<h4>
+										<span><?php echo $h4; ?></span>
+										<span><?php echo $icon; ?></span>
+									</h4>
+									<div class="card-item__divider" aria-hidden="true"></div>
+									<?php echo $details; ?>
+								<?php endif; ?>
 							</div>
-						<?php if ( $cards_clickable && $url ) : ?>
+						<?php if ( ! $use_thankyou_card_buttons && $cards_clickable && $url ) : ?>
 							</a>
 						<?php endif; ?>
 					<?php endforeach; ?>
