@@ -471,6 +471,13 @@ function blog_v2_force_creator_identity( $name, $job ) {
     $job  = is_string( $job ) ? trim( $job ) : '';
     $normalized = strtolower( preg_replace( '/\s+/', ' ', $name ) );
 
+    if ( strpos( $normalized, 'pat' ) !== false && strpos( $normalized, 'hartonian' ) !== false ) {
+        return array(
+            'name' => 'Pat Hartonian',
+            'job'  => 'Chief Compliance Officer',
+        );
+    }
+
     if ( strpos( $normalized, 'houman' ) !== false || strpos( $normalized, 'akhavan' ) !== false ) {
         return array(
             'name' => 'Houman Akhavan',

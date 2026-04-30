@@ -4,102 +4,123 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-function gc_pp_early_detect_author_term_save() {
-	if ( ! is_admin() || empty( $_POST ) ) {
-		return;
+function gc_pp_attachment_url_to_postid_lenient( $url ) {
+	$url = is_string( $url ) ? trim( $url ) : '';
+	if ( $url === '' ) {
+		return 0;
 	}
-	$is_editedtag = isset( $_POST['action'] ) && 'editedtag' === $_POST['action']
-		&& isset( $_POST['taxonomy'] ) && 'author' === $_POST['taxonomy'];
-	$is_pp_ajax = wp_doing_ajax()
-		&& isset( $_POST['taxonomy'] ) && 'author' === $_POST['taxonomy'];
-	if ( ! $is_editedtag && ! $is_pp_ajax ) {
-		return;
+	$url = strtok( $url, '?' );
+	$id  = (int) attachment_url_to_postid( $url );
+	if ( $id > 0 ) {
+		return $id;
 	}
-
-	global $gc_pp_author_term_saving;
-	$gc_pp_author_term_saving = true;
-
-	$term_id = ! empty( $_POST['tag_ID'] ) ? (int) $_POST['tag_ID'] : 0;
-	if ( $term_id < 1 ) {
-		return;
-	}
-	$current_user_id = (int) get_term_meta( $term_id, 'user_id', true );
-	if ( $current_user_id < 1 ) {
-		return;
-	}
-
-	global $gc_pp_protect_mapped_user;
-	$gc_pp_protect_mapped_user = array(
-		'term_id' => $term_id,
-		'user_id' => $current_user_id,
-	);
-}
-
-add_action( 'admin_init', 'gc_pp_early_detect_author_term_save', 0 );
-
-function gc_pp_restore_mapped_user_after_save() {
-	global $gc_pp_protect_mapped_user;
-	if ( empty( $gc_pp_protect_mapped_user ) ) {
-		return;
-	}
-	$term_id     = $gc_pp_protect_mapped_user['term_id'];
-	$expected_id = $gc_pp_protect_mapped_user['user_id'];
-	$current_id  = (int) get_term_meta( $term_id, 'user_id', true );
-
-	if ( $current_id < 1 && $expected_id > 0 ) {
-		update_term_meta( $term_id, 'user_id', $expected_id );
-	}
-}
-
-add_action( 'shutdown', 'gc_pp_restore_mapped_user_after_save', 0 );
-
-function gc_pp_desired_author_slug_from_user( $user_id ) {
-	$user_id = (int) $user_id;
-	if ( $user_id < 1 ) {
-		return '';
-	}
-	$first = trim( (string) get_user_meta( $user_id, 'first_name', true ) );
-	$last  = trim( (string) get_user_meta( $user_id, 'last_name', true ) );
-	if ( $first !== '' || $last !== '' ) {
-		return sanitize_title( trim( $first . '-' . $last ) );
-	}
-	$user = get_userdata( $user_id );
-	if ( $user instanceof WP_User && trim( (string) $user->display_name ) !== '' ) {
-		return sanitize_title( $user->display_name );
-	}
-	return '';
-}
-
-function gc_pp_get_display_slug( $term_id ) {
-	$term_id = (int) $term_id;
-	if ( $term_id < 1 ) {
-		return '';
-	}
-	$display = get_term_meta( $term_id, 'gc_display_slug', true );
-	if ( is_string( $display ) && $display !== '' ) {
-		return $display;
-	}
-	$user_id = (int) get_term_meta( $term_id, 'user_id', true );
-	if ( $user_id > 0 ) {
-		$desired = gc_pp_desired_author_slug_from_user( $user_id );
-		if ( $desired !== '' ) {
-			return $desired;
+	if ( preg_match( '#^(.+)-\d+x\d+(\.[^.]+)$#i', $url, $m ) ) {
+		$id = (int) attachment_url_to_postid( $m[1] . $m[2] );
+		if ( $id > 0 ) {
+			return $id;
 		}
 	}
-	$slug = get_term_field( 'slug', $term_id, 'author', 'raw' );
-	return ( ! is_wp_error( $slug ) && is_string( $slug ) ) ? $slug : '';
+	return 0;
 }
 
-function gc_pp_set_display_slug( $term_id, $user_id ) {
-	$term_id = (int) $term_id;
+function gc_pp_user_meta_fallback_avatar_id( $user_id ) {
 	$user_id = (int) $user_id;
-	if ( $term_id < 1 || $user_id < 1 ) {
-		return;
+	if ( $user_id < 1 ) {
+		return 0;
 	}
-	$desired = gc_pp_desired_author_slug_from_user( $user_id );
-	if ( $desired !== '' ) {
-		update_term_meta( $term_id, 'gc_display_slug', $desired );
+	$all = get_user_meta( $user_id );
+	if ( ! is_array( $all ) ) {
+		return 0;
 	}
+	foreach ( $all as $values ) {
+		foreach ( (array) $values as $v ) {
+			if ( ! is_string( $v ) || strlen( $v ) < 15 ) {
+				continue;
+			}
+			if ( ! preg_match( '#^https?://#i', $v ) ) {
+				continue;
+			}
+			if ( strpos( $v, 'uploads' ) === false && strpos( $v, '/wp-content/' ) === false ) {
+				continue;
+			}
+			$id = (int) attachment_url_to_postid( $v );
+			if ( $id < 1 ) {
+				$id = (int) gc_pp_attachment_url_to_postid_lenient( $v );
+			}
+			if ( $id > 0 && wp_attachment_is_image( $id ) ) {
+				return $id;
+			}
+		}
+	}
+	foreach ( $all as $key => $values ) {
+		if ( ! preg_match( '/avatar|photo|profile|picture|image|upload/i', (string) $key ) ) {
+			continue;
+		}
+		foreach ( (array) $values as $v ) {
+			if ( ! is_numeric( $v ) ) {
+				continue;
+			}
+			$aid = (int) $v;
+			if ( $aid > 0 && 'attachment' === get_post_type( $aid ) && wp_attachment_is_image( $aid ) ) {
+				return $aid;
+			}
+		}
+	}
+	return 0;
+}
+
+function gc_pp_resolve_user_avatar_attachment_id( $user_id ) {
+	$user_id = (int) $user_id;
+	if ( $user_id < 1 ) {
+		return 0;
+	}
+
+	$keys = apply_filters(
+		'gc_pp_user_avatar_meta_keys',
+		array(
+			'simple_local_avatar',
+			'wp_user_avatar',
+			'user_avatar',
+			'metabox_avatar_id',
+			'mepr_avatar',
+			'profile_photo',
+			'author_profile_image',
+			'user_profile_photo',
+			'upload_photo',
+			'profile_picture',
+		)
+	);
+
+	foreach ( $keys as $key ) {
+		$val = get_user_meta( $user_id, $key, true );
+		$id  = 0;
+
+		if ( is_array( $val ) ) {
+			if ( isset( $val['media_id'] ) ) {
+				$id = (int) $val['media_id'];
+			} elseif ( isset( $val['full'] ) && is_numeric( $val['full'] ) ) {
+				$id = (int) $val['full'];
+			}
+		} elseif ( is_numeric( $val ) ) {
+			$id = (int) $val;
+		} elseif ( is_string( $val ) && preg_match( '#^https?://#i', $val ) ) {
+			$id = (int) attachment_url_to_postid( $val );
+			if ( $id < 1 ) {
+				$id = (int) gc_pp_attachment_url_to_postid_lenient( $val );
+			}
+		}
+
+		if ( $id > 0 && 'attachment' === get_post_type( $id ) ) {
+			return $id;
+		}
+	}
+
+	$fallback = gc_pp_user_meta_fallback_avatar_id( $user_id );
+	if ( $fallback > 0 ) {
+		return $fallback;
+	}
+
+	return (int) apply_filters( 'gc_pp_user_avatar_attachment_id', 0, $user_id );
 }
 
 function gc_pp_url_from_attachment_id( $attachment_id ) {
@@ -107,14 +128,68 @@ function gc_pp_url_from_attachment_id( $attachment_id ) {
 	if ( $attachment_id < 1 ) {
 		return '';
 	}
-	foreach ( array( array( 156, 156 ), 'medium_large', 'full' ) as $size ) {
-		$url = wp_get_attachment_image_url( $attachment_id, $size );
-		if ( $url ) {
-			return $url;
+	$url = wp_get_attachment_image_url( $attachment_id, array( 156, 156 ) );
+	if ( ! $url ) {
+		$url = wp_get_attachment_image_url( $attachment_id, 'medium_large' );
+	}
+	if ( ! $url ) {
+		$url = wp_get_attachment_image_url( $attachment_id, 'full' );
+	}
+	return $url ? $url : '';
+}
+
+function gc_pp_resolve_mapped_user_id_for_author( $ppma_author, $queried_term ) {
+	if ( method_exists( $ppma_author, 'get_user_object' ) ) {
+		$u = $ppma_author->get_user_object();
+		if ( $u instanceof WP_User ) {
+			return (int) $u->ID;
+		}
+	}
+	if ( $queried_term instanceof WP_Term ) {
+		$from_term = (int) get_term_meta( (int) $queried_term->term_id, 'user_id', true );
+		if ( $from_term > 0 ) {
+			return $from_term;
+		}
+	}
+	if ( is_object( $ppma_author ) && isset( $ppma_author->user_id ) ) {
+		$uid = (int) $ppma_author->user_id;
+		if ( $uid > 0 ) {
+			return $uid;
+		}
+	}
+	return 0;
+}
+
+function gc_pp_resolve_user_job_title_for_display( $user_id ) {
+	$user_id = (int) $user_id;
+	if ( $user_id < 1 ) {
+		return '';
+	}
+	$keys = apply_filters(
+		'gc_pp_user_job_title_meta_keys',
+		array( 'job_title', 'employer_name', 'position', 'title', 'job', 'occupation' )
+	);
+	foreach ( $keys as $key ) {
+		$v = get_user_meta( $user_id, $key, true );
+		if ( is_string( $v ) && trim( $v ) !== '' ) {
+			return trim( wp_unslash( $v ) );
+		}
+	}
+	if ( function_exists( 'get_field' ) ) {
+		$acf_keys = apply_filters(
+			'gc_pp_user_job_title_acf_fields',
+			array( 'job_title', 'employer_name', 'employer_title', 'job' )
+		);
+		foreach ( $acf_keys as $field ) {
+			$v = get_field( $field, 'user_' . $user_id );
+			if ( is_string( $v ) && trim( $v ) !== '' ) {
+				return trim( $v );
+			}
 		}
 	}
 	return '';
 }
+
 
 function gc_author_bio_format_pbsa_fcra_link( $plain_text ) {
 	$plain_text = (string) $plain_text;
@@ -125,10 +200,10 @@ function gc_author_bio_format_pbsa_fcra_link( $plain_text ) {
 	$credentials = apply_filters(
 		'gc_author_bio_pbsa_credential_phrases',
 		array(
-			array(
-				'phrase' => 'FCRA Advanced certification',
-				'url'    => 'https://credential.thepbsa.org/b3c23763-fb8a-4478-93bb-e8630f5cf451#acc.WEhM9fLe',
-			),
+            array(
+                    'phrase' => 'FCRA Advanced certification',
+                    'url'    => 'https://credential.thepbsa.org/b3c23763-fb8a-4478-93bb-e8630f5cf451#acc.WEhM9fLe',
+                ),
 			array(
 				'phrase' => 'Advanced FCRA certification from PBSA',
 				'url'    => 'https://credential.thepbsa.org/135098ec-8c34-46c3-aea6-16fa553d86aa#acc.TUb86aAu',
@@ -234,9 +309,9 @@ function gc_pp_get_author_template_data( $queried ) {
 	}
 
 	if ( $queried instanceof WP_User && class_exists( '\MultipleAuthors\Classes\Objects\Author' ) ) {
-		$pp_try = \MultipleAuthors\Classes\Objects\Author::get_by_user_id( (int) $queried->ID );
-		if ( is_object( $pp_try ) && ! empty( $pp_try->term_id ) ) {
-			$author_term = get_term( (int) $pp_try->term_id, 'author' );
+		$pp_by_user = \MultipleAuthors\Classes\Objects\Author::get_by_user_id( (int) $queried->ID );
+		if ( is_object( $pp_by_user ) && ! empty( $pp_by_user->term_id ) ) {
+			$author_term = get_term( (int) $pp_by_user->term_id, 'author' );
 			if ( $author_term instanceof WP_Term && ! is_wp_error( $author_term ) ) {
 				return gc_pp_get_author_template_data( $author_term );
 			}
@@ -268,6 +343,10 @@ function gc_pp_get_author_template_data( $queried ) {
 			'avatar_url'       => '',
 		);
 
+		if ( trim( (string) $out['user_job'] ) === '' && $queried instanceof WP_Term ) {
+			$out['user_job'] = (string) get_term_meta( (int) $queried->term_id, 'job_title', true );
+		}
+
 		if ( $out['user_description'] === '' && method_exists( $ppma_author, 'get_user_object' ) ) {
 			$u = $ppma_author->get_user_object();
 			if ( $u instanceof WP_User ) {
@@ -275,16 +354,54 @@ function gc_pp_get_author_template_data( $queried ) {
 			}
 		}
 
+		$mapped = gc_pp_resolve_mapped_user_id_for_author( $ppma_author, $queried instanceof WP_Term ? $queried : null );
+
+		if ( trim( (string) $out['user_job'] ) === '' && $mapped > 0 ) {
+			$job = gc_pp_resolve_user_job_title_for_display( $mapped );
+			if ( $job === '' ) {
+				$job = (string) get_user_meta( $mapped, 'job_title', true );
+			}
+			$out['user_job'] = $job;
+		}
+
+		$avatar_url = '';
 		if ( $queried instanceof WP_Term ) {
 			$att_id = (int) get_term_meta( (int) $queried->term_id, 'avatar', true );
 			if ( $att_id > 0 ) {
-				$out['avatar_url'] = gc_pp_url_from_attachment_id( $att_id );
+				$avatar_url = gc_pp_url_from_attachment_id( $att_id );
 			}
 		}
-
-		if ( $out['avatar_url'] === '' && $out['user_email'] !== '' ) {
-			$out['avatar_url'] = get_avatar_url( $out['user_email'], array( 'size' => 156 ) );
+		if ( $avatar_url === '' && $mapped > 0 ) {
+			$uid_att = (int) gc_pp_resolve_user_avatar_attachment_id( $mapped );
+			if ( $uid_att > 0 ) {
+				$avatar_url = gc_pp_url_from_attachment_id( $uid_att );
+			}
 		}
+		if ( $avatar_url === '' && $mapped > 0 ) {
+			$ad = get_avatar_data(
+				$mapped,
+				array(
+					'size' => 156,
+					'alt'  => trim( $out['first_name'] . ' ' . $out['last_name'] ),
+				)
+			);
+			if ( is_array( $ad ) && ! empty( $ad['url'] ) ) {
+				$avatar_url = (string) $ad['url'];
+			}
+		}
+		if ( $avatar_url === '' && method_exists( $ppma_author, 'get_avatar_url' ) ) {
+			$av = $ppma_author->get_avatar_url( 156 );
+			if ( is_array( $av ) && ! empty( $av['url'] ) ) {
+				$avatar_url = (string) $av['url'];
+			} elseif ( is_string( $av ) ) {
+				$avatar_url = trim( $av );
+			}
+		}
+		if ( $avatar_url === '' && $out['user_email'] !== '' ) {
+			$avatar_url = get_avatar_url( $out['user_email'], array( 'size' => 156 ) );
+		}
+
+		$out['avatar_url'] = $avatar_url;
 
 		return apply_filters( 'gc_pp_author_template_data', $out, $queried );
 	}
@@ -297,7 +414,7 @@ function gc_pp_get_author_template_data( $queried ) {
 		'last_name'        => get_the_author_meta( 'last_name', $uid ),
 		'user_email'       => get_the_author_meta( 'user_email', $uid ),
 		'user_url'         => get_the_author_meta( 'user_url', $uid ),
-		'user_job'         => '',
+		'user_job'         => get_the_author_meta( 'job_title', $uid ),
 		'user_facebook'    => get_the_author_meta( 'facebook', $uid ),
 		'user_twitter'     => get_the_author_meta( 'twitter', $uid ),
 		'user_instagram'   => get_the_author_meta( 'instagram', $uid ),
@@ -306,9 +423,54 @@ function gc_pp_get_author_template_data( $queried ) {
 		'avatar_url'       => '',
 	);
 
-	if ( $out['user_email'] !== '' ) {
-		$out['avatar_url'] = get_avatar_url( $out['user_email'], array( 'size' => 156 ) );
+	$avatar_url = '';
+	$ad         = get_avatar_data(
+		$uid,
+		array(
+			'size' => 156,
+			'alt'  => trim( $out['first_name'] . ' ' . $out['last_name'] ),
+		)
+	);
+	if ( is_array( $ad ) && ! empty( $ad['url'] ) ) {
+		$avatar_url = (string) $ad['url'];
 	}
+	if ( $avatar_url === '' && $out['user_email'] !== '' ) {
+		$ad = get_avatar_data( $out['user_email'], array( 'size' => 156 ) );
+		if ( is_array( $ad ) && ! empty( $ad['url'] ) ) {
+			$avatar_url = (string) $ad['url'];
+		}
+	}
+
+	if ( $queried instanceof WP_User && is_callable( array( '\MultipleAuthors\Classes\Objects\Author', 'get_by_term_slug' ) ) ) {
+		$pp_for_slug = \MultipleAuthors\Classes\Objects\Author::get_by_term_slug( $queried->user_nicename );
+		if ( is_object( $pp_for_slug ) && isset( $pp_for_slug->term_id ) ) {
+			$tid     = (int) $pp_for_slug->term_id;
+			$has_att = ( (int) get_term_meta( $tid, 'avatar', true ) ) > 0;
+			$has_pp  = $has_att || ( method_exists( $pp_for_slug, 'has_custom_avatar' ) && $pp_for_slug->has_custom_avatar() );
+			if ( $has_pp ) {
+				$pp_img = '';
+				if ( method_exists( $pp_for_slug, 'get_avatar_url' ) ) {
+					$pv = $pp_for_slug->get_avatar_url( 156 );
+					if ( is_array( $pv ) && ! empty( $pv['url'] ) ) {
+						$pp_img = (string) $pv['url'];
+					} elseif ( is_string( $pv ) ) {
+						$pp_img = trim( $pv );
+					}
+				}
+				if ( $pp_img === '' && $has_att ) {
+					$aid = (int) get_term_meta( $tid, 'avatar', true );
+					if ( $aid > 0 ) {
+						$pp_img = gc_pp_url_from_attachment_id( $aid );
+					}
+				}
+				if ( $pp_img !== '' ) {
+					$avatar_url = $pp_img;
+				}
+			}
+		}
+	}
+
+	$out['avatar_url'] = $avatar_url;
 
 	return apply_filters( 'gc_pp_author_template_data', $out, $queried );
 }
@@ -316,10 +478,7 @@ function gc_pp_get_author_template_data( $queried ) {
 function gc_pp_copy_user_fields_to_author_term( $term_id, $user_id ) {
 	$term_id = (int) $term_id;
 	$user_id = (int) $user_id;
-	if ( $term_id < 1 || $user_id < 1 || ! class_exists( '\MultipleAuthors\Classes\Objects\Author' ) ) {
-		return;
-	}
-	if ( ! current_user_can( 'edit_term', $term_id ) && ! current_user_can( 'edit_user', $user_id ) ) {
+	if ( $term_id < 1 || $user_id < 1 ) {
 		return;
 	}
 
@@ -328,11 +487,14 @@ function gc_pp_copy_user_fields_to_author_term( $term_id, $user_id ) {
 		return;
 	}
 
-	$fields = apply_filters( 'gc_pp_sync_user_to_author_term_fields', array(
+	$fields = array(
 		'first_name'  => $user->first_name,
 		'last_name'   => $user->last_name,
 		'description' => get_user_meta( $user_id, 'description', true ),
-	), $term_id, $user_id );
+		'job_title'   => get_user_meta( $user_id, 'job_title', true ),
+	);
+
+	$fields = apply_filters( 'gc_pp_sync_user_to_author_term_fields', $fields, $term_id, $user_id );
 
 	foreach ( $fields as $meta_key => $value ) {
 		if ( $value === null || $value === '' ) {
@@ -344,66 +506,38 @@ function gc_pp_copy_user_fields_to_author_term( $term_id, $user_id ) {
 		update_term_meta( $term_id, $meta_key, $value );
 	}
 
+	$avatar_id = gc_pp_resolve_user_avatar_attachment_id( $user_id );
+	if ( $avatar_id > 0 ) {
+		update_term_meta( $term_id, 'avatar', $avatar_id );
+	}
+
 	do_action( 'gc_pp_after_copy_user_fields_to_author_term', $term_id, $user_id );
 }
 
-function gc_pp_get_author_taxonomy_url( $term_id ) {
+function gc_pp_sync_author_term_from_mapped_user( $term_id ) {
 	$term_id = (int) $term_id;
 	if ( $term_id < 1 ) {
-		return '';
+		return;
 	}
-	$tl = get_term_link( $term_id, 'author' );
-	return ( ! is_wp_error( $tl ) && is_string( $tl ) ) ? $tl : '';
-}
-
-function gc_pp_unparse_url( $parts ) {
-	if ( ! is_array( $parts ) ) {
-		return '';
+	if ( ! class_exists( '\MultipleAuthors\Classes\Objects\Author' ) ) {
+		return;
 	}
-	return ( isset( $parts['scheme'] ) ? $parts['scheme'] . '://' : '' )
-		. ( isset( $parts['host'] ) ? $parts['host'] : '' )
-		. ( isset( $parts['port'] ) ? ':' . (int) $parts['port'] : '' )
-		. ( isset( $parts['path'] ) ? $parts['path'] : '' )
-		. ( isset( $parts['query'] ) ? '?' . $parts['query'] : '' )
-		. ( isset( $parts['fragment'] ) ? '#' . $parts['fragment'] : '' );
-}
-
-function gc_pp_author_url_rewrite_base_segment() {
-	$tax = get_taxonomy( 'author' );
-	if ( $tax && is_array( $tax->rewrite ) && ! empty( $tax->rewrite['slug'] ) ) {
-		$slug = trim( (string) $tax->rewrite['slug'], '/' );
-		if ( $slug !== '' ) {
-			return $slug;
-		}
+	$user_id = (int) get_term_meta( $term_id, 'user_id', true );
+	if ( $user_id < 1 ) {
+		return;
 	}
-	return 'author';
-}
-
-function gc_pp_term_link_force_author_term_slug( $url, $term, $taxonomy ) {
-	if ( 'author' !== $taxonomy || ! $term instanceof WP_Term || is_wp_error( $term ) ) {
-		return $url;
+	if ( ! get_userdata( $user_id ) ) {
+		return;
 	}
-	$slug = gc_pp_get_display_slug( (int) $term->term_id );
-	if ( $slug === '' ) {
-		return $url;
+	if ( method_exists( '\MultipleAuthors\Classes\Objects\Author', 'update_author_from_user' ) ) {
+		\MultipleAuthors\Classes\Objects\Author::update_author_from_user( $term_id, $user_id );
 	}
-	$base   = gc_pp_author_url_rewrite_base_segment();
-	$parsed = wp_parse_url( $url );
-	if ( ! is_array( $parsed ) || empty( $parsed['path'] ) ) {
-		return $url;
-	}
-	$pattern = '#(/' . preg_quote( $base, '#' ) . '/)([^/]+)(?=/|$)#';
-	if ( ! preg_match( $pattern, $parsed['path'], $m ) || $m[2] === $slug ) {
-		return $url;
-	}
-	$parsed['path'] = preg_replace( $pattern, '$1' . $slug, $parsed['path'], 1 );
-	$fixed = gc_pp_unparse_url( $parsed );
-	return $fixed !== '' ? $fixed : $url;
+	gc_pp_copy_user_fields_to_author_term( $term_id, $user_id );
 }
 
 function gc_pp_sync_author_from_user( $user_id ) {
 	$user_id = (int) $user_id;
-	if ( $user_id < 1 || ! current_user_can( 'edit_user', $user_id ) ) {
+	if ( $user_id < 1 ) {
 		return;
 	}
 	if ( ! class_exists( '\MultipleAuthors\Classes\Objects\Author' ) ) {
@@ -413,300 +547,191 @@ function gc_pp_sync_author_from_user( $user_id ) {
 	if ( ! is_object( $author ) || empty( $author->term_id ) ) {
 		return;
 	}
-	gc_pp_copy_user_fields_to_author_term( (int) $author->term_id, $user_id );
-	gc_pp_set_display_slug( (int) $author->term_id, $user_id );
+	$term_id = (int) $author->term_id;
+
+	if ( method_exists( '\MultipleAuthors\Classes\Objects\Author', 'update_author_from_user' ) ) {
+		\MultipleAuthors\Classes\Objects\Author::update_author_from_user( $term_id, $user_id );
+	}
+
+	gc_pp_copy_user_fields_to_author_term( $term_id, $user_id );
 }
 
 add_action( 'profile_update', 'gc_pp_sync_author_from_user', 99, 1 );
 
-function gc_pp_on_author_term_edited_sync_from_user( $term_id, $tt_id, $taxonomy ) {
+function gc_pp_sync_on_author_term_saved( $term_id, $tt_id, $taxonomy ) {
 	if ( 'author' !== $taxonomy ) {
 		return;
 	}
-	global $gc_pp_author_term_saving;
-	$gc_pp_author_term_saving = true;
-}
 
-add_action( 'edited_term', 'gc_pp_on_author_term_edited_sync_from_user', 9999999, 3 );
-
-function gc_pp_on_author_user_id_meta_set( $meta_id, $term_id, $meta_key, $meta_value ) {
-	if ( 'user_id' !== $meta_key ) {
-		return;
-	}
 	$term_id = (int) $term_id;
-	$term    = get_term( $term_id );
-	if ( ! $term instanceof WP_Term || 'author' !== $term->taxonomy ) {
-		return;
-	}
-	$user_id = (int) $meta_value;
+
+	$run = function () use ( $term_id ) {
+		gc_pp_sync_author_term_from_mapped_user( $term_id );
+	};
+
+	add_action( 'shutdown', $run, 999 );
+}
+
+add_action( 'created_term', 'gc_pp_sync_on_author_term_saved', 99, 3 );
+
+function gc_pp_author_slug_from_user_name( $user_id ) {
+	$user_id = (int) $user_id;
 	if ( $user_id < 1 ) {
-		return;
+		return '';
 	}
-	gc_pp_set_display_slug( $term_id, $user_id );
-	global $gc_pp_author_term_saving;
-	if ( ! empty( $gc_pp_author_term_saving ) ) {
-		return;
+	$first = trim( (string) get_user_meta( $user_id, 'first_name', true ) );
+	$last  = trim( (string) get_user_meta( $user_id, 'last_name', true ) );
+	if ( $first === '' || $last === '' ) {
+		return '';
 	}
-	gc_pp_copy_user_fields_to_author_term( $term_id, $user_id );
+	return sanitize_title( $first . '-' . $last );
 }
 
-add_action( 'added_term_meta', 'gc_pp_on_author_user_id_meta_set', 20, 4 );
-add_action( 'updated_term_meta', 'gc_pp_on_author_user_id_meta_set', 20, 4 );
-
-function gc_pp_parse_author_request_slug( $path ) {
-	$path = is_string( $path ) ? trim( $path, '/' ) : '';
-	if ( $path === '' ) {
-		return '';
+function gc_pp_find_user_id_by_preferred_author_slug( $slug ) {
+	$slug = sanitize_title( (string) $slug );
+	if ( $slug === '' ) {
+		return 0;
 	}
-	$bases = array( gc_pp_author_url_rewrite_base_segment() );
-	global $wp_rewrite;
-	if ( $wp_rewrite instanceof WP_Rewrite ) {
-		$ab = trim( (string) $wp_rewrite->author_base, '/' );
-		if ( $ab !== '' && ! in_array( $ab, $bases, true ) ) {
-			$bases[] = $ab;
+	static $cache = array();
+	if ( isset( $cache[ $slug ] ) ) {
+		return (int) $cache[ $slug ];
+	}
+	$users = get_users(
+		array(
+			'number' => 500,
+			'fields' => array( 'ID' ),
+		)
+	);
+	foreach ( $users as $u ) {
+		$uid = isset( $u->ID ) ? (int) $u->ID : 0;
+		if ( $uid < 1 ) {
+			continue;
+		}
+		if ( gc_pp_author_slug_from_user_name( $uid ) === $slug ) {
+			$cache[ $slug ] = $uid;
+			return $uid;
 		}
 	}
-	$parts = explode( '/', $path );
-	$idx   = false;
-	foreach ( $bases as $base ) {
-		$found = array_search( $base, $parts, true );
-		if ( false !== $found ) {
-			$idx = $found;
-			break;
-		}
-	}
-	if ( false === $idx || ! isset( $parts[ $idx + 1 ] ) ) {
-		return '';
-	}
-	$slug = (string) $parts[ $idx + 1 ];
-	if ( in_array( $slug, array( 'feed', 'embed', 'trackback' ), true ) ) {
-		return '';
-	}
-	return sanitize_title_for_query( $slug );
+	$cache[ $slug ] = 0;
+	return 0;
 }
 
-function gc_pp_current_request_path_normalized() {
+function gc_pp_filter_author_link_slug( $link, $author_id, $author_nicename ) {
+	$preferred_slug = gc_pp_author_slug_from_user_name( (int) $author_id );
+	if ( $preferred_slug === '' ) {
+		return $link;
+	}
+	if ( $preferred_slug === (string) $author_nicename ) {
+		return $link;
+	}
+	remove_filter( 'author_link', 'gc_pp_filter_author_link_slug', 20 );
+	$preferred_link = get_author_posts_url( (int) $author_id, $preferred_slug );
+	add_filter( 'author_link', 'gc_pp_filter_author_link_slug', 20, 3 );
+	return $preferred_link ? $preferred_link : $link;
+}
+add_filter( 'author_link', 'gc_pp_filter_author_link_slug', 20, 3 );
+
+function gc_pp_map_preferred_author_slug_request( $request ) {
+	if ( ! is_array( $request ) || empty( $request['author_name'] ) ) {
+		return $request;
+	}
+	$author_name = sanitize_title( (string) $request['author_name'] );
+	if ( $author_name === '' ) {
+		return $request;
+	}
+	if ( get_user_by( 'slug', $author_name ) instanceof WP_User ) {
+		return $request;
+	}
+	$mapped_user_id = gc_pp_find_user_id_by_preferred_author_slug( $author_name );
+	if ( $mapped_user_id > 0 ) {
+		$mapped_user = get_userdata( $mapped_user_id );
+		if ( $mapped_user instanceof WP_User && ! empty( $mapped_user->user_nicename ) ) {
+			$request['author_name'] = $mapped_user->user_nicename;
+		}
+	}
+	return $request;
+}
+add_filter( 'request', 'gc_pp_map_preferred_author_slug_request', 20 );
+
+function gc_pp_get_raw_requested_author_slug() {
 	if ( empty( $_SERVER['REQUEST_URI'] ) ) {
 		return '';
 	}
 	$path = wp_parse_url( wp_unslash( $_SERVER['REQUEST_URI'] ), PHP_URL_PATH );
-	return is_string( $path ) ? untrailingslashit( $path ) : '';
+	if ( ! is_string( $path ) || $path === '' ) {
+		return '';
+	}
+	$parts = array_values( array_filter( explode( '/', trim( $path, '/' ) ) ) );
+	if ( count( $parts ) < 2 ) {
+		return '';
+	}
+	$author_index = array_search( 'author', $parts, true );
+	if ( $author_index === false ) {
+		return '';
+	}
+	$slug_index = (int) $author_index + 1;
+	if ( ! isset( $parts[ $slug_index ] ) ) {
+		return '';
+	}
+	return sanitize_title( (string) $parts[ $slug_index ] );
 }
 
-function gc_pp_redirect_legacy_author_nicename_to_term() {
-	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() ) {
+function gc_pp_redirect_legacy_nicename_author_url() {
+	if ( is_admin() || ! is_author() ) {
 		return;
 	}
-	if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+	$queried = get_queried_object();
+	if ( ! ( $queried instanceof WP_User ) ) {
 		return;
 	}
-	if ( is_feed() || is_trackback() || is_embed() || is_preview() ) {
+	$preferred_slug = gc_pp_author_slug_from_user_name( (int) $queried->ID );
+	if ( $preferred_slug === '' || $preferred_slug === (string) $queried->user_nicename ) {
 		return;
 	}
-	if ( ! class_exists( '\MultipleAuthors\Classes\Objects\Author' ) ) {
+	$requested_slug = gc_pp_get_raw_requested_author_slug();
+	if ( $requested_slug === '' || $requested_slug !== sanitize_title( (string) $queried->user_nicename ) ) {
 		return;
 	}
+	$target = get_author_posts_url( (int) $queried->ID, $preferred_slug );
+	if ( $target ) {
+		wp_safe_redirect( $target, 301 );
+		exit;
+	}
+}
+add_action( 'template_redirect', 'gc_pp_redirect_legacy_nicename_author_url', 20 );
 
-	$current_path   = gc_pp_current_request_path_normalized();
-	$slug_from_path = gc_pp_parse_author_request_slug( $current_path );
-	if ( $slug_from_path === '' || $current_path === '' ) {
+function gc_pp_capture_existing_mapped_user_before_author_edit( $term_id, $tt_id, $taxonomy ) {
+	if ( 'author' !== $taxonomy ) {
 		return;
 	}
-
-	$term_id = 0;
-	$term    = get_term_by( 'slug', $slug_from_path, 'author' );
-	if ( $term instanceof WP_Term && ! is_wp_error( $term ) ) {
-		$term_id = (int) $term->term_id;
-	} else {
-		$user = get_user_by( 'slug', $slug_from_path );
-		if ( $user instanceof WP_User ) {
-			$pp = \MultipleAuthors\Classes\Objects\Author::get_by_user_id( (int) $user->ID );
-			if ( is_object( $pp ) && ! empty( $pp->term_id ) ) {
-				$term_id = (int) $pp->term_id;
-			}
-		}
-	}
-
+	$term_id = (int) $term_id;
 	if ( $term_id < 1 ) {
 		return;
 	}
-
-	$target = gc_pp_get_author_taxonomy_url( $term_id );
-	if ( $target === '' ) {
+	$existing_user_id = (int) get_term_meta( $term_id, 'user_id', true );
+	if ( $existing_user_id < 1 ) {
 		return;
 	}
-	$tpath = wp_parse_url( $target, PHP_URL_PATH );
-	if ( ! is_string( $tpath ) || untrailingslashit( $tpath ) === $current_path ) {
-		return;
-	}
-	wp_safe_redirect( $target, 301 );
-	exit;
+	$GLOBALS['gc_pp_author_prev_user_map'][ $term_id ] = $existing_user_id;
 }
+add_action( 'edit_term', 'gc_pp_capture_existing_mapped_user_before_author_edit', 5, 3 );
 
-add_action( 'template_redirect', 'gc_pp_redirect_legacy_author_nicename_to_term', 0 );
-
-function gc_pp_resolve_display_slug_author_request() {
-	if ( is_admin() || ! is_404() ) {
+function gc_pp_restore_mapped_user_if_cleared_on_author_edit( $term_id, $tt_id, $taxonomy ) {
+	if ( 'author' !== $taxonomy ) {
 		return;
 	}
-	if ( ! class_exists( '\MultipleAuthors\Classes\Objects\Author' ) ) {
+	$term_id = (int) $term_id;
+	if ( $term_id < 1 ) {
 		return;
 	}
-	$slug = gc_pp_parse_author_request_slug( gc_pp_current_request_path_normalized() );
-	if ( $slug === '' ) {
+	$current_user_id = (int) get_term_meta( $term_id, 'user_id', true );
+	if ( $current_user_id > 0 ) {
 		return;
 	}
-	$term = get_term_by( 'slug', $slug, 'author' );
-	if ( $term instanceof WP_Term ) {
+	$previous_user_id = isset( $GLOBALS['gc_pp_author_prev_user_map'][ $term_id ] ) ? (int) $GLOBALS['gc_pp_author_prev_user_map'][ $term_id ] : 0;
+	if ( $previous_user_id < 1 || ! get_userdata( $previous_user_id ) ) {
 		return;
 	}
-	global $wpdb;
-	$term_id = $wpdb->get_var( $wpdb->prepare(
-		"SELECT term_id FROM {$wpdb->termmeta} WHERE meta_key = 'gc_display_slug' AND meta_value = %s LIMIT 1",
-		$slug
-	) );
-	if ( ! $term_id ) {
-		return;
-	}
-	$term = get_term( (int) $term_id, 'author' );
-	if ( ! $term instanceof WP_Term || is_wp_error( $term ) ) {
-		return;
-	}
-	global $wp_query;
-	$wp_query = new WP_Query( array(
-		'post_type' => 'post',
-		'tax_query' => array( array(
-			'taxonomy' => 'author',
-			'field'    => 'term_id',
-			'terms'    => (int) $term->term_id,
-		) ),
-	) );
-	$wp_query->queried_object    = $term;
-	$wp_query->queried_object_id = (int) $term->term_id;
-	$wp_query->is_archive        = true;
-	$wp_query->is_tax            = true;
-	$wp_query->is_404            = false;
-	status_header( 200 );
+	update_term_meta( $term_id, 'user_id', $previous_user_id );
 }
-
-add_action( 'wp', 'gc_pp_resolve_display_slug_author_request', 1 );
-
-function gc_pp_fix_author_link_to_ppma_term( $link, $author_id, $author_nicename ) {
-	$author_id = (int) $author_id;
-	if ( $author_id < 1 || ! class_exists( '\MultipleAuthors\Classes\Objects\Author' ) ) {
-		return $link;
-	}
-	$pp = \MultipleAuthors\Classes\Objects\Author::get_by_user_id( $author_id );
-	if ( ! is_object( $pp ) || empty( $pp->term_id ) ) {
-		return $link;
-	}
-	$tl = gc_pp_get_author_taxonomy_url( (int) $pp->term_id );
-	return $tl !== '' ? $tl : $link;
-}
-
-function gc_pp_ppma_author_attribute_link_use_term( $return, $term_id, $attribute, $author ) {
-	if ( ! is_object( $author ) || ! class_exists( '\MultipleAuthors\Classes\Objects\Author' ) ) {
-		return $return;
-	}
-	if ( ! method_exists( $author, 'is_guest' ) || $author->is_guest() || empty( $author->term_id ) ) {
-		return $return;
-	}
-	$tid = (int) $author->term_id;
-
-	if ( 'link' === $attribute && ! is_admin() ) {
-		$tl = gc_pp_get_author_taxonomy_url( $tid );
-		return $tl !== '' ? $tl : $return;
-	}
-	if ( 'slug' === $attribute && ! is_admin() ) {
-		$display = gc_pp_get_display_slug( $tid );
-		if ( $display !== '' ) {
-			return $display;
-		}
-	}
-
-	return $return;
-}
-
-function gc_pp_register_author_url_filters() {
-	add_filter( 'publishpress_authors_author_attribute', 'gc_pp_ppma_author_attribute_link_use_term', 99999, 4 );
-	add_filter( 'term_link', 'gc_pp_term_link_force_author_term_slug', 999999, 3 );
-	add_filter( 'author_link', 'gc_pp_fix_author_link_to_ppma_term', PHP_INT_MAX, 3 );
-}
-
-add_action( 'wp_loaded', 'gc_pp_register_author_url_filters', 99999 );
-
-function gc_pp_force_theme_author_template( $template ) {
-	$theme_author = get_template_directory() . '/author.php';
-	if ( ! file_exists( $theme_author ) ) {
-		return $template;
-	}
-	if ( is_tax( 'author' ) ) {
-		return $theme_author;
-	}
-	if ( is_author() && class_exists( '\MultipleAuthors\Classes\Objects\Author' ) ) {
-		$u = get_queried_object();
-		if ( $u instanceof WP_User ) {
-			$pp = \MultipleAuthors\Classes\Objects\Author::get_by_user_id( (int) $u->ID );
-			if ( is_object( $pp ) && ! empty( $pp->term_id ) ) {
-				return $theme_author;
-			}
-		}
-	}
-	return $template;
-}
-
-add_filter( 'template_include', 'gc_pp_force_theme_author_template', 999 );
-
-function gc_pp_fix_author_term_row_view_link( $actions, $tag ) {
-	if ( ! is_array( $actions ) || ! isset( $actions['view'] ) || ! $tag instanceof WP_Term ) {
-		return $actions;
-	}
-	$url = gc_pp_get_author_taxonomy_url( (int) $tag->term_id );
-	if ( $url === '' ) {
-		return $actions;
-	}
-	$actions['view'] = sprintf(
-		'<a href="%s" aria-label="%s">%s</a>',
-		esc_url( $url ),
-		esc_attr( sprintf( __( 'View &#8220;%s&#8221; archive' ), $tag->name ) ),
-		__( 'View' )
-	);
-	return $actions;
-}
-
-add_filter( 'author_row_actions', 'gc_pp_fix_author_term_row_view_link', 999, 2 );
-
-function gc_pp_admin_fix_author_term_view_button_href() {
-	if ( ! is_admin() ) {
-		return;
-	}
-	if ( empty( $_GET['taxonomy'] ) || 'author' !== $_GET['taxonomy'] || empty( $_GET['tag_ID'] ) ) {
-		return;
-	}
-	$term_id = (int) $_GET['tag_ID'];
-	if ( $term_id < 1 || ! current_user_can( 'edit_term', $term_id ) ) {
-		return;
-	}
-	$url = gc_pp_get_author_taxonomy_url( $term_id );
-	if ( $url === '' ) {
-		return;
-	}
-	$url_json = wp_json_encode( $url );
-	?>
-	<script>
-	(function (u) {
-		if (!u) return;
-		function patch() {
-			document.querySelectorAll('#wpbody-content a[href*="/author/"]').forEach(function (a) {
-				a.setAttribute('href', u);
-			});
-		}
-		patch();
-		setTimeout(patch, 0);
-		setTimeout(patch, 200);
-	})(<?php echo $url_json; ?>);
-	</script>
-	<?php
-}
-
-add_action( 'admin_footer', 'gc_pp_admin_fix_author_term_view_button_href', 99 );
+add_action( 'edited_term', 'gc_pp_restore_mapped_user_if_cleared_on_author_edit', 110, 3 );
