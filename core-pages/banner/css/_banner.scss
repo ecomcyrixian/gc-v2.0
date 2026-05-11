@@ -33,7 +33,7 @@
     }
 
     @include media(1320px){
-        padding: $gap40 $gap16;
+        padding: $gap40 $gap20;
     }
 
     @include media($mobile){
@@ -379,14 +379,13 @@
         display: flex;
         flex-direction: column;
         gap: $gap80;
-        width: 100%;
-        max-width: none;
-        padding-bottom: 0;
+        padding: $gap60 0 0;
 
-        @include media($mobile){
+        @include media($tablet){
             width: 100%;
             max-width: 100%;
             gap: $gap40;
+            padding: 0;
         }
 
         .option8__header-inner{
@@ -398,22 +397,15 @@
             justify-content: space-between;
             align-items: flex-end;
 
-            @include media($mobile){
+            @media screen and (min-width: 1210px) {
+                margin-left: calc((100% - 1120px) / 2);
+            }
+
+            @include media($tablet){
                 flex-direction: column;
                 align-items: flex-start;
                 padding: 0 $gap20;
                 gap: $gap20;
-            }
-        }
-
-        .option8__header-copy{
-            flex: 0 1 640px;
-            max-width: 640px;
-            min-width: 0;
-
-            @include media($mobile){
-                flex: 1 1 100%;
-                max-width: 100%;
             }
         }
 
@@ -422,11 +414,12 @@
             font-size: $fsize14;
             font-weight: $fSemiBold;
             margin-bottom: $gap16;
+            padding: 0;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
         }
 
         .option8__title{
-            margin: 0;
-            color: $gray300;
             font-size: $fsize56;
             font-weight: $fSemiBold;
             line-height: 1.1;
@@ -434,10 +427,6 @@
             .option8__title-accent,
             > span{
                 color: $blue300;
-                display: inline;
-                font-size: inherit;
-                font-weight: inherit;
-                line-height: inherit;
             }
 
             @media screen and (min-width: #{$tablet + 1px}) {
@@ -458,21 +447,18 @@
         }
 
         .option8__lead-container{
-            flex: 0 1 440px;
-            max-width: 440px;
-            min-width: 0;
             text-align: right;
+            max-width: 440px;
 
             @include media($tablet){
-                text-align: left;
-                flex: 1 1 100%;
                 max-width: 100%;
+                text-align: left;
             }
         }
 
         .option8__lead{
             font-size: $fsize24;
-            margin: 0;
+            padding: 0;
 
             span{
                 color: $blue300;
@@ -584,7 +570,7 @@
     }
 
     &.option6{
-        padding: $gap20 0 $gap100 0;
+        padding: 0 0 $gap100;
 
         > .container{
             background: transparent;

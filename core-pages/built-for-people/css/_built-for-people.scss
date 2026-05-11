@@ -5,7 +5,7 @@
 .built-for-people {
   position: relative;
   width: 100%;
-  min-height: 1110px;
+  min-height: 1010px;
 
   @include media($tablet) {
     min-height: 720px;
@@ -15,13 +15,31 @@
     min-height: 700px;
   }
 
+  &--ungated {
+    min-height: 850px;
+
+    .built-for-people__bg-image {
+      top: calc(186px + #{$gap120} + #{20px});
+
+      @include media($tablet) {
+        top: auto;
+      }
+    }
+
+    @include media($tablet) {
+      min-height: 620px;
+    }
+
+    @include media($mobile) {
+      min-height: 600px;
+    }
+  }
+
   &__frame {
     position: relative;
     z-index: 1;
     width: 100%;
     margin: 0;
-    padding: $gap80 0;
-    padding-top: calc(#{$gap40} + 50px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -196,28 +214,12 @@
 
   &__card-top {
     display: flex;
-    align-items: center;
     gap: $gap16;
   }
 
   &__card-icon {
-    width: 40px;
-    height: 40px;
-    flex-shrink: 0;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-    }
-
-    &--svg svg {
-      display: block;
-      width: 100%;
-      height: 100%;
-      max-width: 40px;
-      max-height: 40px;
+    p {
+      padding: 0;
     }
   }
 
@@ -225,15 +227,9 @@
     flex: 1;
     font-size: $fsize20;
     font-weight: $fBold;
-    color: $gray300;
-
+    
     p {
       padding: 0;
-    }
-    
-
-    @include media($mobile) {
-      font-size: $fsize18;
     }
   }
 
@@ -259,9 +255,9 @@
       display: block;
     }
 
-    top: calc(286px + #{$gap120} + #{$gap80});
+    top: calc(286px + #{$gap120} + #{75px});
     bottom: auto;
-    height: 630px;
+    height: 530px;
 
     @include media($tablet) {
       top: auto;

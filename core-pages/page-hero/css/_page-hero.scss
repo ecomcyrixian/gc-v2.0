@@ -12,13 +12,19 @@
     }
   }
 
-  &.yes {
-    background: $blue10;
+  &.yes,
+  &.no {
     padding: $gap40 0;
   }
 
-  &.no {
-    padding: $gap40 0;
+  &.yes {
+    background: $blue10;
+  }
+
+  @include media($mobile) {
+    &.no:has(.hero-detail) {
+      padding: 0;
+    }
   }
 
   &.Center {
@@ -62,8 +68,14 @@
     }
 
     &:has(.thankyou-contact-hero) {
-      padding-top: $gap80;
+      padding: $gap100 0;
+      margin: 0;
     }
+  }
+
+  &.Center:has(.about-page-footer) {
+    margin-bottom: $gap100;
+    padding: 0;
   }
 
   & > .container {
@@ -136,7 +148,7 @@
       }
 
       &:not(.Top) {
-        padding: $gap40 $gap16;
+        padding: $gap40 $gap20;
       }
 
       &.Top {
@@ -160,30 +172,11 @@
       max-width: 620px;
       overflow: hidden;
       border-radius: $corners8;
-
-      img:not(.hero-overlap-card__icon) {
-        width: 100%;
-        height: auto;
-        display: block;
-      }
     }
 
     &.Top {
       flex-direction: column;
       gap: $gap40;
-
-      .page-hero__image-wrap {
-        width: 100%;
-        max-width: 100%;
-        overflow: hidden;
-        border-radius: $corners8;
-
-        img {
-          width: 100%;
-          height: auto;
-          display: block;
-        }
-      }
 
       & > div:first-child {
         max-width: 100%;
@@ -198,6 +191,14 @@
   &:has(.hero-detail) {
     > .container {
       overflow: visible;
+      max-width: 1315px;
+      margin-right: auto;
+    }
+
+    @media screen and (min-width: 1210px) {
+      > .container {
+        margin-left: calc((100% - 1120px) / 2);
+      }
     }
 
     .cols.cols2:not(.Top) {
@@ -213,8 +214,7 @@
       max-width: 500px;
       flex: 0 1 500px;
       width: 100%;
-      padding-right: $gap24;
-      box-sizing: border-box;
+      gap: 0;
     }
 
     .cols.cols2:not(.Top) > div:has(.page-hero__image-wrap) {
@@ -224,60 +224,23 @@
       overflow: visible;
       border-radius: 0;
 
-      @media screen and (min-width: 1301px) {
-        margin-right: calc(50% - 50vw);
-      }
-
-      .page-hero__image-wrap {
-        height: 100%;
-        min-height: min(638px, 85vh);
-        border-radius: 0;
-        overflow: hidden;
-
-        img:not(.hero-overlap-card__icon) {
-          width: 100%;
-          height: 100%;
-          min-height: 100%;
-          object-fit: cover;
-          object-position: center;
-          display: block;
-        }
-      }
-    }
-
-    .cols.cols2:not(.Top).Left > div:has(.page-hero__image-wrap) {
-      @media screen and (min-width: 1301px) {
-        margin-right: 0;
-        margin-left: calc(50% - 50vw);
-      }
-    }
-
-    @include media(1300px) {
-      .cols.cols2:not(.Top) > div:has(.hero-detail) {
-        max-width: 100%;
-        flex: 1 1 auto;
-        padding-right: 0;
-      }
-
-      .cols.cols2:not(.Top) > div:has(.page-hero__image-wrap) {
-        margin-right: 0;
-        margin-left: 0;
-
-        .page-hero__image-wrap {
-          min-height: 280px;
-          border-radius: $corners8;
-        }
-      }
+      // @media screen and (min-width: 1301px) {
+      //   margin-right: calc(50% - 50vw);
+      // }
     }
   }
 
   &:has(.cols2.Top) {
-    padding: $gap120 0 $gap100 0;
+    padding: $gap100 0;
+
+    &:has(.page-hero__image-wrap) {
+      padding-bottom: $gap60;
+    }
 
     @include media($tablet) {
       padding: $gap60 $gap20;
     }
-
+    
     @include media($mobile) {
       padding: 0 $gap20;
     }
@@ -322,6 +285,7 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     line-height: 1.2;
+    padding: 0;
   }
 
   .hero-detail__title {
@@ -349,6 +313,7 @@
 
   .hero-detail__lead {
     font-size: $base-fsize;
+    padding: 0;
 
     @include media($mobile) {
       font-size: $fsize14;
@@ -356,39 +321,24 @@
   }
 
   .hero-detail__list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
     display: flex;
     flex-direction: column;
     gap: $gap24;
   }
 
   .hero-detail__list li {
-    position: relative;
-    padding-left: $gap24;
     font-size: $base-fsize;
-    line-height: 1.5;
-    color: $gray300;
 
     &::before {
-      content: "";
-      position: absolute;
-      left: 0;
       top: 10px;
-      width: $gap10;
-      height: $gap10;
-      background: $blue300;
       border-radius: 0;
+      background-image: none ;
     }
 
     strong {
       display: block;
-      color: $gray300;
       font-weight: $fSemiBold;
       font-size: $fsize24;
-      line-height: 1.25;
-      margin: 0 0 $gap4 0;
     }
   }
 
@@ -448,7 +398,8 @@
       padding: 0;
     }
 
-    &:has(.thankyou-contact-hero) .heading {
+    &:has(.thankyou-contact-hero) .heading,
+    &:has(.about-page-footer) .heading {
       margin: 0;
     }
 
@@ -586,7 +537,8 @@
       flex-direction: column;
     }
 
-    &:has(.thankyou-contact-hero) .btns {
+    &:has(.thankyou-contact-hero) .btns,
+    &:has(.about-page-footer) .btns {
       margin: 0;
     }
 
@@ -607,19 +559,12 @@
     }
 
     &.text-only--management-team {
-      padding: 96px 0 0;
-      width: 100vw;
-      max-width: 100vw;
+      padding: $gap100 0;
       margin-left: calc(50% - 50vw);
       margin-right: calc(50% - 50vw);
       margin-top: -96px;
       height: 700px;
-      text-align: left;
-      background-repeat: no-repeat;
-      background-position: center top;
-      background-size: cover;
-      border-radius: 0;
-      overflow: visible;
+
 
       @include media($mobile) {
         padding-top: 64px;
@@ -632,12 +577,12 @@
       }
 
       > div {
-        padding: 120px 0 0;
+        padding: $gap100 0 0;
         max-width: 1320px;
         margin: 0 auto;
 
         @include media($tablet) {
-          padding: 160px $gap24 0;
+          padding: $gap80 $gap20
         }
 
         @include media($mobile) {
@@ -652,12 +597,7 @@
       .management-hero-frame {
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
         align-items: flex-end;
-        width: 100%;
-        max-width: 1317px;
-        margin: 0 auto;
-        gap: 0;
 
         @include media($tablet) {
           align-items: flex-start;
@@ -666,10 +606,7 @@
 
 
         @include media($mobile) {
-          min-height: auto;
           flex-direction: column;
-          align-items: flex-start;
-          gap: $gap40;
         }
       }
 
@@ -677,20 +614,7 @@
         display: flex;
         flex-direction: column;
         gap: $gap16;
-        max-width: 737px;
-        flex: 0 0 737px;
-        width: 100%;
         align-items: flex-start;
-
-        @include media($tablet) {
-          max-width: 620px;
-          flex: 1 1 58%;
-        }
-
-        @include media($mobile) {
-          gap: $gap16;
-          flex: 1 1 auto;
-        }
       }
 
       .management-hero-frame__eyebrow {
@@ -699,6 +623,7 @@
         letter-spacing: 0.08em;
         text-transform: uppercase;
         color: $white;
+        padding: 0;
 
         @include media($mobile) {
           font-size: $fsize12;
@@ -722,9 +647,6 @@
 
         span {
           color: $white;
-          display: inline;
-          font-size: inherit;
-          font-weight: inherit;
         }
 
       }
@@ -732,17 +654,12 @@
       .management-hero-frame__copy {
         color: $white;
         font-size: $fsize20;
-        line-height: 1.5;
-        width: 100%;
         max-width: 580px;
-        flex: 0 0 580px;
         text-align: left;
 
         @include media($tablet) {
           max-width: 420px;
-          flex: 1 1 42%;
           font-size: $fsize18;
-          line-height: 1.45;
         }
 
         @include media($mobile) {
@@ -1153,15 +1070,6 @@
         box-shadow: 0 0 0 4px $white;
         z-index: 2;
         margin: 0;
-
-        @include media($mobile) {
-          position: absolute;
-          top: -14px;
-          left: 50%;
-          transform: translateX(-50%);
-          box-shadow: 0 0 0 4px $white;
-          z-index: 2;
-        }
       }
 
       .step-icon {
@@ -1261,7 +1169,6 @@
         padding: 0;
 
         @include media($mobile) {
-          font-size: $fsize14;
           margin-top: 0;
           padding-top: 0;
           text-align: left;
@@ -1308,16 +1215,15 @@
   }
 }
 
-/* About This Research (page-hero) */
 .page-hero:has(.about-research) {
-  padding: $gap60 0 0 0;
+  padding: $gap100 0;
 
   @include media($tablet) {
-    padding: $gap20;
+    padding: $gap60 $gap20;
   }
 
   @include media($mobile) {
-    padding: $gap20;
+    padding: $gap40 $gap20;
   }
 
   & > .container {
@@ -1339,14 +1245,10 @@
   }
 }
 
-.page-hero:has(.about-research.mid) {
+.page-hero:has(.about-research.ungated) {
   padding: 0;
 
   @include media($tablet) {
-    padding: 0 $gap20;
-  }
-
-  @include media($mobile) {
     padding: 0 $gap20;
   }
 }
@@ -1366,29 +1268,14 @@
     align-items: center;
     gap: $gap16;
 
-    @include media($mobile) {
-      gap: $gap12;
-    }
-
-    img,
-    svg {
-      width: 40px;
-      height: 40px;
-      flex-shrink: 0;
-      object-fit: contain;
-
-      @include media($mobile) {
-        width: 32px;
-        height: 32px;
-      }
+    p {
+      padding: 0;
     }
   }
 
   &__title {
     font-weight: $fSemiBold;
     font-size: $fsize28;
-    margin: 0;
-    color: $gray300;
 
     @include media($mobile) {
       font-size: $fsize18;
@@ -1397,49 +1284,40 @@
 
   p {
     font-size: $base-fsize;
-    line-height: 1.5;
-    margin: 0;
-    color: $gray300;
+    padding: 0;
 
     @include media($mobile) {
       font-size: $fsize14;
-    }
-
-    strong {
-      color: $blue300;
     }
   }
 }
 
 /* Page hero — overlap */
 .page-hero.page-hero--overlap {
-  padding: $gap120 0;
+  padding: 0;
 
-  &:has(.hero-overlap-card__inner.mid) {
-    padding: 0;
-  }
+  &:has(.hero-overlap-card__inner.ungated) {
+    padding: $gap100 0 $gap60;
 
-  @include media($tablet) {
-    padding: $gap60 $gap20;
-
-    &:has(.hero-overlap-card__inner.mid) {
+    @include media($tablet) {
       padding: $gap60 $gap20;
     }
-  }
 
-  @include media($mobile) {
-    padding: $gap40 $gap20;
-
-    &:has(.hero-overlap-card__inner.mid) {
+    @include media($mobile) {
       padding: $gap40 $gap20;
     }
   }
 
+  @include media($tablet) {
+    padding: 0 $gap20;
+  }
+
+  @include media($mobile) {
+    padding: 0 $gap20 $gap40;
+  }
+
   & > .container {
     max-width: 1095px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0;
   }
 
   .text-only {
@@ -1449,22 +1327,39 @@
       margin: 0;
     }
   }
-
-  .page-hero__overlap-card {
-    h1, h2,
-    .hero-overlap-card__title {
-      margin: 0;
-      padding-bottom: 0;
-    }
-  }
 }
 
 .page-hero:has(.hero-overlap-card__inner.right) {
   padding: 0 0 $gap60 0;
-}
 
-.page-hero:has(.hero-overlap-card__inner.right) > .container {
-  max-width: 1095px;
+  .cols {
+    gap: $gap20;
+  }
+
+  > .container {
+    max-width: 1208px;
+    margin-right: auto;
+  }
+
+  @media screen and (min-width: 1210px) {
+    > .container {
+      margin-left: calc((100% - 1095px) / 2);
+    }
+  }
+
+  @include media($tablet) {
+    padding: 0;
+
+    .cols.cols2:not(.Top) {
+      padding: 0 $gap20 $gap60;
+    }
+  }
+
+  @include media($mobile) {
+    .cols.cols2:not(.Top) {
+      padding: 0 $gap20 $gap40;
+    }
+  }
 }
 
 .page-hero__overlap-wrap {
@@ -1475,31 +1370,12 @@
 .page-hero__overlap-image {
   width: 100%;
   max-width: 900px;
-  margin-left: 0;
-  margin-right: auto;
-  border-radius: $corners8;
-  overflow: hidden;
-  aspect-ratio: 900 / 636;
-  background-color: $gray100;
-
-  @include media($tablet) {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-    object-position: center;
-  }
 }
 
 .page-hero__overlap-card {
   background-color: $gray50;
   width: 100%;
-  max-width: 875px;
+  max-width: 795px;
   padding: $gap40;
   border-radius: $corners8;
   font-size: $base-fsize;
@@ -1510,16 +1386,10 @@
   z-index: 1;
 
   @include media($tablet) {
-    margin-top: -60px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: $gap24;
-    max-width: 100%;
+    margin: -$gap60 auto 0;
   }
 
   @include media($mobile) {
-    margin-top: -40px;
-    margin-right: auto;
     padding: $gap20;
   }
 }
@@ -1536,26 +1406,10 @@
 
 .hero-overlap-card__header {
   display: flex;
-  align-items: center;
   gap: $gap16;
 
-  img {
-    width: auto;
-    max-width: 60px;
-    height: auto;
-    max-height: 60px;
-    flex-shrink: 0;
-    object-fit: contain;
-
-    @include media($mobile) {
-      max-width: 40px;
-      max-height: 40px;
-    }
-  }
-
-  @include media($mobile) {
-    flex-direction: row;
-    gap: $gap12;
+  p {
+    padding: 0;
   }
 }
 
@@ -1568,53 +1422,11 @@
     gap: $gap24;
   }
 
-  font-size: $base-fsize;
-  line-height: 1.6;
-  color: $gray300;
-  margin: 0;
-
-  p {
-    margin: 0 0 $gap16 0;
-    color: $gray300;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  @include media($mobile) {
-    font-size: $fsize14;
-
-    p {
-      margin-bottom: $gap12;
-    }
-  }
-}
-
-/* Override global img (width/max-width 100%) so icon keeps fixed size */
-.hero-overlap-card__icon {
-  width: 60px;
-  max-width: none;
-  height: 60px;
-  flex-shrink: 0;
-  object-fit: contain;
-
-  img {
-    width: auto;
-    height: auto;
-  }
-
-  @include media($mobile) {
-    width: 40px;
-    height: 40px;
-  }
 }
 
 .hero-overlap-card__title {
-  color: $gray300;
   font-weight: $fSemiBold;
   font-size: $fsize40;
-  margin: 0;
 
   @include media($tablet) {
     font-size: $fsize32;
@@ -1625,61 +1437,57 @@
   }
 }
 
+.hero-overlap-card__body_grid,
 .hero-overlap-card__body {
   font-size: $base-fsize;
-  line-height: 1.6;
-  color: $gray300;
-  margin: 0;
 
   p {
-    margin: 0 0 $gap16 0;
-    color: $gray300;
+    padding: 0;
+    margin-bottom: $gap16;
 
     &:last-child {
       margin-bottom: 0;
     }
   }
+}
 
-  @include media($mobile) {
-    font-size: $fsize14;
+.hero-detail__list,
+.hero-overlap-card__list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
 
-    p {
-      margin-bottom: $gap12;
-    }
-  }
+.hero-detail__list li,
+.hero-overlap-card__list li {
+  padding-left: $gap24;
+  padding-bottom: 0;
+}
+
+.hero-detail__list li::before,
+.hero-overlap-card__list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  background-color: $blue300;
 }
 
 .hero-overlap-card__list {
-  list-style: none;
-  margin: 0 0 $gap16 0;
-  padding-left: 0;
 
   li {
     position: relative;
-    padding-left: $gap24;
-    margin-bottom: $gap12;
-    font-size: $base-fsize;
-    line-height: 1.5;
+    margin-bottom: $gap24;
 
     &:last-child {
       margin-bottom: 0;
     }
 
     &::before {
-      content: "";
-      position: absolute;
-      left: 0;
       top: 0.4em;
-      width: 10px;
-      height: 10px;
-      background-color: $blue300;
       flex-shrink: 0;
       background-image: none;
-    }
-
-    @include media($mobile) {
-      font-size: $fsize14;
-      margin-bottom: $gap10;
     }
   }
 }

@@ -16,9 +16,7 @@
 
     &:has(.thankyou-contact-card) {
         max-width: 875px;
-        margin-left: auto;
-        margin-right: auto;
-        margin-bottom: $gap80;
+        margin: 0 auto $gap100;
 
         .heading {
             padding: 0 0 $gap40 0;
@@ -104,9 +102,6 @@
         margin-bottom: 0;
     }
 
-    &:has(.card-same-height.management){
-        margin-bottom: 0;
-    }
 
     @include media($mobile){
         margin: 0 auto;
@@ -118,7 +113,8 @@
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        padding: $gap80 0;
+        padding: $gap100 0;
+        margin-bottom: 0;
 
         @include media($tablet){
             padding: 0;
@@ -132,6 +128,10 @@
             @include media($tablet){
                 padding: $gap60 0;
             }
+        }
+
+        &.top-icon:has(.card-same-height) .heading {
+            padding-top: 0;
         }
     }
 
@@ -451,6 +451,8 @@
     }
 
     &:has(.heading .card-padding-40) {
+        margin-bottom: $gap100;
+
         .heading {
             padding-top: 0;
 

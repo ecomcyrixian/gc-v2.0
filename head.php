@@ -3,33 +3,6 @@
 <head>
     <meta charset="<?php bloginfo( 'charset' ); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <?php if ( is_singular( 'post' ) ) : ?>
-        <!-- GTM delayed on blog posts for Lighthouse performance -->
-        <script>
-        window.dataLayer = window.dataLayer || [];
-        (function(){
-            var l=false;
-            function g(){
-                if(l) return;
-                l=true;
-                (function(w,d,s,i){
-                    var f=d.getElementsByTagName(s)[0],
-                        j=d.createElement(s);
-                    j.async=true;
-                    j.src='https://www.googletagmanager.com/gtm.js?id='+i;
-                    f.parentNode.insertBefore(j,f);
-                })(window,document,'script','GTM-TCP9FBDQ');
-            }
-            ['scroll','click','touchstart','mouseover','keydown'].forEach(function(e){
-                window.addEventListener(e,g,{once:true,passive:true});
-            });
-            setTimeout(g,3500);
-        })();
-        </script>
-    <?php else : ?>
-        <?php get_template_part( 'partials/gtm/gtm-script-head-tag' ); ?>
-    <?php endif; ?>
-
     <?php
         $font_dir = get_template_directory_uri() . '/assets/fonts';
         if ( is_singular( 'post' ) ) {
@@ -108,5 +81,3 @@
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
-
-<?php get_template_part( 'partials/gtm/gtm-script-body-tag' ); ?>
