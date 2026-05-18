@@ -1403,7 +1403,7 @@ body.page{
 
     @include media(1311px){
         .cards .card-cont{
-            padding: 16px;
+            padding: $gap20;
         }
     }
 

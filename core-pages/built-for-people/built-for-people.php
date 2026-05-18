@@ -13,6 +13,10 @@ $details    = get_sub_field( 'details' );
 $cards      = get_sub_field( 'cards' );
 $card_count = ( ! empty( $cards ) && is_array( $cards ) ) ? count( $cards ) : 0;
 
+$cards_json    = is_array( $cards ) ? wp_json_encode( $cards ) : '';
+$has_ungated   = ( $cards_json !== '' && false !== stripos( $cards_json, 'ungated' ) );
+$section_class = 'built-for-people' . ( $has_ungated ? ' built-for-people--ungated' : '' );
+
 $theme_dir = get_template_directory();
 $theme_uri = get_template_directory_uri();
 $base     = file_exists( $theme_dir . '/assets/images/built-for-people-bg.webp' ) ? 'built-for-people-bg'
@@ -23,7 +27,7 @@ if ( $base ) {
 	$bg_url = $theme_uri . '/assets/images/' . $base . '.' . $ext;
 }
 ?>
-<section class="built-for-people">
+<section class="<?php echo esc_attr( $section_class ); ?>">
 	<div class="built-for-people__frame">
 		<?php if ( $with_header && ! empty( $h2 ) ) : ?>
 			<h2 class="built-for-people__title"><?php echo wp_kses_post( $h2 ); ?></h2>

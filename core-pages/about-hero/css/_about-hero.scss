@@ -2,17 +2,16 @@
 @import "../../../assets/css/_tools/mixins";
 
 .about-hero {
-  padding: $gap80 0;
-  overflow: visible;
-
+  padding: $gap100 0;
 
   @include media($mobile) {
     padding: $gap60 0;
   }
 
   &__inner.container {
-    position: relative;
-    overflow: visible;
+    @include media($tablet) {
+      padding: 0 $gap20;
+    }
   }
 
   &__hero {
@@ -30,7 +29,6 @@
   }
 
   &__eyebrow {
-    margin: 0;
     font-size: $fsize14;
     font-weight: $fSemiBold;
     letter-spacing: 0.08em;
@@ -44,7 +42,6 @@
         font-size: 80px;
         font-weight: $fBold;
         line-height: 1.1;
-        color: $gray300;
         padding: 0;
 
         @include media($tablet) {
@@ -53,26 +50,7 @@
 
         @include media($mobile) {
           font-size: 36px;
-          line-height: 1.05;
         }
-      }
-      
-    }
-
-  }
-
-  &--tagline {
-    .about-hero__hero {
-      max-width: 1440px;
-    }
-
-    .tagline {
-      max-width: 600px;
-      margin: 0 auto;
-      font-size: $fsize20;
-
-      @include media($mobile) {
-        font-size: $fsize14;
       }
     }
   }
@@ -87,28 +65,11 @@
     background-position: center bottom;
     margin-bottom: $gap40;
 
-    .about-hero__inner.container {
-      overflow: visible;
-    }
-
-    .about-hero__tagline-layout {
-      width: 100%;
-      max-width: 100%;
-      margin: 0;
-    }
-
     .about-hero__tagline-layout-inner {
-      display: flex;
-      flex-direction: column;
-      max-width: 1440px;
-      margin: 0 auto;
-      box-sizing: border-box;
-      justify-content: flex-start;
       min-height: clamp(960px, 56.25vw, 1200px);
 
       @include media($tablet) {
         height: auto;
-        min-height: 720px;
       }
 
       @include media($mobile) {
@@ -117,46 +78,19 @@
     }
 
     .about-hero__tagline-content {
-     padding: $gap80 0;
+     padding: $gap100 0;
 
       @include media($tablet) {
-        padding-top: $gap40;
+        padding: $gap60 0;
       }
 
       @include media($mobile) {
-        padding: $gap20 0;
+        padding: $gap40 0;
       }
     }
 
 
     @include media($tablet) {
-      background-image: none;
-
-      &::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        top: 0;
-        bottom: 0;
-        height: 100%;
-        background-image: var(--about-hero-bg-url);
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: center center;
-        z-index: 0;
-        pointer-events: none;
-      }
-
-      .about-hero__inner.container,
-      .about-hero__tagline-layout,
-      .about-hero__tagline-layout-inner,
-      .about-hero__tagline-content {
-        position: relative;
-        z-index: 1;
-      }
-
       .about-hero__tagline-layout-inner {
         padding-bottom: 200px;
       }
@@ -165,67 +99,26 @@
   }
 
   &__mission {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: $gap80;
-    
-
-    @include media($mobile) {
-      margin-bottom: $gap40;
-    }
-
-    &:not(.about-hero__mission--overlap) {
-      display: flex;
-      flex-direction: column;
-      gap: $gap40;
-      max-width: 1091px;
-
-      .about-hero__mission-visual {
-        display: flex;
-        justify-content: center;
-      }
-
-      .about-hero__mission-img {
-        display: block;
-        max-width: min(925px, 100%);
-        max-height: 768px;
-        width: auto;
-        height: auto;
-      }
-    }
-
     &--overlap {
       display: grid;
       grid-template-columns: minmax(0, 410px) minmax(0, 1fr);
       column-gap: $gap24;
-      min-height: 768px;
-      box-sizing: border-box;
       max-width: 1091px;
       width: 100%;
-      margin: 0 auto $gap120;
+      margin: 0 auto $gap100;
 
       @include media($mobile) {
         margin-bottom: $gap60;
       }
 
       .about-hero__mission-copy {
-        min-width: 0;
-        max-width: 410px;
-        box-sizing: border-box;
         margin-top: 80px;
       }
 
       .about-hero__mission-visual {
-        min-width: 0;
-        justify-self: stretch;
-        display: flex;
-        align-items: center;
-
         @media screen and (min-width: #{$tablet + 1px}) {
           img {
             width: auto;
-            height: auto;
             max-width: none;
           }
         }
@@ -233,57 +126,19 @@
 
       @include media($tablet) {
         grid-template-columns: 1fr;
-        min-height: 0;
-        row-gap: $gap60;
-        max-width: none;
-        width: 100%;
-        margin-left: 0;
-        margin-right: 0;
-        column-gap: 0;
         padding: $gap20;
-
-
-        .about-hero__mission-visual {
-          order: 1;
-          justify-content: center;
-        }
+        row-gap: $gap60;
 
         .about-hero__mission-copy {
           order: 2;
-          max-width: none;
           margin-top: 0;
         }
-
-        .about-hero__mission-img {
-          width: 100%;
-          max-width: 560px;
-          max-height: none;
-          margin-left: auto;
-          margin-right: auto;
-        }
       }
-
-      @include media($mobile) {
-        padding: 0;
-      }
-    }
-  }
-  
-
-  &__mission--overlap &__mission-body {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: $gap20;
-
-    > p {
-      margin: 0;
     }
   }
 
   &__mission-body {
     font-size: $base-fsize;
-    color: $gray300;
     display: flex;
     flex-direction: column;
     gap: $gap20;
@@ -302,11 +157,9 @@
       }
 
       h2 {
-        margin: 0;
         font-size: $fsize64;
         font-weight: $fSemiBold;
         font-style: italic;
-        color: $gray300;
         line-height: 80px;
 
         @include media($mobile) {
@@ -321,25 +174,14 @@
     margin: 0 auto;
     max-width: 880px;
     text-align: center;
-    overflow: visible;
-
-    @include media($tablet) {
-      padding: 0 $gap20;
-    }
-
-    @include media($mobile) {
-      padding: 0;
-    }
 
     p {
       font-size: $fsize48;
       font-style: italic;
-      line-height: 64px;
-      color: $gray300;
+      padding: 0;
 
       @include media($mobile) {
         font-size: 32px;
-        line-height: 100%;
       }
     }
   }
