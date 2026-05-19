@@ -1,0 +1,160 @@
+@import '../../../../../assets/css/_tools/variable';
+@import '../../../../../assets/css/_tools/mixins';
+
+$report-whitepaper-bg: '../../../../../assets/images/custom-whitepaper-bg.webp' !default;
+
+.gc-report-automation-anxiety {
+  .content.content--ai-anxiety {
+    position: relative;
+    isolation: isolate;
+
+    &::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      left: 0;
+      height: 630px;
+      background-image: url($report-whitepaper-bg);
+      background-size: 100% auto;
+      background-repeat: no-repeat;
+
+      @include media($mobile) {
+        height: 400px;
+      }
+    }
+
+    > .container {
+      position: relative;
+      z-index: 1;
+      margin: 0 auto;
+      max-width: 1094px;
+      padding: $gap100 0;
+      display: flex;
+      flex-direction: column;
+      gap: $gap120;
+
+      @include media($tablet) {
+        padding: $gap80 0;
+        gap: $gap80;
+      }
+
+      @include media($mobile) {
+        padding: $gap60 $gap16;
+        gap: $gap60;
+      }
+
+      > .frame {
+        display: flex;
+        flex-direction: column;
+        gap: $gap80;
+
+        @include media($mobile) {
+          gap: $gap40;
+        }
+
+        .panel--feature {
+          width: 100%;
+        }
+
+        .panel--split-narrative {
+          width: 100%;
+          min-width: 0;
+        }
+
+        .panel--graphs {
+          width: 100%;
+          min-width: 0;
+        }
+
+        .panel--blue-box {
+          width: 100%;
+        }
+
+        .panel--feature-stat-split {
+          width: 100%;
+        }
+
+        .panel--image {
+          width: 100%;
+
+          .aar-report-image {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: $corners8;
+          }
+        }
+
+        .panel--quote {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 100%;
+          text-align: center;
+          gap: $gap80;
+
+          @include media($mobile) {
+            gap: $gap40;
+          }
+
+          .quote-text {
+            text-align: justify;
+          }
+        }
+      }
+
+      .aar-methodology__content {
+        .bubble-def-title {
+          font-size: $fsize24;
+          margin-bottom: $gap16;
+        }
+        .bubble-def-figure {
+          margin-top: $gap40;
+          font-weight: $fSemiBold;
+        }
+
+        .aar-methodology__table-subtitle {
+          font-size: $fsize20;
+          font-weight: $fSemiBold;
+          line-height: 1.4;
+          color: $gray300;
+
+          @include media($mobile) {
+            font-size: $base-fsize;
+          }
+
+          &:first-of-type {
+            margin-top: $gap24;
+          }
+        }
+      }
+
+      .panel--appendix-demographics {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: $gap40;
+
+        > .aar-methodology__table-title {
+          font-size: $fsize24;
+          font-weight: $fSemiBold;
+          line-height: 1.5;
+
+          @include media($mobile) {
+            font-size: $fsize20;
+          }
+        }
+
+        .aar-methodology__content .aar-methodology__table-subtitle:first-of-type {
+          margin-top: 0;
+        }
+
+        .aar-report-data-table-footnote {
+          font-size: $fsize14;
+          font-style: italic;
+          line-height: 1.5;
+        }
+      }
+    }
+  }
+}

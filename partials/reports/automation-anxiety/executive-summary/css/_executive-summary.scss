@@ -1,0 +1,155 @@
+@import '../../../../../assets/css/_tools/variable';
+@import '../../../../../assets/css/_tools/mixins';
+
+.gc-report-automation-anxiety {
+  .aar-report-opening {
+    padding: $gap100 0;
+
+    @include media($mobile) {
+      padding: $gap60 0;
+    }
+
+    > .container {
+      display: flex;
+      flex-direction: column;
+      gap: $gap80;
+      max-width: 1098px;
+
+      @include media($mobile) {
+        gap: $gap60;
+      }
+    }
+  }
+
+  .aar-executive-summary,
+  .aar-methodology {
+    display: flex;
+    flex-direction: column;
+    gap: $gap20;
+
+    &__title {
+      margin: 0;
+      font-size: $fsize24;
+      font-weight: $fSemiBold;
+      line-height: 1.2;
+
+      @include media($mobile) {
+        font-size: $fsize20;
+      }
+    }
+
+    &__intro {
+      display: flex;
+      gap: $gap80;
+      margin-bottom: $gap40;
+
+      @include media($mobile) {
+        flex-direction: column;
+        gap: $gap40;
+        margin-bottom: $gap20;
+      }
+    }
+
+    &__copy {
+      max-width: 50%;
+
+      @include media($mobile) {
+        max-width: none;
+      }
+
+      p {
+        margin: 0;
+        font-size: $base-fsize;
+        line-height: 24px;
+        padding: 0;
+      }
+    }
+  }
+
+  .aar-executive-summary {
+    &__quote {
+      max-width: 50%;
+
+      @include media($mobile) {
+        max-width: none;
+      }
+    }
+  }
+
+  .aar-methodology {
+    &__intro {
+      margin-bottom: $gap20;
+    }
+
+    &__copy {
+      max-width: none;
+      display: flex;
+      flex-direction: column;
+      gap: $gap20;
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      gap: $gap8;
+
+      p {
+        margin: 0;
+        font-size: $base-fsize;
+        line-height: 24px;
+        padding: 0;
+      }
+    }
+
+    &__content--footnotes {
+      gap: $gap20;
+      margin-top: $gap20;
+    }
+
+    &__table-title {
+      margin: 0;
+      font-size: $base-fsize;
+      font-weight: $fSemiBold;
+      line-height: 24px;
+    }
+  }
+
+  .aar-report-item-list {
+    display: flex;
+    flex-direction: column;
+    gap: $gap24;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &__item {
+      display: flex;
+      align-items: flex-start;
+      gap: $gap24;
+    }
+
+    &__number {
+      display: inline-flex;
+      flex: 0 0 auto;
+      align-items: center;
+      justify-content: center;
+      min-width: 48px;
+      min-height: 48px;
+      border-radius: 3.84px;
+      background: $gray75;
+      font-size: $fsize24;
+      font-weight: $fBold;
+    }
+
+    &__text {
+      margin: 0;
+      padding: 0;
+      font-size: $base-fsize;
+      line-height: 24px;
+
+      strong {
+        font-weight: $fSemiBold;
+      }
+    }
+  }
+}

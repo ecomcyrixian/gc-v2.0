@@ -1,0 +1,1192 @@
+.gc-report-automation-anxiety {
+  .aar-report-graph {
+    --aar-graph-axis: #{$gray100};
+    --aar-graph-muted: #{$gray100};
+    --aar-graph-parallax-x: 0px;
+    --aar-graph-parallax-y: 0px;
+    --aar-graph-tilt-x: 0deg;
+    --aar-graph-tilt-y: 0deg;
+
+    display: flex;
+    flex-direction: column;
+    gap: $gap40;
+    max-width: 100%;
+    min-width: 0;
+
+    &--vertical {
+      max-width: 100%;
+      min-width: 0;
+
+      @include media($tablet) {
+        .aar-report-graph__chart-frame {
+          max-width: 100%;
+          min-width: 0;
+          overflow-x: hidden;
+        }
+      }
+    }
+
+    &--horizontal {
+      .aar-report-graph__panel {
+        gap: $gap40;
+      }
+
+      .aar-report-graph__intro {
+        margin: 0;
+
+        p {
+          margin: 0;
+          font-size: $base-fsize;
+          line-height: 1.5;
+          padding: 0;
+        }
+      }
+    }
+
+    &__title {
+      margin: 0;
+      font-size: $base-fsize;
+      font-weight: $fSemiBold;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    &__panels {
+      display: grid;
+      gap: $gap40;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    &--duo {
+      .aar-report-graph__panels {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        @include media($tablet) {
+          grid-template-columns: 1fr;
+        }
+      }
+    }
+
+    &__panel {
+      display: flex;
+      flex-direction: column;
+      gap: $gap20;
+      min-width: 0;
+      max-width: 100%;
+    }
+
+    &__panel-title {
+      margin: 0;
+      font-size: $base-fsize;
+      font-weight: $fSemiBold;
+      line-height: 1.5;
+      text-align: center;
+      color: $blue300;
+    }
+
+    &__chart-frame {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      max-width: 100%;
+      min-width: 0;
+    }
+
+    &__plot {
+      position: relative;
+      display: grid;
+      gap: $gap16;
+      transform-style: preserve-3d;
+      transition: transform 0.35s ease;
+    }
+
+    &--motion {
+      .aar-report-graph__chart-frame {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
+
+      &.is-visible .aar-report-graph__chart-frame {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      &.aar-report-graph--vertical {
+        .aar-report-graph__chart-frame {
+          transform: translateX(40px);
+        }
+
+        &.is-visible .aar-report-graph__chart-frame {
+          transform: translateX(0);
+        }
+      }
+
+      .aar-report-graph__plot {
+        transition: none;
+        transform: perspective(1200px) rotateX(var(--aar-graph-tilt-x)) rotateY(var(--aar-graph-tilt-y)) translate3d(var(--aar-graph-parallax-x), var(--aar-graph-parallax-y), 0);
+      }
+
+		/* Value labels hidden until is-bars-animated fires */
+		&:not(.is-bars-animated) {
+			.aar-report-graph__value,
+			.aar-report-graph__row-value {
+				opacity: 0;
+			}
+		}
+
+		&.is-bars-animated {
+			.aar-report-graph__bar {
+				animation: aar-bar-grow 1200ms cubic-bezier(0.16, 1, 0.3, 1) var(--aar-bar-delay, 0s) both;
+			}
+
+			.aar-report-graph__row-fill {
+				animation: aar-fill-grow 1200ms cubic-bezier(0.16, 1, 0.3, 1) var(--aar-bar-delay, 0s) both;
+			}
+
+			/* Value labels reveal with per-item stagger */
+			.aar-report-graph__value {
+				opacity: 1;
+				transition:
+					opacity 0.4s ease var(--aar-value-delay, 0.9s),
+					color 0.25s ease 0s,
+					transform 0.25s ease 0s;
+			}
+
+			.aar-report-graph__row-value {
+				opacity: 1;
+				transition:
+					opacity 0.4s ease var(--aar-value-delay, 0.75s),
+					color 0.25s ease 0s,
+					transform 0.25s ease 0s;
+			}
+		}
+	}
+
+    &__plot--vertical {
+      display: block;
+      min-width: 0;
+      max-width: 100%;
+      width: 100%;
+    }
+
+    &__chart-body {
+      --aar-chart-plot-height: 400px;
+      --aar-chart-value-gutter: calc(15px + 4px);
+      --aar-chart-plot-inner-height: calc(var(--aar-chart-plot-height) - var(--aar-chart-value-gutter));
+      --aar-bar-max-width: 154px;
+      --aar-y-max: 80;
+
+      display: grid;
+      grid-template-columns: 64px minmax(0, 1fr);
+      grid-template-rows: var(--aar-chart-plot-height) auto;
+      gap: 0;
+      flex: 1;
+      min-width: 0;
+
+      &--with-y-label {
+        grid-template-columns: auto 64px minmax(0, 1fr);
+      }
+
+      @include media($tablet) {
+        --aar-chart-plot-height: 360px !important;
+
+        grid-template-columns: 40px minmax(0, 1fr);
+
+        &--with-y-label {
+          grid-template-columns: auto 36px minmax(0, 1fr);
+        }
+      }
+
+      @include media($mobile) {
+        --aar-chart-plot-height: 300px !important;
+
+        grid-template-columns: 36px minmax(0, 1fr);
+
+        &--with-y-label {
+          grid-template-columns: auto 32px minmax(0, 1fr);
+        }
+      }
+    }
+
+    &__plot--vertical {
+      .aar-report-graph__chart-body--with-y-label {
+        .aar-report-graph__axis-label--y {
+          grid-column: 1;
+          grid-row: 1;
+          align-self: center;
+          justify-self: end;
+          padding: 0;
+        }
+
+        .aar-report-graph__scale {
+          grid-column: 2;
+          grid-row: 1;
+        }
+
+        .aar-report-graph__plot-area {
+          grid-column: 3;
+          grid-row: 1;
+          overflow: visible;
+          min-width: 0;
+        }
+
+        .aar-report-graph__category-row {
+          grid-column: 3;
+          grid-row: 2;
+          min-width: 0;
+        }
+      }
+
+      .aar-report-graph__plot-stack {
+        display: contents;
+      }
+
+      .aar-report-graph__scale {
+        grid-column: 1;
+        grid-row: 1;
+        border-right: 1px solid $black;
+      }
+
+      .aar-report-graph__plot-area {
+        grid-column: 2;
+        grid-row: 1;
+        border-bottom: 1px solid $black;
+        overflow: visible;
+        min-width: 0;
+      }
+
+      .aar-report-graph__category-row {
+        grid-column: 2;
+        grid-row: 2;
+        position: relative;
+        z-index: 4;
+        margin-top: $gap24;
+        padding: 0 $gap4;
+        min-width: 0;
+
+        @include media($mobile) {
+          margin-top: $gap16;
+          padding: 0 $gap4;
+        }
+      }
+
+      @include media($tablet) {
+        .aar-report-graph__label,
+        .aar-report-graph__sublabel {
+          font-size: $fsize14;
+          line-height: 1.35;
+          overflow-wrap: break-word;
+          word-break: normal;
+        }
+      }
+    }
+
+    &__plot--horizontal {
+      --aar-horizontal-grid-columns: minmax(180px, 1.2fr) minmax(0, 2fr) auto;
+      --aar-horizontal-axis-offset: 0px;
+      --aar-horizontal-axis-width: 100%;
+
+      &:not(.is-axis-aligned) {
+        .aar-report-graph__x-axis-scale {
+          visibility: hidden;
+        }
+      }
+
+      grid-template-columns: 1fr;
+      overflow: visible;
+
+      .aar-report-graph__plot-area {
+        height: auto;
+        min-height: 240px;
+        overflow: visible;
+      }
+
+      .aar-report-graph__x-axis {
+        overflow: visible;
+      }
+
+      .aar-report-graph__row {
+        grid-template-columns: var(--aar-horizontal-grid-columns);
+      }
+
+      .aar-report-graph__rows {
+        --aar-row-gap: 21px;
+        gap: var(--aar-row-gap);
+        overflow: visible;
+      }
+
+      .aar-report-graph__row--with-divider {
+        position: relative;
+        overflow: visible;
+
+        .aar-report-graph__divider--horizontal {
+          grid-column: 1 / -1;
+          position: absolute;
+          left: var(--aar-horizontal-axis-offset, 0);
+          width: var(--aar-horizontal-axis-width, 100%);
+          right: auto;
+          bottom: calc(-0.5 * var(--aar-row-gap));
+          transform: translateY(50%);
+          margin: 0;
+          z-index: 1;
+          display: block;
+        }
+      }
+
+      .aar-report-graph__row-track {
+        position: relative;
+        height: 43px;
+        border-radius: 0;
+        overflow: hidden;
+      }
+
+      .aar-report-graph__row-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        transform-origin: left center;
+      }
+
+      .aar-report-graph__row-value {
+        position: absolute;
+        top: 50%;
+        left: var(--aar-value, 0%);
+        z-index: 2;
+        min-width: 0;
+        padding-left: 10px;
+        font-size: 21px;
+        font-weight: $fSemiBold;
+        line-height: 1.5;
+        color: $black;
+        white-space: nowrap;
+        pointer-events: none;
+        transform: translateY(-50%);
+        transition: left 1.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease, transform 0.25s ease;
+      }
+
+      .aar-report-graph__divider--horizontal {
+        margin: 0;
+      }
+
+      .aar-report-graph__divider-track {
+        display: flex;
+        align-items: center;
+        gap: $gap8;
+        min-width: 0;
+      }
+
+      .aar-report-graph__divider--horizontal .aar-report-graph__divider-line {
+        flex: 1 1 auto;
+        height: 0;
+        border: 0;
+        border-top: 2px dashed $cyan;
+        background: none;
+      }
+
+      .aar-report-graph__divider--horizontal .aar-report-graph__divider-label {
+        flex: 0 0 auto;
+        font-size: 15px;
+        font-weight: $fRegular;
+        line-height: 1.5;
+        color: $black;
+      }
+
+      .aar-report-graph__x-axis-meta {
+        display: grid;
+        gap: $gap16;
+        margin-top: 3px;
+        text-align: center;
+      }
+
+      .aar-report-graph__x-axis-grid {
+        display: block;
+        position: relative;
+      }
+
+      .aar-report-graph__x-axis-gutter {
+        display: none;
+      }
+
+      .aar-report-graph__x-axis-scale {
+        position: relative;
+        min-width: 0;
+        margin-left: var(--aar-horizontal-axis-offset);
+        width: var(--aar-horizontal-axis-width);
+        max-width: var(--aar-horizontal-axis-width);
+        padding: $gap16 0 0;
+        overflow: visible;
+        box-sizing: border-box;
+      }
+
+      .aar-report-graph__x-axis-line-band {
+        position: relative;
+        overflow: visible;
+      }
+
+      .aar-report-graph__x-axis-line {
+        display: block;
+        width: 100%;
+        height: 0;
+        margin: 0;
+        border-top: 0.5px solid $black;
+      }
+
+      .aar-report-graph__x-axis-marks {
+        position: relative;
+        width: 100%;
+        height: 8px;
+        overflow: visible;
+      }
+
+      .aar-report-graph__x-axis-mark {
+        position: absolute;
+        top: 0;
+        bottom: auto;
+        left: calc(var(--aar-tick-position) * 1%);
+        width: 0;
+        height: 8px;
+        border-left: 0.5px solid $black;
+        transform: translateX(-50%);
+
+        &:first-child {
+          left: 0;
+          transform: translateX(0);
+        }
+
+        &:last-child:not(:only-child) {
+          left: 100%;
+          transform: translateX(-100%);
+        }
+      }
+
+      .aar-report-graph__ticks--x {
+        position: relative;
+        width: 100%;
+        min-height: calc(17px * 1.5);
+        margin-top: 3px;
+        overflow: visible;
+
+        .aar-report-graph__tick {
+          top: auto;
+          right: auto;
+          bottom: 0;
+          left: calc(var(--aar-tick-position) * 1%);
+          display: block;
+          padding-top: 0;
+          font-size: 17px;
+          line-height: 1.5;
+          transform: translateX(-50%);
+
+
+          &:first-child {
+            left: 0;
+            transform: translateX(0);
+          }
+
+          &:last-child:not(:only-child) {
+            left: 100%;
+            transform: translateX(-100%);
+          }
+
+          &::before,
+          &::after {
+            display: none;
+          }
+        }
+      }
+
+      .aar-report-graph__axis-label--x {
+        margin: 0;
+        font-size: $fsize14;
+        font-weight: $fSemiBold;
+        line-height: calc(22 / 14);
+        text-align: center;
+        color: $black;
+      }
+
+      .aar-report-graph__x-axis-scale {
+        .aar-report-graph__footer {
+          margin: 0;
+        }
+      }
+
+      @include media($mobile) {
+        .aar-report-graph__x-axis-scale {
+          margin-left: 0;
+          width: 100%;
+          max-width: none;
+        }
+
+        .aar-report-graph__row--with-divider {
+          .aar-report-graph__divider--horizontal {
+            position: static;
+            transform: none;
+            margin: $gap8 0;
+          }
+        }
+
+        .aar-report-graph__divider--horizontal .aar-report-graph__divider-label {
+          white-space: normal;
+          text-align: center;
+          line-height: 1.35;
+        }
+
+        .aar-report-graph__row-track {
+          display: flex;
+          align-items: center;
+          gap: $gap8;
+          overflow: visible;
+        }
+
+        .aar-report-graph__row-fill {
+          position: relative;
+          flex: 0 0 var(--aar-value);
+          flex-shrink: 0;
+          height: 43px;
+        }
+
+        .aar-report-graph__row-value {
+          position: static;
+          flex: 0 0 auto;
+          transform: none;
+          padding-left: 0;
+          font-size: $fsize14;
+        }
+
+        .aar-report-graph__row:hover .aar-report-graph__row-value,
+        .aar-report-graph__row:focus-within .aar-report-graph__row-value {
+          transform: none;
+        }
+      }
+    }
+
+    &__axis-label {
+      margin: 0;
+      font-size: 15px;
+      font-weight: $fSemiBold;
+      line-height: 1.5;
+      padding: 0;
+
+      &--y {
+        margin: 0;
+        padding: 0 $gap16 0 0;
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        text-align: center;
+
+        @include media($mobile) {
+          font-size: 13px;
+          padding-right: $gap8;
+        }
+      }
+
+      &--x {
+        display: block;
+        margin-top: $gap8;
+        text-align: center;
+        font-size: $base-fsize;
+        font-weight: $fRegular;
+      }
+    }
+
+    &__scale {
+      position: relative;
+      height: var(--aar-chart-plot-height);
+      padding-right: $gap8;
+      overflow: visible;
+    }
+
+    &__plot--vertical {
+      .aar-report-graph__scale {
+        padding-top: var(--aar-chart-value-gutter);
+        box-sizing: border-box;
+      }
+
+      .aar-report-graph__bars {
+        inset: var(--aar-chart-value-gutter) $gap8 0;
+      }
+    }
+
+    &__plot-stack {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      overflow: visible;
+    }
+
+    &__plot-area {
+      position: relative;
+      height: var(--aar-chart-plot-height);
+      min-height: 0;
+    }
+
+    &__tick {
+      position: absolute;
+      right: 0;
+      bottom: var(--aar-tick-position);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: $black;
+      font-size: 17px;
+      line-height: 1;
+      transform: translateY(50%);
+
+      @include media($mobile) {
+        font-size: $fsize14;
+      }
+
+      &::after {
+        content: '';
+        flex: 0 0 8px;
+        width: 8px;
+        height: 1px;
+        background: $black;
+      }
+    }
+
+    &__scale {
+      .aar-report-graph__tick {
+        &:first-child {
+          bottom: 0;
+          transform: none;
+        }
+
+        &:last-child {
+          top: 0;
+          bottom: auto;
+          transform: none;
+        }
+      }
+    }
+
+    &__plot--vertical {
+      .aar-report-graph__tick {
+        &:not(:first-child):not(:last-child) {
+          bottom: calc(var(--aar-tick-position) * var(--aar-chart-plot-inner-height) / 100);
+        }
+
+        &:last-child {
+          top: var(--aar-chart-value-gutter);
+          bottom: auto;
+        }
+      }
+    }
+
+    &__ticks--x {
+      position: relative;
+      min-height: 28px;
+
+      .aar-report-graph__tick {
+        left: calc(var(--aar-tick-position) * 1%);
+        right: auto;
+        bottom: 0;
+        gap: 0;
+        transform: translateX(-50%);
+        padding-top: $gap8;
+        font-size: $fsize12;
+
+        &::after {
+          display: none;
+        }
+      }
+    }
+
+    &__plot--vertical {
+      .aar-report-graph__ticks--x {
+        border-top: 0;
+      }
+    }
+
+    &__plot--horizontal {
+      .aar-report-graph__ticks--x {
+        border-top: 0;
+      }
+    }
+
+    &__gridline {
+      display: none;
+    }
+
+    &__reference {
+      position: absolute;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    &__plot--vertical {
+      .aar-report-graph__reference {
+        right: 0;
+        left: 0;
+        bottom: calc(var(--aar-reference-position) * var(--aar-chart-plot-inner-height) / 100);
+        padding: 0 $gap8;
+        transform: translateY(50%);
+      }
+    }
+
+    &__plot--horizontal {
+      .aar-report-graph__reference {
+        top: 0;
+        bottom: 0;
+        left: calc(var(--aar-reference-position) * 1%);
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .aar-report-graph__reference-line {
+        width: 0;
+        min-width: 0;
+        height: 100%;
+        border-top: 0;
+        border-left: 1px dashed rgba($gray100, 0.9);
+      }
+
+      .aar-report-graph__reference-label {
+        padding-top: $gap8;
+        padding-left: 0;
+      }
+    }
+
+    &__reference-line {
+      flex: 1 1 auto;
+      min-width: 0;
+      height: 0;
+      border-top: 1.1px dashed #0B1B2A;
+    }
+
+    &__reference-label {
+      flex: 0 0 auto;
+      padding-left: $gap8;
+      font-size: $fsize14;
+      font-weight: $fRegular;
+      line-height: 1;
+      white-space: nowrap;
+      color: $black;
+    }
+
+    &__baseline {
+      display: none;
+    }
+
+    &__bars {
+      position: absolute;
+      inset: 0 $gap8 0;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(var(--aar-bar-count, 4), minmax(0, 1fr));
+      gap: 15px;
+      align-items: end;
+      justify-items: center;
+      padding: 0;
+
+      @include media($tablet) {
+        gap: $gap8;
+        inset: 0 $gap4 0;
+        grid-template-columns: repeat(var(--aar-bar-count, 4), minmax(0, 1fr));
+      }
+    }
+
+    &__bar-item {
+      position: relative;
+      width: 100%;
+      max-width: var(--aar-bar-max-width, 154px);
+      height: 100%;
+      cursor: default;
+      transition: transform 0.3s ease;
+
+      @include media($tablet) {
+        max-width: 100%;
+        min-width: 0;
+      }
+
+      &:focus-visible {
+        outline: 2px solid rgba($blue300, 0.45);
+        outline-offset: 3px;
+        border-radius: 2px;
+      }
+
+      &:hover,
+      &:focus-within {
+        transform: translateY(-4px);
+
+        .aar-report-graph__bar {
+          filter: brightness(1.06);
+          box-shadow: 0 6px 16px rgba($blue300, 0.22);
+        }
+
+        .aar-report-graph__value {
+          color: $blue300;
+          transform: translate(-50%, calc(-100% - 8px)) scale(1.06);
+        }
+      }
+    }
+
+    &__bar-data {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    &__bar-track {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    &__plot--vertical {
+      .aar-report-graph__value {
+        position: absolute;
+        left: 50%;
+        bottom: calc(100% * var(--aar-value) / 100);
+        z-index: 1;
+        font-size: 15px;
+        font-weight: $fSemiBold;
+        line-height: 1;
+        color: $black;
+        white-space: nowrap;
+        pointer-events: none;
+        transition: bottom 1.2s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease, transform 0.25s ease;
+        transform: translate(-50%, calc(-100% - 4px));
+      }
+    }
+
+    &__value {
+      font-size: 15px;
+      font-weight: $fSemiBold;
+      line-height: 1;
+      color: $black;
+    }
+
+    &__bar {
+      align-self: flex-end;
+      width: 100%;
+      box-sizing: border-box;
+      height: calc(100% * var(--aar-value, 0) / 100);
+      min-height: 0;
+      flex-shrink: 1;
+      border-radius: 0;
+      transform-origin: center bottom;
+    }
+
+    &__row-fill {
+      width: var(--aar-value, 0%);
+      min-width: 0;
+      height: 100%;
+    }
+
+    /*
+     * Motion graphs zero out bars until is-bars-animated; this block must appear
+     * after &__bar / &__row-fill so it wins on specificity for --motion:not(.is-bars-animated).
+     */
+    &--motion:not(.is-bars-animated) {
+      .aar-report-graph__bar {
+        height: 0;
+        min-height: 0;
+        transition: filter 0.3s ease, box-shadow 0.25s ease;
+      }
+
+      .aar-report-graph__row-fill {
+        width: 0;
+        min-width: 0;
+        transition: filter 0.3s ease, box-shadow 0.25s ease;
+      }
+    }
+
+    &__category-row {
+      display: grid;
+      grid-template-columns: repeat(var(--aar-bar-count, 4), minmax(0, 1fr));
+      gap: 15px;
+      justify-items: center;
+
+      @include media($tablet) {
+        gap: $gap8;
+        grid-template-columns: repeat(var(--aar-bar-count, 4), minmax(0, 1fr));
+      }
+    }
+
+    &__category {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      width: 100%;
+      max-width: var(--aar-bar-max-width, 154px);
+      min-width: 0;
+      text-align: center;
+
+      @include media($tablet) {
+        max-width: 100%;
+      }
+    }
+
+    &__label {
+      display: block;
+      font-size: 17px;
+      font-weight: $fSemiBold;
+      line-height: 1.3;
+      color: $black;
+
+      @include media($mobile) {
+        font-size: $fsize14;
+      }
+    }
+
+    &__sublabel {
+      display: block;
+      font-size: 17px;
+      font-weight: $fSemiBold;
+      line-height: 1.3;
+      color: $black;
+
+      @include media($mobile) {
+        font-size: $fsize14;
+      }
+    }
+
+    &__rows {
+      display: flex;
+      flex-direction: column;
+      gap: $gap16;
+    }
+
+    &__row {
+      display: grid;
+      grid-template-columns: minmax(180px, 1.2fr) minmax(0, 2fr) auto;
+      gap: $gap16;
+      align-items: center;
+      cursor: default;
+      transition: transform 0.25s ease;
+
+      &:focus-visible {
+        outline: 2px solid rgba($blue300, 0.45);
+        outline-offset: 2px;
+        border-radius: 2px;
+      }
+
+      @include media($mobile) {
+        grid-template-columns: 1fr;
+        gap: $gap8;
+      }
+
+      &:hover,
+      &:focus-within {
+        transform: translateX(2px);
+
+        .aar-report-graph__row-fill {
+          filter: brightness(1.06);
+          box-shadow: 0 3px 12px rgba($blue300, 0.2);
+        }
+
+        .aar-report-graph__row-value {
+          color: $blue300;
+          transform: translateY(-50%) scale(1.05);
+        }
+      }
+    }
+
+    &__row-label {
+      .aar-report-graph__label {
+        text-align: right;
+
+        @include media($mobile) {
+          text-align: left;
+        }
+      }
+
+      .aar-report-graph__sublabel {
+        text-align: right;
+
+        @include media($mobile) {
+          text-align: left;
+        }
+      }
+    }
+
+    &__row-value {
+      min-width: 48px;
+      font-size: 15px;
+      font-weight: $fSemiBold;
+      line-height: 1;
+      text-align: right;
+      color: $black;
+    }
+
+    &__divider {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: $gap12;
+      align-items: center;
+      margin: $gap8 0;
+    }
+
+    &__divider-line {
+      height: 1px;
+      background: rgba($blue300, 0.35);
+    }
+
+    &__divider-label {
+      font-size: $fsize12;
+      font-weight: $fMedium;
+      line-height: 1.3;
+      color: $blue300;
+      white-space: nowrap;
+
+      @include media($mobile) {
+        white-space: normal;
+        text-align: center;
+      }
+    }
+
+    &__x-axis {
+      display: grid;
+      gap: 0;
+    }
+
+    &__callout {
+      border: 1px solid #3FC5FD;
+      border-radius: 999px;
+      font-weight: $fBold;
+      color: $blue500;
+      background: $blue50;
+      padding: 10px 6px;
+
+      @include media($mobile) {
+        font-size: $fsize14;
+        line-height: 1.35;
+        padding: 8px 4px;
+      }
+    }
+
+    &__footer {
+      margin: 0;
+      font-size: $fsize14;
+      font-style: italic;
+      line-height: 1.5;
+      text-align: center;
+      padding: 0;
+    }
+
+    &__bar--tone-royal,
+    &__row-fill.aar-report-graph__bar--tone-royal {
+      background: $blue300;
+    }
+
+    &__bar--tone-cyan,
+    &__row-fill.aar-report-graph__bar--tone-cyan {
+      background: $cyan;
+    }
+
+    &__bar--tone-navy,
+    &__row-fill.aar-report-graph__bar--tone-navy {
+      background: $darkblue;
+    }
+
+    &__bar--tone-lavender,
+    &__row-fill.aar-report-graph__bar--tone-lavender {
+      background: #9980ff;
+    }
+
+    &__bar--tone-indigo,
+    &__row-fill.aar-report-graph__bar--tone-indigo {
+      background: $blue500;
+    }
+
+    &__bar--tone-red,
+    &__row-fill.aar-report-graph__bar--tone-red {
+      background: $red300;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      &--motion {
+        .aar-report-graph__chart-frame {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+
+        .aar-report-graph__plot,
+        .aar-report-graph__bar-item,
+        .aar-report-graph__row {
+          transition: none;
+        }
+
+        .aar-report-graph__bar {
+          animation: none;
+          height: calc(100% * var(--aar-value, 0) / 100);
+          transition: none;
+        }
+
+        .aar-report-graph__row-fill {
+          animation: none;
+          width: var(--aar-value, 0%);
+          transition: none;
+        }
+
+        .aar-report-graph__bar-item:hover,
+        .aar-report-graph__bar-item:focus-within {
+          transform: none !important;
+
+          .aar-report-graph__value {
+            transform: translate(-50%, calc(-100% - 4px));
+          }
+
+          .aar-report-graph__bar {
+            box-shadow: none;
+            filter: none;
+          }
+        }
+
+        .aar-report-graph__row:hover,
+        .aar-report-graph__row:focus-within {
+          transform: none !important;
+
+          .aar-report-graph__row-fill {
+            box-shadow: none;
+            filter: none;
+          }
+
+          .aar-report-graph__row-value {
+            transform: translateY(-50%);
+          }
+        }
+
+        @include media($mobile) {
+          .aar-report-graph__plot--horizontal {
+            .aar-report-graph__row:hover .aar-report-graph__row-value,
+            .aar-report-graph__row:focus-within .aar-report-graph__row-value {
+              transform: none;
+            }
+          }
+        }
+
+        .aar-report-graph__value,
+        .aar-report-graph__row-value {
+          opacity: 1;
+        }
+      }
+    }
+  }
+}
+
+/* ─── Keyframe animations for bar/fill growth ─── */
+@keyframes aar-bar-grow {
+  from { height: 0; }
+  to   { height: calc(100% * var(--aar-value, 0) / 100); }
+}
+
+@keyframes aar-fill-grow {
+  from { width: 0; }
+  to   { width: var(--aar-value, 0%); }
+}

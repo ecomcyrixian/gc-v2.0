@@ -1,0 +1,88 @@
+@import '../../../../../assets/css/_tools/variable';
+@import '../../../../../assets/css/_tools/mixins';
+
+.gc-report-automation-anxiety {
+  .aar-report-data-table-wrap {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+
+  .aar-report-data-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: $fsize14;
+    line-height: 1.5;
+    color: $gray300;
+
+    @include media($tablet) {
+      width: max-content;
+      max-width: none;
+      min-width: 100%;
+      table-layout: auto;
+    }
+
+    thead th,
+    tbody td {
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
+
+    thead th {
+      padding: $gap16;
+      border: 0;
+      background: $gray300;
+      color: $white;
+      font-size: $fsize14;
+      font-weight: $fSemiBold;
+      text-align: center;
+
+    }
+
+    tbody td {
+      padding: $gap12 $gap16;
+      border-bottom: 1px solid $gray75;
+      background: $white;
+      text-align: center;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+  }
+
+  /** Appendix crosstabs: dark header, metric column left-aligned, Figma padding on header cells. */
+  .aar-report-data-table-wrap--appendix {
+    margin-bottom: $gap24;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .aar-report-data-table--appendix {
+      thead th {
+        padding: $gap16 $gap8;
+        background: $black;
+      }
+
+      thead th:first-child,
+      tbody td:first-child {
+        text-align: left;
+      }
+
+      tbody td {
+        padding: $gap12 $gap8;
+        text-align: center;
+      }
+    }
+  }
+
+  .aar-appendix-read {
+    font-size: $base-fsize;
+    padding: 0;
+  }
+}

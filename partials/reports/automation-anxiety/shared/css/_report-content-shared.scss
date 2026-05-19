@@ -1,0 +1,765 @@
+@import '../../../../../assets/css/_tools/variable';
+@import '../../../../../assets/css/_tools/mixins';
+@import 'report-graph';
+
+$aar-callout-card-bg-image: '../../../../../assets/images/home-header-bg.jpg' !default;
+
+.gc-report-automation-anxiety {
+  
+  .aar-report-section-heading {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    padding-left: $gap40;
+    padding-right: $gap16;
+    border-left: 4px solid $blue300;
+    min-width: 0;
+
+    @include media($mobile) {
+      padding-left: $gap24;
+    }
+
+    &__inner {
+      max-width: 900px;
+      flex: 1 1 auto;
+      min-width: 0;
+      padding-right: min(28vw, 120px);
+
+      @include media($mobile) {
+        padding-right: min(22vw, 96px);
+      }
+    }
+
+    &__title {
+      font-size: $fsize56;
+      font-weight: $fSemiBold;
+      line-height: 1;
+
+      @include media($tablet) {
+        font-size: $fsize40;
+      }
+
+      @include media($mobile) {
+        font-size: $fsize32;
+      }
+    }
+
+    &__subtitle {
+      margin-top: $gap16;
+      font-size: $fsize20;
+      line-height: 1.5;
+
+      @include media($mobile) {
+        font-size: $base-fsize;
+      }
+    }
+
+    &__index {
+      position: absolute;
+      top: 0;
+      right: 0;
+      align-self: flex-start;
+      margin: 0;
+      font-family: var(--aar-font-bebas);
+      font-size: 160px;
+      line-height: 1;
+      opacity: 0.1;
+      pointer-events: none;
+      max-width: 50%;
+
+      @include media($tablet) {
+        font-size: 120px;
+      }
+
+      @include media($mobile) {
+        font-size: 80px;
+        right: $gap4;
+      }
+    }
+  }
+
+  .aar-report-quote:not(.aar-report-callout-card__quote),
+  .aar-executive-summary__quote,
+  .aar-report-media-feature__quote {
+    p {
+      font-size: $fsize32;
+      font-weight: 300;
+      line-height: 48px;
+      font-style: italic;
+      padding: 0;
+
+      strong {
+        color: $blue300;
+        font-weight: $fSemiBold;
+      }
+
+      @include media($mobile) {
+        font-size: $fsize24;
+        line-height: 32px;
+      }
+    }
+  }
+
+  .aar-report-split-copy {
+    display: flex;
+    gap: $gap80;
+    width: 100%;
+    min-width: 0;
+
+    @include media($tablet) {
+      flex-direction: column;
+      gap: $gap40;
+    }
+
+    @include media($mobile) {
+      gap: $gap40;
+    }
+
+    &--center-content {
+      align-items: center;
+    }
+
+    &__column {
+      display: flex;
+      flex-direction: column;
+      gap: $gap24;
+      flex: 1 1 50%;
+      width: 50%;
+      max-width: 50%;
+      min-width: 0;
+
+      @include media($tablet) {
+        flex: 1 1 auto;
+        width: 100%;
+        max-width: none;
+      }
+
+      > p {
+        padding: 0;
+      }
+    }
+
+    
+
+    &__column--items {
+      gap: $gap40;
+    }
+
+    &__heading {
+      margin: 0;
+      font-size: $fsize24;
+      font-weight: $fSemiBold;
+      line-height: 1.5;
+
+      @include media($mobile) {
+        font-size: $fsize20;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+
+        &:hover,
+        &:focus-visible {
+          text-decoration: none;
+          color: $blue300;
+        }
+      }
+    }
+
+    &__item {
+      display: flex;
+      flex-direction: column;
+      gap: $gap16;
+
+      p {
+        padding: 0;
+      }
+    }
+  }
+
+  /** Callout card uses mesh/photo overlay. `.aar-report-media-feature__bluebox` is solid `$blue500` only. */
+  .aar-report-callout-card {
+    display: flex;
+    flex-direction: column;
+    gap: $gap24;
+    align-self: stretch;
+    padding: 32px;
+    border-radius: $corners8;
+    color: $white;
+    background-image: linear-gradient(rgba(#0f1038, 0.55), rgba(#1a1460, 0.45)),
+      url($aar-callout-card-bg-image);
+    background-size: cover;
+
+    &__title {
+      margin: 0;
+      font-size: $fsize20;
+      font-weight: $fSemiBold;
+      line-height: 1.5;
+
+      @include media($mobile) {
+        font-size: $base-fsize;
+      }
+    }
+
+    &__body {
+      p {
+        padding: 0;
+      }
+    }
+
+    &__quote {
+
+      p {
+        font-weight: $fSemiBold;
+        font-style: italic;
+      }
+    }
+  }
+
+  /** Full-width stat + copy callout (solid blue, e.g. Verification Vacuum). */
+  .aar-report-blue-box {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    gap: $gap24;
+    padding: $gap24;
+    border-radius: $corners8;
+    background-color: $blue500;
+    color: $white;
+
+    &__heading {
+      flex: 0 0 auto;
+      margin: 0;
+      font-size: 60px;
+      font-weight: $fBold;
+      line-height: 1;
+      color: $cyan;
+
+      @include media($mobile) {
+        font-size: $fsize40;
+      }
+    }
+
+    &__text {
+      flex: 1 1 auto;
+      margin: 0;
+      min-width: 0;
+    }
+
+    @include media($mobile) {
+      flex-direction: column;
+      gap: $gap16;
+      align-items: flex-start;
+    }
+  }
+
+  .aar-report-blue-box-copy {
+    font-size: $base-fsize;
+    line-height: 24px;
+    padding: 0;
+  }
+
+  .aar-report-media-feature {
+    &__row {
+      display: flex;
+      justify-content: space-between;
+      gap: $gap24;
+
+      @include media($tablet) {
+        flex-direction: column;
+        gap: $gap40;
+      }
+    }
+
+    &--image-right {
+      > .aar-report-media-feature__row {
+        flex-direction: row-reverse;
+
+        @include media($tablet) {
+          flex-direction: column;
+        }
+      }
+    }
+
+    &--content-left {
+      > .aar-report-media-feature__row {
+        flex-direction: row-reverse;
+
+        @include media($tablet) {
+          flex-direction: column;
+        }
+      }
+    }
+
+    &--image-right.aar-report-media-feature--content-left {
+      > .aar-report-media-feature__row {
+        flex-direction: row;
+
+        @include media($tablet) {
+          flex-direction: column;
+        }
+      }
+    }
+
+    &__image {
+      display: block;
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      border-radius: $corners8;
+    }
+
+    &__stack {
+      display: flex;
+      flex-direction: column;
+      max-width: 50%;
+
+      @include media($tablet) {
+        max-width: 100%;
+      }
+    }
+
+    &--stack-bluebox-body,
+    &--stack-body-quote {
+      .aar-report-media-feature__stack {
+        justify-content: space-between;
+      }
+    }
+
+    &__bluebox {
+      display: flex;
+      flex-direction: column;
+      padding: $gap24;
+      border-radius: $corners8;
+      background-color: $blue500;
+      color: $white;
+
+      @include media($mobile) {
+        gap: $gap16;
+      }
+    }
+
+    /** Blue box + body without a photo: two columns (blue side set by `--content-*` via `blue_box.position`). */
+    &--no-image.aar-report-media-feature--stack-bluebox-body {
+      .aar-report-media-feature__stack {
+        flex: 1 1 100%;
+        max-width: 100%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        @include media($tablet) {
+          flex-direction: column;
+          gap: $gap24;
+        }
+      }
+
+      &.aar-report-media-feature--content-right .aar-report-media-feature__stack {
+        flex-direction: row-reverse;
+
+        @include media($tablet) {
+          flex-direction: column;
+        }
+      }
+
+      .aar-report-media-feature__body,
+      .aar-report-media-feature__bluebox {
+        flex: 0 1 auto;
+        min-width: 0;
+
+        @include media($tablet) {
+          flex: none;
+          max-width: none;
+        }
+      }
+
+      .aar-report-media-feature__bluebox {
+        height: auto;
+      }
+    }
+
+    &__bluebox-heading {
+      margin: 0;
+      font-size: 60px;
+      font-weight: $fBold;
+      color: $cyan;
+
+      @include media($mobile) {
+        font-size: $fsize40;
+      }
+    }
+
+    &__bluebox-text {
+      margin: 0;
+      font-size: $fsize14;
+      line-height: 22px;
+
+      p {
+        margin: 0;
+        padding: 0;
+      }
+    }
+
+    &--stack-bluebox-body {
+      .aar-report-media-feature__body {
+        padding: $gap24;
+      }
+    }
+
+    &__body {
+      display: flex;
+      flex-direction: column;
+      gap: $gap16;
+      font-size: $base-fsize;
+      line-height: 24px;
+    }
+
+    &__body-heading {
+      margin: 0;
+      font-size: $fsize24;
+      font-weight: $fSemiBold;
+      line-height: 1.3;
+
+      @include media($mobile) {
+        font-size: $fsize20;
+      }
+    }
+
+    &__body-text {
+      margin: 0;
+      font-size: $base-fsize;
+      line-height: 24px;
+
+      p {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+
+  /** Narrative + image (left); right column is a custom stat list (not report card grids). */
+  .aar-report-feature-stat-split {
+    display: flex;
+    align-items: flex-start;
+    gap: $gap80;
+
+    @include media($tablet) {
+      flex-direction: column;
+      gap: $gap40;
+    }
+
+    &__copy {
+      display: flex;
+      flex-direction: column;
+      gap: $gap16;
+      max-width: 50%;
+
+      @include media($tablet) {
+        flex: none;
+        max-width: none;
+      }
+    }
+
+    &__heading {
+      margin: 0;
+      font-size: $fsize24;
+      font-weight: $fSemiBold;
+      line-height: 1.5;
+    }
+
+    &__intro {
+      margin: 0;
+      font-size: $base-fsize;
+      line-height: 24px;
+    }
+
+    &__image {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    &__stats {
+      display: flex;
+      flex-direction: column;
+      gap: $gap16;
+      max-width: 50%;
+
+      @include media($tablet) {
+        flex: none;
+        max-width: none;
+        width: 100%;
+      }
+    }
+
+    &__stat {
+      display: flex;
+      align-items: center;
+      gap: $gap16;
+      padding: $gap12;
+      background: $white;
+      border-radius: $corners8;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    &__stat-value {
+      font-size: $fsize40;
+      font-weight: $fBold;
+      line-height: 1.5;
+
+      @include media($mobile) {
+        font-size: $fsize32;
+      }
+    }
+
+    &__stat-text {
+      font-size: $fsize14;
+      line-height: 22px;
+      padding: 0;
+    }
+  }
+
+  .aar-report-stat-cards {
+    display: flex;
+    flex-direction: column;
+    gap: $gap40;
+
+    &__header {
+      display: flex;
+      flex-direction: column;
+      gap: $gap16;
+    }
+
+    &__title {
+      font-size: $fsize24;
+      font-weight: $fSemiBold;
+      line-height: 1.5;
+    }
+
+    &__intro {
+      font-size: $base-fsize;
+      line-height: 24px;
+    }
+
+    .cards.card-same-height {
+      margin-bottom: 0;
+      .card-item {
+        h4 {
+          font-size: $fsize40;
+          margin-bottom: $gap16;
+
+          @include media($mobile) {
+            font-size: $fsize32;
+          }
+        }
+
+        p {
+          padding: 0;
+          overflow-wrap: break-word;
+          word-break: normal;
+          hyphens: auto;
+        }
+      }
+
+      .card-cont:not(.card-cont--row-stagger) {
+        display: grid;
+        gap: $gap24;
+        align-content: start;
+        align-items: stretch;
+        justify-items: stretch;
+
+        &.cols2 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        &.cols3 {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        &.cols4 {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        &.cols5 {
+          grid-template-columns: repeat(5, minmax(0, 1fr));
+        }
+
+        > div,
+        > a {
+          width: auto;
+          min-width: 0;
+        }
+
+        &.cols4:has(> .card-item:nth-child(7):last-child) {
+          grid-template-columns: repeat(8, minmax(0, 1fr));
+
+          > .card-item:nth-child(-n + 4) {
+            grid-column: span 2;
+          }
+
+          > .card-item:nth-child(5) {
+            grid-column: 2 / span 2;
+          }
+
+          > .card-item:nth-child(6) {
+            grid-column: 4 / span 2;
+          }
+
+          > .card-item:nth-child(7) {
+            grid-column: 6 / span 2;
+          }
+        }
+
+        /**
+         * One column from $custom down. Must repeat `.colsN` in this block:
+         * base `&.cols3 { grid-template-columns: … }` is *more specific* than a bare
+         * `.card-cont` rule, so an unqualified `grid-template-columns: 1fr` loses the cascade.
+         */
+        @include media($custom) {
+          @for $n from 2 through 8 {
+            &.cols#{$n} {
+              grid-template-columns: 1fr;
+            }
+          }
+
+          &.cols4:has(> .card-item:nth-child(7):last-child) {
+            grid-template-columns: 1fr;
+
+            > .card-item:nth-child(-n + 4),
+            > .card-item:nth-child(5),
+            > .card-item:nth-child(6),
+            > .card-item:nth-child(7) {
+              grid-column: auto;
+            }
+          }
+
+          > .card-item {
+            grid-column: auto;
+            width: 100%;
+            max-width: 100%;
+            justify-self: stretch;
+          }
+
+          > div,
+          > a {
+            width: 100%;
+            max-width: 100%;
+            min-width: 0;
+            justify-self: stretch;
+          }
+        }
+
+        @include media($mobile) {
+          padding: 0;
+        }
+      }
+    }
+  }
+
+  /**
+   * Page hero stats (`page-hero/index.php`). Same grid + specificity rules as `.aar-report-stat-cards`;
+   * `.card-same-height` in the selector beats global `.cards:has(.card-cont…) > div` width quirks.
+   */
+  .aar-report-hero__stats.card-same-height {
+    .card-cont:not(.card-cont--row-stagger) {
+      display: grid;
+      gap: $gap24;
+      align-content: start;
+      align-items: stretch;
+      justify-items: stretch;
+      width: 100%;
+
+      @for $n from 2 through 8 {
+        &.cols#{$n} {
+          grid-template-columns: repeat(#{$n}, minmax(0, 1fr));
+        }
+      }
+
+      > div,
+      > a {
+        width: auto;
+        min-width: 0;
+      }
+
+      @include media($custom) {
+        @for $n from 2 through 8 {
+          &.cols#{$n} {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        > div,
+        > a {
+          width: 100%;
+          max-width: 100%;
+          min-width: 0;
+          justify-self: stretch;
+        }
+      }
+    }
+
+    .card-item {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+
+      @include media($custom) {
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+
+    .card-item p {
+      overflow-wrap: break-word;
+      word-break: normal;
+      hyphens: auto;
+    }
+  }
+
+  // Post-content download + share band (custom whitepaper hero, no image).
+  .aar-report-footer-cta.custom-whitepaper-hero {
+    .custom-whitepaper-hero__details {
+      text-align: center;
+
+      .aar-report-footer-cta__title {
+        margin: 0 0 $gap24;
+
+        .aar-report-footer-cta__accent {
+          color: $blue300;
+        }
+      }
+
+      p {
+        margin: 0 auto;
+        max-width: 1000px;
+        font-size: $fsize18;
+        line-height: 1.5;
+        padding: 0;
+      }
+    }
+
+    .trust-gap-cta__row {
+      @include media($mobile) {
+        flex-direction: column;
+        align-items: center;
+        gap: $gap16;
+        text-align: center;
+      }
+    }
+
+    .trust-gap-cta__intro {
+      @include media($mobile) {
+        max-width: 100%;
+      }
+    }
+
+    .trust-gap-cta__socials {
+      @include media($mobile) {
+        justify-content: center;
+      }
+    }
+  }
+}

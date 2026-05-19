@@ -1,11 +1,13 @@
 <?php
 /**
  * Template Part: Blog V2 Right Sidebar
- * About The Creator, About The Reviewer, whitepaper card (TIH only for now; related/random non-TIH logic commented below).
+ * About The Creator, About The Reviewer, featured whitepaper card (Automation Anxiety Report).
  * No ACF; no card.php.
  */
 
-$blog_v2_whitepaper_tih_id = 22046;
+$blog_v2_whitepaper_aar_url   = home_url( '/whitepapers/automation-anxiety-report' );
+$blog_v2_whitepaper_aar_title = __( 'The 2026 Automation Anxiety Report', 'gc-v2' );
+$blog_v2_whitepaper_aar_thumb = get_template_directory_uri() . '/partials/home/whitepaper-banner/images/Whitepaper-Thumbnail-2.webp';
 
 /*
  * Non-TIH whitepaper: related / random from whitepapers category (excludes TIH page). Re-enable to show a second card.
@@ -19,7 +21,7 @@ $wpq = new WP_Query( array(
 	'orderby'        => 'date',
 	'order'          => 'DESC',
 	'post_status'    => 'publish',
-	'post__not_in'   => array( $blog_v2_whitepaper_tih_id ),
+	'post__not_in'   => array(),
 	'tax_query'      => array(
 		array(
 			'taxonomy' => 'category',
@@ -66,10 +68,6 @@ if ( $wpq->have_posts() ) {
 }
 */
 
-$whitepaper_tih_post = get_post( $blog_v2_whitepaper_tih_id );
-if ( ! $whitepaper_tih_post || $whitepaper_tih_post->post_status !== 'publish' ) {
-    $whitepaper_tih_post = null;
-}
 ?>
 
 <aside class="blog-v2-sidebar blog-v2-sidebar--right">
@@ -150,23 +148,22 @@ if ( ! $whitepaper_tih_post || $whitepaper_tih_post->post_status !== 'publish' )
 	*/
 	?>
 
-    <?php if ( $whitepaper_tih_post ) : ?>
     <div class="blog-v2-cards-container cols1 blog-v2-cards-container--whitepaper blog-v2-cards-container--whitepaper-tih">
         <div class="blog-v2-card blog-v2-card--whitepaper blog-v2-card--whitepaper-tih">
             <div class="blog-v2-card__content">
                 <div>
                     <span class="blog-v2-card_whitepaper-heading-prefix">Whitepaper</span>
-                    <h4 class="blog-v2-card__whitepaper-heading"><?php echo esc_html( get_the_title( $whitepaper_tih_post ) ); ?></h4>
+                    <h4 class="blog-v2-card__whitepaper-heading">
+                       <?php echo esc_html( $blog_v2_whitepaper_aar_title ); ?>
+                    </h4>
                 </div>
                 <div class="blog-v2-card__whitepaper-thumb">
-                    <img src="<?php echo esc_url( get_template_directory_uri() . '/partials/home/whitepaper-banner/images/Whitepaper-Thumbnail.webp' ); ?>" alt="<?php echo esc_attr( get_the_title( $whitepaper_tih_post ) ); ?>" class="blog-v2-card__whitepaper-image" width="216" height="200" loading="lazy" decoding="async">
+                    <img src="<?php echo esc_url( $blog_v2_whitepaper_aar_thumb ); ?>" alt="<?php echo esc_attr( $blog_v2_whitepaper_aar_title ); ?>" class="blog-v2-card__whitepaper-image" width="216" height="200" loading="lazy" decoding="async">
                 </div>
-                <a href="<?php echo esc_url( get_permalink( $whitepaper_tih_post ) ); ?>" class="button white">Download PDF</a>
+                <a href="<?php echo esc_url( $blog_v2_whitepaper_aar_url ); ?>" class="button white" aria-label="<?php echo esc_attr( sprintf( __( 'Download the %s', 'gc-v2' ), $blog_v2_whitepaper_aar_title ) ); ?>"><?php esc_html_e( 'Download PDF', 'gc-v2' ); ?></a>
             </div>
         </div>
     </div>
-    <?php endif; ?>
-
     <?php
     $blog_v2_book_demo_bg = get_template_directory_uri() . '/core-pages/banner/images/quote-5-bg.webp';
     ?>

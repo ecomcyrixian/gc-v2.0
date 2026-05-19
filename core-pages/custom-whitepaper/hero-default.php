@@ -13,6 +13,21 @@ $cwp_share_url    = rawurlencode( $cwp_page_url );
 $cwp_share_title  = rawurlencode( $cwp_page_title );
 $cwp_mailto_href  = 'mailto:?subject=' . rawurlencode( $cwp_page_title ) . '&body=' . rawurlencode( $cwp_page_url );
 
+if ( empty( $cwp_pdf_registry_key ) ) {
+	$cwp_pdf_registry_key = function_exists( 'gc_secure_pdf_primary_trust_report_key' )
+		? gc_secure_pdf_primary_trust_report_key()
+		: 'trust_in_hiring_report_2026';
+}
+
+$cwp_pdf_view_url = isset( $cwp_pdf_view_url ) ? (string) $cwp_pdf_view_url : '';
+if ( $cwp_pdf_view_url === '' && function_exists( 'gc_secure_pdf_view_url' ) ) {
+	$cwp_pdf_view_url = gc_secure_pdf_view_url( $cwp_pdf_registry_key, get_permalink() );
+}
+$cwp_pdf_use_viewer = $cwp_pdf_ungated && $cwp_pdf_view_url !== '';
+if ( $cwp_pdf_use_viewer ) {
+	$cwp_btn_href = $cwp_pdf_view_url;
+}
+
 $cwp_trust_parts = array(
 	'custom-whitepaper-hero__trust-gap',
 	$cwp_image_class,
@@ -25,7 +40,7 @@ if ( $cwp_has_cta ) {
 $cwp_trust_gap_classes = implode( ' ', $cwp_trust_parts );
 ?>
 <div class="custom-whitepaper-hero__row custom-whitepaper-hero__row--default<?php echo $default_no_image ? ' custom-whitepaper-hero__row--no-image' : ''; ?>">
-	<div class="custom-whitepaper-hero__content"<?php echo $cwp_pdf_ungated ? gc_secure_pdf_hero_content_data_attrs() : ''; ?>>
+	<div class="custom-whitepaper-hero__content">
 		<div class="custom-whitepaper-hero__content-inner">
 			<?php if ( $snippet ) : ?>
 				<span class="custom-whitepaper-hero__snippet"><?php echo esc_html( $snippet ); ?></span>
@@ -37,7 +52,7 @@ $cwp_trust_gap_classes = implode( ' ', $cwp_trust_parts );
 			<div class="<?php echo esc_attr( $cwp_trust_gap_classes ); ?>">
 				<?php if ( $cwp_has_cta ) : ?>
 					<div class="custom-whitepaper-hero__trust-gap-cta">
-						<a href="<?php echo esc_url( $cwp_btn_href ); ?>" class="button blue trust-gap-report-hero__cta<?php echo $cwp_pdf_ungated ? ' custom-whitepaper-hero__trust-gap-download--ungated custom-whitepaper-hero__download-pdf-blob' : ' custom-whitepaper-hero__trust-gap-download--gated'; ?>" aria-label="<?php esc_attr_e( 'Download the Report', 'gc-v2' ); ?>"<?php echo $cwp_pdf_ungated ? gc_secure_pdf_primary_download_data_attrs() : ''; ?>>
+						<a href="<?php echo esc_url( $cwp_btn_href ); ?>" class="button blue trust-gap-report-hero__cta<?php echo $cwp_pdf_use_viewer ? ' custom-whitepaper-hero__trust-gap-download--ungated custom-whitepaper-hero__download-pdf-blob' : ( $cwp_pdf_ungated ? ' custom-whitepaper-hero__trust-gap-download--ungated' : ' custom-whitepaper-hero__trust-gap-download--gated' ); ?>" aria-label="<?php esc_attr_e( 'Download the Report', 'gc-v2' ); ?>"<?php echo ( $cwp_pdf_use_viewer && function_exists( 'gc_secure_pdf_download_data_attrs' ) ) ? gc_secure_pdf_download_data_attrs( $cwp_pdf_registry_key ) : ''; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 							<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 								<path d="M9.87695 12.9102C9.89157 12.9288 9.91024 12.9439 9.93156 12.9543C9.95288 12.9647 9.97629 12.9701 10 12.9701C10.0237 12.9701 10.0471 12.9647 10.0684 12.9543C10.0898 12.9439 10.1084 12.9288 10.123 12.9102L12.3105 10.1426C12.3906 10.041 12.3184 9.89062 12.1875 9.89062H10.7402V3.28125C10.7402 3.19531 10.6699 3.125 10.584 3.125H9.41211C9.32617 3.125 9.25586 3.19531 9.25586 3.28125V9.88867H7.8125C7.68164 9.88867 7.60938 10.0391 7.68945 10.1406L9.87695 12.9102ZM17.1484 12.2266H15.9766C15.8906 12.2266 15.8203 12.2969 15.8203 12.3828V15.3906H4.17969V12.3828C4.17969 12.2969 4.10938 12.2266 4.02344 12.2266H2.85156C2.76562 12.2266 2.69531 12.2969 2.69531 12.3828V16.25C2.69531 16.5957 2.97461 16.875 3.32031 16.875H16.6797C17.0254 16.875 17.3047 16.5957 17.3047 16.25V12.3828C17.3047 12.2969 17.2344 12.2266 17.1484 12.2266Z" fill="white"/>
 							</svg>

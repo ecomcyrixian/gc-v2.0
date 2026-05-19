@@ -50,6 +50,63 @@ jQuery(document).ready(function($) {
 
 });
 
+/* Whitepaper banner carousel */
+(function () {
+	'use strict';
+
+	var AUTOPLAY_MS = 5000;
+
+	function initWhitepaperBannerCarousel() {
+		if (typeof Swiper === 'undefined') {
+			return;
+		}
+
+		var root = document.querySelector('#whitepaper-banner .wb-swiper');
+		if (!root || root.swiper) {
+			return;
+		}
+
+		var slides = root.querySelectorAll('.swiper-slide');
+		if (slides.length < 2) {
+			return;
+		}
+
+		var paginationEl = root.querySelector('.wb-swiper__pagination');
+		var total = slides.length;
+
+		var swiper = new Swiper(root, {
+			slidesPerView: 1,
+			spaceBetween: 0,
+			speed: 500,
+			pagination: paginationEl
+				? { el: paginationEl, clickable: true }
+				: undefined,
+			a11y: {
+				enabled: true,
+				prevSlideMessage: 'Previous report',
+				nextSlideMessage: 'Next report',
+			},
+		});
+
+		setInterval(function () {
+			if (swiper.destroyed) {
+				return;
+			}
+			if (swiper.activeIndex >= total - 1) {
+				swiper.slideTo(0, 500);
+			} else {
+				swiper.slideNext();
+			}
+		}, AUTOPLAY_MS);
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initWhitepaperBannerCarousel);
+	} else {
+		initWhitepaperBannerCarousel();
+	}
+})();
+
 /* Hero copy link */
 (function () {
     'use strict';

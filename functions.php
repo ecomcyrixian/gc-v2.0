@@ -104,8 +104,35 @@ function theme_styles_script() {
                 $whitepaper_banner_scss,
             )
         );
-    	
-    	wp_enqueue_style( 'homepage-style', get_template_directory_uri() . '/assets/css/front-page-new.css', array(), $front_page_version, 'screen' );
+
+        wp_enqueue_style(
+            'swiper',
+            'https://cdn.jsdelivr.net/npm/swiper@11.2.10/swiper-bundle.min.css',
+            array(),
+            null
+        );
+
+        wp_enqueue_style(
+            'homepage-style',
+            get_template_directory_uri() . '/assets/css/front-page-new.css',
+            array( 'swiper' ),
+            $front_page_version,
+            'screen'
+        );
+
+        wp_enqueue_script(
+            'swiper',
+            'https://cdn.jsdelivr.net/npm/swiper@11.2.10/swiper-bundle.min.js',
+            array(),
+            null,
+            true
+        );
+
+        global $wp_scripts;
+        if ( isset( $wp_scripts->registered['my-custom-script'] ) ) {
+            $wp_scripts->registered['my-custom-script']->deps[] = 'swiper';
+        }
+
         // If you uncomment this, it will automatically have cache busting
         // $front_page_js = get_template_directory() . '/assets/js/front-page.js';
         // $front_page_js_version = file_exists($front_page_js) ? filemtime($front_page_js) : '1';
@@ -113,20 +140,111 @@ function theme_styles_script() {
     	// wp_enqueue_script( 'homepage-script' );
 
     } elseif ( is_page() ) {
-        $core_page_scss = get_template_directory() . '/assets/css/core-page-new.scss';
-        $page_hero_scss = get_template_directory() . '/core-pages/page-hero/css/_page-hero.scss';
-        $custom_whitepaper_scss = get_template_directory() . '/core-pages/custom-whitepaper/css/_custom-whitepaper-hero.scss';
-        $core_page_css = get_template_directory() . '/assets/css/core-page-new.css';
-        $version = gc_theme_asset_version(
-            $core_page_css,
-            array(
-                $core_page_scss,
-                $page_hero_scss,
-                $custom_whitepaper_scss,
-            )
-        );
-        
-        wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/core-page-new.css', array(), $version, 'screen' );
+        if ( is_page_template( 'page-report-automation-anxiety.php' ) ) {
+            $report_bundle_dir  = get_template_directory() . '/partials/reports/automation-anxiety';
+            $report_bundle_css  = get_template_directory() . '/assets/css/automation-anxiety-report.css';
+            $report_bundle_scss = get_template_directory() . '/assets/css/automation-anxiety-report.scss';
+            $report_graph_scss  = $report_bundle_dir . '/shared/css/_report-graph.scss';
+            $core_page_scss = get_template_directory() . '/assets/css/core-page-new.scss';
+            $page_hero_scss = get_template_directory() . '/core-pages/page-hero/css/_page-hero.scss';
+            $custom_whitepaper_scss = get_template_directory() . '/core-pages/custom-whitepaper/css/_custom-whitepaper-hero.scss';
+            $cards_scss = get_template_directory() . '/core-pages/cards/css/_cards.scss';
+            $core_page_css = get_template_directory() . '/assets/css/core-page-new.css';
+            $core_page_version = gc_theme_asset_version(
+                $core_page_css,
+                array(
+                    $core_page_scss,
+                    $page_hero_scss,
+                    $custom_whitepaper_scss,
+                    $cards_scss,
+                )
+            );
+
+            wp_enqueue_style(
+                'page-style',
+                get_template_directory_uri() . '/assets/css/core-page-new.css',
+                array( 'global-style' ),
+                $core_page_version,
+                'screen'
+            );
+
+            $report_bundle_version = gc_theme_asset_version(
+                $report_bundle_css,
+                array(
+                    $report_bundle_scss,
+                    $report_bundle_dir . '/shared/css/_report-data-table.scss',
+                    $report_bundle_dir . '/shared/css/_report-content-shared.scss',
+                    $report_graph_scss,
+                    $report_bundle_dir . '/executive-summary/css/_executive-summary.scss',
+                    $report_bundle_dir . '/page-hero/css/_page-hero.scss',
+                    $report_bundle_dir . '/content-ai-anxiety/css/_content-ai-anxiety.scss',
+                )
+            );
+
+            wp_enqueue_style(
+                'report-automation-anxiety',
+                get_template_directory_uri() . '/assets/css/automation-anxiety-report.css',
+                array( 'global-style', 'page-style' ),
+                $report_bundle_version,
+                'screen'
+            );
+
+            $report_graph_js = get_template_directory() . '/assets/js/report-graph.js';
+            $report_graph_js_version = gc_theme_asset_version( $report_graph_js );
+
+            wp_enqueue_script(
+                'gsap',
+                'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',
+                array(),
+                null,
+                true
+            );
+            wp_script_add_data( 'gsap', 'strategy', 'defer' );
+
+            wp_enqueue_script(
+                'gsap-scroll-trigger',
+                'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',
+                array( 'gsap' ),
+                null,
+                true
+            );
+            wp_script_add_data( 'gsap-scroll-trigger', 'strategy', 'defer' );
+
+            wp_enqueue_script(
+                'report-automation-anxiety-graph',
+                get_template_directory_uri() . '/assets/js/report-graph.js',
+                array( 'gsap', 'gsap-scroll-trigger' ),
+                $report_graph_js_version,
+                true
+            );
+            wp_script_add_data( 'report-automation-anxiety-graph', 'strategy', 'defer' );
+
+            $report_anim_js         = get_template_directory() . '/assets/js/report-animations.js';
+            $report_anim_js_version = gc_theme_asset_version( $report_anim_js );
+            wp_enqueue_script(
+                'report-automation-anxiety-animations',
+                get_template_directory_uri() . '/assets/js/report-animations.js',
+                array( 'gsap' ),
+                $report_anim_js_version,
+                true
+            );
+            wp_script_add_data( 'report-automation-anxiety-animations', 'strategy', 'defer' );
+        } else {
+            $core_page_scss = get_template_directory() . '/assets/css/core-page-new.scss';
+            $page_hero_scss = get_template_directory() . '/core-pages/page-hero/css/_page-hero.scss';
+            $custom_whitepaper_scss = get_template_directory() . '/core-pages/custom-whitepaper/css/_custom-whitepaper-hero.scss';
+            $core_page_css = get_template_directory() . '/assets/css/core-page-new.css';
+            $version = gc_theme_asset_version(
+                $core_page_css,
+                array(
+                    $core_page_scss,
+                    $page_hero_scss,
+                    $custom_whitepaper_scss,
+                )
+            );
+
+            wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/core-page-new.css', array(), $version, 'screen' );
+        }
     } elseif ( is_single() || is_search() || is_category() || is_author() || is_tax( 'author' ) ) {
         $blog_page_scss = get_template_directory() . '/assets/css/blog-page-new.scss';
         $search_scss = get_template_directory() . '/core-pages/blog/css/_search.scss';
@@ -144,6 +262,13 @@ function theme_styles_script() {
 	
 }
 add_action( 'wp_enqueue_scripts', 'theme_styles_script' );
+
+function gc_add_preconnect_hints() {
+    if ( is_front_page() ) {
+        echo '<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>' . "\n";
+    }
+}
+add_action( 'wp_head', 'gc_add_preconnect_hints', 1 );
 
 require_once get_template_directory() . '/core-pages/custom-whitepaper/gcheck-pdf-form.php';
 require_once get_template_directory() . '/core-pages/custom-whitepaper/secure-pdf-download.php';

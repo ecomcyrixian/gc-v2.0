@@ -17,11 +17,46 @@
         padding-top: $gap40;
     }
 
+    .wb-swiper-shell {
+        position: relative;
+        overflow: hidden;
+        border-radius: $corners8;
+    }
+
+    .wb-swiper__pagination {
+        position: absolute;
+        bottom: $gap24;
+        left: 0;
+        right: 0;
+        z-index: 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: $gap8;
+        pointer-events: none;
+
+        .swiper-pagination-bullet {
+            pointer-events: auto;
+            width: 10px;
+            height: 10px;
+            margin: 0 !important;
+            opacity: 1;
+            background: $gray100;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: $blue300;
+            transform: scale(1.15);
+        }
+    }
+
     .wb-card {
         display: flex;
         align-items: center;
         gap: $gap40;
         padding: $gap40;
+        padding-bottom: $gap60;
         background: white;
         border-radius: $corners8;
 
