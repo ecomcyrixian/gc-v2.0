@@ -1,5 +1,5 @@
 /**
- * Secure whitepaper PDF links: GA4 file_download on click; browser follows href (signed stream URL).
+ * Secure whitepaper PDF links: GA4 file_download on click; browser follows href (stream URL).
  *
  * Markup: <a href="…" data-gc-pdf-key="registry_key" data-gc-pdf-filename="name.pdf">…</a>
  * One push per content_id per browser tab session (reduces double-count from repeat clicks).

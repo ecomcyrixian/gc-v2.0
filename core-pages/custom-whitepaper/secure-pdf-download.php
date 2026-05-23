@@ -1,6 +1,6 @@
 <?php
 /**
- * Secure PDFs: signed stream URLs proxy the file. True upload paths stay server-side only.
+ * Secure PDFs: stream URLs proxy the file. True upload paths stay server-side only.
  *
  * @package gc-v2
  */
@@ -102,7 +102,7 @@ function gc_secure_pdf_download_data_attrs( $key ) {
 }
 
 /**
- * Signed URL that opens the PDF in the browser viewer (Edge/Chrome/Adobe). Uploads path hidden.
+ * URL that opens the PDF in the browser viewer (Edge/Chrome/Adobe). Uploads path hidden.
  *
  * @param string $key      Registry key.
  * @param string $back_url Optional return URL (stored in query for reference).
@@ -129,7 +129,7 @@ function gc_secure_pdf_uses_pretty_urls() {
 }
 
 /**
- * Signed stream URL — server proxies PDF bytes; address bar never shows /wp-content/uploads/.
+ * Stream URL — server proxies PDF bytes; address bar never shows /wp-content/uploads/.
  *
  * @param string $key Registry key.
  * @return string
@@ -140,19 +140,13 @@ function gc_secure_pdf_stream_url( $key ) {
 	if ( $slug === '' ) {
 		return '';
 	}
-	$args = array(
-		'token' => gc_secure_pdf_stream_token( $key ),
-	);
 	if ( gc_secure_pdf_uses_pretty_urls() ) {
-		return add_query_arg( $args, home_url( '/report-pdf/' . $slug . '/file/' ) );
+		return home_url( '/report-pdf/' . $slug . '/file/' );
 	}
 	return add_query_arg(
-		array_merge(
-			array(
-				'gc_pdf_slug' => $slug,
-				'gc_pdf_file' => '1',
-			),
-			$args
+		array(
+			'gc_pdf_slug' => $slug,
+			'gc_pdf_file' => '1',
 		),
 		home_url( '/' )
 	);
@@ -190,64 +184,16 @@ function gc_secure_pdf_parse_request() {
 }
 
 /**
- * Token validity window (seconds). Matches signed URL cache lifetime.
- *
- * @return int
- */
-function gc_secure_pdf_token_ttl() {
-	return 12 * HOUR_IN_SECONDS;
-}
-
-/**
- * Seconds until the current token bucket ends (for Cache-Control max-age).
+ * Cache-Control max-age for proxied PDF responses (seconds).
  *
  * @return int
  */
 function gc_secure_pdf_cache_max_age() {
-	$ttl    = gc_secure_pdf_token_ttl();
-	$bucket = (int) floor( time() / $ttl );
-	$expires = ( $bucket + 1 ) * $ttl;
-
-	return max( 60, $expires - time() );
+	return DAY_IN_SECONDS;
 }
 
 /**
- * @param string $key Registry key.
- * @return string
- */
-function gc_secure_pdf_stream_token( $key ) {
-	$key     = sanitize_key( (string) $key );
-	$bucket  = (int) floor( time() / gc_secure_pdf_token_ttl() );
-	$payload = $key . '|' . $bucket;
-
-	return hash_hmac( 'sha256', $payload, wp_salt( 'gc_secure_pdf_stream' ) );
-}
-
-/**
- * @param string $key   Registry key.
- * @param string $token Token from query string.
- * @return bool
- */
-function gc_secure_pdf_verify_stream_token( $key, $token ) {
-	$key   = sanitize_key( (string) $key );
-	$token = (string) $token;
-	if ( $key === '' || $token === '' ) {
-		return false;
-	}
-	$ttl            = gc_secure_pdf_token_ttl();
-	$current_bucket = (int) floor( time() / $ttl );
-	for ( $bucket = $current_bucket; $bucket >= $current_bucket - 1; $bucket-- ) {
-		$payload  = $key . '|' . $bucket;
-		$expected = hash_hmac( 'sha256', $payload, wp_salt( 'gc_secure_pdf_stream' ) );
-		if ( hash_equals( $expected, $token ) ) {
-			return true;
-		}
-	}
-	return false;
-}
-
-/**
- * PDF response headers: cacheable for the current token window; uploads path stays hidden.
+ * PDF response headers: cacheable; uploads path stays hidden.
  *
  * @param string $disposition inline|attachment segment value.
  * @param string $filename    Suggested filename.
@@ -421,7 +367,7 @@ function gc_secure_pdf_maybe_flush_rewrites() {
 add_action( 'init', 'gc_secure_pdf_maybe_flush_rewrites', 99 );
 
 /**
- * Route signed PDF stream (native browser viewer) and short /report-pdf/{slug}/ redirects.
+ * Route PDF stream (native browser viewer) and short /report-pdf/{slug}/ redirects.
  */
 function gc_secure_pdf_template_redirect() {
 	$request = gc_secure_pdf_parse_request();
@@ -444,10 +390,6 @@ function gc_secure_pdf_template_redirect() {
 		exit;
 	}
 
-	$token = isset( $_GET['token'] ) ? sanitize_text_field( wp_unslash( (string) $_GET['token'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-	if ( ! gc_secure_pdf_verify_stream_token( $key, $token ) ) {
-		wp_die( esc_html__( 'Invalid or expired link.', 'gc-v2' ), '', array( 'response' => 403 ) );
-	}
 	gc_secure_pdf_serve( $key, false );
 }
 add_action( 'template_redirect', 'gc_secure_pdf_template_redirect', 0 );
