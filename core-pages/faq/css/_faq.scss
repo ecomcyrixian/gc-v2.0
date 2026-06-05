@@ -28,4 +28,102 @@
     margin-bottom: 0;
     padding: $gap80 0;
 }
+
+#faq.faq--collapsible {
+    .heading {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+        padding-bottom: $gap60;
+
+        h2 span {
+            margin-bottom: $gap8;
+            letter-spacing: 16%;
+        }
+
+        @include media($mobile) {
+            padding: $gap40 $gap16;
+        }
+    }
+
+    .faq-collabsible {
+        margin-top: $gap8;
+    }
+
+    .card-cont {
+        gap: $gap16 $gap40;
+        align-items: flex-start;
+
+        @include media($mobile) {
+            padding: 0 $gap16;
+        }
+
+        &.cols2 > .faq-card {
+            width: 48.4%;
+
+            @include media($tablet) {
+                width: 100%;
+            }
+        }
+    }
+
+    .faq-card {
+        padding: 0;
+        background: $white;
+        border-radius: $corners8;
+        overflow: hidden;
+    }
+
+    .faq-card__toggle {
+        display: flex;
+        width: 100%;
+        border: 0;
+        cursor: pointer;
+        padding: $gap24;
+        text-align: left;
+        align-items: flex-start;
+        background: transparent;
+        justify-content: space-between;
+        font-size: $fsize18;
+        font-weight: $fSemiBold;
+        gap: $gap24;
+
+        @include media($mobile) {
+            font-size: $base-fsize;
+            padding: $gap16;
+        }
+    }
+
+    .faq-card__icon {
+        width: 32px;
+        height: 32px;
+        flex: 0 0 auto;
+        display: inline-flex;
+        position: relative;
+
+        @include media($mobile) {
+            width: 24px;
+            height: 24px;
+        }
+    }
+
+    .faq-card__icon-opened,
+    .faq-card.is-open .faq-card__icon-closed {
+        display: none;
+    }
+
+    .faq-card__icon-closed,
+    .faq-card.is-open .faq-card__icon-opened {
+        display: block;
+    }
+
+    .faq-card__panel {
+        padding: 0 $gap24 $gap24;
+        p {
+            padding: 0;
+            line-height: 22px;
+            font-size: $fsize14;
+        }
+    }
+}
   

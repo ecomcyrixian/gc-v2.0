@@ -107,7 +107,6 @@
                 progressBar.style.left = '0';
                 progressBar.style.right = '0';
                 progressBar.style.width = '100%';
-                progressBar.style.zIndex = '99990';
                 progressFill.style.width = currentWidth + 'px';
             } else {
                 if (progressBar.classList.contains('is-sticky')) {

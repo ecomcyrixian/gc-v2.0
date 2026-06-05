@@ -48,6 +48,28 @@ jQuery(document).ready(function($) {
         }, 250);
     });
 
+    /* FAQ accordion */
+    document.addEventListener('click', function (event) {
+        var toggle = event.target.closest('#faq.faq--collapsible .faq-card__toggle');
+        if (!toggle) {
+            return;
+        }
+
+        var card = toggle.closest('.faq-card');
+        var panel = document.getElementById(toggle.getAttribute('aria-controls'));
+        var isOpen = toggle.getAttribute('aria-expanded') === 'true';
+
+        toggle.setAttribute('aria-expanded', String(!isOpen));
+
+        if (card) {
+            card.classList.toggle('is-open', !isOpen);
+        }
+
+        if (panel) {
+            panel.hidden = isOpen;
+        }
+    });
+
 });
 
 /* Whitepaper banner carousel */

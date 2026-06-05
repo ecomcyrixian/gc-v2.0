@@ -1,4 +1,21 @@
-<?php echo do_shortcode( '[gcheck_contact_form]' ); ?>
+<?php
+// Detect which page we're on and load the correct form
+
+if ( is_page( 'human-trafficking-dispute-form' ) ) {
+    // Human Trafficking Background Dispute form
+    echo do_shortcode( '[gcheck_human_trafficking_dispute_form]' );
+
+} elseif ( is_page( 'dispute' ) || is_page( 14684 ) ) {
+    // Regular Dispute form
+    echo do_shortcode( '[gcheck_dispute_form]' );
+
+} elseif ( is_page( 'contact-support' ) ) {
+    echo do_shortcode( '[gcheck_support_form]' );
+} else {
+    // Default Contact form
+    echo do_shortcode( '[gcheck_contact_form]' );
+}
+?>
 
 <!-- <div class="gcheck-contact-container">
     

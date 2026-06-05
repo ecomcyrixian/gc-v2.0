@@ -6,7 +6,7 @@
  *     @type string $title        Optional figure title.
  *     @type string $intro         Optional introductory copy above the figure title.
  *     @type string $orientation  horizontal|vertical.
- *     @type string $layout       single|duo.
+ *     @type string $layout       single|duo for bars; half|whole for pie.
  *     @type bool   $motion       Enable parallax and reveal motion.
  *     @type array  $panels       Chart panel definitions.
  * }
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! function_exists( 'gc_aar_report_graph_get_allowed_tones' ) ) {
 	function gc_aar_report_graph_get_allowed_tones() {
-		return array( 'royal', 'cyan', 'navy', 'lavender', 'indigo', 'red' );
+		return array( 'royal', 'cyan', 'navy', 'lavender', 'indigo', 'red', 'gray' );
 	}
 }
 
@@ -25,6 +25,51 @@ if ( ! function_exists( 'gc_aar_report_graph_normalize_tone' ) ) {
 	function gc_aar_report_graph_normalize_tone( $tone ) {
 		$tone = sanitize_key( (string) $tone );
 		return in_array( $tone, gc_aar_report_graph_get_allowed_tones(), true ) ? $tone : 'royal';
+	}
+}
+
+if ( ! function_exists( 'gc_aar_report_graph_render_legend' ) ) {
+	function gc_aar_report_graph_render_legend( $legend ) {
+		$items = is_array( $legend ) ? array_values( array_filter( $legend ) ) : array();
+
+		if ( empty( $items ) ) {
+			return;
+		}
+		?>
+		<div class="aar-report-graph__legend" aria-label="Chart legend">
+			<?php foreach ( $items as $item ) : ?>
+				<?php
+				$item = wp_parse_args(
+					is_array( $item ) ? $item : array(),
+					array(
+						'text'  => '',
+						'tone'  => '',
+						'color' => '',
+					)
+				);
+
+				if ( '' === $item['text'] ) {
+					continue;
+				}
+
+				$color_key  = sanitize_key( (string) $item['color'] );
+				$color      = sanitize_hex_color( $item['color'] );
+				$tone       = $item['tone'] ? gc_aar_report_graph_normalize_tone( $item['tone'] ) : '';
+				$tone       = ! $tone && $color_key && ! $color ? gc_aar_report_graph_normalize_tone( $color_key ) : $tone;
+				$swatch_css = $color ? '--aar-legend-color: ' . $color . ';' : '';
+				$classes    = array( 'aar-report-graph__legend-swatch' );
+
+				if ( $tone ) {
+					$classes[] = 'aar-report-graph__legend-swatch--tone-' . $tone;
+				}
+				?>
+				<div class="aar-report-graph__legend-item">
+					<span class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" style="<?php echo esc_attr( $swatch_css ); ?>" aria-hidden="true"></span>
+					<span class="aar-report-graph__legend-label"><?php echo esc_html( $item['text'] ); ?></span>
+				</div>
+			<?php endforeach; ?>
+		</div>
+		<?php
 	}
 }
 
@@ -340,11 +385,123 @@ if ( ! function_exists( 'gc_aar_report_graph_render_horizontal_bars' ) ) {
 	}
 }
 
+if ( ! function_exists( 'gc_aar_report_graph_render_pie' ) ) {
+	function gc_aar_report_graph_render_pie( $bars, $max, $center_value = '', $center_label = '', $layout = 'half' ) {
+		$max       = max( 1, (float) $max );
+		$offset    = 0;
+		$segments  = array();
+		$layout    = 'whole' === $layout ? 'whole' : 'half';
+
+		foreach ( $bars as $bar ) {
+			$value = isset( $bar['value'] ) ? (float) $bar['value'] : 0;
+			$label = isset( $bar['label'] ) ? (string) $bar['label'] : '';
+
+			if ( $value <= 0 && '' === $label ) {
+				continue;
+			}
+
+			$percent = gc_aar_report_graph_get_percent( $value, $max );
+			$tone    = gc_aar_report_graph_normalize_tone( isset( $bar['tone'] ) ? $bar['tone'] : 'royal' );
+
+			$segments[] = array(
+				'label'   => $label,
+				'value'   => $value,
+				'percent' => $percent,
+				'offset'  => $offset,
+				'tone'    => $tone,
+			);
+
+			$offset += $percent;
+		}
+
+		if ( empty( $segments ) ) {
+			return;
+		}
+
+		$center_value = '' !== $center_value ? $center_value : (string) round( min( 100, $offset ) ) . '%';
+		$primary_tone = gc_aar_report_graph_normalize_tone( $segments[0]['tone'] ?? 'royal' );
+		?>
+		<div class="aar-report-graph__pie-wrap aar-report-graph__pie-wrap--<?php echo esc_attr( $layout ); ?> aar-report-graph__pie-wrap--tone-<?php echo esc_attr( $primary_tone ); ?>">
+			<div class="aar-report-graph__pie" role="img" aria-label="<?php echo esc_attr( wp_strip_all_tags( $center_value . ' ' . $center_label ) ); ?>">
+				<svg class="aar-report-graph__pie-svg" viewBox="0 0 42 42" aria-hidden="true" focusable="false">
+					<circle class="aar-report-graph__pie-ring" cx="21" cy="21" r="15.9155"></circle>
+					<?php foreach ( $segments as $segment ) : ?>
+						<circle
+							class="aar-report-graph__pie-segment aar-report-graph__pie-segment--tone-<?php echo esc_attr( $segment['tone'] ); ?>"
+							cx="21"
+							cy="21"
+							r="15.9155"
+							pathLength="100"
+							style="--aar-pie-value: <?php echo esc_attr( number_format( $segment['percent'], 4, '.', '' ) ); ?>; --aar-pie-rest: <?php echo esc_attr( number_format( 100 - $segment['percent'], 4, '.', '' ) ); ?>; --aar-pie-offset: <?php echo esc_attr( number_format( $segment['offset'], 4, '.', '' ) ); ?>;"
+						></circle>
+					<?php endforeach; ?>
+				</svg>
+				<?php if ( 'half' === $layout ) : ?>
+					<div class="aar-report-graph__pie-center">
+						<span class="aar-report-graph__pie-value"><?php echo esc_html( $center_value ); ?></span>
+						<?php if ( $center_label ) : ?>
+							<span class="aar-report-graph__pie-label"><?php echo esc_html( $center_label ); ?></span>
+						<?php endif; ?>
+					</div>
+				<?php endif; ?>
+			</div>
+			<?php if ( 'whole' === $layout ) : ?>
+				<div class="aar-report-graph__pie-outside-value">
+					<span class="aar-report-graph__pie-value"><?php echo esc_html( $center_value ); ?></span>
+					<?php if ( $center_label ) : ?>
+						<span class="aar-report-graph__pie-label"><?php echo esc_html( $center_label ); ?></span>
+					<?php endif; ?>
+				</div>
+			<?php endif; ?>
+			<?php
+			$legend_segments = array_values(
+				array_filter(
+					$segments,
+					static function ( $segment ) {
+						return '' !== $segment['label'];
+					}
+				)
+			);
+			$primary_segment = $legend_segments[0] ?? $segments[0];
+			$split_segments  = array_slice( $legend_segments, 1 );
+			$split_row_class = 'aar-report-graph__pie-legend-row aar-report-graph__pie-legend-row--split';
+			if ( 1 === count( $split_segments ) ) {
+				$split_row_class .= ' aar-report-graph__pie-legend-row--split-single';
+			}
+			?>
+			<?php if ( ! empty( $legend_segments ) ) : ?>
+				<div class="aar-report-graph__pie-legend" aria-hidden="true">
+					<?php if ( '' !== $primary_segment['label'] ) : ?>
+						<div class="aar-report-graph__pie-legend-row aar-report-graph__pie-legend-row--primary">
+							<span class="aar-report-graph__pie-legend-item">
+								<span class="aar-report-graph__legend-swatch aar-report-graph__legend-swatch--tone-<?php echo esc_attr( $primary_segment['tone'] ); ?>" aria-hidden="true"></span>
+								<?php echo esc_html( $primary_segment['label'] . ' (' . (string) $primary_segment['value'] . '%)' ); ?>
+							</span>
+						</div>
+					<?php endif; ?>
+					<?php if ( ! empty( $split_segments ) ) : ?>
+						<div class="<?php echo esc_attr( $split_row_class ); ?>">
+							<?php foreach ( $split_segments as $segment ) : ?>
+								<span class="aar-report-graph__pie-legend-item">
+									<span class="aar-report-graph__legend-swatch aar-report-graph__legend-swatch--tone-<?php echo esc_attr( $segment['tone'] ); ?>" aria-hidden="true"></span>
+									<?php echo esc_html( $segment['label'] . ' (' . (string) $segment['value'] . '%)' ); ?>
+								</span>
+							<?php endforeach; ?>
+						</div>
+					<?php endif; ?>
+				</div>
+			<?php endif; ?>
+		</div>
+		<?php
+	}
+}
+
 if ( ! function_exists( 'gc_aar_report_graph_render_panel' ) ) {
-	function gc_aar_report_graph_render_panel( $panel, $orientation ) {
+	function gc_aar_report_graph_render_panel( $panel, $orientation, $type = 'bar', $layout = 'single' ) {
 		$panel = wp_parse_args(
 			is_array( $panel ) ? $panel : array(),
 			array(
+				'type'      => '',
 				'title'     => '',
 				'y_label'   => '',
 				'x_label'   => '',
@@ -353,8 +510,11 @@ if ( ! function_exists( 'gc_aar_report_graph_render_panel' ) ) {
 				'bars'      => array(),
 				'reference' => array(),
 				'dividers'  => array(),
+				'legend'    => array(),
 				'footer'    => '',
 				'callout'   => '',
+				'center_value' => '',
+				'center_label' => '',
 			)
 		);
 
@@ -367,7 +527,18 @@ if ( ! function_exists( 'gc_aar_report_graph_render_panel' ) ) {
 		$ticks       = is_array( $panel['ticks'] ) && ! empty( $panel['ticks'] ) ? $panel['ticks'] : gc_aar_report_graph_build_ticks( $max );
 		$dividers    = is_array( $panel['dividers'] ) ? $panel['dividers'] : array();
 		$reference   = is_array( $panel['reference'] ) ? $panel['reference'] : array();
+		$legend      = is_array( $panel['legend'] ) ? $panel['legend'] : array();
+		$type        = $panel['type'] ? sanitize_key( (string) $panel['type'] ) : $type;
+		$type        = in_array( $type, array( 'bar', 'pie' ), true ) ? $type : 'bar';
 		$orientation = in_array( $orientation, array( 'horizontal', 'vertical' ), true ) ? $orientation : 'horizontal';
+		$plot_classes = array(
+			'aar-report-graph__plot',
+			'aar-report-graph__plot--' . ( 'pie' === $type ? 'pie' : $orientation ),
+		);
+
+		if ( 'bar' === $type && 'horizontal' === $orientation && ! empty( array_filter( $legend ) ) ) {
+			$plot_classes[] = 'aar-report-graph__plot--has-legend';
+		}
 		?>
 		<div class="aar-report-graph__panel">
 			<?php if ( $panel['title'] ) : ?>
@@ -375,8 +546,12 @@ if ( ! function_exists( 'gc_aar_report_graph_render_panel' ) ) {
 			<?php endif; ?>
 
 			<div class="aar-report-graph__chart-frame">
-				<div class="aar-report-graph__plot aar-report-graph__plot--<?php echo esc_attr( $orientation ); ?>">
-					<?php if ( 'vertical' === $orientation ) : ?>
+				<div class="<?php echo esc_attr( implode( ' ', $plot_classes ) ); ?>">
+					<?php if ( 'pie' === $type ) : ?>
+						<div class="aar-report-graph__plot-area">
+							<?php gc_aar_report_graph_render_pie( $bars, $max, $panel['center_value'], $panel['center_label'], $layout ); ?>
+						</div>
+					<?php elseif ( 'vertical' === $orientation ) : ?>
 						<?php
 						$chart_body_classes = array( 'aar-report-graph__chart-body' );
 
@@ -407,6 +582,7 @@ if ( ! function_exists( 'gc_aar_report_graph_render_panel' ) ) {
 					<?php else : ?>
 						<div class="aar-report-graph__plot-area">
 							<?php gc_aar_report_graph_render_horizontal_bars( $bars, $max, $dividers ); ?>
+							<?php gc_aar_report_graph_render_legend( $legend ); ?>
 						</div>
 
 						<?php gc_aar_report_graph_render_horizontal_axis( $ticks, $max, $panel['x_label'], $panel['footer'], $panel['callout'] ); ?>
@@ -416,6 +592,10 @@ if ( ! function_exists( 'gc_aar_report_graph_render_panel' ) ) {
 
 			<?php if ( $panel['callout'] && 'vertical' === $orientation ) : ?>
 				<div class="aar-report-graph__callout"><?php echo esc_html( $panel['callout'] ); ?></div>
+			<?php endif; ?>
+
+			<?php if ( ! empty( $legend ) && 'vertical' === $orientation ) : ?>
+				<?php gc_aar_report_graph_render_legend( $legend ); ?>
 			<?php endif; ?>
 
 			<?php if ( $panel['footer'] && 'vertical' === $orientation ) : ?>
@@ -434,6 +614,7 @@ if ( ! function_exists( 'gc_aar_report_render_graph' ) ) {
 				'title'       => '',
 				'intro'       => '',
 				'orientation' => 'horizontal',
+				'type'        => 'bar',
 				'layout'      => 'single',
 				'motion'      => true,
 				'panels'      => array(),
@@ -446,12 +627,17 @@ if ( ! function_exists( 'gc_aar_report_render_graph' ) ) {
 		}
 
 		$orientation = in_array( $args['orientation'], array( 'horizontal', 'vertical' ), true ) ? $args['orientation'] : 'horizontal';
-		$layout      = in_array( $args['layout'], array( 'single', 'duo' ), true ) ? $args['layout'] : 'single';
+		$type        = in_array( $args['type'], array( 'bar', 'pie' ), true ) ? $args['type'] : 'bar';
+		if ( 'pie' === $type ) {
+			$layout = in_array( $args['layout'], array( 'half', 'whole' ), true ) ? $args['layout'] : 'half';
+		} else {
+			$layout = in_array( $args['layout'], array( 'single', 'duo' ), true ) ? $args['layout'] : 'single';
+		}
 		$motion      = (bool) $args['motion'];
 
 		$classes = array(
 			'aar-report-graph',
-			'aar-report-graph--' . $orientation,
+			'aar-report-graph--' . ( 'pie' === $type ? 'pie' : $orientation ),
 			'aar-report-graph--' . $layout,
 		);
 
@@ -467,12 +653,13 @@ if ( ! function_exists( 'gc_aar_report_render_graph' ) ) {
 			<?php endif; ?>
 
 			<?php if ( $args['title'] ) : ?>
-				<figcaption class="aar-report-graph__title"><?php echo esc_html( $args['title'] ); ?></figcaption>
+				<?php $title = preg_replace( '/<br\s*\/?>/i', '<br>', $args['title'] ); ?>
+				<figcaption class="aar-report-graph__title"><?php echo wp_kses( $title, array( 'br' => array() ) ); ?></figcaption>
 			<?php endif; ?>
 
 			<div class="aar-report-graph__panels">
 				<?php foreach ( $panels as $panel ) : ?>
-					<?php gc_aar_report_graph_render_panel( $panel, $orientation ); ?>
+					<?php gc_aar_report_graph_render_panel( $panel, $orientation, $type, $layout ); ?>
 				<?php endforeach; ?>
 			</div>
 		</figure>

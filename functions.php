@@ -6,6 +6,8 @@ add_theme_support( 'post-thumbnails' );
 add_theme_support( 'title-tag' );
 
 require_once get_template_directory() . '/partials/publishpress-author-sync.php';
+require_once get_template_directory() . '/static-html-helpers.php';
+require_once get_template_directory() . '/partials/reports/report-enqueue-helpers.php';
 
 /*
  * Blog hero image size: ~540px width so srcset can serve smaller file when displayed at 535px (mobile LCP).
@@ -140,96 +142,7 @@ function theme_styles_script() {
     	// wp_enqueue_script( 'homepage-script' );
 
     } elseif ( is_page() ) {
-        if ( is_page_template( 'page-report-automation-anxiety.php' ) ) {
-            $report_bundle_dir  = get_template_directory() . '/partials/reports/automation-anxiety';
-            $report_bundle_css  = get_template_directory() . '/assets/css/automation-anxiety-report.css';
-            $report_bundle_scss = get_template_directory() . '/assets/css/automation-anxiety-report.scss';
-            $report_graph_scss  = $report_bundle_dir . '/shared/css/_report-graph.scss';
-            $core_page_scss = get_template_directory() . '/assets/css/core-page-new.scss';
-            $page_hero_scss = get_template_directory() . '/core-pages/page-hero/css/_page-hero.scss';
-            $custom_whitepaper_scss = get_template_directory() . '/core-pages/custom-whitepaper/css/_custom-whitepaper-hero.scss';
-            $cards_scss = get_template_directory() . '/core-pages/cards/css/_cards.scss';
-            $core_page_css = get_template_directory() . '/assets/css/core-page-new.css';
-            $core_page_version = gc_theme_asset_version(
-                $core_page_css,
-                array(
-                    $core_page_scss,
-                    $page_hero_scss,
-                    $custom_whitepaper_scss,
-                    $cards_scss,
-                )
-            );
-
-            wp_enqueue_style(
-                'page-style',
-                get_template_directory_uri() . '/assets/css/core-page-new.css',
-                array( 'global-style' ),
-                $core_page_version,
-                'screen'
-            );
-
-            $report_bundle_version = gc_theme_asset_version(
-                $report_bundle_css,
-                array(
-                    $report_bundle_scss,
-                    $report_bundle_dir . '/shared/css/_report-data-table.scss',
-                    $report_bundle_dir . '/shared/css/_report-content-shared.scss',
-                    $report_graph_scss,
-                    $report_bundle_dir . '/executive-summary/css/_executive-summary.scss',
-                    $report_bundle_dir . '/page-hero/css/_page-hero.scss',
-                    $report_bundle_dir . '/content-ai-anxiety/css/_content-ai-anxiety.scss',
-                )
-            );
-
-            wp_enqueue_style(
-                'report-automation-anxiety',
-                get_template_directory_uri() . '/assets/css/automation-anxiety-report.css',
-                array( 'global-style', 'page-style' ),
-                $report_bundle_version,
-                'screen'
-            );
-
-            $report_graph_js = get_template_directory() . '/assets/js/report-graph.js';
-            $report_graph_js_version = gc_theme_asset_version( $report_graph_js );
-
-            wp_enqueue_script(
-                'gsap',
-                'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',
-                array(),
-                null,
-                true
-            );
-            wp_script_add_data( 'gsap', 'strategy', 'defer' );
-
-            wp_enqueue_script(
-                'gsap-scroll-trigger',
-                'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js',
-                array( 'gsap' ),
-                null,
-                true
-            );
-            wp_script_add_data( 'gsap-scroll-trigger', 'strategy', 'defer' );
-
-            wp_enqueue_script(
-                'report-automation-anxiety-graph',
-                get_template_directory_uri() . '/assets/js/report-graph.js',
-                array( 'gsap', 'gsap-scroll-trigger' ),
-                $report_graph_js_version,
-                true
-            );
-            wp_script_add_data( 'report-automation-anxiety-graph', 'strategy', 'defer' );
-
-            $report_anim_js         = get_template_directory() . '/assets/js/report-animations.js';
-            $report_anim_js_version = gc_theme_asset_version( $report_anim_js );
-            wp_enqueue_script(
-                'report-automation-anxiety-animations',
-                get_template_directory_uri() . '/assets/js/report-animations.js',
-                array( 'gsap' ),
-                $report_anim_js_version,
-                true
-            );
-            wp_script_add_data( 'report-automation-anxiety-animations', 'strategy', 'defer' );
-        } else {
+        if ( ! gc_theme_enqueue_parallax_report_assets( $post ) ) {
             $core_page_scss = get_template_directory() . '/assets/css/core-page-new.scss';
             $page_hero_scss = get_template_directory() . '/core-pages/page-hero/css/_page-hero.scss';
             $custom_whitepaper_scss = get_template_directory() . '/core-pages/custom-whitepaper/css/_custom-whitepaper-hero.scss';

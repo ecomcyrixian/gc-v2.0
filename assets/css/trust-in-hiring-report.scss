@@ -1,0 +1,12 @@
+/**
+ * Trust in Hiring Report.
+ * Section sources are _*.scss under partials/reports/trust-in-hiring/ (no CSS there).
+ */
+@import '_tools/variable';
+@import '_tools/mixins';
+
+@import '../../partials/reports/trust-in-hiring/page-hero/css/page-hero';
+@import '../../partials/reports/automation-anxiety/shared/css/report-content-shared';
+@import '../../partials/reports/automation-anxiety/executive-summary/css/executive-summary';
+@import '../../partials/reports/trust-in-hiring/executive-summary/css/executive-summary';
+@import '../../partials/reports/trust-in-hiring/content/css/content';

@@ -40,7 +40,7 @@ $toc_items = function_exists( 'blog_v2_get_toc_items' ) ? blog_v2_get_toc_items(
             </div>
         </div>
     </div>
-    <div class="blog-v2-cards-container">
+    <!-- <div class="blog-v2-cards-container">
         <div class="blog-v2-card">
             <?php
             $blog_card_bg_png = get_template_directory_uri() . '/assets/images/blog-card-bg.png';
@@ -62,5 +62,5 @@ $toc_items = function_exists( 'blog_v2_get_toc_items' ) ? blog_v2_get_toc_items(
                 <a href="https://compliance.gcheck.com/?_gl=1*1pp1g4c*_gcl_au*MjAyMzgwMzQ1NC4xNzY1ODgxNTAx*_ga*ODA0NjI3MjYuMTc2NTg4MTUwMQ..*_ga_JHFG7MMVGL*czE3Njk3NTYxNzMkbzczJGcwJHQxNzY5NzU2MTczJGo2MCRsMCRoMA.." class="blog-v2-card__btn">Check Compliance Now</a>
             </div>
         </div>
-    </div>
+    </div> -->
 </aside>

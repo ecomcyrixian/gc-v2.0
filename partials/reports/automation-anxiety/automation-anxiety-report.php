@@ -1,16 +1,12 @@
 <?php
 /**
- * Template Name: Automation Anxiety Report
- *
- * Composed report page: section partials under partials/reports/automation-anxiety/.
+ * Automation Anxiety Report parallax composition.
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 require_once get_template_directory() . '/partials/reports/automation-anxiety/shared/content.php';
-
-get_header();
 ?>
 <main id="gc-report-automation-anxiety" class="gc-report-automation-anxiety">
 	<?php get_template_part( 'partials/reports/automation-anxiety/page-hero/index' ); ?>
@@ -18,5 +14,3 @@ get_header();
 	<?php get_template_part( 'partials/reports/automation-anxiety/content-ai-anxiety/index' ); ?>
 	<?php get_template_part( 'partials/reports/automation-anxiety/footer/index' ); ?>
 </main>
-<?php
-get_footer();

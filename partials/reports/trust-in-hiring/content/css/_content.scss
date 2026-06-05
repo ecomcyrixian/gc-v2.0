@@ -1,0 +1,1312 @@
+  @import '../../../../../assets/css/_tools/variable';
+  @import '../../../../../assets/css/_tools/mixins';
+
+  .gc-report-trust-in-hiring {
+    .content--trust-in-hiring {
+      > .container {
+        max-width: 1098px;
+        padding: $gap100 0;
+        display: flex;
+        flex-direction: column;
+        gap: $gap100;
+
+        @include media($tablet) {
+          padding: $gap80 $gap20;
+        }
+
+        @include media($mobile) {
+          padding: $gap60 $gap20;
+          gap: $gap40;
+        }
+
+        > [class^='frame-'],
+        > [class*=' frame-'] {
+          display: flex;
+          flex-direction: column;
+        }
+
+        > .frame-1,
+        > .frame-8,
+        > .frame-12 {
+          gap: $gap8;
+
+          .aar-report-graph {
+            gap: $gap20;
+
+            &__title {
+              font-size: $fsize24;
+              line-height: 1.25;
+            }
+          }
+        }
+
+        > .frame-3,
+        > .frame-7 {
+          flex-direction: row;
+          gap: $gap40;
+
+          @include media($tablet) {
+            flex-direction: column;
+          }
+        }
+
+        > .frame-2,
+        > .frame-5 {
+          flex-direction: row;
+          align-items: flex-start;
+          gap: $gap80;
+
+          @include media($tablet) {
+            flex-direction: column;
+            gap: $gap40;
+          }
+
+          > .panel {
+            flex: 1 1 50%;
+            min-width: 0;
+          }
+        }
+        > .frame-4,
+        > .frame-6 {
+          gap: $gap40;
+        }
+
+        > .frame-9,
+        > .frame-10,
+        > .frame-11 {
+          gap: $gap80;
+
+          @include media($tablet) {
+            gap: $gap40;
+          }
+        }
+      }
+    }
+
+    .tih-report-copy {
+      display: flex;
+      flex-direction: column;
+      gap: $gap20;
+
+      &__title {
+        font-size: $fsize32;
+        font-weight: $fSemiBold;
+      }
+
+      p {
+        font-size: $base-fsize;
+        padding: 0;
+      }
+    }
+
+    .tih-report-blue-box {
+      gap: $gap40;
+      padding: $gap40;
+      display: flex;
+      flex-direction: column;
+
+      @include media($mobile) {
+        padding: $gap24;
+      }
+
+      &__content {
+        display: flex;
+        gap: $gap40;
+
+        @include media($mobile) {
+          flex-direction: column;
+        }
+      }
+
+      &__title {
+        font-size: $fsize32;
+        font-weight: $fSemiBold;
+        color: $white;
+      }
+
+      &__stat {
+        display: flex;
+        align-items: center;
+        gap: $gap10;
+        max-width: 528px;
+        background: $white;
+        border-radius: $corners8;
+        border: 1px solid $blue75;
+
+        @include media($mobile) {
+          flex-direction: column;
+        }
+
+        &-value {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          align-self: stretch;
+          flex: 0 0 140px;
+          font-size: $fsize40;
+          background: $blue300;
+          border-radius: $corners8;
+
+          @include media($mobile) {
+            flex-basis: 69px;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding: $gap10;
+          }
+        }
+
+        &-text {
+          font-size: $fsize14;
+          font-weight: $fSemiBold;
+          line-height: 22px;
+          color: $gray300;
+
+          @include media($mobile) {
+            padding: $gap10;
+          }
+        }
+      }
+    }
+
+    .tih-report-graph-card {
+      padding: $gap40 $gap20;
+      background: $white;
+
+      @include media($mobile) {
+        padding: $gap24 $gap16;
+      }
+    }
+
+    .tih-generation-graph {
+      --tih-generation-plot-height: 460px;
+
+      .aar-report-graph__title {
+        font-size: $fsize40;
+        line-height: 1.35;
+
+        @include media($tablet) {
+          font-size: $fsize32;
+        }
+
+        @include media($mobile) {
+          font-size: $fsize24;
+        }
+      }
+
+      &__inner {
+        position: relative;
+        padding-top: $gap20;
+      }
+
+      &__legend {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        gap: $gap8;
+        font-size: $fsize14;
+        font-weight: $fMedium;
+        line-height: 1.2;
+
+        @include media($tablet) {
+          position: static;
+          align-items: flex-end;
+          margin-bottom: $gap20;
+        }
+      }
+
+      &__legend-item {
+        display: flex;
+        align-items: center;
+        gap: $gap8;
+      }
+
+      &__legend-swatch {
+        display: block;
+        width: 24px;
+        height: 10px;
+        flex: 0 0 24px;
+      }
+
+      &__plot {
+        position: relative;
+        display: grid;
+        grid-template-columns: 48px minmax(0, 1fr);
+        column-gap: $gap20;
+        padding-top: $gap40;
+      }
+
+      &__axis-label {
+        margin: 0;
+        padding: 0;
+        font-size: $fsize14;
+        font-weight: $fSemiBold;
+        line-height: 1.2;
+
+        &--y {
+          position: absolute;
+          top: calc(var(--tih-generation-plot-height) / 2 + #{$gap40});
+          left: 0;
+          transform: translate(-50%, -50%) rotate(-90deg);
+          transform-origin: center;
+        }
+      }
+
+      &__y-axis {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: var(--tih-generation-plot-height);
+        color: $gray300;
+        font-size: $fsize14;
+        line-height: 1;
+        text-align: right;
+      }
+
+      &__groups {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: $gap40;
+        min-width: 0;
+        padding: 0 $gap40;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: var(--tih-generation-plot-height);
+          border-left: 1px solid $gray100;
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          right: $gap40;
+          left: $gap40;
+          top: var(--tih-generation-plot-height);
+          border-bottom: 1px solid $gray100;
+        }
+      }
+
+      &__group {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+      }
+
+      &__bars {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        align-items: end;
+        gap: $gap4;
+        height: var(--tih-generation-plot-height);
+        min-width: 0;
+      }
+
+      &__bar-wrap {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        height: 100%;
+        min-width: 0;
+      }
+
+      &__value {
+        margin-bottom: $gap8;
+        font-size: $fsize14;
+        font-weight: $fSemiBold;
+        line-height: 1;
+        color: $black;
+        white-space: nowrap;
+      }
+
+      &__bar {
+        width: 100%;
+        height: calc(var(--aar-value, 0) * 1%);
+      }
+
+      &__category {
+        margin: $gap16 0 0;
+        padding: 0;
+        color: $black;
+        font-size: $fsize14;
+        font-weight: $fSemiBold;
+        line-height: 1.2;
+        text-align: center;
+      }
+
+      .aar-report-graph__footer {
+        margin-top: $gap16;
+      }
+
+      @include media($tablet) {
+        --tih-generation-plot-height: 360px;
+
+        &__plot {
+          grid-template-columns: 36px minmax(0, 1fr);
+          column-gap: $gap12;
+        }
+
+        &__groups {
+          gap: $gap20;
+          padding: 0 $gap20;
+
+          &::after {
+            right: $gap20;
+            left: $gap20;
+          }
+        }
+      }
+
+      @include media($mobile) {
+        --tih-generation-plot-height: 280px;
+
+        &__groups {
+          gap: $gap12;
+          padding: 0 $gap12;
+
+          &::after {
+            right: $gap12;
+            left: $gap12;
+          }
+        }
+
+        &__bars {
+          gap: 2px;
+        }
+
+        &__value,
+        &__category,
+        &__y-axis,
+        &__axis-label {
+          font-size: 10px;
+        }
+      }
+    }
+
+    .frame-2 {
+      .tih-report-graph-card {
+        padding: 0;
+      }
+
+      .tih-generation-graph {
+        --tih-generation-plot-height: 220px;
+        gap: 0;
+
+        .aar-report-graph__title {
+          font-size: $fsize14;
+          line-height: 1.25;
+        }
+
+        &__inner {
+          padding-top: 0;
+        }
+
+        &__legend {
+          gap: $gap4;
+          font-size: 10px;
+        }
+
+        &__legend-swatch {
+          width: 16px;
+          height: 7px;
+          flex-basis: 16px;
+        }
+
+        &__plot {
+          grid-template-columns: 28px minmax(0, 1fr);
+          column-gap: $gap10;
+          padding-top: $gap16;
+        }
+
+        &__groups {
+          gap: $gap16;
+          padding: 0 $gap8;
+
+          &::after {
+            right: $gap4;
+            left: $gap4;
+          }
+        }
+
+        &__bars {
+          gap: 2px;
+        }
+
+        &__category,
+        &__y-axis,
+        &__axis-label {
+          font-size: 10px;
+        }
+
+        &__value {
+          font-size: 9px;
+        }
+
+        &__category {
+          margin-top: $gap8;
+        }
+
+        .aar-report-graph__footer {
+          font-size: 9px;
+        }
+      }
+    }
+
+    .frame-3 {
+      .panel {
+        &--copy {
+          display: flex;
+          flex-direction: column;
+          gap: $gap40;
+        }
+
+        &--cyan-box {
+          max-width: 320px;
+          background-color: $blue300;
+          padding: $gap40;
+          border-radius: $corners8;
+          color: $white;
+          display: flex;
+          align-items: flex-end;
+
+          @include media($mobile) {
+            padding: 32px;
+            max-width: 100%;
+          }
+        }
+      }
+
+      .tih-report-cyan-box {
+        &__copy {
+          font-size: $fsize20;
+        }
+      }
+
+      .aar-report-graph {
+        &__title {
+          font-size: $fsize20;
+        }
+
+        &__plot--horizontal {
+          .aar-report-graph__plot-area {
+            min-height: 0;
+          }
+        }
+      }
+    }
+
+    .frame-4 {
+      .panel {
+        &--copy {
+          display: flex;
+          gap: $gap80;
+
+          @include media($mobile) {
+            gap: $gap40;
+            flex-direction: column;
+          }
+        }
+      }
+    }
+
+    .frame-5 {
+      .aar-report-blue-box {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: $gap20;
+        padding: $gap40;
+
+        @include media($mobile) {
+          padding: $gap24;
+        }
+
+        &__heading {
+          font-size: $fsize24;
+          font-weight: $fSemiBold;
+          line-height: 1.5;
+          color: $white;
+        }
+
+        &__text {
+          font-size: $fsize14;
+          line-height: 22px;
+        }
+      }
+    }
+
+    .frame-6,
+    .frame-8,
+    .frame-12 {
+      .tih-report-fallout {
+        position: relative;
+        overflow: hidden;
+        padding: $gap40;
+
+        @include media($mobile) {
+          overflow: visible;
+          padding: 0;
+        }
+      }
+
+      .tih-report-fallout__image {
+        position: absolute;
+        inset: 0 0 0 auto;
+        z-index: 0;
+        display: block;
+        width: auto;
+        height: 100%;
+        max-width: none;
+        object-fit: contain;
+        object-position: right center;
+
+        @include media($mobile) {
+          position: static;
+          width: 100%;
+          height: auto;
+          max-width: 100%;
+          margin-bottom: $gap40;
+          object-fit: initial;
+        }
+      }
+
+      .tih-report-fallout__content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        gap: $gap24;
+        max-width: 531px;
+
+        @include media($mobile) {
+          max-width: none;
+        }
+      }
+
+      .tih-report-copy__copy p {
+        font-size: $fsize14;
+        line-height: 22px;
+      }
+
+      .tih-report-fallout__stats-title {
+        font-size: $base-fsize;
+        font-weight: $fSemiBold;
+      }
+
+      .tih-report-fallout__stats {
+        display: flex;
+        flex-direction: column;
+        gap: $gap8;
+      }
+
+      .tih-report-fallout__cards {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 11px;
+
+        @include media($mobile) {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .tih-report-fallout__card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 170px;
+        border-radius: 8.5px;
+        color: $white;
+        text-align: center;
+        padding: $gap20;
+
+        @include media($mobile) {
+          flex-direction: row;
+          min-height: 95px;
+          gap: $gap16;
+          justify-content: flex-start;
+        }
+      }
+
+      .tih-report-fallout__card--royal {
+        background: $blue300;
+      }
+
+      .tih-report-fallout__card--cyan {
+        background: $cyan;
+      }
+
+      .tih-report-fallout__card--navy {
+        background: $blue500;
+      }
+
+      .tih-report-fallout__card-value {
+        font-size: 42.5px;
+        font-weight: $fSemiBold;
+      }
+
+      .tih-report-fallout__card-text {
+        font-size: $fsize12;
+      }
+    }
+
+    .frame-7 {
+      align-items: stretch;
+
+      .panel--copy {
+        display: flex;
+        flex-direction: column;
+        gap: $gap24;
+      }
+
+      .panel--graphs {
+        display: flex;
+        flex: 0 0 383px;
+        background-color: $white;
+        padding: 32px;
+        border-radius: $corners8;
+        gap: $gap40;
+
+        @include media($tablet) {
+          flex-basis: auto;
+        }
+      }
+
+      .tih-report-copy__title {
+        text-align: center;
+      }
+
+      .tih-report-fallout__cards {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: $gap24;
+
+        @include media($mobile) {
+          gap: $gap12;
+        }
+      }
+
+      .tih-report-fallout__card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 96px;
+        padding: $gap16;
+        border-radius: $corners8;
+        color: $white;
+        text-align: center;
+      }
+
+      .tih-report-fallout__card--royal {
+        background: $blue300;
+      }
+
+      .tih-report-fallout__card--navy {
+        background: $blue500;
+      }
+
+      .tih-report-fallout__card-value {
+        font-size: $fsize40;
+        font-weight: $fSemiBold;
+        line-height: 1;
+      }
+
+      .tih-report-fallout__card-text {
+        margin-top: $gap8;
+        font-size: $base-fsize;
+        font-weight: $fSemiBold;
+        line-height: 1.25;
+      }
+
+      .tih-report-paradox__caption {
+        padding: 0;
+        font-size: $fsize14;
+        line-height: 22px;
+        text-align: center;
+      }
+
+      .tih-report-paradox__copy {
+        margin-top: 20px;
+        padding: 32px;
+        border-radius: 10px;
+        background: $gray300;
+        color: $white;
+      }
+
+      .tih-report-paradox__copy-title {
+        margin-bottom: $gap10;
+        font-size: $fsize24;
+        font-weight: $fSemiBold;
+        line-height: 1.5;
+      }
+
+      .aar-report-graph--pie {
+        width: 100%;
+        gap: $gap40;
+
+        .aar-report-graph__title {
+          max-width: 220px;
+          margin: 0 auto;
+          font-size: $fsize18;
+          font-weight: $fSemiBold;
+          line-height: 1.3;
+        }
+
+        .aar-report-graph__chart-frame {
+          height: auto;
+          padding: 0;
+          background: transparent;
+        }
+
+        .aar-report-graph__pie-wrap {
+          gap: $gap24;
+        }
+      }
+    }
+
+    .frame-8 {
+      .tih-report-fallout {
+        @include media($mobile) {
+        }
+      }
+
+      .tih-report-fallout__image {
+        inset: 0;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      .tih-report-fallout__content {
+        max-width: 450px;
+        padding: 32px;
+        border-radius: $corners8;
+        background: $white;
+
+        @include media($mobile) {
+          max-width: none;
+          padding: 0;
+          border-radius: 0;
+          margin-bottom: $gap20;
+          background: none;
+        }
+      }
+
+      @include media($mobile) {
+        .tih-report-fallout__image {
+          border-radius: $corners8;
+        }
+      }
+
+      .tih-report-copy__copy {
+        font-size: $fsize14;
+        line-height: 22px;
+      }
+    }
+
+    .frame-12 {
+      .tih-report-fallout {
+        @include media($mobile) {
+        }
+      }
+
+      .tih-report-fallout__image {
+        inset: 0;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+
+      .tih-report-fallout__content {
+        max-width: 450px;
+        border-radius: $corners8;
+        background: $white;
+        padding: 32px;
+        gap: 34px;
+
+        @include media($mobile) {
+          max-width: none;
+          padding: 0;
+          border-radius: 0;
+          margin-bottom: $gap20;
+          background: none;
+        }
+      }
+    }
+
+    .tih-report-principles {
+      padding: 32px;
+      background: $white;
+
+      @include media($mobile) {
+        padding: 0;
+        background: transparent;
+      }
+
+      &__header {
+        display: flex;
+        flex-direction: column;
+        gap: $gap16;
+        margin-bottom: $gap40;
+        text-align: center;
+      }
+
+      &__title {
+        font-size: $fsize24;
+        font-weight: $fSemiBold;
+        line-height: 1.5;
+      }
+
+      &__intro {
+        font-size: $base-fsize;
+        line-height: 24px;
+        padding: 0;
+      }
+
+      &__grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: $gap40;
+
+        @include media($tablet) {
+          gap: $gap20;
+        }
+
+        @include media($mobile) {
+          grid-template-columns: 1fr;
+          gap: $gap40;
+        }
+      }
+
+      &__card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 0;
+        text-align: center;
+
+        .aar-report-graph__chart-frame {
+          background: transparent;
+        }
+      }
+
+      &__card-title,
+      &__card-label {
+        margin: 0 0 $gap8;
+        font-size: $base-fsize;
+        font-weight: $fSemiBold;
+        line-height: 1.5;
+      }
+
+      &__card-label {
+        margin-top: 18px;
+        margin-bottom: 0;
+      }
+
+      &__card-copy {
+        margin-top: 18px;
+        padding: 0;
+        font-size: $fsize14;
+        line-height: 22px;
+      }
+
+    }
+
+    $tih-pillar-icon-size: 20.6px;
+    $tih-pillar-chevron-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8' fill='none'%3E%3Cpath d='M2.5 1.5 5.5 4 2.5 6.5' stroke='%23fff' stroke-width='1.25' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+
+    .frame-13 {
+      position: relative;
+      gap: $gap40;
+      padding: $gap40;
+      overflow: hidden;
+
+      @include media($mobile) {
+        padding: $gap24;
+      }
+
+      > *:not(.tih-report-frame-13__bg) {
+        position: relative;
+        z-index: 1;
+      }
+
+      .tih-report-frame-13__bg {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+      }
+
+      .tih-report-modern-employer {
+        display: flex;
+        flex-direction: column;
+        gap: $gap40;
+
+        @include media($mobile) {
+          gap: $gap24;
+        }
+
+        .aar-report-stat-cards {
+          gap: 32px;
+
+          @include media($mobile) {
+            gap: $gap24;
+          }
+
+          &__header {
+            align-items: center;
+            gap: $gap10;
+            text-align: center;
+          }
+
+          &__title {
+            font-size: $fsize32;
+          }
+
+          .cards.card-same-height {
+            .card-item {
+              gap: 2px;
+            }
+
+            .card-item h4 {
+              display: flex;
+              flex-direction: column-reverse;
+              align-items: flex-start;
+              gap: $gap16;
+              margin: 0;
+              font-size: $base-fsize;
+              color: #2231A0;
+            }
+          }
+        }
+
+        &__bottom-line {
+          max-width: 573px;
+          margin: 0 auto;
+          padding: 0;
+          font-size: $fsize14;
+          line-height: 22px;
+          text-align: center;
+        }
+      }
+   
+      .tih-report-honesty-tax {
+        --tih-pillar-icon-bg: #{$blue300};
+
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: $gap40;
+        padding: $gap40;
+        border-radius: 10px;
+        color: $white;
+        overflow: hidden;
+
+        @include media($mobile) {
+          width: 100%;
+          padding: $gap24 $gap20;
+        }
+
+        > *:not(.tih-report-honesty-tax__bg) {
+          position: relative;
+          z-index: 1;
+        }
+
+        &__header {
+          text-align: center;
+          font-weight: $fSemiBold;
+
+          @include media($mobile) {
+            text-align: left;
+          }
+        }
+
+        &__eyebrow,
+        &__title,
+        &__copy p,
+        &__footer p {
+          margin: 0;
+          padding: 0;
+        }
+
+        &__eyebrow {
+          font-size: $fsize18;
+        }
+
+        &__title {
+          font-size: $fsize32;
+        }
+
+        &__body {
+          display: flex;
+          gap: $gap24;
+          align-items: center;
+
+          @include media($tablet) {
+            flex-direction: column;
+            align-items: flex-start;
+          }
+        }
+
+        &__copy {
+          max-width: 453px;
+        }
+
+        &__list-panel {
+          padding: 32px;
+          border-radius: $corners8;
+          background: rgba($black, 0.2);
+
+          @include media($mobile) {
+            padding: $gap16;
+          }
+        }
+
+        &__list-title {
+          margin-bottom: $gap24;
+          font-weight: $fSemiBold;
+        }
+
+        &__list {
+          display: flex;
+          flex-direction: column;
+          gap: $gap16;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+          font-size: $fsize14;
+          line-height: 22px;
+        }
+
+        &__footer {
+          display: flex;
+          flex-direction: column;
+          gap: $gap40;
+          padding-top: $gap40;
+          border-top: 1px solid rgba($white, 0.2);
+          font-size: $fsize14;
+          line-height: 22px;
+        }
+      }
+
+      .tih-report-honesty-tax__bg {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center bottom;
+      }
+    }
+
+    .frame-9,
+    .frame-10 {
+      .panel--copy {
+        display: flex;
+        align-items: stretch;
+        gap: $gap80;
+
+        @include media($tablet) {
+          flex-direction: column;
+          gap: $gap40;
+        }
+      }
+
+      .tih-report-copy--stat,
+      .panel--blue-box {
+        flex: 1 1 50%;
+        min-width: 0;
+      }
+
+      .tih-report-blue-box__stat {
+        align-items: stretch;
+        gap: 0;
+        max-width: none;
+
+        &-value {
+          flex: 0 0 112px;
+          color: $white;
+          font-weight: $fSemiBold;
+          border-radius: $corners8 0 0 $corners8;
+        }
+
+        &-text {
+          display: flex;
+          align-items: center;
+          padding: $gap12 $gap20;
+
+          @include media($mobile) {
+            padding: $gap20;
+          }
+        }
+      }
+
+      .panel--blue-box {
+        display: flex;
+      }
+
+      .aar-report-blue-box {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: $gap20;
+        height: 100%;
+        padding: 32px;
+
+        @include media($mobile) {
+          padding: $gap24;
+        }
+
+        &__heading {
+          font-size: $fsize32;
+          font-weight: $fSemiBold;
+          line-height: 1.25;
+          color: $white;
+        }
+      }
+
+      .aar-report-graph {
+        &__title {
+          font-size: $fsize24;
+          line-height: 1.25;
+        }
+      }
+    }
+
+    .frame-10 {
+      .tih-report-copy--stat {
+        gap: $gap40;
+      }
+
+      .tih-report-frame-10__header {
+        display: flex;
+        align-items: flex-start;
+        gap: $gap80;
+
+        @include media($tablet) {
+          flex-direction: column;
+        }
+      }
+
+      .tih-report-copy__title {
+        flex: 1 1 auto;
+        max-width: 508px;
+        line-height: 1.2;
+      }
+
+      .tih-report-blue-box__stat {
+
+        @include media($tablet) {
+          flex-basis: auto;
+          width: 100%;
+        }
+      }
+
+      .panel--blue-box {
+        display: none;
+      }
+    }
+
+    .tih-report-pillar-summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+
+      @include media($mobile) {
+        grid-template-columns: 1fr;
+      }
+
+      &__column {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        --tih-pillar-icon-bg: #{$blue300};
+
+        &--royal {
+          --tih-pillar-icon-bg: #{$blue300};
+
+          .tih-report-pillar-summary__heading {
+            background: $blue300;
+          }
+
+          ul {
+            background: rgba($blue300, 0.1);
+          }
+        }
+
+        &--cyan {
+          --tih-pillar-icon-bg: #{$cyan};
+
+          .tih-report-pillar-summary__heading {
+            background: $cyan;
+          }
+
+          ul {
+            background: rgba($cyan, 0.1);
+          }
+        }
+
+        &--navy {
+          --tih-pillar-icon-bg: #162068;
+
+          .tih-report-pillar-summary__heading {
+            background: $blue500;
+          }
+
+          ul {
+            background: rgba($blue500, 0.1);
+          }
+        }
+      }
+
+      &__heading {
+        padding: $gap12 $gap16;
+        color: $white;
+        font-size: $base-fsize;
+        font-weight: $fSemiBold;
+        line-height: 1.5;
+        text-align: center;
+      }
+
+      &__list {
+        padding: $gap16 $gap20;
+        list-style: none;
+        margin: 0;
+      }
+    }
+
+    .tih-report-pillar-summary__list li,
+    .tih-report-honesty-tax__list li {
+      display: flex;
+      align-items: flex-start;
+      gap: $gap10;
+      padding-left: $gap20;
+      margin-left: $gap10;
+
+      &::before {
+        content: '';
+        flex: 0 0 $tih-pillar-icon-size;
+        width: $tih-pillar-icon-size;
+        height: $tih-pillar-icon-size;
+        border-radius: 50%;
+        background: var(--tih-pillar-icon-bg) $tih-pillar-chevron-icon center / 8px no-repeat;
+        top: 3px;
+      }
+    }
+
+    .frame-11 {
+      .aar-report-graph {
+        &__title {
+          font-size: $fsize24;
+        }
+      }
+    }
+  }

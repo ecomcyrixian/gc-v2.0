@@ -111,7 +111,11 @@
     document.querySelectorAll(
       '.card-item h4 span:first-child,' +
       '.aar-report-blue-box__heading,' +
-      '.aar-report-feature-stat-split__stat-value'
+      '.aar-report-media-feature__bluebox-heading,' +
+      '.aar-report-feature-stat-split__stat-value,' +
+      '.tih-report-blue-box__stat-value,' +
+      '.tih-report-fallout__card-value,' +
+      '.aar-report-graph__pie-value'
     ).forEach(function (el) {
       var p = parseCounter(el.textContent);
       if (!p) { return; }
@@ -124,6 +128,9 @@
 
     /* Section headings */
     document.querySelectorAll('.aar-report-section-heading').forEach(observe);
+
+    /* Trust in Hiring report frames */
+    document.querySelectorAll('.content--trust-in-hiring > .container > [class^="frame-"], .content--trust-in-hiring > .container > [class*=" frame-"]').forEach(observe);
 
     /* Executive summary */
     document.querySelectorAll('.aar-executive-summary__title').forEach(observe);
@@ -165,6 +172,9 @@
       if (el.closest('.aar-report-media-feature')) { return; }
       observe(el);
     });
+
+    /* Cyan callout boxes (Trust in Hiring frame 3, etc.) */
+    document.querySelectorAll('.aar-report-cyan-box').forEach(observe);
 
     /* Split copy sections */
     document.querySelectorAll('.aar-report-split-copy').forEach(observe);

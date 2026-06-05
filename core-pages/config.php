@@ -70,7 +70,7 @@
 
         // Case: Price Widget
         elseif( get_row_layout() == 'prcing' ):
-            get_template_part( 'core-pages/pricing' );
+            get_template_part( 'core-pages/pricing/pricing' );
 
         // Case: Price Widget
         elseif( get_row_layout() == 'side_by_side_feature_comparison' ):

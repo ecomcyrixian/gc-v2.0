@@ -10,7 +10,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Whether the Automation Anxiety report template is active.
  */
 function gc_aar_report_is_active() {
-	return is_page_template( 'page-report-automation-anxiety.php' );
+	$post = get_post();
+	$slug = ( $post instanceof WP_Post && function_exists( 'gc_theme_static_html_resolve_slug_for_post' ) )
+		? gc_theme_static_html_resolve_slug_for_post( $post )
+		: '';
+
+	return is_page_template( 'page-parallax.php' ) && $slug === 'automation-anxiety-report';
 }
 
 /**
@@ -87,7 +92,12 @@ function gc_aar_report_register_cwv_hooks() {
 	add_filter(
 		'script_loader_tag',
 		static function ( $tag, $handle ) {
-			$report_handles = array( 'report-automation-anxiety-graph', 'report-automation-anxiety-animations' );
+			$report_handles = array(
+				'report-automation-anxiety-graph',
+				'report-automation-anxiety-animations',
+				'report-trust-in-hiring-graph',
+				'report-trust-in-hiring-animations',
+			);
 			if ( ! in_array( $handle, $report_handles, true ) || is_admin() || preg_match( '/\bdefer\b/', $tag ) ) {
 				return $tag;
 			}

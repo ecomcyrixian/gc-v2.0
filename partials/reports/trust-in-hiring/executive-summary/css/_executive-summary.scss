@@ -1,0 +1,42 @@
+@import '../../../../../assets/css/_tools/variable';
+@import '../../../../../assets/css/_tools/mixins';
+
+.gc-report-trust-in-hiring {
+  .tih-report-opening {
+    padding: 0;
+
+    .container {
+      gap: $gap60;
+    }
+
+    .aar-executive-summary {
+      &__title {
+        font-size: $fsize32;
+      }
+
+      &__intro {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .tih-methodology {
+    padding: $gap40;
+    background: $gray75;
+    border-radius: $corners8;
+    gap: $gap20;
+
+    @include media($mobile) {
+      padding: $gap20;
+    }
+
+    .aar-methodology__intro {
+      margin-bottom: 0;
+    }
+
+    .aar-methodology__copy p {
+      font-size: $fsize14;
+      line-height: 20px;
+    }
+  }
+}

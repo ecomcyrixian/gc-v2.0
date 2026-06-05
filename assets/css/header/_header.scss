@@ -229,8 +229,9 @@ header{
     }
 }
 
-/* Management team hero should inherit dark hero background */
+/* Dark hero pages: transparent nav over hero background, white nav on scroll */
 body:has(.text-only--management-team),
+body:has(#pricing.pricing-page),
 body.page-id-1043 {
     header#typical {
         background: transparent;

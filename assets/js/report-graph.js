@@ -12,6 +12,9 @@
       row.style.setProperty('--aar-bar-delay', (i * 80) + 'ms');
       row.style.setProperty('--aar-value-delay', (i * 80 + 750) + 'ms');
     });
+    graph.querySelectorAll('.aar-report-graph__pie-segment').forEach(function (segment, i) {
+      segment.style.setProperty('--aar-pie-delay', (i * 120) + 'ms');
+    });
   }
 
   function animateBars(graph) {
@@ -119,12 +122,6 @@
   function alignHorizontalAxis(graph) {
     var plot = graph.querySelector('.aar-report-graph__plot--horizontal');
     if (!plot) {
-      return;
-    }
-
-    if (window.matchMedia('(max-width: 767px)').matches) {
-      plot.style.removeProperty('--aar-horizontal-axis-offset');
-      plot.style.removeProperty('--aar-horizontal-axis-width');
       return;
     }
 

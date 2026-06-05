@@ -468,39 +468,48 @@ header#home:has(#header-cont.scroll) > .container {
   }
 }
 
-/* Management team hero should inherit dark hero background */
+/* Dark hero pages: transparent nav over hero background, white nav on scroll */
 body:has(.text-only--management-team) header#typical,
+body:has(#pricing.pricing-page) header#typical,
 body.page-id-1043 header#typical {
   background: transparent;
   border-bottom: 1px solid transparent;
 }
 body:has(.text-only--management-team) header#typical .gCheck-logo .gcText,
+body:has(#pricing.pricing-page) header#typical .gCheck-logo .gcText,
 body.page-id-1043 header#typical .gCheck-logo .gcText {
   fill: #FFFFFF;
 }
 body:has(.text-only--management-team) header#typical nav #desktop-nav li > a,
+body:has(#pricing.pricing-page) header#typical nav #desktop-nav li > a,
 body.page-id-1043 header#typical nav #desktop-nav li > a {
   color: #FFFFFF;
 }
 body:has(.text-only--management-team) header#typical nav .icon-menu,
+body:has(#pricing.pricing-page) header#typical nav .icon-menu,
 body.page-id-1043 header#typical nav .icon-menu {
   color: #FFFFFF;
 }
 body:has(.text-only--management-team) header#typical nav .hamburger-icon span,
+body:has(#pricing.pricing-page) header#typical nav .hamburger-icon span,
 body.page-id-1043 header#typical nav .hamburger-icon span {
   background: #FFFFFF !important;
 }
 body:has(.text-only--management-team) header#typical nav .hamburger-desktop .desktop-trigger,
+body:has(#pricing.pricing-page) header#typical nav .hamburger-desktop .desktop-trigger,
 body.page-id-1043 header#typical nav .hamburger-desktop .desktop-trigger {
   color: #FFFFFF;
 }
 body:has(.text-only--management-team) header#typical #header-cont:not(.scroll):not(.active),
+body:has(#pricing.pricing-page) header#typical #header-cont:not(.scroll):not(.active),
 body.page-id-1043 header#typical #header-cont:not(.scroll):not(.active) {
   background: transparent;
   border-bottom: 1px solid transparent;
 }
 body:has(.text-only--management-team) header#typical #header-cont.scroll,
 body:has(.text-only--management-team) header#typical #header-cont.active,
+body:has(#pricing.pricing-page) header#typical #header-cont.scroll,
+body:has(#pricing.pricing-page) header#typical #header-cont.active,
 body.page-id-1043 header#typical #header-cont.scroll,
 body.page-id-1043 header#typical #header-cont.active {
   background: #FFFFFF;
@@ -508,30 +517,40 @@ body.page-id-1043 header#typical #header-cont.active {
 }
 body:has(.text-only--management-team) header#typical #header-cont.scroll .gCheck-logo .gcText,
 body:has(.text-only--management-team) header#typical #header-cont.active .gCheck-logo .gcText,
+body:has(#pricing.pricing-page) header#typical #header-cont.scroll .gCheck-logo .gcText,
+body:has(#pricing.pricing-page) header#typical #header-cont.active .gCheck-logo .gcText,
 body.page-id-1043 header#typical #header-cont.scroll .gCheck-logo .gcText,
 body.page-id-1043 header#typical #header-cont.active .gCheck-logo .gcText {
   fill: #000000;
 }
 body:has(.text-only--management-team) header#typical #header-cont.scroll nav #desktop-nav li > a,
 body:has(.text-only--management-team) header#typical #header-cont.active nav #desktop-nav li > a,
+body:has(#pricing.pricing-page) header#typical #header-cont.scroll nav #desktop-nav li > a,
+body:has(#pricing.pricing-page) header#typical #header-cont.active nav #desktop-nav li > a,
 body.page-id-1043 header#typical #header-cont.scroll nav #desktop-nav li > a,
 body.page-id-1043 header#typical #header-cont.active nav #desktop-nav li > a {
   color: #000000;
 }
 body:has(.text-only--management-team) header#typical #header-cont.scroll nav .icon-menu,
 body:has(.text-only--management-team) header#typical #header-cont.active nav .icon-menu,
+body:has(#pricing.pricing-page) header#typical #header-cont.scroll nav .icon-menu,
+body:has(#pricing.pricing-page) header#typical #header-cont.active nav .icon-menu,
 body.page-id-1043 header#typical #header-cont.scroll nav .icon-menu,
 body.page-id-1043 header#typical #header-cont.active nav .icon-menu {
   color: #000000;
 }
 body:has(.text-only--management-team) header#typical #header-cont.scroll nav .hamburger-icon span,
 body:has(.text-only--management-team) header#typical #header-cont.active nav .hamburger-icon span,
+body:has(#pricing.pricing-page) header#typical #header-cont.scroll nav .hamburger-icon span,
+body:has(#pricing.pricing-page) header#typical #header-cont.active nav .hamburger-icon span,
 body.page-id-1043 header#typical #header-cont.scroll nav .hamburger-icon span,
 body.page-id-1043 header#typical #header-cont.active nav .hamburger-icon span {
   background: #1A1C1E !important;
 }
 body:has(.text-only--management-team) header#typical #header-cont.scroll nav .hamburger-desktop .desktop-trigger,
 body:has(.text-only--management-team) header#typical #header-cont.active nav .hamburger-desktop .desktop-trigger,
+body:has(#pricing.pricing-page) header#typical #header-cont.scroll nav .hamburger-desktop .desktop-trigger,
+body:has(#pricing.pricing-page) header#typical #header-cont.active nav .hamburger-desktop .desktop-trigger,
 body.page-id-1043 header#typical #header-cont.scroll nav .hamburger-desktop .desktop-trigger,
 body.page-id-1043 header#typical #header-cont.active nav .hamburger-desktop .desktop-trigger {
   color: #000000;
@@ -2151,6 +2170,10 @@ body.search h4 span {
   padding-bottom: 0;
 }
 
+.cards.left-icon.build-a-custom-package {
+  margin-bottom: 0;
+}
+
 .cards {
   color: #1A1C1E;
   margin-bottom: 60px;
@@ -2565,42 +2588,6 @@ body.search h4 span {
 .cards:has(.card-cont.card-same-height) > .container, .cards:has(.heading .card-same-height) > .container, .cards:has(.thankyou-contact-card) > .container, .cards.card-same-height > .container {
   max-width: 1120px;
 }
-.cards:has(.card-cont.card-same-height) .card-cont:not(.card-cont--row-stagger), .cards:has(.heading .card-same-height) .card-cont:not(.card-cont--row-stagger), .cards:has(.thankyou-contact-card) .card-cont:not(.card-cont--row-stagger), .cards.card-same-height .card-cont:not(.card-cont--row-stagger) {
-  align-items: stretch;
-  align-content: flex-start;
-}
-.cards:has(.card-cont.card-same-height) .card-cont:not(.card-cont--row-stagger) > a, .cards:has(.card-cont.card-same-height) .card-cont:not(.card-cont--row-stagger) > div, .cards:has(.heading .card-same-height) .card-cont:not(.card-cont--row-stagger) > a, .cards:has(.heading .card-same-height) .card-cont:not(.card-cont--row-stagger) > div, .cards:has(.thankyou-contact-card) .card-cont:not(.card-cont--row-stagger) > a, .cards:has(.thankyou-contact-card) .card-cont:not(.card-cont--row-stagger) > div, .cards.card-same-height .card-cont:not(.card-cont--row-stagger) > a, .cards.card-same-height .card-cont:not(.card-cont--row-stagger) > div {
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-}
-.cards:has(.card-cont.card-same-height).cards--layout-row .card-cont:not(.card-cont--row-stagger), .cards:has(.heading .card-same-height).cards--layout-row .card-cont:not(.card-cont--row-stagger), .cards:has(.thankyou-contact-card).cards--layout-row .card-cont:not(.card-cont--row-stagger), .cards.card-same-height.cards--layout-row .card-cont:not(.card-cont--row-stagger) {
-  align-items: stretch;
-}
-.cards:has(.card-cont.card-same-height).cards--layout-row .card-cont:not(.card-cont--row-stagger) > *, .cards:has(.heading .card-same-height).cards--layout-row .card-cont:not(.card-cont--row-stagger) > *, .cards:has(.thankyou-contact-card).cards--layout-row .card-cont:not(.card-cont--row-stagger) > *, .cards.card-same-height.cards--layout-row .card-cont:not(.card-cont--row-stagger) > * {
-  align-self: stretch;
-  min-height: 0;
-}
-.cards:has(.card-cont.card-same-height) .card-link, .cards:has(.heading .card-same-height) .card-link, .cards:has(.thankyou-contact-card) .card-link, .cards.card-same-height .card-link {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 0;
-}
-.cards:has(.card-cont.card-same-height) .card-item, .cards:has(.heading .card-same-height) .card-item, .cards:has(.thankyou-contact-card) .card-item, .cards.card-same-height .card-item {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-  min-height: 0;
-  height: auto;
-}
-.cards:has(.card-cont.card-same-height) .card-item h4,
-.cards:has(.card-cont.card-same-height) .card-item .card-item__divider, .cards:has(.heading .card-same-height) .card-item h4,
-.cards:has(.heading .card-same-height) .card-item .card-item__divider, .cards:has(.thankyou-contact-card) .card-item h4,
-.cards:has(.thankyou-contact-card) .card-item .card-item__divider, .cards.card-same-height .card-item h4,
-.cards.card-same-height .card-item .card-item__divider {
-  flex-shrink: 0;
-}
 .cards:has(.card-cont.card-same-height) .card-item h3 p,
 .cards:has(.card-cont.card-same-height) .card-item h4 p, .cards:has(.heading .card-same-height) .card-item h3 p,
 .cards:has(.heading .card-same-height) .card-item h4 p, .cards:has(.thankyou-contact-card) .card-item h3 p,
@@ -2699,6 +2686,22 @@ body.search h4 span {
   .cards .card-cont.cols2 > div, .cards .card-cont.cols2 > a, .cards .card-cont.cols3 > div, .cards .card-cont.cols3 > a, .cards .card-cont.cols4 > div, .cards .card-cont.cols4 > a {
     width: 100%;
   }
+}
+.cards:not(.image):not(.cards--executive-team):not(.cards--layout-row) .card-cont:not(.card-cont--row-stagger) {
+  align-items: stretch;
+}
+.cards:not(.image):not(.cards--executive-team):not(.cards--layout-row) .card-cont:not(.card-cont--row-stagger) > div,
+.cards:not(.image):not(.cards--executive-team):not(.cards--layout-row) .card-cont:not(.card-cont--row-stagger) > a {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  height: auto;
+}
+.cards:not(.image):not(.cards--executive-team):not(.cards--layout-row) .card-cont:not(.card-cont--row-stagger) .card-item {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  height: auto;
 }
 .cards:has(.card-cont.card-same-height) .card-cont:not(.card-cont--row-stagger), .cards:has(.heading .card-same-height) .card-cont:not(.card-cont--row-stagger), .cards.card-same-height .card-cont:not(.card-cont--row-stagger) {
   gap: 24px !important;
@@ -2858,6 +2861,86 @@ body.search h4 span {
 }
 .cards.left-icon .heading:has(.card-same-height.management) {
   padding-top: 0;
+}
+.cards.left-icon.build-a-custom-package .heading {
+  max-width: 800px;
+  margin: 0 auto;
+  padding-top: 100px;
+}
+.cards.left-icon.build-a-custom-package .heading h2 span {
+  letter-spacing: 16%;
+}
+.cards.left-icon.build-a-custom-package .heading p {
+  margin-top: 16px;
+  font-size: 16px;
+}
+@media screen and (max-width: 767px) {
+  .cards.left-icon.build-a-custom-package .heading {
+    padding-top: 40px;
+  }
+}
+.cards.left-icon.build-a-custom-package .card-cont {
+  gap: 24px !important;
+  align-items: stretch;
+}
+.cards.left-icon.build-a-custom-package .card-cont > div,
+.cards.left-icon.build-a-custom-package .card-cont > a .card-item {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  padding: 40px;
+  height: auto;
+}
+@media screen and (max-width: 767px) {
+  .cards.left-icon.build-a-custom-package .card-cont > div,
+  .cards.left-icon.build-a-custom-package .card-cont > a .card-item {
+    padding: 24px;
+  }
+}
+.cards.left-icon.build-a-custom-package .card-cont > a {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  height: auto;
+}
+.cards.left-icon.build-a-custom-package .card-item {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  height: auto;
+}
+.cards.left-icon.build-a-custom-package h4 {
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.cards.left-icon.build-a-custom-package h4 > span:first-child {
+  flex: 1;
+}
+.cards.left-icon.build-a-custom-package h4 > span:last-child {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+.cards.left-icon.build-a-custom-package .card-item__divider {
+  display: block;
+  width: 100%;
+  height: 0;
+  margin: 0 0 24px;
+  border: 0;
+  border-top: 1px solid #CDD6E0;
+}
+.cards.left-icon.build-a-custom-package ul.blue-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.cards.left-icon.build-a-custom-package ul.blue-list li {
+  margin-bottom: 0;
+  padding-left: 20px;
+}
+.cards.left-icon.build-a-custom-package ul.blue-list li::before {
+  top: 6px;
 }
 .cards.left-icon h4 {
   flex-direction: row;
@@ -3917,6 +4000,97 @@ body.search h4 span {
 #faq.cards .heading {
   margin-bottom: 0;
   padding: 80px 0;
+}
+
+#faq.faq--collapsible .heading {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  padding-bottom: 60px;
+}
+#faq.faq--collapsible .heading h2 span {
+  margin-bottom: 8px;
+  letter-spacing: 16%;
+}
+@media screen and (max-width: 767px) {
+  #faq.faq--collapsible .heading {
+    padding: 40px 16px;
+  }
+}
+#faq.faq--collapsible .faq-collabsible {
+  margin-top: 8px;
+}
+#faq.faq--collapsible .card-cont {
+  gap: 16px 40px;
+  align-items: flex-start;
+}
+@media screen and (max-width: 767px) {
+  #faq.faq--collapsible .card-cont {
+    padding: 0 16px;
+  }
+}
+#faq.faq--collapsible .card-cont.cols2 > .faq-card {
+  width: 48.4%;
+}
+@media screen and (max-width: 1023px) {
+  #faq.faq--collapsible .card-cont.cols2 > .faq-card {
+    width: 100%;
+  }
+}
+#faq.faq--collapsible .faq-card {
+  padding: 0;
+  background: #FFFFFF;
+  border-radius: 8px;
+  overflow: hidden;
+}
+#faq.faq--collapsible .faq-card__toggle {
+  display: flex;
+  width: 100%;
+  border: 0;
+  cursor: pointer;
+  padding: 24px;
+  text-align: left;
+  align-items: flex-start;
+  background: transparent;
+  justify-content: space-between;
+  font-size: 1.125em;
+  font-weight: 600;
+  gap: 24px;
+}
+@media screen and (max-width: 767px) {
+  #faq.faq--collapsible .faq-card__toggle {
+    font-size: 16px;
+    padding: 16px;
+  }
+}
+#faq.faq--collapsible .faq-card__icon {
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  position: relative;
+}
+@media screen and (max-width: 767px) {
+  #faq.faq--collapsible .faq-card__icon {
+    width: 24px;
+    height: 24px;
+  }
+}
+#faq.faq--collapsible .faq-card__icon-opened,
+#faq.faq--collapsible .faq-card.is-open .faq-card__icon-closed {
+  display: none;
+}
+#faq.faq--collapsible .faq-card__icon-closed,
+#faq.faq--collapsible .faq-card.is-open .faq-card__icon-opened {
+  display: block;
+}
+#faq.faq--collapsible .faq-card__panel {
+  padding: 0 24px 24px;
+}
+#faq.faq--collapsible .faq-card__panel p {
+  padding: 0;
+  line-height: 22px;
+  font-size: 14px;
 }
 
 /*
