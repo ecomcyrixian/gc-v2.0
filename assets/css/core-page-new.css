@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*
 * Template variables and Revised Article
 * Last update of 05.19.25
@@ -1425,6 +1426,9 @@ body.page .form-template section > div:last-child {
   max-width: 660px;
   background: url(../images/contact-img-bg.jpg) no-repeat center bottom #FFFFFF;
 }
+body.page .form-template section > div:last-child:has(.human-trafficking-request-details) {
+  padding: 40px;
+}
 @media screen and (max-width: 767px) {
   body.page .form-template section > div:last-child {
     padding: 10px;
@@ -1451,6 +1455,121 @@ body.page .form-template section > div:last-child h2 em {
   background-clip: text;
   -webkit-text-fill-color: transparent; /* For WebKit browsers */
   color: transparent; /* Fallback for browsers that don't support -webkit-text-fill-color */
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details {
+  font-size: 14px;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details p {
+  padding: 0;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details h2 {
+  font-size: 1.75em;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details li {
+  margin-bottom: 10px;
+  padding-left: 0;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__steps {
+  margin: 0;
+  padding-left: 24px;
+  list-style: decimal outside;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__steps > li {
+  list-style: decimal outside !important;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__steps > li::before {
+  display: none !important;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__letters {
+  margin: 10px 0 0;
+  padding-left: 24px;
+  list-style: lower-alpha outside;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__letters > li {
+  list-style: lower-alpha outside !important;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__letters > li::before {
+  display: none !important;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__roman {
+  margin: 4px 0 0;
+  padding-left: 24px;
+  list-style: lower-roman outside;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__roman > li {
+  list-style: lower-roman outside !important;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__roman > li::before {
+  display: none !important;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__steps > li > p:first-child,
+body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__letters > li > p:first-child,
+body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__roman > li > p:first-child {
+  display: inline;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__bullet-list {
+  margin: 16px 0 16px 24px;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__bullets {
+  margin: 4px 0;
+  padding-left: 24px;
+  list-style: disc outside;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__bullets > li {
+  display: list-item;
+  list-style: disc outside !important;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__bullets > li::before {
+  display: none !important;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__bullets > li::marker {
+  content: "• ";
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__bullet {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__bullet::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  flex: 0 0 5px;
+  margin-top: 0.65em;
+  border-radius: 50%;
+  background: #000000;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__intro,
+body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__mail-heading {
+  margin-bottom: 10px;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__addresses {
+  gap: 60px;
+  display: flex;
+  margin: 10px auto;
+  justify-content: center;
+}
+@media screen and (max-width: 767px) {
+  body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__addresses {
+    gap: 20px;
+    flex-direction: column;
+  }
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__address {
+  min-width: 220px;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details .ht-request__address-title {
+  display: block;
+  font-weight: 600;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details a {
+  color: #4F51FD;
+  text-decoration: underline;
 }
 body.page .form-template .gcheck-contact-container {
   display: flex;

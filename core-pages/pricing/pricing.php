@@ -27,7 +27,7 @@ $feature_tooltips = array(
     'OIG Excluded Parties List'            => 'Searches the Office of Inspector General exclusion database to identify individuals prohibited from participating in federally funded healthcare programs.',
     'Global Watchlists'                    => 'Searches global sanctions lists, terrorism watchlists, and international enforcement databases covering financial crimes, corruption, and restricted parties.',
     'OFAC Sanctions Lists'                 => 'Searches the U.S. Treasury Office of Foreign Assets Control sanctions lists for individuals and entities associated with terrorism, narcotics trafficking, and restricted activities.',
-    'County Criminal Search'               => 'Retrieves felony and misdemeanor records from county courts in all identified counties the candidate has resided in the last 7 years.',
+    'County Criminal Search'               => 'Searches county-level court records for felony and misdemeanor criminal history within a specific jurisdiction where a candidate has lived or worked.',
     'Federal Criminal Search'              => 'Searches U.S. federal district courts for fraud, embezzlement, interstate crimes, and white-collar offenses in all identified federal districts the candidate has resided in the last 7 years.',
 );
 
@@ -71,6 +71,7 @@ $pricing_plans = array(
                 'label'     => 'County Criminal Search',
                 'subtext'   => 'Unlimited counties of residence',
                 'highlight' => true,
+                'tooltip'   => 'Retrieves felony and misdemeanor records from county courts in all identified counties the candidate has resided in the last 7 years.',
             ),
         ),
     ),
@@ -93,11 +94,13 @@ $pricing_plans = array(
                 'label'     => 'County Criminal Search',
                 'subtext'   => 'Unlimited counties of residence',
                 'highlight' => true,
+                'tooltip'   => 'Retrieves felony and misdemeanor records from county courts in all identified counties the candidate has resided in the last 7 years.',
             ),
             array(
                 'label'     => 'Federal Criminal Search',
                 'subtext'   => 'Unlimited federal districts of residence',
                 'highlight' => true,
+                'tooltip'   => 'Searches U.S. federal district courts for fraud, embezzlement, interstate crimes, and white-collar offenses in all identified federal districts the candidate has resided in the last 7 years.',
             ),
         ),
     ),

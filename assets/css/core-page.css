@@ -702,6 +702,39 @@ body.page .form-template section > div:last-child h2 em {
   -webkit-text-fill-color: transparent; /* For WebKit browsers */
   color: transparent; /* Fallback for browsers that don't support -webkit-text-fill-color */
 }
+body.page .form-template section > div:last-child .human-trafficking-request-details {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details h2,
+body.page .form-template section > div:last-child .human-trafficking-request-details h3 {
+  color: #4F51FD;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details h3 {
+  margin-top: 24px;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details p {
+  margin-bottom: 16px;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details ol,
+body.page .form-template section > div:last-child .human-trafficking-request-details ul {
+  margin: 0 0 16px 20px;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details li {
+  margin-bottom: 10px;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details address {
+  margin: 0 0 16px;
+  font-style: normal;
+  line-height: 1.5;
+}
+body.page .form-template section > div:last-child .human-trafficking-request-details a {
+  color: #4F51FD;
+  font-weight: 700;
+  text-decoration: underline;
+}
 body.page .form-template .gcheck-contact-container {
   display: flex;
   flex-wrap: wrap;
