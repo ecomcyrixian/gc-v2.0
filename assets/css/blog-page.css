@@ -130,7 +130,41 @@ body.tax-author .author-page .name-socmed {
   flex-direction: row;
   align-items: center;
 }
+body.author .author-page .latest-articles .cards > .author-articles-loader,
+body.author .author-page .author-articles-loader,
+body.tax-author .author-page .latest-articles .cards > .author-articles-loader,
+body.tax-author .author-page .author-articles-loader {
+  padding: 40px 0;
+  text-align: center;
+  color: #4F51FD;
+  font-size: 14px;
+  background: transparent;
+}
+body.author .author-page .author-articles-loader__status,
+body.tax-author .author-page .author-articles-loader__status {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  line-height: 1;
+}
+body.author .author-page .author-articles-loader__status::before,
+body.tax-author .author-page .author-articles-loader__status::before {
+  width: 1em;
+  height: 1em;
+  content: "";
+  display: inline-block;
+  flex: 0 0 1em;
+  border: 2px solid rgba(79, 81, 253, 0.25);
+  border-top-color: #4F51FD;
+  border-radius: 50%;
+  animation: gc-author-loader-spin 0.8s linear infinite;
+}
 
+@keyframes gc-author-loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 /*
 * Template variables and Revised Article
 * Last update of 05.19.25

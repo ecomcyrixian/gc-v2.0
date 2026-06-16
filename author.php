@@ -1,5 +1,109 @@
 <?php
-get_header();
+if ( ! function_exists( 'gc_author_template_query_args' ) ) {
+    function gc_author_template_query_args( $author_type, $author_id, $paged = 1, $posts_per_page = 6 ) {
+        $author_type = 'taxonomy' === $author_type ? 'taxonomy' : 'user';
+        $author_id   = absint( $author_id );
+
+        $args = array(
+            'post_type'              => 'post',
+            'posts_per_page'         => absint( $posts_per_page ),
+            'paged'                  => max( 1, absint( $paged ) ),
+            'orderby'                => 'date',
+            'order'                  => 'DESC',
+            'ignore_sticky_posts'    => true,
+            'cache_results'          => true,
+            'update_post_meta_cache' => true,
+            'update_post_term_cache' => true,
+        );
+
+        if ( 'taxonomy' === $author_type && $author_id > 0 ) {
+            $args['tax_query'] = array(
+                array(
+                    'taxonomy' => 'author',
+                    'field'    => 'term_id',
+                    'terms'    => $author_id,
+                ),
+            );
+        } elseif ( $author_id > 0 ) {
+            $args['author'] = $author_id;
+        } else {
+            $args['post__in'] = array( 0 );
+        }
+
+        return $args;
+    }
+}
+
+if ( ! function_exists( 'gc_author_template_reading_time' ) ) {
+    function gc_author_template_reading_time( $post_id ) {
+        $post_id = absint( $post_id );
+        if ( $post_id < 1 ) {
+            return 1;
+        }
+
+        $post         = get_post( $post_id );
+        $content      = $post instanceof WP_Post ? (string) $post->post_content : '';
+        $word_count   = str_word_count( wp_strip_all_tags( $content ) );
+        $reading_time = max( 1, (int) ceil( $word_count / 200 ) );
+
+        return $reading_time;
+    }
+}
+
+if ( ! function_exists( 'gc_author_template_article_card' ) ) {
+    function gc_author_template_article_card() {
+        $post_date    = get_the_date( ' j M, Y' );
+        $reading_time = gc_author_template_reading_time( get_the_ID() );
+        ?>
+        <div>
+            <span class="featured-image">
+                <?php
+                echo get_the_post_thumbnail(
+                    get_the_ID(),
+                    'medium_large',
+                    array(
+                        'alt'           => get_the_title(),
+                        'loading'       => 'lazy',
+                        'decoding'      => 'async',
+                        'fetchpriority' => 'low',
+                        'sizes'         => '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 360px',
+                    )
+                );
+                ?>
+            </span>
+            <div class="articles-info">
+                <span class="category">
+                    <?php
+                    $categories = get_the_category();
+                    if ( ! empty( $categories ) ) {
+                        $category = $categories[0];
+                        echo '<a href="' . esc_url( get_category_link( $category->term_id ) ) . '" rel="category tag">';
+                        echo esc_html( $category->name );
+                        echo '</a>';
+                    }
+                    ?>
+                </span>
+                <h4>
+                    <a class="title" href="<?php echo esc_url( get_permalink() ); ?>" aria-label="<?php the_title_attribute(); ?>">
+                        <?php the_title(); ?>
+                    </a>
+                </h4>
+                <span class="read-time">
+                    <span class="post-date"><?php echo esc_html( $post_date ); ?></span>
+                    <strong>•</strong>
+                    <span class="reading-time"><?php echo esc_html( (string) $reading_time ); ?> min read</span>
+                </span>
+                <div class="description">
+                    <?php echo esc_html( wp_trim_words( get_the_excerpt(), 50, '...' ) ); ?>
+                </div>
+                <span class="btn">
+                    <a class="button readmore" href="<?php echo esc_url( get_permalink() ); ?>"> Read More</a>
+                </span>
+            </div>
+        </div>
+        <?php
+    }
+}
 
 $queried = get_queried_object();
 $author  = $queried;
@@ -24,18 +128,75 @@ $data = function_exists( 'gc_pp_get_author_template_data' )
 extract( $data, EXTR_SKIP );
 
 $avatar_alt = trim( $first_name . ' ' . $last_name );
+$ppma_term_id = ( $ppma_author && is_object( $ppma_author ) && ! empty( $ppma_author->term_id ) )
+    ? (int) $ppma_author->term_id
+    : 0;
+if ( $ppma_term_id < 1 && is_tax( 'author' ) && is_object( $queried ) && ! empty( $queried->term_id ) ) {
+    $ppma_term_id = (int) $queried->term_id;
+}
+
+$author_articles_type     = $ppma_term_id > 0 ? 'taxonomy' : 'user';
+$author_articles_id       = $ppma_term_id > 0 ? $ppma_term_id : (int) get_queried_object_id();
+$author_articles_page     = 1;
+$author_articles_per_page = 6;
+$author_articles_url      = remove_query_arg(
+    array( 'gc_author_articles', 'articles_page' ),
+    get_pagenum_link( 1, false )
+);
+
+if ( empty( $author_articles_url ) && 'taxonomy' === $author_articles_type ) {
+    $author_articles_url = get_term_link( $author_articles_id, 'author' );
+    $author_articles_url = is_wp_error( $author_articles_url ) ? '' : $author_articles_url;
+} elseif ( empty( $author_articles_url ) && $author_articles_id > 0 ) {
+    $author_articles_url = get_author_posts_url( $author_articles_id );
+}
+
+if ( isset( $_GET['gc_author_articles'] ) ) {
+    if ( $author_articles_id < 1 ) {
+        wp_send_json_error( array( 'message' => 'Invalid author request.' ), 400 );
+    }
+
+    $requested_page = isset( $_GET['articles_page'] ) ? max( 1, absint( $_GET['articles_page'] ) ) : 1;
+    $recent_posts   = new WP_Query(
+        gc_author_template_query_args(
+            $author_articles_type,
+            $author_articles_id,
+            $requested_page,
+            $author_articles_per_page
+        )
+    );
+
+    ob_start();
+    if ( $recent_posts->have_posts() ) {
+        while ( $recent_posts->have_posts() ) {
+            $recent_posts->the_post();
+            gc_author_template_article_card();
+        }
+    }
+    wp_reset_postdata();
+
+    wp_send_json_success(
+        array(
+            'html'     => ob_get_clean(),
+            'nextPage' => $requested_page + 1,
+            'hasMore'  => $requested_page < (int) $recent_posts->max_num_pages,
+        )
+    );
+}
+
+get_header();
 ?>
- 
+
     <main class="author-page">
- 
+
         <div class="author-info">
- 
+
             <div class="container">
- 
+
                 <div class="author-avatar">
                     <img src="<?php echo esc_url( isset( $avatar_url ) ? $avatar_url : '' ); ?>" alt="<?php echo esc_attr( $avatar_alt ); ?>" width="156" height="156" loading="lazy" decoding="async"/>
                 </div>
- 
+
                  <div class="author-desc">
                     <div class="name-socmed">
                         <h2><?php echo esc_html( $first_name ); ?> <?php echo esc_html( $last_name ); ?></h2>
@@ -48,7 +209,7 @@ $avatar_alt = trim( $first_name . ' ' . $last_name );
                                     <span></span>
                                 </a>
                             <?php endif; ?>
- 
+
                             <?php if ( ! empty( trim( $user_twitter ) ) ) : ?>
                                 <a class="ppma-author-twitter-profile-data ppma-author-field-meta ppma-author-field-type-url" aria-label="Twitter" href="<?php echo esc_url( $user_twitter ); ?>"  target="_blank" rel="noopener noreferrer">
                                     <span>
@@ -57,8 +218,8 @@ $avatar_alt = trim( $first_name . ' ' . $last_name );
                                     <span></span>
                                 </a>
                             <?php endif; ?>
- 
- 
+
+
                             <?php if ( ! empty( trim( $user_instagram ) ) ) : ?>
                                 <a class="ppma-author-instagram-profile-data ppma-author-field-meta ppma-author-field-type-url" aria-label="Instagram" href="<?php echo esc_url( $user_instagram ); ?>"  target="_blank" rel="noopener noreferrer">
                                     <span>
@@ -67,7 +228,7 @@ $avatar_alt = trim( $first_name . ' ' . $last_name );
                                     <span></span>
                                 </a>
                             <?php endif; ?>
- 
+
                             <?php if ( ! empty( trim( $user_LinkedIn ) ) ) : ?>
                                 <a class="ppma-author-linkedin-profile-data ppma-author-field-meta ppma-author-field-type-url" aria-label="LinkedIn" href="<?php echo esc_url( $user_LinkedIn ); ?>"  target="_blank" rel="noopener noreferrer">
                                     <span>
@@ -83,8 +244,8 @@ $avatar_alt = trim( $first_name . ' ' . $last_name );
                         <?php echo esc_html( $user_job ); ?>
                     </p>
                     <?php endif; ?>
- 
- 
+
+
                     <div class="author-desc__bio">
                         <?php
                         $bio_plain = wp_strip_all_tags( (string) $user_description, false );
@@ -95,15 +256,15 @@ $avatar_alt = trim( $first_name . ' ' . $last_name );
                         }
                         ?>
                     </div>
- 
+
                 </div>
- 
- 
+
+
             </div>
- 
+
         </div>
- 
- 
+
+
          <div class="latest-articles">
             <div class="container">
                 <div class="heading">
@@ -114,97 +275,46 @@ $avatar_alt = trim( $first_name . ' ' . $last_name );
                 </div>
                 <div class="cards">
                     <div class="card-cont cols3">
- 
+
                         <?php
-                        $args = array(
-                            'post_type' => 'post',
-                            'orderby'   => 'date',
-                            'order'     => 'DESC',
+                        $recent_posts = new WP_Query(
+                            gc_author_template_query_args(
+                                $author_articles_type,
+                                $author_articles_id,
+                                $author_articles_page,
+                                $author_articles_per_page
+                            )
                         );
-                        $ppma_term_id = ( $ppma_author && is_object( $ppma_author ) && ! empty( $ppma_author->term_id ) )
-                            ? (int) $ppma_author->term_id
-                            : 0;
-                        if ( $ppma_term_id > 0 ) {
-                            $args['tax_query'] = array(
-                                array(
-                                    'taxonomy' => 'author',
-                                    'field'    => 'term_id',
-                                    'terms'    => $ppma_term_id,
-                                ),
-                            );
-                        } else {
-                            $args['author'] = (int) get_queried_object_id();
-                        }
- 
-                        $recent_posts = new WP_Query( $args );
                         ?>
- 
+
                         <?php if ( $recent_posts->have_posts() ) : ?>
                         <?php while ( $recent_posts->have_posts() ) : $recent_posts->the_post(); ?>
- 
-                            <?php
-                                $post_date = get_the_date( ' j M, Y' );
-                                $word_count = str_word_count( strip_tags( get_the_content() ) );
-                                $reading_time = ceil( $word_count / 200 );
-                            ?>
- 
-                            <div>
-                                    <span class="featured-image">
-                                    <?php echo get_the_post_thumbnail( get_the_ID(), 'large', array( 'alt' => get_the_title(), 'loading' => 'lazy', 'decoding' => 'async' ) ); ?>
-                                </span>
-                                <div class="articles-info">
-                                    <span class="category">
-                                        <?php
-                                            $categories = get_the_category();
- 
-                                            if ( ! empty( $categories ) ) {
-                                                $category = $categories[0];
-                                                $category_title = $category->name;
-                                                $category_link = get_category_link( $category->term_id );
- 
-                                                echo '<a href="' . esc_url( $category_link ) . '" rel="category tag">';
-                                                echo esc_html( $category_title );
-                                                echo '</a>';
-                                            }
- 
-                                        ?>
- 
-                                    </span>
-                                    <h4>
-                                        <a class="title" href="<?php echo esc_url( get_permalink() ); ?>" aria-label="<?php the_title_attribute(); ?> ">
-                                                <?php the_title(); ?>
-                                        </a>
-                                    </h4>
-                                    <span class="read-time">
-                                            <span class="post-date"><?php echo esc_html( $post_date ); ?></span>
-                                            <strong>•</strong>
-                                            <span class="reading-time"><?php echo esc_html( (string) $reading_time ); ?> min read</span>
-                                    </span>
-                                    <div class="description">
-                                        <?php
-                                            $excerpt = wp_trim_words( get_the_excerpt(), 50, '...' );
-                                            echo esc_html( $excerpt );
-                                        ?>
-                                    </div>
-                                    <span class="btn">
-                                        <a class="button readmore" href="<?php echo esc_url( get_permalink() ); ?>"> Read More</a>
-                                    </span>
-                                </div>
- 
-                            </div>
- 
+                            <?php gc_author_template_article_card(); ?>
+
                         <?php endwhile; ?>
                         <?php else : ?>
                         <p><?php esc_html_e( 'Sorry, no posts matched your criteria.' ); ?></p>
                         <?php endif; ?>
                         <?php wp_reset_postdata(); ?>
- 
+
                     </div>
                 </div>
+                <?php if ( $author_articles_url && $recent_posts->max_num_pages > $author_articles_page ) : ?>
+                    <div
+                        class="author-articles-loader"
+                        data-author-type="<?php echo esc_attr( $author_articles_type ); ?>"
+                        data-author-id="<?php echo esc_attr( (string) $author_articles_id ); ?>"
+                        data-author-url="<?php echo esc_url( $author_articles_url ); ?>"
+                        data-next-page="<?php echo esc_attr( (string) ( $author_articles_page + 1 ) ); ?>"
+                        data-max-pages="<?php echo esc_attr( (string) $recent_posts->max_num_pages ); ?>"
+                    >
+                        <span class="author-articles-loader__status" aria-live="polite">Loading more articles...</span>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
- 
- 
+
+
     </main>
- 
+
 <?php get_footer(); ?>

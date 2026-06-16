@@ -653,6 +653,32 @@ function gc_pp_map_preferred_author_slug_request( $request ) {
 }
 add_filter( 'request', 'gc_pp_map_preferred_author_slug_request', 20 );
 
+function gc_pp_find_publishpress_author_term_by_slug( $slug ) {
+	$slug = sanitize_title( (string) $slug );
+	if ( $slug === '' || ! class_exists( '\MultipleAuthors\Classes\Objects\Author' ) ) {
+		return null;
+	}
+	if ( ! method_exists( '\MultipleAuthors\Classes\Objects\Author', 'get_by_term_slug' ) ) {
+		return null;
+	}
+	$pp_author = \MultipleAuthors\Classes\Objects\Author::get_by_term_slug( $slug );
+	if ( ! is_object( $pp_author ) || empty( $pp_author->term_id ) ) {
+		return null;
+	}
+	$term = get_term( (int) $pp_author->term_id, 'author' );
+	if ( ! ( $term instanceof WP_Term ) || is_wp_error( $term ) ) {
+		return null;
+	}
+	return $term;
+}
+
+function gc_pp_is_guest_publishpress_author_term( $term ) {
+	if ( ! ( $term instanceof WP_Term ) || 'author' !== $term->taxonomy ) {
+		return false;
+	}
+	return (int) get_term_meta( (int) $term->term_id, 'user_id', true ) < 1;
+}
+
 function gc_pp_get_raw_requested_author_slug() {
 	if ( empty( $_SERVER['REQUEST_URI'] ) ) {
 		return '';
@@ -675,6 +701,58 @@ function gc_pp_get_raw_requested_author_slug() {
 	}
 	return sanitize_title( (string) $parts[ $slug_index ] );
 }
+
+function gc_pp_404_author_without_publishpress_profile() {
+	if ( is_admin() || ! is_author() ) {
+		return;
+	}
+
+	if ( ! class_exists( '\MultipleAuthors\Classes\Objects\Author' ) ) {
+		return;
+	}
+
+	$queried = get_queried_object();
+	$user_id = 0;
+
+	if ( $queried instanceof WP_User ) {
+		$user_id = (int) $queried->ID;
+	} elseif ( $queried instanceof WP_Term && isset( $queried->taxonomy ) && 'author' === $queried->taxonomy ) {
+		$user_id = (int) get_term_meta( (int) $queried->term_id, 'user_id', true );
+	}
+
+	if ( $user_id > 0 ) {
+		$pp_author = \MultipleAuthors\Classes\Objects\Author::get_by_user_id( $user_id );
+		if ( is_object( $pp_author ) && ! empty( $pp_author->term_id ) ) {
+			return;
+		}
+	}
+
+	// WP user slug may match a guest PP author (no linked user account) — e.g. /marc.
+	if ( $queried instanceof WP_User && ! empty( $queried->user_nicename ) ) {
+		$guest_term = gc_pp_find_publishpress_author_term_by_slug( $queried->user_nicename );
+		if ( $guest_term && gc_pp_is_guest_publishpress_author_term( $guest_term ) ) {
+			global $wp_query;
+			$wp_query->queried_object    = $guest_term;
+			$wp_query->queried_object_id = (int) $guest_term->term_id;
+			return;
+		}
+	}
+
+	global $wp_query;
+	$wp_query->set_404();
+	status_header( 404 );
+	nocache_headers();
+
+	$template = get_404_template();
+	if ( $template ) {
+		include $template;
+		exit;
+	}
+
+	wp_die( esc_html__( 'Page not found.' ), esc_html__( 'Not Found' ), array( 'response' => 404 ) );
+	exit;
+}
+add_action( 'template_redirect', 'gc_pp_404_author_without_publishpress_profile', 5 );
 
 function gc_pp_redirect_legacy_nicename_author_url() {
 	if ( is_admin() || ! is_author() ) {

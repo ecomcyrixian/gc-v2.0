@@ -161,16 +161,30 @@
         margin-right: calc(50% - 50vw);
 
         > .container{
-            background-image: url('../../core-pages/banner/images/option-5-bg.webp');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            position: relative;
+            background-color: #dfe5f3;
             min-height: 594px;
             padding: $gap40;
             display: flex;
             align-items: center;
             max-width: 100%;
             width: 100%;
+            overflow: hidden;
+        }
+
+        .option5__bg{
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 0;
+        }
+
+        > .container > :not(.option5__bg){
+            position: relative;
+            z-index: 1;
         }
 
         .banner-info{
@@ -182,15 +196,29 @@
         .quote-card{
             width: 600px;
             max-width: 100%;
-            background-image: url('../../core-pages/banner/images/quote-5-bg.webp');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            position: relative;
+            overflow: hidden;
+            background-color: #111528;
             border-radius: $corners8;
             padding: $gap40;
             display: flex;
             flex-direction: column;
             gap: $gap40;
+        }
+
+        .quote-card__bg{
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 0;
+        }
+
+        .quote-card > :not(.quote-card__bg){
+            position: relative;
+            z-index: 1;
         }
 
         .quote-mark{
@@ -231,7 +259,10 @@
             > .container{
                 border-radius: 0;
                 padding: $gap20;
-                background-position: 68% center;
+            }
+
+            .option5__bg{
+                object-position: 68% center;
             }
 
             .quote-card{
@@ -596,13 +627,20 @@
             width: 645px;
             min-width: 645px;
             height: 638px;
-            background-image: url('../../core-pages/banner/images/option-6-bg.webp');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            background-color: #30319a;
             position: relative;
             display: flex;
             align-items: flex-end;
+        }
+
+        .option6-card__bg{
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 0;
         }
 
         .option6-card__content{
@@ -868,10 +906,6 @@
 
 .banner.option5 > .container{
     background-color: #dfe5f3;
-    background-image: url('../../core-pages/banner/images/option-5-bg.webp');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
     max-width: 100%;
     width: 100%;
     border-radius: 0;

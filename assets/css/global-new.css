@@ -1870,9 +1870,9 @@ body.blog .recent-articles .cards {
     padding: 0;
   }
 }
-.articles-posts .cards > div:nth-child(even),
-.recent-articles .cards > div:nth-child(even),
-.latest-articles .cards > div:nth-child(even) {
+.articles-posts .cards > div:nth-child(even):not(.author-articles-loader),
+.recent-articles .cards > div:nth-child(even):not(.author-articles-loader),
+.latest-articles .cards > div:nth-child(even):not(.author-articles-loader) {
   background: #1A1C1E;
 }
 .articles-posts .cards .card-cont > div,
@@ -3285,16 +3285,28 @@ body.search h4 span {
   margin-right: calc(50% - 50vw);
 }
 .banner.option5 > .container {
-  background-image: url("../../core-pages/banner/images/option-5-bg.webp");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  position: relative;
+  background-color: #dfe5f3;
   min-height: 594px;
   padding: 40px;
   display: flex;
   align-items: center;
   max-width: 100%;
   width: 100%;
+  overflow: hidden;
+}
+.banner.option5 .option5__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+.banner.option5 > .container > :not(.option5__bg) {
+  position: relative;
+  z-index: 1;
 }
 .banner.option5 .banner-info {
   width: 100%;
@@ -3304,15 +3316,27 @@ body.search h4 span {
 .banner.option5 .quote-card {
   width: 600px;
   max-width: 100%;
-  background-image: url("../../core-pages/banner/images/quote-5-bg.webp");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
+  background-color: #111528;
   border-radius: 8px;
   padding: 40px;
   display: flex;
   flex-direction: column;
   gap: 40px;
+}
+.banner.option5 .quote-card__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+.banner.option5 .quote-card > :not(.quote-card__bg) {
+  position: relative;
+  z-index: 1;
 }
 .banner.option5 .quote-mark {
   display: block;
@@ -3348,7 +3372,9 @@ body.search h4 span {
   .banner.option5 > .container {
     border-radius: 0;
     padding: 20px;
-    background-position: 68% center;
+  }
+  .banner.option5 .option5__bg {
+    object-position: 68% center;
   }
   .banner.option5 .quote-card {
     padding: 20px;
@@ -3689,13 +3715,19 @@ body.search h4 span {
   width: 645px;
   min-width: 645px;
   height: 638px;
-  background-image: url("../../core-pages/banner/images/option-6-bg.webp");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: #30319a;
   position: relative;
   display: flex;
   align-items: flex-end;
+}
+.banner.option6 .option6-card__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
 }
 .banner.option6 .option6-card__content {
   position: relative;
@@ -3936,10 +3968,6 @@ body.search h4 span {
 
 .banner.option5 > .container {
   background-color: #dfe5f3;
-  background-image: url("../../core-pages/banner/images/option-5-bg.webp");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   max-width: 100%;
   width: 100%;
   border-radius: 0;
@@ -4626,6 +4654,9 @@ body.search h4 span {
   margin-right: calc(50% - 50vw);
   margin-top: -96px;
   height: 700px;
+  position: relative;
+  overflow: hidden;
+  background-color: #1A1C1E;
 }
 @media screen and (max-width: 767px) {
   .page-hero .text-only.text-only--management-team {
@@ -4637,10 +4668,20 @@ body.search h4 span {
 .page-hero .text-only.text-only--management-team .heading {
   margin: 0;
 }
+.page-hero .text-only.text-only--management-team .text-only--management-team__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
 .page-hero .text-only.text-only--management-team > div {
   padding: 100px 0 0;
   max-width: 1320px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 @media screen and (max-width: 1023px) {
   .page-hero .text-only.text-only--management-team > div {

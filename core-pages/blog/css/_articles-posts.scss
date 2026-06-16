@@ -39,7 +39,7 @@
 
     .cards{
         
-        &>div:nth-child(even){
+        &>div:nth-child(even):not(.author-articles-loader){
             background: $gray300;
         }
         .card-cont{

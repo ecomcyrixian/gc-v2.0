@@ -42,10 +42,11 @@
 
                         $card_img_url = is_array( $image ) ? $image['url'] : $image;
                         $card_img_dim_attrs = function_exists( 'gc_theme_img_dimension_attrs' ) ? gc_theme_img_dimension_attrs( $image ) : '';
+                        $card_img_loading_attrs = $is_executive_cards ? ' loading="lazy" decoding="async" fetchpriority="low"' : '';
                     ?>
                     
                     <span>
-                        <img src="<?= esc_url( $card_img_url ) ?>" alt="" <?php echo $card_img_dim_attrs; ?>>
+                        <img src="<?= esc_url( $card_img_url ) ?>" alt="" <?php echo $card_img_dim_attrs . $card_img_loading_attrs; ?>>
                     </span>
                     <span class="desc">
                         <?= $details ?>

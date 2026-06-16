@@ -129,6 +129,115 @@ jQuery(document).ready(function($) {
 	}
 })();
 
+/* Author archive infinite articles */
+(function () {
+    'use strict';
+
+    function initAuthorInfiniteArticles() {
+        var loader = document.querySelector('.author-articles-loader');
+        var list = document.querySelector('.author-page .latest-articles .card-cont');
+
+        if (!loader || !list) {
+            return;
+        }
+
+        var isLoading = false;
+        var hasMore = true;
+        var lastLoadScrollY = -Infinity;
+
+        function setStatus(message) {
+            var status = loader.querySelector('.author-articles-loader__status');
+            if (status) {
+                status.textContent = message;
+            }
+        }
+
+        function loadNextPage() {
+            var nextPage = parseInt(loader.getAttribute('data-next-page'), 10);
+            var maxPages = parseInt(loader.getAttribute('data-max-pages'), 10);
+
+            if (isLoading || !hasMore || !nextPage || !maxPages || nextPage > maxPages) {
+                return;
+            }
+
+            isLoading = true;
+            lastLoadScrollY = window.scrollY || window.pageYOffset || 0;
+            loader.classList.add('is-loading');
+            setStatus('Loading more articles...');
+
+            var authorUrl = loader.getAttribute('data-author-url') || window.location.href;
+            var requestUrl = new URL(authorUrl, window.location.origin);
+            requestUrl.searchParams.set('gc_author_articles', '1');
+            requestUrl.searchParams.set('articles_page', String(nextPage));
+
+            fetch(requestUrl.toString(), {
+                method: 'GET',
+                credentials: 'same-origin',
+            })
+                .then(function (response) {
+                    if (!response.ok) {
+                        throw new Error('Author articles request failed.');
+                    }
+                    return response.json();
+                })
+                .then(function (payload) {
+                    if (!payload || !payload.success || !payload.data) {
+                        throw new Error('Invalid author articles response.');
+                    }
+
+                    if (payload.data.html) {
+                        list.insertAdjacentHTML('beforeend', payload.data.html);
+                    }
+
+                    hasMore = Boolean(payload.data.hasMore);
+                    loader.setAttribute('data-next-page', String(payload.data.nextPage || nextPage + 1));
+
+                    if (!hasMore) {
+                        loader.remove();
+                    }
+                })
+                .catch(function () {
+                    hasMore = false;
+                    setStatus('More articles could not be loaded.');
+                })
+                .finally(function () {
+                    isLoading = false;
+                    loader.classList.remove('is-loading');
+                });
+        }
+
+        if ('IntersectionObserver' in window) {
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    var currentScrollY = window.scrollY || window.pageYOffset || 0;
+
+                    if (entry.isIntersecting && currentScrollY - lastLoadScrollY > 120) {
+                        loadNextPage();
+                    }
+                });
+            }, {
+                rootMargin: '0px 0px 100px 0px',
+            });
+
+            observer.observe(loader);
+        } else {
+            window.addEventListener('scroll', function () {
+                var currentScrollY = window.scrollY || window.pageYOffset || 0;
+
+                if (loader.getBoundingClientRect().top < window.innerHeight + 100 && currentScrollY - lastLoadScrollY > 120) {
+                    loadNextPage();
+                }
+            }, { passive: true });
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAuthorInfiniteArticles);
+    } else {
+        initAuthorInfiniteArticles();
+    }
+})();
+
 /* Hero copy link */
 (function () {
     'use strict';

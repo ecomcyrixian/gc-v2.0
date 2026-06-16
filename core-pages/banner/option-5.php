@@ -1,7 +1,31 @@
+<?php
+$banner_img = static function ( string $file ): array {
+    $path = get_template_directory() . '/core-pages/banner/images/' . $file;
+    $uri  = get_template_directory_uri() . '/core-pages/banner/images/' . $file;
+    $attrs = '';
+
+    if ( function_exists( 'getimagesize' ) && file_exists( $path ) ) {
+        $size = getimagesize( $path );
+        if ( ! empty( $size[0] ) && ! empty( $size[1] ) ) {
+            $attrs = ' width="' . esc_attr( (string) $size[0] ) . '" height="' . esc_attr( (string) $size[1] ) . '"';
+        }
+    }
+
+    return array(
+        'uri'   => $uri,
+        'attrs' => $attrs,
+    );
+};
+
+$option5_bg = $banner_img( 'option-5-bg.webp' );
+$quote5_bg  = $banner_img( 'quote-5-bg.webp' );
+?>
 <div class="banner option5">
     <div class="container">
+        <img class="option5__bg" src="<?php echo esc_url( $option5_bg['uri'] ); ?>" alt=""<?php echo $option5_bg['attrs']; ?> loading="lazy" decoding="async" fetchpriority="low" aria-hidden="true">
         <div class="banner-info">
             <div class="quote-card">
+                <img class="quote-card__bg" src="<?php echo esc_url( $quote5_bg['uri'] ); ?>" alt=""<?php echo $quote5_bg['attrs']; ?> loading="lazy" decoding="async" fetchpriority="low" aria-hidden="true">
                 <span class="quote-mark" aria-hidden="true"><svg width="51" height="40" viewBox="0 0 51 40" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M50.6105 40H28.0421V21.9789L38.9053 0H48.8421L40.7579 20.2105H50.6105V40ZM22.6526 40H0V21.9789L10.9474 0H20.8842L12.8 20.2105H22.6526V40Z" fill="#30319A"/>
 </svg>

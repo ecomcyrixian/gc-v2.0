@@ -67,7 +67,41 @@ body.tax-author {
             flex-direction: row;
             align-items: center;
         }
+
+        .latest-articles .cards > .author-articles-loader,
+        .author-articles-loader{
+            padding: $gap40 0;
+            text-align: center;
+            color: $blue300;
+            font-size: $fsize14;
+            background: transparent;
+        }
+
+        .author-articles-loader__status{
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+            line-height: 1;
+
+            &::before {
+                width: 1em;
+                height: 1em;
+                content: '';
+                display: inline-block;
+                flex: 0 0 1em;
+                border: 2px solid rgba(79, 81, 253, 0.25);
+                border-top-color: $blue300;
+                border-radius: 50%;
+                animation: gc-author-loader-spin 0.8s linear infinite;
+            }
+        }
         
     }
 
+}
+
+@keyframes gc-author-loader-spin {
+    to {
+        transform: rotate(360deg);
+    }
 }

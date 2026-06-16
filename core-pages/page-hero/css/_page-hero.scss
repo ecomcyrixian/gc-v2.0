@@ -564,6 +564,9 @@
       margin-right: calc(50% - 50vw);
       margin-top: -96px;
       height: 700px;
+      position: relative;
+      overflow: hidden;
+      background-color: $gray300;
 
 
       @include media($mobile) {
@@ -576,10 +579,21 @@
         margin: 0;
       }
 
+      .text-only--management-team__bg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+      }
+
       > div {
         padding: $gap100 0 0;
         max-width: 1320px;
         margin: 0 auto;
+        position: relative;
+        z-index: 1;
 
         @include media($tablet) {
           padding: $gap80 $gap20
