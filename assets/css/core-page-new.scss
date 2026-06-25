@@ -620,7 +620,7 @@ body.page{
                         font-size: $fsize28;
                         font-weight: $fBold;
                         line-height: 1.3;
-                        margin-bottom: $gap10;
+                        margin-bottom: $gap16;
                     }
 
                     li{
@@ -657,7 +657,7 @@ body.page{
                     }
 
                     .ht-request__roman{
-                        margin: $gap4 0 0;
+                        margin: $gap10 0 0;
                         padding-left: $gap24;
                         list-style: lower-roman outside;
                     }
@@ -681,7 +681,7 @@ body.page{
                     }
 
                     .ht-request__bullets{
-                        margin: $gap4 0;
+                        margin: $gap10 0;
                         padding-left: $gap24;
                         list-style: disc outside;
                     }
@@ -726,7 +726,7 @@ body.page{
                     .ht-request__addresses{
                         gap: $gap60;
                         display: flex;
-                        margin: $gap10 auto;
+                        margin: $gap16 auto;
                         justify-content: center;
 
                         @include media($mobile){

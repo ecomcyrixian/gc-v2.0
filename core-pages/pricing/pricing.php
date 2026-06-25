@@ -190,9 +190,14 @@ $quote_features = array(
                                             <?php endif; ?>
                                         <?php endif; ?>
                                     </span>
-                                    <span class="pricing-card__tooltip" data-tooltip="<?php echo esc_attr( $tooltip_text ); ?>" aria-label="<?php echo esc_attr( $tooltip_text ); ?>" tabindex="0">
+                                    <button
+                                        type="button"
+                                        class="pricing-card__tooltip"
+                                        data-tooltip="<?php echo esc_attr( $tooltip_text ); ?>"
+                                        aria-label="<?php echo esc_attr( $tooltip_text ); ?>"
+                                    >
                                         <?php echo $tooltip_icon; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                                    </span>
+                                    </button>
                                 </li>
                             <?php endforeach; ?>
                         </ul>

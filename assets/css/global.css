@@ -370,7 +370,7 @@ header#home > .container > div > .header-subtitle-container {
   margin: 0 auto 24px;
   width: 100%;
 }
-header#home > .container > div > .header-subtitle-container h5 {
+header#home > .container > div > .header-subtitle-container .header-subtitle-pill {
   margin: 0;
   margin-bottom: 40px;
   display: inline-flex;
@@ -378,14 +378,14 @@ header#home > .container > div > .header-subtitle-container h5 {
   justify-content: center;
   gap: 8px;
 }
-header#home > .container > div > .header-subtitle-container h5 > span {
+header#home > .container > div > .header-subtitle-container .header-subtitle-pill > span {
   font-size: 1.75em;
   font-weight: 500;
   color: inherit;
   transform: skew(-8deg);
 }
 @media screen and (max-width: 767px) {
-  header#home > .container > div > .header-subtitle-container h5 > span {
+  header#home > .container > div > .header-subtitle-container .header-subtitle-pill > span {
     font-size: 1.25em;
   }
 }

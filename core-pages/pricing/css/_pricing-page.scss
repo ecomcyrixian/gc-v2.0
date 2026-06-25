@@ -221,6 +221,11 @@
                 position: relative;
                 display: inline-flex;
                 flex: 0 0 auto;
+                margin: 0;
+                padding: 0;
+                border: 0;
+                background: none;
+                font: inherit;
                 color: $gray100;
                 cursor: help;
 
