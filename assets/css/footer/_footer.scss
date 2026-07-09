@@ -277,6 +277,7 @@ footer{
         gap: $gap24;
         align-items: center;
         flex-wrap: wrap;
+        flex-shrink: 0;
 
         @include media($mobile){
             width: 100%;
@@ -286,13 +287,33 @@ footer{
         span{
             display: flex;
             align-items: center;
+            flex-shrink: 0;
         }
 
         img{
+            width: auto;
+            max-width: none;
             height: auto;
             display: block;
+            object-fit: contain;
         }
 
+        .soc2-badge img,
+        .hpaa-badge img{
+            width: 60px;
+        }
+
+        .pbsa-badge img{
+            width: 88px;
+        }
+
+        .bbb-badge img{
+            width: 115px;
+        }
+
+        .shrm-badge img{
+            width: 130px;
+        }
     }
 
 

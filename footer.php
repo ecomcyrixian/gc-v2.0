@@ -180,18 +180,24 @@
                     </div>
                 </div>
                 <div class="copyright-badges">
-                    <span>
+                    <span class="soc2-badge">
+                        <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/soc2.png' ); ?>" alt="SOC 2 Type 2 Certification" width="60" height="60" loading="lazy" decoding="async">
+                    </span>
+                    <span class="hpaa-badge">
+                        <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/hpaa.png' ); ?>" alt="HIPAA Accreditations" width="60" height="60" loading="lazy" decoding="async">
+                    </span>
+                    <span class="pbsa-badge">
                         <a href="https://credential.thepbsa.org/114492a9-638f-4bc4-bda1-bd465b3a5c2b#acc.Pw2lZ9sL" target="_blank" rel="noopener noreferrer">
-                            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/PBSA logo.png' ); ?>" alt="PBSA" width="100" height="100" loading="lazy" decoding="async">
+                            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/PBSA logo.png' ); ?>" alt="PBSA" width="88" height="60" loading="lazy" decoding="async">
                         </a>
                     </span>
-                    <span>
+                    <span class="bbb-badge">
                         <a href="https://www.bbb.org/us/ca/los-angeles/profile/employment-background-check/gcheck-1216-1000042700" target="_blank" rel="noopener noreferrer">
-                            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/bbb-logo copy.png' ); ?>" alt="BBB Accredited Business" width="100" height="100" loading="lazy" decoding="async">
+                            <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/bbb-logo copy.png' ); ?>" alt="BBB Accredited Business" width="115" height="40" loading="lazy" decoding="async">
                         </a>
                     </span>
-                    <span>
-                        <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/footer-logo copy.png' ); ?>" alt="SHRM, ASA Accreditations" width="100" height="100" loading="lazy" decoding="async">
+                    <span class="shrm-badge">
+                        <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/footer-logo copy.png' ); ?>" alt="SHRM, ASA Accreditations" width="130" height="60" loading="lazy" decoding="async">
                     </span>
                 </div>
             </div>
