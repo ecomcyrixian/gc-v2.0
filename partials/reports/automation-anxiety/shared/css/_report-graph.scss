@@ -1,5 +1,6 @@
 .gc-report-automation-anxiety,
-.gc-report-trust-in-hiring {
+.gc-report-trust-in-hiring,
+.gc-report-shadow-workforce {
   .aar-report-graph {
     --aar-graph-axis: #{$gray100};
     --aar-graph-muted: #{$gray100};
@@ -235,6 +236,10 @@
 
       &--tone-red {
         --aar-pie-tone-color: #{$red300};
+      }
+
+      &--tone-black {
+        --aar-pie-tone-color: #1E1E1E;
       }
     }
 

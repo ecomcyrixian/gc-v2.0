@@ -28,6 +28,11 @@ function gc_secure_pdf_registry() {
 			'filename' => 'automation-anxiety-report.pdf',
 			'slug'     => 'automation-anxiety',
 		),
+		'shadow_workforce_report'     => array(
+			'url'      => 'https://gcheck.com/wp-content/uploads/resources/pdf-documents/shadow-workforce-report.pdf',
+			'filename' => 'shadow-workforce-report.pdf',
+			'slug'     => 'rise-of-the-shadow-workforce-report',
+		),
 	);
 }
 
@@ -70,6 +75,15 @@ function gc_secure_pdf_primary_trust_report_key() {
  */
 function gc_secure_pdf_automation_anxiety_report_key() {
 	return 'automation_anxiety_report';
+}
+
+/**
+ * Registry key for the Shadow Workforce Report.
+ *
+ * @return string
+ */
+function gc_secure_pdf_shadow_workforce_report_key() {
+	return 'shadow_workforce_report';
 }
 
 /**

@@ -6,7 +6,7 @@
  *     @type string $title    Optional grid title.
  *     @type string $intro    Optional intro copy.
  *     @type int    $columns  3, 4, or 5.
- *     @type array  $cards    Card rows with value, text, and optional icon keys.
+ *     @type array  $cards    Card rows with value, text, accent, and optional icon keys.
  * }
  */
 if ( ! defined( 'ABSPATH' ) ) {
@@ -57,10 +57,11 @@ if ( ! function_exists( 'gc_aar_report_render_stat_cards' ) ) {
 				<div class="card-cont cols<?php echo esc_attr( $columns ); ?> card-same-height">
 					<?php foreach ( $cards as $card ) : ?>
 						<?php
-						$value = isset( $card['value'] ) ? (string) $card['value'] : '';
-						$text  = isset( $card['text'] ) ? (string) $card['text'] : '';
-						$icon  = ! empty( $card['icon'] ) ? (string) $card['icon'] : gc_aar_report_get_stat_card_icon_svg();
-						if ( '' === $value && '' === $text ) {
+						$value  = isset( $card['value'] ) ? (string) $card['value'] : '';
+						$text   = isset( $card['text'] ) ? (string) $card['text'] : '';
+						$accent = isset( $card['accent'] ) ? (string) $card['accent'] : '';
+						$icon   = ! empty( $card['icon'] ) ? (string) $card['icon'] : gc_aar_report_get_stat_card_icon_svg();
+						if ( '' === $value && '' === $text && '' === $accent ) {
 							continue;
 						}
 						?>
@@ -72,7 +73,10 @@ if ( ! function_exists( 'gc_aar_report_render_stat_cards' ) ) {
 								<span class="card-item__icon"><?php echo $icon; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- theme-provided SVG markup. ?></span>
 							</h4>
 							<?php if ( $text ) : ?>
-								<p><?php echo esc_html( $text ); ?></p>
+								<p class="card-item__text"><?php echo esc_html( $text ); ?></p>
+							<?php endif; ?>
+							<?php if ( $accent ) : ?>
+								<p class="card-item__accent"><?php echo esc_html( $accent ); ?></p>
 							<?php endif; ?>
 						</div>
 					<?php endforeach; ?>

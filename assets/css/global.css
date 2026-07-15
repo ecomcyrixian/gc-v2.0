@@ -1700,6 +1700,7 @@ footer .copyright-badges {
   gap: 24px;
   align-items: center;
   flex-wrap: wrap;
+  flex-shrink: 0;
 }
 @media screen and (max-width: 767px) {
   footer .copyright-badges {
@@ -1710,10 +1711,27 @@ footer .copyright-badges {
 footer .copyright-badges span {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 footer .copyright-badges img {
+  width: auto;
+  max-width: none;
   height: auto;
   display: block;
+  object-fit: contain;
+}
+footer .copyright-badges .soc2-badge img,
+footer .copyright-badges .hpaa-badge img {
+  width: 60px;
+}
+footer .copyright-badges .pbsa-badge img {
+  width: 88px;
+}
+footer .copyright-badges .bbb-badge img {
+  width: 115px;
+}
+footer .copyright-badges .shrm-badge img {
+  width: 130px;
 }
 
 /* blog page supported css */

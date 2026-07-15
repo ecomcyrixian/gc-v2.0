@@ -17,7 +17,7 @@ function gc_theme_is_parallax_report_page( $post = null, $allowed_slugs = array(
 	}
 
 	$page_slug = gc_theme_static_html_resolve_slug_for_post( $post );
-	$allowed_slugs = $allowed_slugs ? $allowed_slugs : array( 'automation-anxiety-report', 'trust-in-hiring-report' );
+	$allowed_slugs = $allowed_slugs ? $allowed_slugs : array( 'automation-anxiety-report', 'trust-in-hiring-report', 'shadow-workforce-report', 'rise-of-the-shadow-workforce-report' );
 
 	return in_array( $page_slug, $allowed_slugs, true );
 }
@@ -39,6 +39,26 @@ add_filter(
 	10,
 	2
 );
+
+function gc_theme_get_parallax_report_scss_dependencies() {
+	$theme_dir = get_template_directory();
+
+	return array(
+		$theme_dir . '/assets/css/parallax-report.scss',
+		$theme_dir . '/partials/reports/automation-anxiety/shared/css/_report-data-table.scss',
+		$theme_dir . '/partials/reports/automation-anxiety/shared/css/_report-content-shared.scss',
+		$theme_dir . '/partials/reports/automation-anxiety/shared/css/_report-graph.scss',
+		$theme_dir . '/partials/reports/automation-anxiety/executive-summary/css/_executive-summary.scss',
+		$theme_dir . '/partials/reports/automation-anxiety/page-hero/css/_page-hero.scss',
+		$theme_dir . '/partials/reports/automation-anxiety/content-ai-anxiety/css/_content-ai-anxiety.scss',
+		$theme_dir . '/partials/reports/trust-in-hiring/page-hero/css/_page-hero.scss',
+		$theme_dir . '/partials/reports/trust-in-hiring/executive-summary/css/_executive-summary.scss',
+		$theme_dir . '/partials/reports/trust-in-hiring/content/css/_content.scss',
+		$theme_dir . '/partials/reports/shadow-workforce/page-hero/css/_page-hero.scss',
+		$theme_dir . '/partials/reports/shadow-workforce/content/css/_content.scss',
+		$theme_dir . '/partials/reports/shadow-workforce/content/css/_figure-card-graph.scss',
+	);
+}
 
 function gc_theme_enqueue_report_core_page_style( $dependency_files = array() ) {
 	$core_page_css  = get_template_directory() . '/assets/css/core-page-new.css';
@@ -106,96 +126,42 @@ function gc_theme_enqueue_report_motion_scripts( $graph_handle, $animations_hand
 	wp_script_add_data( $animations_handle, 'strategy', 'defer' );
 }
 
-function gc_theme_enqueue_automation_anxiety_report_assets() {
-	$report_bundle_dir  = get_template_directory() . '/partials/reports/automation-anxiety';
-	$report_bundle_css  = get_template_directory() . '/assets/css/automation-anxiety-report.css';
-	$report_bundle_scss = get_template_directory() . '/assets/css/automation-anxiety-report.scss';
-	$report_graph_scss  = $report_bundle_dir . '/shared/css/_report-graph.scss';
-
-	gc_theme_enqueue_report_core_page_style(
-		array(
-			get_template_directory() . '/core-pages/custom-whitepaper/css/_custom-whitepaper-hero.scss',
-			get_template_directory() . '/core-pages/cards/css/_cards.scss',
-		)
-	);
-
-	$report_bundle_version = gc_theme_asset_version(
-		$report_bundle_css,
-		array(
-			$report_bundle_scss,
-			$report_bundle_dir . '/shared/css/_report-data-table.scss',
-			$report_bundle_dir . '/shared/css/_report-content-shared.scss',
-			$report_graph_scss,
-			$report_bundle_dir . '/executive-summary/css/_executive-summary.scss',
-			$report_bundle_dir . '/page-hero/css/_page-hero.scss',
-			$report_bundle_dir . '/content-ai-anxiety/css/_content-ai-anxiety.scss',
-		)
-	);
-
-	wp_enqueue_style(
-		'report-automation-anxiety',
-		get_template_directory_uri() . '/assets/css/automation-anxiety-report.css',
-		array( 'global-style', 'page-style' ),
-		$report_bundle_version,
-		'screen'
-	);
-
-	gc_theme_enqueue_report_motion_scripts(
-		'report-automation-anxiety-graph',
-		'report-automation-anxiety-animations'
-	);
-}
-
-function gc_theme_enqueue_trust_in_hiring_report_assets() {
-	$trust_report_dir  = get_template_directory() . '/partials/reports/trust-in-hiring';
-	$trust_report_css  = get_template_directory() . '/assets/css/trust-in-hiring-report.css';
-	$trust_report_scss = get_template_directory() . '/assets/css/trust-in-hiring-report.scss';
-
-	gc_theme_enqueue_report_core_page_style();
-
-	$trust_report_version = gc_theme_asset_version(
-		$trust_report_css,
-		array(
-			$trust_report_scss,
-			$trust_report_dir . '/page-hero/css/_page-hero.scss',
-			get_template_directory() . '/partials/reports/automation-anxiety/shared/css/_report-content-shared.scss',
-			get_template_directory() . '/partials/reports/automation-anxiety/shared/css/_report-graph.scss',
-			get_template_directory() . '/partials/reports/automation-anxiety/executive-summary/css/_executive-summary.scss',
-			$trust_report_dir . '/executive-summary/css/_executive-summary.scss',
-			$trust_report_dir . '/content/css/_content.scss',
-		)
-	);
-
-	wp_enqueue_style(
-		'report-trust-in-hiring',
-		get_template_directory_uri() . '/assets/css/trust-in-hiring-report.css',
-		array( 'global-style', 'page-style' ),
-		$trust_report_version,
-		'screen'
-	);
-
-	gc_theme_enqueue_report_motion_scripts(
-		'report-trust-in-hiring-graph',
-		'report-trust-in-hiring-animations'
-	);
-}
-
 function gc_theme_enqueue_parallax_report_assets( $post ) {
 	if ( ! gc_theme_is_parallax_report_page( $post ) ) {
 		return false;
 	}
 
-	$page_slug = gc_theme_static_html_resolve_slug_for_post( $post );
+	$page_slug   = gc_theme_static_html_resolve_slug_for_post( $post );
+	$theme_dir   = get_template_directory();
+	$report_css  = $theme_dir . '/assets/css/parallax-report.css';
+	$core_deps   = array();
 
-	if ( $page_slug === 'automation-anxiety-report' ) {
-		gc_theme_enqueue_automation_anxiety_report_assets();
-		return true;
+	if ( in_array( $page_slug, array( 'automation-anxiety-report', 'shadow-workforce-report', 'rise-of-the-shadow-workforce-report' ), true ) ) {
+		$core_deps = array(
+			$theme_dir . '/core-pages/custom-whitepaper/css/_custom-whitepaper-hero.scss',
+			$theme_dir . '/core-pages/cards/css/_cards.scss',
+		);
 	}
 
-	if ( $page_slug === 'trust-in-hiring-report' ) {
-		gc_theme_enqueue_trust_in_hiring_report_assets();
-		return true;
-	}
+	gc_theme_enqueue_report_core_page_style( $core_deps );
 
-	return false;
+	$report_version = gc_theme_asset_version(
+		$report_css,
+		gc_theme_get_parallax_report_scss_dependencies()
+	);
+
+	wp_enqueue_style(
+		'report-parallax',
+		get_template_directory_uri() . '/assets/css/parallax-report.css',
+		array( 'global-style', 'page-style' ),
+		$report_version,
+		'screen'
+	);
+
+	gc_theme_enqueue_report_motion_scripts(
+		'report-parallax-graph',
+		'report-parallax-animations'
+	);
+
+	return true;
 }

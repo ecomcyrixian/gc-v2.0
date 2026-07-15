@@ -60,9 +60,15 @@ function gc_aar_report_register_cwv_hooks() {
 	add_action(
 		'wp_head',
 		static function () {
-			if ( ! gc_aar_report_is_active() ) {
+			$post = get_post();
+			$slug = ( $post instanceof WP_Post && function_exists( 'gc_theme_static_html_resolve_slug_for_post' ) )
+				? gc_theme_static_html_resolve_slug_for_post( $post )
+				: '';
+
+			if ( ! is_page_template( 'page-parallax.php' ) || ! in_array( $slug, array( 'automation-anxiety-report', 'shadow-workforce-report', 'rise-of-the-shadow-workforce-report' ), true ) ) {
 				return;
 			}
+
 			$font_path = get_template_directory() . '/assets/fonts/bebas-neue-latin.woff2';
 			if ( ! is_readable( $font_path ) ) {
 				return;
@@ -82,7 +88,9 @@ function gc_aar_report_register_cwv_hooks() {
 			if ( ! gc_aar_report_is_active() ) {
 				return;
 			}
-			if ( wp_script_is( 'report-automation-anxiety-graph', 'enqueued' ) ) {
+			if ( wp_script_is( 'report-parallax-graph', 'enqueued' ) ) {
+				wp_script_add_data( 'report-parallax-graph', 'strategy', 'defer' );
+			} elseif ( wp_script_is( 'report-automation-anxiety-graph', 'enqueued' ) ) {
 				wp_script_add_data( 'report-automation-anxiety-graph', 'strategy', 'defer' );
 			}
 		},
@@ -93,6 +101,8 @@ function gc_aar_report_register_cwv_hooks() {
 		'script_loader_tag',
 		static function ( $tag, $handle ) {
 			$report_handles = array(
+				'report-parallax-graph',
+				'report-parallax-animations',
 				'report-automation-anxiety-graph',
 				'report-automation-anxiety-animations',
 				'report-trust-in-hiring-graph',
@@ -116,3 +126,4 @@ require_once get_template_directory() . '/partials/reports/automation-anxiety/sh
 require_once get_template_directory() . '/partials/reports/automation-anxiety/shared/content-media-feature.php';
 require_once get_template_directory() . '/partials/reports/automation-anxiety/shared/content-stat-cards.php';
 require_once get_template_directory() . '/partials/reports/automation-anxiety/shared/content-graph.php';
+require_once get_template_directory() . '/partials/reports/automation-anxiety/shared/content-figure-card-graph.php';

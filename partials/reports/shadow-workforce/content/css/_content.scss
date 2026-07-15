@@ -1,0 +1,476 @@
+@import '../../../../../assets/css/_tools/variable';
+@import '../../../../../assets/css/_tools/mixins';
+
+// Layout + frame rhythm shared with AAR content; SWR-only blocks below.
+.gc-report-shadow-workforce {
+  .swr-report-br-desktop {
+    @include media($tablet) {
+      display: none;
+    }
+  }
+
+  .content.content--shadow-workforce {
+    > .container {
+      margin: 0 auto;
+      max-width: 1106px;
+      padding: $gap80 0;
+      display: flex;
+      flex-direction: column;
+      gap: $gap80;
+
+      @include media($mobile) {
+        padding: $gap60 $gap16;
+        gap: $gap40;
+      }
+
+      > .frame {
+        display: flex;
+        flex-direction: column;
+        gap: $gap40;
+      }
+
+      .panel--graphs {
+        width: 100%;
+        min-width: 0;
+      }
+    }
+
+    > .frame-11,
+    > .frame-12 {
+      width: 100%;
+      background: $white;
+      padding: $gap80 0;
+
+      @include media($mobile) {
+        padding: $gap60 $gap16;
+      }
+
+      > .container {
+        margin: 0 auto;
+        max-width: 1106px;
+      }
+    }
+
+    > .frame-12 {
+      background: transparent;
+    }
+  }
+
+  .swr-report-opening {
+    display: flex;
+    flex-direction: column;
+    gap: $gap40;
+
+    &__title {
+      font-size: $fsize32;
+      font-weight: $fSemiBold;
+    }
+
+  }
+
+  .swr-report-recognition {
+    .aar-report-split-copy__column {
+      justify-content: center;
+    }
+
+    &__heading {
+      display: flex;
+      flex-direction: column;
+      gap: $gap8;
+
+    }
+
+    &__eyebrow {
+      padding: 0;
+      color: $gray100;
+      font-size: $fsize14;
+      font-weight: $fSemiBold;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    &__media {
+      justify-content: stretch;
+      align-self: stretch;
+      padding: 0;
+      overflow: hidden;
+      border-radius: $corners8;
+    }
+
+    &--no-image {
+      .swr-report-recognition__copy {
+        display: flex;
+        flex-direction: column;
+        gap: $gap24;
+      }
+    }
+
+    &__title {
+      font-size: $fsize32;
+      font-weight: $fSemiBold;
+      line-height: 1.2;
+
+      @include media($mobile) {
+        font-size: $fsize32;
+      }
+    }
+
+    &__body {
+      padding: 0;
+    }
+  }
+
+  .panel--stat-cards.no-card-icon {
+    .aar-report-stat-cards {
+      .cards.card-same-height {
+        .card-item {            
+          gap: $gap8;
+          border: 1px solid $gray75;
+
+          h4 {
+            margin: 0;
+          }
+
+          .card-item__icon {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  .frame-6 {
+    .panel--stat-cards {
+      .aar-report-stat-cards {
+        .cards.card-same-height {
+          .card-cont:not(.card-cont--row-stagger) {
+            grid-template-columns: 1fr;
+          }
+
+          .card-item {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: $gap8;
+
+            h4 {
+              flex: 0 0 auto;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .frame-7 {
+    .aar-report-split-copy__column {
+      justify-content: flex-end;
+    }
+
+    .swr-report-concept {
+      position: relative;
+      padding: $gap40;
+      border-radius: $corners8;
+
+      &__bg {
+        position: absolute;
+        inset: 0;
+        height: 100%;
+      }
+
+      &__content {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: $gap24;
+      }
+
+      &__content-inner {
+        display: flex;
+        flex-direction: column;
+        gap: $gap8;
+      }
+
+      &__eyebrow {
+        padding: 0;
+        color: $cyan;
+        font-size: $fsize14;
+        font-weight: $fSemiBold;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      &__title {
+        font-size: $fsize32;
+        color: $white;
+      }
+
+      &__body {
+        padding: 0;
+        max-width: 557px;
+        color: $white;
+      }
+
+      &__stat {
+        display: flex;
+        align-items: center;
+        gap: $gap8;
+        padding: $gap12 $gap20;
+        border-radius: $corners8;
+        background-color: rgba($white, 0.08);
+
+        @include media($mobile) {
+          flex-direction: column;
+          align-items: flex-start;
+          width: 100%;
+        }
+      }
+
+      &__stat-value {
+        display: inline-block;
+        font-variant-numeric: tabular-nums;
+        font-size: $fsize28;
+        font-weight: $fSemiBold;
+        color: $cyan;
+      }
+
+      &__stat-text {
+        color: $white;
+      }
+    }
+  }
+
+  .frame-8 {
+    .panel--stat-cards--feature {
+      .aar-report-stat-cards {
+        .cards.card-same-height {
+          .card-cont:not(.card-cont--row-stagger) {
+            gap: $gap16 !important;
+          }
+
+          .card-item {
+            h4 {
+              font-size: $base-fsize
+            }
+
+            .card-item__text {
+              line-height: 22px;
+            }
+
+            .card-item__accent {
+              margin-top: auto;
+              font-weight: $fSemiBold;
+              line-height: 22px;
+              color: $blue300;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .panel--mandate-table {
+    display: flex;
+    flex-direction: column;
+    gap: $gap24;
+
+    .aar-methodology__table-title {
+      font-weight: $fSemiBold;
+    }
+
+    .aar-methodology__table-subtitle {
+      padding: 0;
+      padding-bottom: $gap16;
+    }
+
+    .aar-report-data-table-wrap {
+      width: 100%;
+    }
+
+    .aar-report-data-table {
+      width: 100%;
+
+      thead th {
+        background: $black;
+        text-align: left;
+      }
+
+      thead th,
+      tbody td {
+        text-align: left;
+      }
+
+      tbody td {
+        background: transparent;
+      }
+    }
+  }
+
+  .frame-9 {
+    .panel--mandate-table {
+      .aar-report-data-table {
+        tbody tr:nth-child(2) td {
+          background: $white;
+        }
+      }
+    }
+  }
+
+  .frame-10 {
+    .swr-report-recognition__media.aar-report-split-copy__column {
+      gap: $gap40;
+    }
+
+    .swr-report-recognition__content {
+      padding: 0 $gap20;
+      border-left: 3px solid $blue300;
+
+      .swr-report-recognition__body {
+        font-size: $fsize24;
+        font-style: italic;
+        line-height: 1.5;
+      }
+    }
+  }
+
+  .frame-11 {
+    .panel--mandate-table {
+      .aar-report-data-table {
+        thead th:nth-child(n + 3),
+        tbody td:nth-child(n + 3) {
+          text-align: center;
+        }
+      }
+
+      .aar-report-data-table-footnote {
+        margin: $gap40 0 0;
+        padding: 0;
+        font-size: $fsize14;
+        line-height: 22px;
+      }
+    }
+  }
+
+  .swr-report-related {
+    display: flex;
+    flex-direction: column;
+    gap: $gap80;
+    align-items: center;
+
+    @include media($mobile) {
+      gap: $gap40;
+    }
+
+    &__intro {
+      display: flex;
+      flex-direction: column;
+      gap: $gap8;
+      text-align: center;
+    }
+
+    &__eyebrow {
+      padding: 0;
+      color: $gray100;
+      font-size: $fsize14;
+      font-weight: $fSemiBold;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    &__title {
+      font-size: $fsize32;
+      font-weight: $fSemiBold;
+      line-height: normal;
+
+      @include media($mobile) {
+        font-size: $fsize24;
+      }
+    }
+
+    &__grid {
+      display: flex;
+      gap: 57px;
+      width: 100%;
+
+      @include media($mobile) {
+        flex-direction: column;
+        gap: $gap24;
+      }
+    }
+
+    &__card {
+      display: flex;
+      border-radius: $corners8;
+      background: $white;
+
+      @include media($mobile) {
+        flex-direction: column;
+        width: 100%;
+      }
+    }
+
+    &__media {
+      flex: 0 0 170px;
+      width: 170px;
+
+      @include media($mobile) {
+        flex: none;
+        width: 100%;
+      }
+    }
+
+    &__image {
+      border-top-left-radius: $corners8;
+      border-bottom-left-radius: $corners8;
+
+      @include media($mobile) {
+        display: block;
+        width: 100%;
+        height: auto;
+        border-radius: $corners8 $corners8 0 0;
+      }
+    }
+
+    &__body {
+      display: flex;
+      flex-direction: column;
+      padding: $gap20;
+
+      @include media($mobile) {
+        width: 100%;
+      }
+    }
+
+    &__card-title {
+      font-size: $fsize20;
+      font-weight: $fSemiBold;
+      line-height: 1.5;
+      margin-bottom: $gap8;
+    }
+
+    &__card-text {
+      padding: 0;
+      font-size: $fsize14;
+      line-height: 22px;
+    }
+
+    &__link {
+      margin-top: auto;
+      color: $blue300;
+      font-size: $fsize14;
+      font-weight: $fSemiBold;
+      text-decoration: none;
+
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .aar-report-split-copy {
+    &.gap-40 {
+      gap: $gap40;
+    }
+  }
+}

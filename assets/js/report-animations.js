@@ -11,7 +11,7 @@
    * - opacity + transform only → zero layout shift (CLS = 0).
    * - IntersectionObserver + requestAnimationFrame → main-thread-friendly.
    *
-   * CSS for .aar-will-animate / .aar-visible lives in automation-anxiety-report.css.
+   * CSS for .aar-will-animate / .aar-visible lives in parallax-report.css.
    */
 
   var aarDone = false;
@@ -115,7 +115,8 @@
       '.aar-report-feature-stat-split__stat-value,' +
       '.tih-report-blue-box__stat-value,' +
       '.tih-report-fallout__card-value,' +
-      '.aar-report-graph__pie-value'
+      '.aar-report-graph__pie-value,' +
+      '.swr-report-concept__stat-value'
     ).forEach(function (el) {
       var p = parseCounter(el.textContent);
       if (!p) { return; }
@@ -131,6 +132,9 @@
 
     /* Trust in Hiring report frames */
     document.querySelectorAll('.content--trust-in-hiring > .container > [class^="frame-"], .content--trust-in-hiring > .container > [class*=" frame-"]').forEach(observe);
+
+    /* Shadow Workforce report frames */
+    document.querySelectorAll('.content--shadow-workforce > .container > .frame, .swr-report-opening').forEach(observe);
 
     /* Executive summary */
     document.querySelectorAll('.aar-executive-summary__title').forEach(observe);

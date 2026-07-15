@@ -3,13 +3,13 @@
  * Reusable report data table markup.
  *
  * @param array $args {
- *     @type string $caption      Optional table caption (screen-reader only).
- *     @type array  $columns      Column headings.
- *     @type array  $rows         Rows of cell values.
- *     @type string $wrap_class   Optional extra class on the wrapper div.
- *     @type string $table_class  Optional extra class on the table.
- *     @type array  $column_width Optional column widths as % (same length as $columns).
- *     @type string $footnote     Optional note below the table (limited HTML via wp_kses_post).
+ *     @type string $caption        Optional table caption (screen-reader only).
+ *     @type array  $columns        Column headings (string or array with label + colspan keys).
+ *     @type array  $rows           Rows of cell values, or rows with cells + optional class keys.
+ *     @type string $wrap_class     Optional extra class on the wrapper div.
+ *     @type string $table_class    Optional extra class on the table.
+ *     @type array  $column_widths  Optional body column widths as % (may exceed header count when using colspan).
+ *     @type string $footnote       Optional note below the table (limited HTML via wp_kses_post).
  * }
  */
 if ( ! defined( 'ABSPATH' ) ) {
@@ -38,14 +38,27 @@ if ( ! function_exists( 'gc_aar_report_render_data_table' ) ) {
 			return;
 		}
 
-		$column_count = count( $columns );
-		$col_equal    = $column_count > 0 ? round( 100 / $column_count, 6 ) : 100;
+		$body_column_count = count( $columns );
+		if ( ! empty( $args['column_widths'] ) ) {
+			$body_column_count = count( $args['column_widths'] );
+		} else {
+			$first_row = reset( $rows );
+			if ( is_array( $first_row ) ) {
+				if ( isset( $first_row['cells'] ) && is_array( $first_row['cells'] ) ) {
+					$body_column_count = count( $first_row['cells'] );
+				} else {
+					$body_column_count = count( $first_row );
+				}
+			}
+		}
+
+		$col_equal = $body_column_count > 0 ? round( 100 / $body_column_count, 6 ) : 100;
 
 		$widths = array();
-		if ( ! empty( $args['column_widths'] ) && count( $args['column_widths'] ) === $column_count ) {
+		if ( ! empty( $args['column_widths'] ) && count( $args['column_widths'] ) === $body_column_count ) {
 			$widths = array_map( 'floatval', $args['column_widths'] );
 		} else {
-			for ( $i = 0; $i < $column_count; $i++ ) {
+			for ( $i = 0; $i < $body_column_count; $i++ ) {
 				$widths[] = $col_equal;
 			}
 		}
@@ -73,19 +86,37 @@ if ( ! function_exists( 'gc_aar_report_render_data_table' ) ) {
 				<thead>
 					<tr>
 						<?php foreach ( $columns as $column ) : ?>
-							<th scope="col"><?php echo esc_html( $column ); ?></th>
+							<?php
+							if ( is_array( $column ) ) {
+								$label   = isset( $column['label'] ) ? (string) $column['label'] : '';
+								$colspan = isset( $column['colspan'] ) ? max( 1, (int) $column['colspan'] ) : 1;
+							} else {
+								$label   = (string) $column;
+								$colspan = 1;
+							}
+							?>
+							<th scope="col"<?php echo $colspan > 1 ? ' colspan="' . esc_attr( (string) $colspan ) . '"' : ''; ?>><?php echo esc_html( $label ); ?></th>
 						<?php endforeach; ?>
 					</tr>
 				</thead>
 				<tbody>
 					<?php foreach ( $rows as $row ) : ?>
 						<?php
-						$cells = is_array( $row ) ? $row : array();
+						$row_class = '';
+						$cells     = array();
+
+						if ( isset( $row['cells'] ) && is_array( $row['cells'] ) ) {
+							$cells     = $row['cells'];
+							$row_class = isset( $row['class'] ) ? (string) $row['class'] : '';
+						} elseif ( is_array( $row ) ) {
+							$cells = $row;
+						}
+
 						if ( empty( $cells ) ) {
 							continue;
 						}
 						?>
-						<tr>
+						<tr<?php echo $row_class ? ' class="' . esc_attr( $row_class ) . '"' : ''; ?>>
 							<?php foreach ( $cells as $cell ) : ?>
 								<td><?php echo esc_html( $cell ); ?></td>
 							<?php endforeach; ?>

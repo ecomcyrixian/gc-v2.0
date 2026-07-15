@@ -12,7 +12,8 @@
 
 $report-hero-header-offset: calc(#{$gap20} + #{$gap20} + 56px);
 
-body:has(.gc-report-automation-anxiety) {
+body:has(.gc-report-automation-anxiety),
+body:has(.gc-report-shadow-workforce) {
   header#typical {
     background: transparent;
     border-bottom: 1px solid transparent;
@@ -70,13 +71,13 @@ body:has(.gc-report-automation-anxiety) {
   }
 }
 
-.gc-report-automation-anxiety {
+.gc-report-automation-anxiety,
+.gc-report-shadow-workforce {
   --aar-font-bebas: 'Bebas Neue', 'Bebas Neue Fallback', 'Arial Narrow', Arial, sans-serif;
 
   .aar-report-hero {
     margin: calc(-1 * #{$report-hero-header-offset}) 0 0;
     padding: calc(#{$report-hero-header-offset} + 120px) 0 $gap120;
-    text-align: center;
     position: relative;
     overflow: hidden;
     color: $white;
@@ -97,7 +98,6 @@ body:has(.gc-report-automation-anxiety) {
       display: flex;
       flex-direction: column;
       gap: $gap40;
-      max-width: 1317px;
       margin: 0 auto;
 
       @include media($tablet) {
@@ -121,7 +121,6 @@ body:has(.gc-report-automation-anxiety) {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center top;
 
       @include media($mobile) {
         object-position: center center;
@@ -131,7 +130,6 @@ body:has(.gc-report-automation-anxiety) {
     &__content {
       display: flex;
       flex-direction: column;
-      align-items: center;
       gap: $gap40;
 
       @include media($tablet) {
@@ -163,6 +161,75 @@ body:has(.gc-report-automation-anxiety) {
       }
     }
 
+    &__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: $gap12;
+      padding: $gap16 $gap24;
+    }
+
+    &__stats {
+      margin: 0;
+      text-align: left;
+      width: 100%;
+
+      .card-item {
+        display: flex;
+        flex-direction: column;
+        gap: $gap10;
+        height: 100%;
+        padding: $gap24;
+        border: 1px solid rgba($white, 0.2);
+        border-radius: $corners8;
+        background: rgba($black, 0.2);
+      }
+
+      .card-item h4 {
+        margin: 0;
+        color: $cyan;
+        font-size: $fsize48;
+        font-weight: $fBold;
+        line-height: 100%;
+
+        @include media($tablet) {
+          font-size: $fsize40;
+        }
+
+        @include media($mobile) {
+          font-size: $fsize32;
+        }
+      }
+
+      .card-item__divider {
+        display: none;
+      }
+
+      .card-item p {
+        font-size: $fsize14;
+        line-height: 22px;
+        color: $white;
+        padding: 0;
+      }
+    }
+  }
+}
+
+.gc-report-automation-anxiety {
+  .aar-report-hero {
+    text-align: center;
+
+    > .container {
+      max-width: 1317px;
+    }
+
+    &__background-image {
+      object-position: center top;
+    }
+
+    &__content {
+      align-items: center;
+    }
+
     &__title {
       max-width: 1317px;
       margin: 0;
@@ -192,57 +259,6 @@ body:has(.gc-report-automation-anxiety) {
 
       @include media($mobile) {
         font-size: $base-fsize;
-      }
-    }
-
-    &__cta {
-      display: inline-flex;
-      align-items: center;
-      gap: $gap12;
-      padding: $gap16 $gap24;
-    }
-
-    &__stats {
-      margin: 0;
-      text-align: left;
-      width: 100%;
-
-
-      .card-item {
-        display: flex;
-        flex-direction: column;
-        gap: $gap10;
-        height: 100%;
-        padding: $gap24;
-        border: 1px solid rgba($white, 0.2);
-        border-radius: $corners8;
-        background: rgba($black, 0.2);
-      }
-
-      .card-item h4 {
-        margin: 0;
-        color: $cyan;
-        font-size: $fsize48;
-        font-weight: $fBold;
-
-        @include media($tablet) {
-          font-size: $fsize40;
-        }
-
-        @include media($mobile) {
-          font-size: $fsize32;
-        }
-      }
-
-      .card-item__divider {
-        display: none;
-      }
-
-      .card-item p {
-        font-size: $fsize14;
-        line-height: 22px;
-        color: $white;
-        padding: 0;
       }
     }
   }

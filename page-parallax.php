@@ -21,6 +21,14 @@ $gc_parallax_reports = array(
 		'folder'   => 'trust-in-hiring',
 		'template' => 'trust-in-hiring',
 	),
+	'shadow-workforce-report'      => array(
+		'folder'   => 'shadow-workforce',
+		'template' => 'shadow-workforce-report',
+	),
+	'rise-of-the-shadow-workforce-report' => array(
+		'folder'   => 'shadow-workforce',
+		'template' => 'shadow-workforce-report',
+	),
 );
 $gc_parallax_report = isset( $gc_parallax_reports[ $gc_parallax_slug ] )
 	? $gc_parallax_reports[ $gc_parallax_slug ]
@@ -38,7 +46,7 @@ $gc_parallax_template = $gc_parallax_slug
 	? locate_template( 'partials/reports/' . $gc_parallax_report_folder . '/' . $gc_parallax_report_template . '.php', false, false )
 	: '';
 
-if ( 'automation-anxiety-report' === $gc_parallax_slug ) {
+if ( in_array( $gc_parallax_slug, array( 'automation-anxiety-report', 'shadow-workforce-report', 'rise-of-the-shadow-workforce-report' ), true ) ) {
 	require_once get_template_directory() . '/partials/reports/automation-anxiety/shared/content.php';
 }
 

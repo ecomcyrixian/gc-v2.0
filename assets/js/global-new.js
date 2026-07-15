@@ -95,11 +95,13 @@ jQuery(document).ready(function($) {
 
 		var paginationEl = root.querySelector('.wb-swiper__pagination');
 		var total = slides.length;
+		var direction = 1;
 
 		var swiper = new Swiper(root, {
 			slidesPerView: 1,
 			spaceBetween: 0,
 			speed: 500,
+			autoHeight: false,
 			pagination: paginationEl
 				? { el: paginationEl, clickable: true }
 				: undefined,
@@ -110,14 +112,23 @@ jQuery(document).ready(function($) {
 			},
 		});
 
+		// Ping-pong: 1 → 2 → 3 → 2 → 1 (no jump from last back to first).
 		setInterval(function () {
 			if (swiper.destroyed) {
 				return;
 			}
-			if (swiper.activeIndex >= total - 1) {
-				swiper.slideTo(0, 500);
-			} else {
+			if (direction > 0) {
+				if (swiper.activeIndex >= total - 1) {
+					direction = -1;
+					swiper.slidePrev();
+				} else {
+					swiper.slideNext();
+				}
+			} else if (swiper.activeIndex <= 0) {
+				direction = 1;
 				swiper.slideNext();
+			} else {
+				swiper.slidePrev();
 			}
 		}, AUTOPLAY_MS);
 	}

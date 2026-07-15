@@ -5,9 +5,9 @@
  * No ACF; no card.php.
  */
 
-$blog_v2_whitepaper_aar_url   = home_url( '/whitepapers/automation-anxiety-report' );
-$blog_v2_whitepaper_aar_title = __( 'The 2026 Automation Anxiety Report', 'gc-v2' );
-$blog_v2_whitepaper_aar_thumb = get_template_directory_uri() . '/partials/home/whitepaper-banner/images/Whitepaper-Thumbnail-2.webp';
+$blog_v2_whitepaper_aar_url   = home_url( '/whitepapers/rise-of-the-shadow-workforce-report' );
+$blog_v2_whitepaper_aar_title = __( 'The Rise of the Shadow Workforce Report', 'gc-v2' );
+$blog_v2_whitepaper_aar_thumb = get_template_directory_uri() . '/partials/home/whitepaper-banner/images/Whitepaper-Thumbnail-3.webp';
 
 /*
  * Non-TIH whitepaper: related / random from whitepapers category (excludes TIH page). Re-enable to show a second card.

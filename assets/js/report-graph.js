@@ -181,6 +181,111 @@
 
   /* ---- init ---- */
 
+  function setFigureCardAnimationDelays(graph) {
+    graph.querySelectorAll('.aar-report-figure-card-graph__bar-item').forEach(function (item, i) {
+      item.style.setProperty('--aar-bar-delay', (i * 80) + 'ms');
+      item.style.setProperty('--aar-value-delay', (i * 80 + 900) + 'ms');
+    });
+    graph.querySelectorAll('.aar-report-figure-card-graph__row').forEach(function (row, i) {
+      row.style.setProperty('--aar-bar-delay', (i * 80) + 'ms');
+      row.style.setProperty('--aar-value-delay', (i * 80 + 750) + 'ms');
+    });
+  }
+
+  function revealFigureCardGraph(graph) {
+    if (graph.classList.contains('is-visible')) {
+      return;
+    }
+    setFigureCardAnimationDelays(graph);
+    graph.classList.add('is-visible');
+
+    setTimeout(function () {
+      graph.classList.add('is-bars-animated');
+    }, 300);
+  }
+
+  function initFigureCardGraphGSAP(graph) {
+    var isVertical = graph.classList.contains('aar-report-figure-card-graph--vertical');
+    var chart = graph.querySelector('.aar-report-figure-card-graph__chart');
+
+    if (chart && window.gsap) {
+      var fromVars = { opacity: 0 };
+      if (isVertical) { fromVars.x = 40; } else { fromVars.y = 40; }
+      gsap.set(chart, fromVars);
+    }
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) {
+            return;
+          }
+          observer.disconnect();
+          revealFigureCardGraph(graph);
+
+          if (chart && window.gsap) {
+            var toVars = { opacity: 1, duration: 0.85, ease: 'power3.out' };
+            if (isVertical) { toVars.x = 0; } else { toVars.y = 0; }
+            gsap.to(chart, toVars);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    if (chart) {
+      observer.observe(chart);
+    } else {
+      observer.observe(graph);
+    }
+  }
+
+  function initFigureCardGraphRevealFallback(graph) {
+    if (!('IntersectionObserver' in window)) {
+      revealFigureCardGraph(graph);
+      return;
+    }
+
+    var chart = graph.querySelector('.aar-report-figure-card-graph__chart');
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) {
+            return;
+          }
+          observer.disconnect();
+          revealFigureCardGraph(graph);
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    if (chart) {
+      observer.observe(chart);
+    } else {
+      observer.observe(graph);
+    }
+  }
+
+  function initFigureCardGraphs() {
+    var hasGSAP = !!(window.gsap && window.ScrollTrigger);
+
+    document.querySelectorAll('.aar-report-figure-card-graph').forEach(function (graph) {
+      var hasMotion = graph.classList.contains('aar-report-figure-card-graph--motion');
+
+      if (!hasMotion) {
+        graph.classList.add('is-visible', 'is-bars-animated');
+        return;
+      }
+
+      if (hasGSAP) {
+        initFigureCardGraphGSAP(graph);
+      } else {
+        initFigureCardGraphRevealFallback(graph);
+      }
+    });
+  }
+
   function initReportGraphs() {
     if (graphsInitialized) {
       return;
@@ -207,6 +312,8 @@
         initGraphRevealFallback(graph);
       }
     });
+
+    initFigureCardGraphs();
   }
 
   if (document.readyState === 'loading') {

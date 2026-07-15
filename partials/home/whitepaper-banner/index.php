@@ -3,12 +3,12 @@ $wb_images_uri = get_template_directory_uri() . '/partials/home/whitepaper-banne
 
 $wb_slides = array(
 	array(
-		'url'            => home_url( '/whitepapers/trust-in-hiring-report/' ),
-		'title'          => '93% of Job Seekers Are Lying. It Goes Further Than You Think.',
-		'description'    => 'Discover how to detect deception and make the hiring process faster and more reliable. From entering candidate information to receiving fully compliant background reports, every step is automated to save you time and ensure accuracy.',
-		'thumbnail'      => $wb_images_uri . '/Whitepaper-Thumbnail.webp',
-		'thumbnail_alt'  => __( 'The 2026 Trust in Hiring Report', 'GCheck v2.0' ),
-		'thumbnail_aria' => __( 'The 2026 Trust in Hiring Report', 'GCheck v2.0' ),
+		'url'            => home_url( '/whitepapers/rise-of-the-shadow-workforce-report' ),
+		'title'          => '71% of Employees Have Worked With Someone Who Wasn\'t Who They Claimed.',
+		'description'    => 'New research from 1,500 US employed adults reveals how the Shadow Workforce, the Verification Half-Life™, and the rise of ghost workers are reshaping how employers verify who\'s actually doing the work, and what HR leaders can do about it.',
+		'thumbnail'      => $wb_images_uri . '/Whitepaper-Thumbnail-3.webp',
+		'thumbnail_alt'  => __( 'Rise of the Shadow Workforce Report', 'GCheck v2.0' ),
+		'thumbnail_aria' => __( 'Rise of the Shadow Workforce Report', 'GCheck v2.0' ),
 	),
 	array(
 		'url'            => home_url( '/whitepapers/automation-anxiety-report/' ),
@@ -17,6 +17,14 @@ $wb_slides = array(
 		'thumbnail'      => $wb_images_uri . '/Whitepaper-Thumbnail-2.webp',
 		'thumbnail_alt'  => __( 'Automation Anxiety Report', 'GCheck v2.0' ),
 		'thumbnail_aria' => __( 'Automation Anxiety Report', 'GCheck v2.0' ),
+	),
+	array(
+		'url'            => home_url( '/whitepapers/trust-in-hiring-report/' ),
+		'title'          => '93% of Job Seekers Are Lying. It Goes Further Than You Think.',
+		'description'    => 'Discover how to detect deception and make the hiring process faster and more reliable. From entering candidate information to receiving fully compliant background reports, every step is automated to save you time and ensure accuracy.',
+		'thumbnail'      => $wb_images_uri . '/Whitepaper-Thumbnail.webp',
+		'thumbnail_alt'  => __( 'The 2026 Trust in Hiring Report', 'GCheck v2.0' ),
+		'thumbnail_aria' => __( 'The 2026 Trust in Hiring Report', 'GCheck v2.0' ),
 	),
 );
 ?>

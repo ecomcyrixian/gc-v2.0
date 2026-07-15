@@ -1,0 +1,41 @@
+/**
+ * Parallax reports — single CSS bundle for AAR, TIH, SWR, and future reports.
+ *
+ * Compile:
+ *   npx sass assets/css/parallax-report.scss assets/css/parallax-report.css --style=compressed --source-map
+ *
+ * Section sources live under partials/reports/{slug}/. Add new reports below.
+ */
+@import '_tools/variable';
+@import '_tools/mixins';
+
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('../fonts/bebas-neue-latin.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+// Resolved from assets/css/ (bundle output), not section partial folders.
+$aar-callout-card-bg-image: '../images/home-header-bg.jpg';
+$report-whitepaper-bg: '../images/custom-whitepaper-bg.webp';
+
+// ── Shared primitives ──────────────────────────────────────────────────────
+@import '../../partials/reports/automation-anxiety/shared/css/report-data-table';
+@import '../../partials/reports/automation-anxiety/shared/css/report-content-shared';
+
+// ── Automation Anxiety Report ──────────────────────────────────────────────
+@import '../../partials/reports/automation-anxiety/executive-summary/css/executive-summary';
+@import '../../partials/reports/automation-anxiety/page-hero/css/page-hero';
+@import '../../partials/reports/automation-anxiety/content-ai-anxiety/css/content-ai-anxiety';
+
+// ── Trust in Hiring Report ───────────────────────────────────────────────────
+@import '../../partials/reports/trust-in-hiring/page-hero/css/page-hero';
+@import '../../partials/reports/trust-in-hiring/executive-summary/css/executive-summary';
+@import '../../partials/reports/trust-in-hiring/content/css/content';
+
+// ── Shadow Workforce Report ──────────────────────────────────────────────────
+@import '../../partials/reports/shadow-workforce/page-hero/css/page-hero';
+@import '../../partials/reports/shadow-workforce/content/css/content';
+@import '../../partials/reports/shadow-workforce/content/css/figure-card-graph';

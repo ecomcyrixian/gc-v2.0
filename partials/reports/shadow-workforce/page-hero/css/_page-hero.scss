@@ -1,0 +1,88 @@
+@import '../../../../../assets/css/_tools/variable';
+@import '../../../../../assets/css/_tools/mixins';
+
+// Shadow Workforce overrides only — shared hero styles live in automation-anxiety/page-hero.
+
+.gc-report-shadow-workforce {
+  .aar-report-hero {
+    padding-bottom: $gap80;
+    text-align: left;
+
+    > .container {
+      max-width: 1085px;
+    }
+
+    &__content {
+      align-items: flex-start;
+      max-width: 551px;
+
+      @include media($tablet) {
+        max-width: 100%;
+      }
+    }
+
+    &__content-inner {
+      display: flex;
+      flex-direction: column;
+      gap: $gap24;
+      align-items: flex-start;
+    }
+
+    &__title-group {
+      display: flex;
+      flex-direction: column;
+      gap: $gap4;
+    }
+
+    &__pretitle {
+      padding: 0;
+      color: #999afe;
+      font-family: var(--aar-font-bebas);
+      font-size: $fsize48;
+
+      @include media($mobile) {
+        font-size: $fsize32;
+      }
+    }
+
+    &__title {
+      max-width: none;
+      margin: 0;
+      font-family: var(--aar-font-bebas);
+      font-size: 140px;
+      font-weight: $fRegular;
+      line-height: 148px;
+
+      @include media($mobile) {
+        font-size: $fsize56;
+        line-height: 1.05;
+      }
+    }
+
+    &__subtitle {
+      font-size: $fsize18;
+      padding: 0;
+    }
+
+    &__cta-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $gap16;
+    }
+
+    &__stats.card-same-height {
+      .card-cont:not(.card-cont--row-stagger) {
+        gap: $gap16 !important;
+      }
+
+      .card-item {
+        gap: $gap24;
+
+        p {
+          hyphens: none;
+        }
+      }
+    }
+  }
+}

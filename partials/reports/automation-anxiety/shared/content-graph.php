@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! function_exists( 'gc_aar_report_graph_get_allowed_tones' ) ) {
 	function gc_aar_report_graph_get_allowed_tones() {
-		return array( 'royal', 'cyan', 'navy', 'lavender', 'indigo', 'red', 'gray' );
+		return array( 'royal', 'cyan', 'navy', 'lavender', 'indigo', 'red', 'gray', 'black' );
 	}
 }
 
