@@ -277,3 +277,247 @@
 .custom-whitepaper-hero .trust-gap-cta__socials {
   display: flex;
 }
+
+/* Industry subpages — scoped so whitepaper variants stay unchanged */
+.custom-whitepaper-hero--industry {
+  padding: $gap80 0;
+
+  @include media($tablet) {
+    padding: $gap60 $gap20;
+  }
+
+  @include media($mobile) {
+    padding: $gap40 $gap20;
+  }
+
+  .custom-whitepaper-hero__inner {
+    max-width: 1120px;
+    display: flex;
+    flex-direction: column;
+    gap: $gap40;
+  }
+
+  .custom-whitepaper-hero__row--industry {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 94px;
+    margin-bottom: 0;
+    width: 100%;
+
+    @include media($tablet) {
+      flex-direction: column;
+      gap: $gap40;
+    }
+  }
+
+  .custom-whitepaper-hero__content {
+    flex: 0 0 546px;
+    max-width: 546px;
+
+    @include media($tablet) {
+      flex: 1 1 100%;
+      max-width: 100%;
+    }
+  }
+
+  .custom-whitepaper-hero__snippet {
+    background: transparent;
+    padding: 0;
+    color: $gray100;
+  }
+
+  .custom-whitepaper-hero__details {
+    h2 {
+      font-size: $fsize48;
+      font-weight: $fBold;
+      line-height: normal;
+
+      @include media($mobile) {
+        font-size: $fsize32;
+      }
+    }
+
+    strong{
+      color: $blue300;
+    }
+
+    p {
+      margin-top: $gap16;
+      padding: 0;
+    }
+  }
+
+  .custom-whitepaper-hero__cards {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 110px;
+    background: $white;
+    border: 1px solid $gray75;
+    border-radius: $corners8;
+    overflow: hidden;
+    gap: 0;
+
+    @include media($tablet) {
+      flex-wrap: wrap;
+      min-height: 0;
+    }
+
+    @include media($mobile) {
+      flex-direction: column;
+    }
+  }
+
+  .custom-whitepaper-hero__card {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 280px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: $gap16;
+    gap: $gap8;
+
+    &:not(:last-child) {
+      border-right: 1px solid $gray75;
+    }
+
+    @include media($tablet) {
+      flex: 1 1 calc(50% - 1px);
+      max-width: none;
+
+      &:nth-child(odd) {
+        border-right: 1px solid $gray75;
+      }
+
+      &:nth-child(even) {
+        border-right: none;
+      }
+
+      &:nth-child(n + 3) {
+        border-top: 1px solid $gray75;
+      }
+    }
+
+    @include media($mobile) {
+      flex: 1 1 100%;
+      max-width: 100%;
+      border-right: none !important;
+      border-top: 1px solid $gray75;
+
+      &:first-child {
+        border-top: none;
+      }
+    }
+  }
+
+  .custom-whitepaper-hero__card-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+
+    p {
+      padding: 0;
+    }
+  }
+
+  .custom-whitepaper-hero__card-label {
+    font-size: $fsize14;
+    font-weight: $fSemiBold;
+  }
+}
+
+/* Industry row — image + copy left, checklist cards right */
+.custom-whitepaper-hero--industry-row {
+  padding-top: 0;
+
+  .custom-whitepaper-hero__row--industry-list {
+    align-items: flex-start;
+    gap: $gap80;
+    width: 100%;
+    margin-bottom: 0;
+
+    @include media($tablet) {
+      flex-direction: column;
+      gap: $gap40;
+    }
+  }
+
+  .custom-whitepaper-hero__industry-intro {
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    gap: $gap24;
+
+    @include media($tablet) {
+      max-width: 100%;
+    }
+  }
+
+  .industry-row {
+    display: flex;
+    flex-direction: column;
+    gap: $gap24;
+
+    h2 {
+      font-size: $fsize40;
+      font-weight: $fSemiBold;
+
+      @include media($mobile) {
+        font-size: $fsize32;
+      }
+    }
+
+    p{
+      margin: 0;
+    }
+
+    strong{
+      font-weight: $fSemiBold;
+    }
+  }
+
+  .custom-whitepaper-hero__cards--list {
+    max-width: 520px;
+    flex-direction: column;
+    min-height: 0;
+    background: transparent;
+    border: none;
+    gap: $gap16;
+
+
+    @include media($tablet) {
+      max-width: 100%;
+    }
+
+    .custom-whitepaper-hero__card {
+      max-width: none;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: flex-start;
+      text-align: left;
+      gap: $gap16;
+      padding: $gap16;
+      background: $white;
+      border-radius: $corners8;
+    }
+
+    .custom-whitepaper-hero__card-label {
+      font-size: $base-fsize;
+    }
+
+    .custom-whitepaper-hero__card-details {
+      p {
+        padding: 0;
+      }
+    }
+  }
+}

@@ -41,6 +41,8 @@
 	$same_height_cards = strtolower( (string) get_sub_field( 'same_height_cards' ) ) === 'yes';
 	$is_thankyou_contact_card = is_string( $H2details ) && strpos( $H2details, 'thankyou-contact-card' ) !== false;
 	$use_thankyou_card_buttons = $is_thankyou_contact_card && $cards_clickable;
+	$is_sub_industry = is_string( $H2details ) && false !== strpos( $H2details, 'sub-industry' );
+	$is_sub_industry_auto = $is_sub_industry && false !== strpos( $H2details, 'sub-industry auto' );
 
 	if ( ! function_exists( 'gc_card_link_url_target' ) ) {
 		function gc_card_link_url_target( $link ) {
@@ -55,11 +57,44 @@
 			return array( $url, $target );
 		}
 	}
+
+	if ( ! function_exists( 'gc_card_icon_full_image' ) ) {
+		/**
+		 * Replace ACF svg_icon medium/thumbnail <img> with the full-size attachment.
+		 * Sub-industry only — other card layouts are unchanged.
+		 *
+		 * @param string $icon Raw ACF SVG/HTML icon field.
+		 * @return string
+		 */
+		function gc_card_icon_full_image( $icon ) {
+			if ( ! is_string( $icon ) || '' === $icon ) {
+				return $icon;
+			}
+			if ( ! preg_match( '/wp-image-(\d+)/', $icon, $matches ) ) {
+				return $icon;
+			}
+			$attachment_id = (int) $matches[1];
+			if ( $attachment_id < 1 ) {
+				return $icon;
+			}
+			$full_html = wp_get_attachment_image(
+				$attachment_id,
+				'full',
+				false,
+				array(
+					'alt'      => '',
+					'loading'  => 'lazy',
+					'decoding' => 'async',
+				)
+			);
+			return $full_html ? $full_html : $icon;
+		}
+	}
 ?>
 
 <?php if ( $display_selection ) : ?>
 
-<div class="cards <?php echo esc_attr( $finalSetting ); ?> <?php echo esc_attr( $snippetSetting ); ?><?php echo $is_row_layout ? ' cards--layout-row' : ''; ?><?php echo $use_whitepaper_background ? ' cards--whitepaper-bg' : ''; ?><?php echo $same_height_cards ? ' card-same-height' : ''; ?>"<?php
+<div class="cards <?php echo esc_attr( $finalSetting ); ?> <?php echo esc_attr( $snippetSetting ); ?><?php echo $is_row_layout ? ' cards--layout-row' : ''; ?><?php echo $use_whitepaper_background ? ' cards--whitepaper-bg' : ''; ?><?php echo $same_height_cards ? ' card-same-height' : ''; ?><?php echo $is_sub_industry ? ' cards--sub-industry' : ''; ?><?php echo $is_sub_industry_auto ? ' cards--sub-industry-auto' : ''; ?>"<?php
 if ( $use_whitepaper_background ) {
 	echo ' style="background-image: url(' . esc_url( $whitepaper_bg_url ) . ');"';
 }
@@ -88,7 +123,37 @@ if ( $use_whitepaper_background ) {
 			</div>
 		<?php endif; ?>
 
-		<?php if ( ! empty( $cards_data ) ) : ?>
+		<?php if ( ! empty( $cards_data ) && $is_sub_industry ) : ?>
+			<div class="card-cont cols<?php echo esc_attr( $columns ); ?>">
+				<?php foreach ( $cards_data as $card ) : ?>
+					<?php
+					$h4      = $card['h4'] ?? '';
+					$details = $card['details'] ?? '';
+					$icon    = gc_card_icon_full_image( $card['svg_icon'] ?? '' );
+					$link    = $cards_clickable ? ( $card['link'] ?? null ) : null;
+					list( $url, $target ) = gc_card_link_url_target( $link );
+					?>
+					<div>
+						<span class="featured-image">
+							<?php if ( $icon ) : ?>
+								<?php echo $icon; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- ACF SVG/HTML field. ?>
+							<?php endif; ?>
+						</span>
+						<span class="desc">
+							<?php if ( $h4 ) : ?>
+								<h4><?php echo $h4; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- ACF HTML field. ?></h4>
+							<?php endif; ?>
+							<?php echo $details; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- ACF HTML field. ?>
+							<?php if ( $cards_clickable && $url ) : ?>
+								<a href="<?php echo esc_url( $url ); ?>" target="<?php echo esc_attr( $target ); ?>">
+									<?php esc_html_e( 'Read more', 'gc-v2' ); ?>
+								</a>
+							<?php endif; ?>
+						</span>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		<?php elseif ( ! empty( $cards_data ) ) : ?>
 			<?php if ( $use_row_two_col_stagger ) : ?>
 				<?php
 				$half        = (int) ceil( count( $cards_data ) / 2 );

@@ -44,7 +44,9 @@ if ( ! $has_header && ! $has_mission && ! $has_quote ) {
 
 $heading_id = 'about-hero-heading-' . ( function_exists( 'get_row_index' ) ? (int) get_row_index() : 0 );
 
-$mission_overlap = ! $use_tagline_bg && $mission_img_url && $details_for_mission !== '';
+$is_industries = is_string( $details ) && false !== strpos( $details, 'industries-hero' );
+
+$mission_overlap = ! $use_tagline_bg && $mission_img_url && $details_for_mission !== '' && ! $is_industries;
 
 $section_labelledby = '';
 if ( $has_header && ( $h2_content || $has_hero_tagline ) ) {
@@ -57,6 +59,9 @@ if ( $has_hero_tagline ) {
 }
 if ( $use_tagline_bg ) {
 	$section_classes[] = 'about-hero--tagline-photo';
+}
+if ( $is_industries ) {
+	$section_classes[] = 'about-hero--industries';
 }
 
 $section_style_attr = '';
@@ -114,6 +119,19 @@ if ( $use_tagline_bg ) {
 			}
 			?>
 			<div class="<?php echo esc_attr( $mission_class ); ?>">
+				<?php if ( $is_industries && $mission_img_url ) : ?>
+					<div class="about-hero__mission-visual">
+						<img
+							class="about-hero__mission-img"
+							src="<?php echo esc_url( $mission_img_url ); ?>"
+							alt="<?php echo esc_attr( $mission_img_alt ); ?>"
+							<?php echo $mission_img_dim_attrs; ?>
+							loading="eager"
+							decoding="async"
+							fetchpriority="high"
+						>
+					</div>
+				<?php endif; ?>
 				<?php if ( $details_for_mission !== '' ) : ?>
 					<div class="about-hero__mission-copy">
 						<div class="about-hero__mission-body">
@@ -121,7 +139,7 @@ if ( $use_tagline_bg ) {
 						</div>
 					</div>
 				<?php endif; ?>
-				<?php if ( $mission_img_url ) : ?>
+				<?php if ( ! $is_industries && $mission_img_url ) : ?>
 					<div class="about-hero__mission-visual">
 						<img
 							class="about-hero__mission-img"

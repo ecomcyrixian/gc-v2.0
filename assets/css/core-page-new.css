@@ -278,6 +278,231 @@
   display: flex;
 }
 
+/* Industry subpages — scoped so whitepaper variants stay unchanged */
+.custom-whitepaper-hero--industry {
+  padding: 80px 0;
+}
+@media screen and (max-width: 1023px) {
+  .custom-whitepaper-hero--industry {
+    padding: 60px 20px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .custom-whitepaper-hero--industry {
+    padding: 40px 20px;
+  }
+}
+.custom-whitepaper-hero--industry .custom-whitepaper-hero__inner {
+  max-width: 1120px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.custom-whitepaper-hero--industry .custom-whitepaper-hero__row--industry {
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  gap: 94px;
+  margin-bottom: 0;
+  width: 100%;
+}
+@media screen and (max-width: 1023px) {
+  .custom-whitepaper-hero--industry .custom-whitepaper-hero__row--industry {
+    flex-direction: column;
+    gap: 40px;
+  }
+}
+.custom-whitepaper-hero--industry .custom-whitepaper-hero__content {
+  flex: 0 0 546px;
+  max-width: 546px;
+}
+@media screen and (max-width: 1023px) {
+  .custom-whitepaper-hero--industry .custom-whitepaper-hero__content {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+.custom-whitepaper-hero--industry .custom-whitepaper-hero__snippet {
+  background: transparent;
+  padding: 0;
+  color: #777E8C;
+}
+.custom-whitepaper-hero--industry .custom-whitepaper-hero__details h2 {
+  font-size: 3em;
+  font-weight: 700;
+  line-height: normal;
+}
+@media screen and (max-width: 767px) {
+  .custom-whitepaper-hero--industry .custom-whitepaper-hero__details h2 {
+    font-size: 2em;
+  }
+}
+.custom-whitepaper-hero--industry .custom-whitepaper-hero__details strong {
+  color: #4F51FD;
+}
+.custom-whitepaper-hero--industry .custom-whitepaper-hero__details p {
+  margin-top: 16px;
+  padding: 0;
+}
+.custom-whitepaper-hero--industry .custom-whitepaper-hero__cards {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 110px;
+  background: #FFFFFF;
+  border: 1px solid #CDD6E0;
+  border-radius: 8px;
+  overflow: hidden;
+  gap: 0;
+}
+@media screen and (max-width: 1023px) {
+  .custom-whitepaper-hero--industry .custom-whitepaper-hero__cards {
+    flex-wrap: wrap;
+    min-height: 0;
+  }
+}
+@media screen and (max-width: 767px) {
+  .custom-whitepaper-hero--industry .custom-whitepaper-hero__cards {
+    flex-direction: column;
+  }
+}
+.custom-whitepaper-hero--industry .custom-whitepaper-hero__card {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 280px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 16px;
+  gap: 8px;
+}
+.custom-whitepaper-hero--industry .custom-whitepaper-hero__card:not(:last-child) {
+  border-right: 1px solid #CDD6E0;
+}
+@media screen and (max-width: 1023px) {
+  .custom-whitepaper-hero--industry .custom-whitepaper-hero__card {
+    flex: 1 1 calc(50% - 1px);
+    max-width: none;
+  }
+  .custom-whitepaper-hero--industry .custom-whitepaper-hero__card:nth-child(odd) {
+    border-right: 1px solid #CDD6E0;
+  }
+  .custom-whitepaper-hero--industry .custom-whitepaper-hero__card:nth-child(even) {
+    border-right: none;
+  }
+  .custom-whitepaper-hero--industry .custom-whitepaper-hero__card:nth-child(n+3) {
+    border-top: 1px solid #CDD6E0;
+  }
+}
+@media screen and (max-width: 767px) {
+  .custom-whitepaper-hero--industry .custom-whitepaper-hero__card {
+    flex: 1 1 100%;
+    max-width: 100%;
+    border-right: none !important;
+    border-top: 1px solid #CDD6E0;
+  }
+  .custom-whitepaper-hero--industry .custom-whitepaper-hero__card:first-child {
+    border-top: none;
+  }
+}
+.custom-whitepaper-hero--industry .custom-whitepaper-hero__card-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+.custom-whitepaper-hero--industry .custom-whitepaper-hero__card-icon p {
+  padding: 0;
+}
+.custom-whitepaper-hero--industry .custom-whitepaper-hero__card-label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Industry row — image + copy left, checklist cards right */
+.custom-whitepaper-hero--industry-row {
+  padding-top: 0;
+}
+.custom-whitepaper-hero--industry-row .custom-whitepaper-hero__row--industry-list {
+  align-items: flex-start;
+  gap: 80px;
+  width: 100%;
+  margin-bottom: 0;
+}
+@media screen and (max-width: 1023px) {
+  .custom-whitepaper-hero--industry-row .custom-whitepaper-hero__row--industry-list {
+    flex-direction: column;
+    gap: 40px;
+  }
+}
+.custom-whitepaper-hero--industry-row .custom-whitepaper-hero__industry-intro {
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+@media screen and (max-width: 1023px) {
+  .custom-whitepaper-hero--industry-row .custom-whitepaper-hero__industry-intro {
+    max-width: 100%;
+  }
+}
+.custom-whitepaper-hero--industry-row .industry-row {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.custom-whitepaper-hero--industry-row .industry-row h2 {
+  font-size: 2.5em;
+  font-weight: 600;
+}
+@media screen and (max-width: 767px) {
+  .custom-whitepaper-hero--industry-row .industry-row h2 {
+    font-size: 2em;
+  }
+}
+.custom-whitepaper-hero--industry-row .industry-row p {
+  margin: 0;
+}
+.custom-whitepaper-hero--industry-row .industry-row strong {
+  font-weight: 600;
+}
+.custom-whitepaper-hero--industry-row .custom-whitepaper-hero__cards--list {
+  max-width: 520px;
+  flex-direction: column;
+  min-height: 0;
+  background: transparent;
+  border: none;
+  gap: 16px;
+}
+@media screen and (max-width: 1023px) {
+  .custom-whitepaper-hero--industry-row .custom-whitepaper-hero__cards--list {
+    max-width: 100%;
+  }
+}
+.custom-whitepaper-hero--industry-row .custom-whitepaper-hero__cards--list .custom-whitepaper-hero__card {
+  max-width: none;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+  gap: 16px;
+  padding: 16px;
+  background: #FFFFFF;
+  border-radius: 8px;
+}
+.custom-whitepaper-hero--industry-row .custom-whitepaper-hero__cards--list .custom-whitepaper-hero__card-label {
+  font-size: 16px;
+}
+.custom-whitepaper-hero--industry-row .custom-whitepaper-hero__cards--list .custom-whitepaper-hero__card-details p {
+  padding: 0;
+}
+
 /*
 * Template variables and Revised Article
 * Last update of 05.19.25
@@ -483,6 +708,89 @@
   .about-hero__quote-wrap p {
     font-size: 32px;
   }
+}
+.about-hero--industries {
+  padding-top: 20px;
+  padding-bottom: 0;
+  margin-bottom: 80px;
+  overflow: visible;
+}
+@media screen and (max-width: 767px) {
+  .about-hero--industries {
+    margin-bottom: 60px;
+    margin-top: 60px;
+  }
+}
+.about-hero--industries .about-hero__inner.container {
+  max-width: 1315px;
+}
+.about-hero--industries .about-hero__mission-copy {
+  max-width: 1096px;
+  margin: -146px auto 0;
+  text-align: center;
+}
+@media screen and (max-width: 1023px) {
+  .about-hero--industries .about-hero__mission-copy {
+    margin-top: -80px;
+    padding: 60px 24px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .about-hero--industries .about-hero__mission-copy {
+    margin-top: -40px;
+    padding: 40px 20px;
+  }
+}
+.about-hero--industries .industries-hero {
+  gap: 60px;
+}
+@media screen and (max-width: 767px) {
+  .about-hero--industries .industries-hero {
+    gap: 40px;
+  }
+}
+.about-hero--industries .industries {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  max-width: 540px;
+}
+.about-hero--industries .industries .snippet {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4F51FD;
+}
+.about-hero--industries .industries h2 {
+  line-height: 1.2;
+}
+.about-hero--industries .industries h2 span {
+  display: inline;
+  color: #4F51FD;
+}
+.about-hero--industries .industries-quote {
+  max-width: 1016px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+.about-hero--industries .industries-quote p {
+  padding: 0;
+  line-height: 1.5;
+}
+.about-hero--industries .industries-quote__attribution {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.about-hero--industries .industries-quote__role {
+  font-weight: 600;
+}
+.about-hero--industries .industries-quote__industry {
+  font-size: 14px;
 }
 
 /*
@@ -1209,9 +1517,6 @@ body.page .dark-box.relevant-products li {
 }
 body.page .dark-box.relevant-products li:before {
   display: none;
-}
-body.page .dark-box.relevant-products.dark {
-  padding-top: 0 !important;
 }
 body.page .fundamentals.cards {
   margin: 0;

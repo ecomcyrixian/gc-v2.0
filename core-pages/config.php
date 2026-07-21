@@ -26,7 +26,12 @@
         
         // Case: Card Widget
         elseif( get_row_layout() == 'card' ):
-            get_template_part( 'core-pages/cards/card' );
+            $gc_card_layout = strtolower( str_replace( ' ', '_', trim( (string) get_sub_field( 'layout' ) ) ) );
+            if ( 'grid' === $gc_card_layout ) {
+                get_template_part( 'core-pages/cards/card-link-grid' );
+            } else {
+                get_template_part( 'core-pages/cards/card' );
+            }
         
         // Case: Card Image Widget
         elseif( get_row_layout() == 'card_image' ):

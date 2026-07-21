@@ -30,6 +30,12 @@
 }
 
 #faq.faq--collapsible {
+    &:has(.faq-collabsible.full) {
+        > .container {
+            max-width: 1000px;
+        }
+    }
+
     .heading {
         max-width: 800px;
         margin: 0 auto;
@@ -38,7 +44,7 @@
 
         h2 span {
             margin-bottom: $gap8;
-            letter-spacing: 16%;
+            letter-spacing: 0.12em;
         }
 
         @include media($mobile) {
@@ -46,12 +52,34 @@
         }
     }
 
-    .faq-collabsible {
+    &:has(.faq-collabsible.full) .heading {
+        max-width: 1000px;
+        padding-top: $gap80;
+        padding-bottom: $gap40;
+    }
+
+    .faq-collabsible.full {
         margin-top: $gap8;
+        font-size: $fsize40;
+        font-weight: $fSemiBold;
+        line-height: 1.2;
+        color: $gray300;
+
+        span {
+            display: inline;
+            color: $blue300;
+            font-size: inherit;
+            font-weight: inherit;
+            text-transform: none;
+        }
+
+        @include media($mobile) {
+            font-size: $fsize32;
+        }
     }
 
     .card-cont {
-        gap: $gap16 $gap40;
+        gap: $gap16;
         align-items: flex-start;
 
         @include media($mobile) {
@@ -65,6 +93,10 @@
                 width: 100%;
             }
         }
+    }
+
+    &:has(.faq-collabsible.full) .card-cont.cols2 > .faq-card {
+        width: 100%;
     }
 
     .faq-card {

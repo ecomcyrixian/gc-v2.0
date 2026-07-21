@@ -186,4 +186,96 @@
     }
   }
 
+  &--industries {
+    padding-top: $gap20;
+    padding-bottom: 0;
+    margin-bottom: $gap80;
+    overflow: visible;
+
+    @include media($mobile) {
+      margin-bottom: $gap60;
+      margin-top: $gap60;
+    }
+
+    .about-hero__inner.container {
+      max-width: 1315px;
+    }
+
+    .about-hero__mission-copy {
+      max-width: 1096px;
+      margin: -146px auto 0;
+      text-align: center;
+      
+      @include media($tablet) {
+        margin-top: -$gap80;
+        padding: $gap60 $gap24;
+      }
+
+      @include media($mobile) {
+        margin-top: -$gap40;
+        padding: $gap40 $gap20;
+      }
+    }
+
+    .industries-hero {
+      gap: $gap60;
+
+      @include media($mobile) {
+        gap: $gap40;
+      }
+    }
+
+    .industries {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: $gap8;
+      max-width: 540px;
+
+      .snippet {
+        font-size: $fsize14;
+        font-weight: $fSemiBold;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: $blue300;
+      }
+
+      h2 {
+        line-height: 1.2;
+
+        span {
+          display: inline;
+          color: $blue300;
+        }
+      }
+    }
+
+    .industries-quote {
+      max-width: 1016px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: $gap40;
+
+      p {
+        padding: 0;
+        line-height: 1.5;
+      }
+    }
+
+    .industries-quote__attribution {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .industries-quote__role {
+      font-weight: $fSemiBold;
+    }
+
+    .industries-quote__industry {
+      font-size: $fsize14;
+    }
+  }
+
 }
