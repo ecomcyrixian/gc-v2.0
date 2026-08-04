@@ -357,6 +357,11 @@ header#home > .container > div h1 {
   padding: 0 8px;
 }
 @media screen and (max-width: 767px) {
+  header#home > .container > div h1 .home-br-desktop {
+    display: none;
+  }
+}
+@media screen and (max-width: 767px) {
   header#home > .container > div h1 {
     font-size: 2.5em;
   }
@@ -369,6 +374,11 @@ header#home > .container > div > .header-subtitle-container {
   gap: 24px;
   margin: 0 auto 24px;
   width: 100%;
+}
+@media screen and (max-width: 767px) {
+  header#home > .container > div > .header-subtitle-container {
+    gap: 8px;
+  }
 }
 header#home > .container > div > .header-subtitle-container .header-subtitle-pill {
   margin: 0;
@@ -387,6 +397,11 @@ header#home > .container > div > .header-subtitle-container .header-subtitle-pil
 @media screen and (max-width: 767px) {
   header#home > .container > div > .header-subtitle-container .header-subtitle-pill > span {
     font-size: 1.25em;
+  }
+}
+@media screen and (max-width: 767px) {
+  header#home > .container > div > .header-subtitle-container .header-subtitle-pill {
+    gap: 4px;
   }
 }
 header#home > .container > div p {

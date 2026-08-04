@@ -118,6 +118,11 @@ header{
                 transform: skew(-8deg);
                 padding: 0 $gap8;
 
+                .home-br-desktop{
+                    @include media($mobile){
+                        display: none;
+                    }
+                }
 
                 @include media($mobile){
                     font-size: $fsize40;
@@ -132,6 +137,10 @@ header{
                 gap: $gap24;
                 margin: 0 auto $gap24;
                 width: 100%;
+
+                @include media($mobile){
+                    gap: $gap8;
+                }
 
                 .header-subtitle-pill{
                     margin: 0;
@@ -150,6 +159,10 @@ header{
                         @include media($mobile){
                             font-size: $fsize20;
                         }
+                    }
+
+                    @include media($mobile){
+                        gap: $gap4;
                     }
                 }
             }
