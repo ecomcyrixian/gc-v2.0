@@ -29,6 +29,10 @@ body.single-post {
     padding: $gap100 0 $gap120 0;
     align-items: start;
 
+    &--no-left {
+        grid-template-columns: 1fr 288px;
+    }
+
     @include media($tablet) {
         grid-template-columns: 1fr;
         gap: $gap20;

@@ -2701,6 +2701,9 @@ body.single-post {
   padding: 100px 0 120px 0;
   align-items: start;
 }
+.blog-v2-layout--no-left {
+  grid-template-columns: 1fr 288px;
+}
 @media screen and (max-width: 1023px) {
   .blog-v2-layout {
     grid-template-columns: 1fr;

@@ -3,11 +3,13 @@
 
 #faq{
     // margin-bottom: $gap120;
-    h4{
-        margin: 0;
-    }
+    
     &.cards p{
         font-size: $base-fsize;       
+    }
+
+    .faq-card p:empty {
+        padding-bottom: 0;
     }
 
     ul li{
