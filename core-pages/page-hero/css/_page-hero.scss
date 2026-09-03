@@ -762,8 +762,13 @@
     }
   }
 
-  .text-only:has(.process-flow.industry) .heading {
+  .text-only:has(.process-flow) .heading {
     display: none;
+  }
+
+  &.Center:has(.process-flow:not(.industry)) {
+    margin-bottom: 0;
+    padding-bottom: 0;
   }
 
   .value-props {

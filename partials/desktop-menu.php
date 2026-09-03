@@ -122,14 +122,14 @@ HTML;
             <div class="hamburger-flyout__nav">
                 <h3 class="hamburger-section-label">Quick links</h3>
                 <ul class="hamburger-links">
-                    <!-- <li>
+                    <li>
                         <a href="<?php echo esc_url( home_url('/industry/') ); ?>" target="_parent">
                             <svg class="quick-link-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                 <path d="M10 16L14 12L10 8" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                             <span>Industries</span>
                         </a>
-                    </li> -->
+                    </li>
                     <li>
                         <a href="<?php echo esc_url( home_url('/integrations/') ); ?>" target="_parent">
                             <svg class="quick-link-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
