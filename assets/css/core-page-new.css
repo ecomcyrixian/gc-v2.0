@@ -1234,6 +1234,11 @@
   margin-top: 16px;
   justify-content: center;
 }
+#pricing.pricing-page .pricing-trust .copyright-badges .soc2-badge img,
+#pricing.pricing-page .pricing-trust .copyright-badges .hpaa-badge img {
+  width: 95px;
+  height: auto;
+}
 #pricing.pricing-page .pricing-trust .copyright-badges .pbsa-badge img {
   width: 116px;
   height: auto;

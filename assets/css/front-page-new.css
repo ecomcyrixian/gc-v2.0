@@ -83,6 +83,7 @@
   width: 10px;
   height: 10px;
   margin: 0 !important;
+  border-radius: 50%;
   opacity: 1;
   background: #777E8C;
   transition: background-color 0.2s ease, transform 0.2s ease;
@@ -537,7 +538,7 @@
 /* font family weight */
 /* media query */
 #key-features {
-  margin-bottom: 0;
+  margin-bottom: 80px;
 }
 
 #key-features.cards .heading {
@@ -1193,6 +1194,11 @@
   margin-top: 16px;
   justify-content: center;
 }
+#pricing.pricing-page .pricing-trust .copyright-badges .soc2-badge img,
+#pricing.pricing-page .pricing-trust .copyright-badges .hpaa-badge img {
+  width: 95px;
+  height: auto;
+}
 #pricing.pricing-page .pricing-trust .copyright-badges .pbsa-badge img {
   width: 116px;
   height: auto;
@@ -1610,6 +1616,11 @@
   margin-top: 16px;
   justify-content: center;
 }
+#pricing.pricing-section--home .pricing-trust .copyright-badges .soc2-badge img,
+#pricing.pricing-section--home .pricing-trust .copyright-badges .hpaa-badge img {
+  width: 95px;
+  height: auto;
+}
 #pricing.pricing-section--home .pricing-trust .copyright-badges .pbsa-badge img {
   width: 116px;
   height: auto;
@@ -1819,12 +1830,10 @@
 /* media query */
 .floating-cta-btn {
   position: fixed;
-  right: 0;
-  top: 85%;
-  transform: translateY(-50%);
-  z-index: 9999;
-  margin: 0 20px;
-  padding: 4px 16px;
+  right: 28px;
+  bottom: calc(160px + env(safe-area-inset-bottom, 0px));
+  z-index: 9990;
+  padding: 6px 16px;
   border-radius: 100px;
   background-color: #4F51FD;
   color: #FFFFFF;
@@ -1837,6 +1846,12 @@
 .floating-cta-btn:hover {
   background-color: #6D6FFD;
   color: #FFFFFF;
+}
+@media screen and (max-width: 575px) {
+  .floating-cta-btn {
+    right: 16px;
+    bottom: calc(132px + env(safe-area-inset-bottom, 0px));
+  }
 }
 
 /*# sourceMappingURL=front-page-new.css.map */

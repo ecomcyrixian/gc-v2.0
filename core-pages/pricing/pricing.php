@@ -36,10 +36,9 @@ $pricing_plans = array(
         'name'        => 'Basic',
         'badge'       => '',
         'description' => 'The non-negotiables, covered. Built for speed, compliance, and everyday hiring.',
-        'price'       => '$24.95',
+        'price'       => '$19.95',
         'cta_class'   => 'white',
         'features'    => array(
-            array( 'label' => 'Biometric Identity Verification' ),
             array( 'label' => 'SSN Trace and Address History' ),
             array( 'label' => 'National Criminal Database Search' ),
             array( 'label' => 'Nationwide Sex Offender Registry Search' ),
@@ -57,7 +56,7 @@ $pricing_plans = array(
         'badge'       => 'Most Popular',
         'badge_style' => 'popular',
         'description' => 'Everything in Basic, plus county-level criminal searches across a candidate\'s full address history.',
-        'price'       => '$44.95',
+        'price'       => '$39.95',
         'cta_class'   => 'blue',
         'features'    => array(
             array( 'label' => 'Biometric Identity Verification' ),
@@ -80,7 +79,7 @@ $pricing_plans = array(
         'badge'       => 'Recommended',
         'badge_style' => 'recommended',
         'description' => 'Adds federal court searches on top of full county coverage. Built for regulated industries and high-trust roles.',
-        'price'       => '$64.95',
+        'price'       => '$49.95',
         'cta_class'   => 'white',
         'features'    => array(
             array( 'label' => 'Biometric Identity Verification' ),
@@ -129,7 +128,6 @@ $quote_features = array(
             <div class="pricing-header__content">
                 <p class="pricing-header__eyebrow">Background Check Pricing</p>
                 <<?php echo esc_html( $heading_tag ); ?> class="pricing-header__title">Pay Per Screen. No Surprises.</<?php echo esc_html( $heading_tag ); ?>>
-                <p class="pricing-header__subtitle">Biometric identity verification included in all packages.</p> 
             </div>
             <div class="pricing-header__pills">
                 <?php foreach ( $hero_pills as $pill ) : ?>
@@ -232,6 +230,12 @@ $quote_features = array(
             <div class="pricing-trust__cta"><a href="<?php echo esc_url( $contact_url ); ?>">Contact us</a> to build a package that meets your needs.</div>
 
             <div class="copyright-badges">
+                <span class="soc2-badge">
+                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/soc2.png' ); ?>" alt="SOC 2 Type 2 Certification" width="100" height="100" loading="lazy" decoding="async">
+                </span>
+                <span class="hpaa-badge">
+                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/hpaa.png' ); ?>" alt="HIPAA Accreditations" width="100" height="100" loading="lazy" decoding="async">
+                </span>
                 <span class="pbsa-badge">
                     <a href="https://credential.thepbsa.org/114492a9-638f-4bc4-bda1-bd465b3a5c2b#acc.Pw2lZ9sL" target="_blank" rel="noopener noreferrer">
                         <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/PBSA logo.png' ); ?>" alt="PBSA" width="100" height="100" loading="lazy" decoding="async">

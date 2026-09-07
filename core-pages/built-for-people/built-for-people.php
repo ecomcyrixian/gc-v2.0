@@ -50,6 +50,14 @@ if ( $base ) {
 					$heading = isset( $card['h4'] ) ? $card['h4'] : '';
 					$card_details = isset( $card['details'] ) ? $card['details'] : '';
 					$svg_icon = isset( $card['svg_icon'] ) ? $card['svg_icon'] : '';
+					if ( is_string( $svg_icon ) ) {
+						$svg_icon = trim( $svg_icon );
+						if ( $svg_icon !== '' && false === stripos( $svg_icon, '<svg' ) && false !== stripos( $svg_icon, '&lt;svg' ) ) {
+							$svg_icon = html_entity_decode( $svg_icon, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
+						}
+					} else {
+						$svg_icon = '';
+					}
 					$icon_img  = isset( $card['icon'] ) ? $card['icon'] : null;
 					$icon_url  = '';
 					if ( $icon_img && function_exists( 'gc_get_acf_image_src' ) ) {
@@ -67,9 +75,9 @@ if ( $base ) {
 								<div class="built-for-people__card-icon">
 									<img src="<?php echo esc_url( $icon_url ); ?>" alt="" <?php echo $icon_dim_attrs; ?>loading="lazy" decoding="async">
 								</div>
-							<?php elseif ( ! empty( $svg_icon ) ) : ?>
+							<?php elseif ( $svg_icon !== '' ) : ?>
 								<div class="built-for-people__card-icon built-for-people__card-icon--svg">
-									<?php echo wp_kses_post( $svg_icon ); ?>
+									<?php echo $svg_icon; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- ACF SVG/HTML field. ?>
 								</div>
 							<?php endif; ?>
 							<?php if ( $heading ) : ?>

@@ -422,6 +422,14 @@
             margin-top: $gap16;
             justify-content: center;
 
+            .soc2-badge,
+            .hpaa-badge {
+                img {
+                    width: 95px;
+                    height: auto;
+                }
+            }
+
             .pbsa-badge {
                 img {
                     width: 116px;

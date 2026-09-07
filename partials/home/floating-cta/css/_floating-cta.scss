@@ -1,14 +1,19 @@
 @import '../../../../assets/css/_tools/variable';
 @import '../../../../assets/css/_tools/mixins';
 
+
+$chat-widget-height: 120px;
+$chat-widget-inset: 28px;
+$chat-widget-inset-sm: 0px;
+$chat-widget-gap: 12px;
+$chat-widget-breakpoint: 575px; 
+
 .floating-cta-btn {
     position: fixed;
-    right: 0;
-    top: 85%;
-    transform: translateY(-50%);
-    z-index: 9999;
-    margin: 0 20px;
-    padding: 4px 16px;
+    right: $chat-widget-inset;
+    bottom: calc(#{$chat-widget-inset + $chat-widget-height + $chat-widget-gap} + env(safe-area-inset-bottom, 0px));
+    z-index: 9990; 
+    padding: 6px 16px;
     border-radius: 100px;
     background-color: $blue300;
     color: $white;
@@ -21,5 +26,10 @@
     &:hover {
         background-color: $blue200;
         color: $white;
+    }
+
+    @include media($chat-widget-breakpoint) {
+        right: 16px;
+        bottom: calc(#{$chat-widget-inset-sm + $chat-widget-height + $chat-widget-gap} + env(safe-area-inset-bottom, 0px));
     }
 }
