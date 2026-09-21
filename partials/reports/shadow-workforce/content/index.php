@@ -634,7 +634,7 @@ $methodology_rows = array(
 						<div class="swr-report-related__media">
 							<?php
 							gc_aar_report_render_image(
-								$swr_img( 'frame-9.webp', __( 'The 2026 Trust in Hiring Report cover', 'gc-v2' ) ),
+								$swr_img( 'frame-9.png', __( 'The 2026 Trust in Hiring Report cover', 'gc-v2' ) ),
 								'swr-report-related__image'
 							);
 							?>
@@ -655,7 +655,7 @@ $methodology_rows = array(
 						<div class="swr-report-related__media">
 							<?php
 							gc_aar_report_render_image(
-								$swr_img( 'frame-10.webp', __( 'The Automation Anxiety Report 2026 cover', 'gc-v2' ) ),
+								$swr_img( 'frame-10.png', __( 'The Automation Anxiety Report 2026 cover', 'gc-v2' ) ),
 								'swr-report-related__image'
 							);
 							?>

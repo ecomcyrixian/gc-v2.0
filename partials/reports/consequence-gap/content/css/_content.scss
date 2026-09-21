@@ -1,0 +1,368 @@
+@import '../../../../../assets/css/_tools/variable';
+@import '../../../../../assets/css/_tools/mixins';
+
+// Consequence Gap overrides only — split copy, quote and image primitives live in
+// automation-anxiety/shared/css/_report-content-shared.scss.
+
+.gc-report-consequence-gap {
+  .cgr-report-br-desktop {
+    @include media($tablet) {
+      display: none;
+    }
+  }
+
+  .cgr-report-br-mobile {
+    display: none;
+
+    @include media($mobile) {
+      display: inline;
+    }
+  }
+
+  .content.content--consequence-gap {
+    > .container {
+      margin: 0 auto;
+      max-width: 1096px;
+      padding: $gap80 0;
+      display: flex;
+      flex-direction: column;
+      gap: $gap80;
+
+      @include media($tablet) {
+        padding: $gap80 $gap20;
+      }
+
+      @include media($mobile) {
+        padding: $gap60 $gap16;
+        gap: $gap40;
+      }
+
+      > .frame {
+        display: flex;
+        flex-direction: column;
+        gap: $gap40;
+      }
+    }
+  }
+
+  .cgr-report-opening {
+    display: flex;
+    flex-direction: column;
+    gap: $gap40;
+
+    &__heading {
+      display: flex;
+      flex-direction: column;
+      gap: $gap8;
+    }
+
+    &__eyebrow {
+      padding: 0;
+      color: $gray100;
+      font-size: $fsize14;
+      font-weight: $fSemiBold;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    &__title {
+      font-size: $fsize32;
+      line-height: normal;
+    }
+
+    .aar-report-split-copy:has(> .cgr-report-opening__media) {
+      .aar-report-split-copy__column {
+        flex: 1 1 auto;
+        width: auto;
+        max-width: none;
+      }
+
+      .cgr-report-opening__media {
+        flex: 0 0 340px;
+
+        @include media($tablet) {
+          flex: 1 1 auto;
+        }
+      }
+    }
+
+    &__graph {
+      justify-content: flex-end;
+
+      .aar-report-figure-card-graph__title-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    .cgr-report-premise {
+      gap: $gap40;
+    }
+
+    .cgr-report-premise__intro {
+      display: flex;
+      flex-direction: column;
+      gap: $gap24;
+
+      p {
+        padding: 0;
+      }
+    }
+
+    .cgr-report-definition {
+      display: flex;
+      flex-direction: column;
+      gap: $gap4;
+
+      p {
+        padding: 0;
+      }
+    }
+
+    .cgr-report-definition__title {
+      font-size: $fsize24;
+      font-weight: $fSemiBold;
+    }
+
+    .cgr-report-feature {
+      padding: $gap40;
+      min-height: 500px;
+      border-radius: $corners8;
+      color: $white;
+    }
+
+    .cgr-report-stat-callout {
+      display: flex;
+      align-items: center;
+      gap: $gap24;
+      padding: $gap20;
+      border: 1px solid #999AFE;
+      border-radius: $corners8;
+      background-color: $blue50;
+
+      @include media($mobile) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: $gap16;
+      }
+
+      p {
+        padding: 0;
+      }
+    }
+
+    .cgr-report-stat-callout__value {
+      font-size: 64px;
+      font-weight: $fSemiBold;
+      line-height: 125%;
+    }
+
+    .cgr-report-journey {
+      display: flex;
+      gap: $gap8;
+
+      @include media($tablet) {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+
+    .cgr-report-journey__step {
+      display: flex;
+      flex-direction: column;
+      gap: $gap8;
+      flex: 1 1 0;
+      min-width: 0;
+      padding: $gap20;
+      border: 1px solid $gray75;
+      border-radius: $corners8;
+      background-color: $white;
+
+      p {
+        padding: 0;
+      }
+    }
+
+    .cgr-report-journey__title {
+      font-size: $fsize18;
+      font-weight: $fSemiBold;
+    }
+
+    .cgr-report-journey__step--dark {
+      background-color: #363C3F;
+      border-color: $gray75;
+      color: $white;
+    }
+
+    .cgr-report-journey__arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+
+      @include media($tablet) {
+        transform: rotate(90deg);
+        align-self: center;
+      }
+    }
+
+    .cgr-report-feature__panel {
+      display: flex;
+      flex-direction: column;
+      gap: $gap24;
+      max-width: 472px;
+
+      @include media($tablet) {
+        max-width: 100%;
+      }
+
+      p {
+        padding: 0;
+      }
+    }
+
+    &__quote {
+      text-align: center;
+    }
+  }
+
+  .cgr-report-methodology {
+    .aar-report-data-table {
+      thead th,
+      tbody td {
+        text-align: left;
+        vertical-align: top;
+      }
+
+      tbody tr:nth-child(odd) td {
+        background: $gray50;
+      }
+    }
+  }
+
+  .cgr-report-notes,
+  .cgr-report-references {
+    display: flex;
+    flex-direction: column;
+    gap: $gap8;
+
+    p {
+      padding: 0;
+    }
+  }
+
+  .cgr-report-notes__title {
+    font-size: $fsize18;
+    font-weight: $fSemiBold;
+  }
+
+  .cgr-report-notes__framing {
+    padding: 0;
+  }
+
+  .cgr-report-references {
+    .cgr-report-references__item {
+      font-size: $fsize14;
+      line-height: 22px;
+    }
+
+    a {
+      color: $blue300;
+      text-decoration: underline;
+    }
+  }
+
+  .cgr-report-bottom-line {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    padding: $gap80 0;
+    background-color: $gray75;
+
+    @include media($mobile) {
+      padding: $gap60 0;
+    }
+
+    &__inner {
+      display: flex;
+      flex-direction: column;
+      gap: $gap24;
+      margin: 0 auto;
+      max-width: 880px;
+
+      @include media($mobile) {
+        max-width: 100%;
+        padding: 0 $gap24;
+      }
+
+      p {
+        padding: 0;
+      }
+    }
+  }
+
+  .cgr-report-related {
+    &__intro {
+      display: flex;
+      flex-direction: column;
+      gap: $gap8;
+      max-width: 800px;
+
+      @include media($mobile) {
+        max-width: 100%;
+      }
+    }
+
+    &__grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: $gap24;
+
+      @include media($tablet) {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    &__card {
+      display: flex;
+      flex-direction: column;
+      border-radius: $corners8;
+    }
+
+    &__body {
+      display: flex;
+      flex-direction: column;
+      gap: $gap24;
+      flex: 1 1 auto;
+      padding: $gap20;
+      background-color: $white;
+    }
+
+    &__card-title {
+      font-size: $fsize20;
+      font-weight: $fSemiBold;
+      line-height: 1.5;
+      margin-bottom: $gap8;
+    }
+
+    &__card-text {
+      padding: 0;
+      font-size: $fsize14;
+    }
+
+    &__link {
+      color: $blue300;
+      font-size: $fsize14;
+      font-weight: $fSemiBold;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: $gap8;
+      margin-top: auto;
+
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+  }
+}

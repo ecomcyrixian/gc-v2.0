@@ -2,6 +2,14 @@
 $wb_images_uri = get_template_directory_uri() . '/partials/home/whitepaper-banner/images';
 
 $wb_slides = array(
+	// array(
+	// 	'url'            => home_url( '/whitepapers/consequence-gap-report/' ),
+	// 	'title'          => '61% of Toxic<br>Colleagues Face<br>No Real<br>Consequences.',
+	// 	'description'    => 'New research from 1,500 US workers reveals what happens when toxic behavior goes unchecked, from employee turnover and eroding trust to bad habits spreading across teams and workplaces.',
+	// 	'thumbnail'      => $wb_images_uri . '/Whitepaper-Thumbnail-4.png',
+	// 	'thumbnail_alt'  => __( 'The 2026 Consequence Gap Report', 'GCheck v2.0' ),
+	// 	'thumbnail_aria' => __( 'The 2026 Consequence Gap Report', 'GCheck v2.0' ),
+	// ),
 	array(
 		'url'            => home_url( '/whitepapers/rise-of-the-shadow-workforce-report' ),
 		'title'          => '71% of Employees Have Worked With Someone Who Wasn\'t Who They Claimed.',

@@ -47,6 +47,12 @@
     });
   }
 
+  /* Consequence Gap keeps its cards static — only graphs animate on scroll. */
+  function isStaticCard(el) {
+    if (!el.closest('.gc-report-consequence-gap')) { return false; }
+    return !!el.closest('.card-item') && !el.closest('.aar-report-graph');
+  }
+
   /* ── Shared IntersectionObservers ────────────────────────────────────── */
 
   /* Fade observer: fires at 12% visibility, adds .aar-visible */
@@ -118,6 +124,7 @@
       '.aar-report-graph__pie-value,' +
       '.swr-report-concept__stat-value'
     ).forEach(function (el) {
+      if (isStaticCard(el)) { return; }
       var p = parseCounter(el.textContent);
       if (!p) { return; }
       el.dataset.aarTarget = p.n;
@@ -133,8 +140,14 @@
     /* Trust in Hiring report frames */
     document.querySelectorAll('.content--trust-in-hiring > .container > [class^="frame-"], .content--trust-in-hiring > .container > [class*=" frame-"]').forEach(observe);
 
-    /* Shadow Workforce report frames */
-    document.querySelectorAll('.content--shadow-workforce > .container > .frame, .swr-report-opening').forEach(observe);
+    /* Shadow Workforce report frames — frames 11/12 sit outside .container */
+    document.querySelectorAll('.content--shadow-workforce > .container > .frame, .content--shadow-workforce > .frame, .swr-report-opening').forEach(observe);
+
+    /* Consequence Gap report frames */
+    document.querySelectorAll('.content--consequence-gap > .container > .frame').forEach(observe);
+
+    /* Closing download + share CTA (every report) */
+    document.querySelectorAll('.aar-report-footer-cta .custom-whitepaper-hero__content-inner').forEach(observe);
 
     /* Executive summary */
     document.querySelectorAll('.aar-executive-summary__title').forEach(observe);
@@ -155,6 +168,7 @@
     document.querySelectorAll('.aar-report-stat-cards').forEach(function (container) {
       var header = container.querySelector('.aar-report-stat-cards__header');
       if (header) { observe(header); }
+      if (container.closest('.gc-report-consequence-gap')) { return; }
       observeGroup(container, '.card-item', 0.05);
     });
 

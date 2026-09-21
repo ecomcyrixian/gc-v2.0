@@ -28,6 +28,9 @@ if ( $cwp_pdf_use_viewer ) {
 	$cwp_btn_href = $cwp_pdf_view_url;
 }
 
+$cwp_cta_note     = isset( $cwp_cta_note ) ? (string) $cwp_cta_note : '';
+$cwp_cta_footnote = isset( $cwp_cta_footnote ) ? (string) $cwp_cta_footnote : '';
+
 $cwp_trust_parts = array(
 	'custom-whitepaper-hero__trust-gap',
 	$cwp_image_class,
@@ -58,6 +61,9 @@ $cwp_trust_gap_classes = implode( ' ', $cwp_trust_parts );
 							</svg>
 							<?php esc_html_e( 'Download the Report', 'gc-v2' ); ?>
 						</a>
+						<?php if ( $cwp_cta_note ) : ?>
+							<p class="trust-gap-cta__note"><?php echo wp_kses_post( $cwp_cta_note ); ?></p>
+						<?php endif; ?>
 						<div class="trust-gap-cta__row">
 							<p class="trust-gap-cta__intro"><strong><?php esc_html_e( 'Found this useful?', 'gc-v2' ); ?></strong> <?php esc_html_e( 'Share it with your team', 'gc-v2' ); ?></p>
 							<div class="trust-gap-cta__socials">
@@ -83,6 +89,9 @@ $cwp_trust_gap_classes = implode( ' ', $cwp_trust_parts );
 								</a>
 							</div>
 						</div>
+						<?php if ( $cwp_cta_footnote ) : ?>
+							<p class="trust-gap-cta__footnote"><?php echo wp_kses_post( $cwp_cta_footnote ); ?></p>
+						<?php endif; ?>
 					</div>
 				<?php endif; ?>
 			</div>

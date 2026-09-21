@@ -1,0 +1,101 @@
+@import '../../../../../assets/css/_tools/variable';
+@import '../../../../../assets/css/_tools/mixins';
+
+// Consequence Gap only — legend + side-by-side bar columns.
+// Base figure card styles are shared from shadow-workforce/content/css/_figure-card-graph.scss.
+
+.gc-report-consequence-gap {
+  .aar-report-figure-card-graph {
+    &__legend {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: $gap8 $gap24;
+      margin-top: -#{$gap16};
+    }
+
+    &__legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: $gap8;
+    }
+
+    &__legend-swatch {
+      width: $gap24;
+      height: $gap10;
+      flex: 0 0 auto;
+      border-radius: 2px;
+
+      &--tone-royal {
+        background-color: $blue300;
+      }
+
+      &--tone-cyan {
+        background-color: $cyan;
+      }
+
+      &--tone-navy {
+        background-color: $blue500;
+      }
+
+      &--tone-lavender {
+        background-color: $blue75;
+      }
+
+      &--tone-indigo {
+        background-color: $blue200;
+      }
+
+      &--tone-red {
+        background-color: $red;
+      }
+
+      &--tone-gray {
+        background-color: $gray100;
+      }
+
+      &--tone-black {
+        background-color: #1E1E1E;
+      }
+    }
+
+    &__legend-label {
+      font-size: $fsize14;
+    }
+
+    &--motion.is-bars-animated.aar-report-figure-card-graph--horizontal {
+      .aar-report-figure-card-graph__value {
+        transition: opacity 0.4s ease var(--aar-bar-delay, 0ms);
+      }
+
+      .aar-report-figure-card-graph__bar {
+        animation-delay: calc(var(--aar-bar-delay, 0ms) + 600ms);
+      }
+    }
+
+    &--split {
+      .aar-report-figure-card-graph__columns {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: $gap16 $gap40;
+
+        @include media($mobile) {
+          grid-template-columns: 1fr;
+          gap: $gap24;
+        }
+      }
+
+      .aar-report-figure-card-graph__column {
+        display: flex;
+        flex-direction: column;
+        gap: $gap16;
+        min-width: 0;
+      }
+
+      .aar-report-figure-card-graph__column-heading {
+        font-size: $fsize14;
+        font-weight: $fSemiBold;
+      }
+    }
+  }
+}

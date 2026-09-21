@@ -17,7 +17,7 @@ function gc_theme_is_parallax_report_page( $post = null, $allowed_slugs = array(
 	}
 
 	$page_slug = gc_theme_static_html_resolve_slug_for_post( $post );
-	$allowed_slugs = $allowed_slugs ? $allowed_slugs : array( 'automation-anxiety-report', 'trust-in-hiring-report', 'shadow-workforce-report', 'rise-of-the-shadow-workforce-report' );
+	$allowed_slugs = $allowed_slugs ? $allowed_slugs : array( 'automation-anxiety-report', 'trust-in-hiring-report', 'shadow-workforce-report', 'rise-of-the-shadow-workforce-report', 'consequence-gap-report' );
 
 	return in_array( $page_slug, $allowed_slugs, true );
 }
@@ -57,6 +57,10 @@ function gc_theme_get_parallax_report_scss_dependencies() {
 		$theme_dir . '/partials/reports/shadow-workforce/page-hero/css/_page-hero.scss',
 		$theme_dir . '/partials/reports/shadow-workforce/content/css/_content.scss',
 		$theme_dir . '/partials/reports/shadow-workforce/content/css/_figure-card-graph.scss',
+		$theme_dir . '/partials/reports/consequence-gap/page-hero/css/_page-hero.scss',
+		$theme_dir . '/partials/reports/consequence-gap/content/css/_content.scss',
+		$theme_dir . '/partials/reports/consequence-gap/content/css/_figure-card-graph.scss',
+		$theme_dir . '/partials/reports/consequence-gap/footer/css/_footer.scss',
 	);
 }
 
@@ -136,7 +140,7 @@ function gc_theme_enqueue_parallax_report_assets( $post ) {
 	$report_css  = $theme_dir . '/assets/css/parallax-report.css';
 	$core_deps   = array();
 
-	if ( in_array( $page_slug, array( 'automation-anxiety-report', 'shadow-workforce-report', 'rise-of-the-shadow-workforce-report' ), true ) ) {
+	if ( in_array( $page_slug, array( 'automation-anxiety-report', 'shadow-workforce-report', 'rise-of-the-shadow-workforce-report', 'consequence-gap-report' ), true ) ) {
 		$core_deps = array(
 			$theme_dir . '/core-pages/custom-whitepaper/css/_custom-whitepaper-hero.scss',
 			$theme_dir . '/core-pages/cards/css/_cards.scss',

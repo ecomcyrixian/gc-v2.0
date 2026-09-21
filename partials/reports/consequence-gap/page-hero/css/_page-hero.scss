@@ -1,0 +1,125 @@
+@import '../../../../../assets/css/_tools/variable';
+@import '../../../../../assets/css/_tools/mixins';
+
+
+$cgr-hero-navy: #00014f;
+
+.gc-report-consequence-gap {
+  .aar-report-hero {
+    padding-top: calc(#{$gap20} + #{$gap20} + 56px + #{$gap60});
+    padding-bottom: $gap80;
+    text-align: left;
+
+    @include media($tablet) {
+      padding-top: calc(#{$gap20} + #{$gap20} + 56px + #{$gap40});
+      padding-bottom: $gap60;
+    }
+
+    @include media($mobile) {
+      padding-top: calc(#{$gap10} + #{$gap10} + 52px + #{$gap40});
+      padding-bottom: $gap50;
+    }
+
+    > .container {
+      max-width: 1085px;
+      gap: $gap40;
+
+    }
+
+    &__content {
+      align-items: flex-start;
+      gap: $gap40;
+      max-width: 620px;
+
+      @include media($mobile) {
+        max-width: 100%;
+      }
+    }
+
+    &__content-inner {
+      display: flex;
+      flex-direction: column;
+      gap: $gap24;
+      align-items: flex-start;
+
+      .aar-report-hero__survey-note {
+        max-width: 100%;
+      }
+    }
+
+    &__title {
+      display: flex;
+      flex-direction: column;
+      gap: $gap8;
+      margin: 0;
+      font-family: var(--aar-font-bebas);
+      font-weight: $fRegular;
+      text-transform: uppercase;
+    }
+
+    &__title-lead {
+      display: flex;
+      align-items: center;
+      gap: $gap24;
+    }
+
+    &__title-the {
+      font-size: 72px;
+      line-height: 72px;
+    }
+
+    &__title-main {
+      font-size: 140px;
+      line-height: 140px;
+
+      @include media($mobile) {
+        font-size: 72px;
+        line-height: 80px;
+      }
+    }
+
+    &__badge {
+      padding: $gap8 $gap12;
+      font-family: $default-font;
+      font-size: 40px;
+      line-height: normal;
+      letter-spacing: 0.05em;
+    }
+
+    &__subtitle {
+      padding: 0;
+      font-size: $fsize24;
+      line-height: 1.5;
+      font-weight: $fSemiBold;
+    }
+
+    &__cta-group {
+      display: flex;
+      align-items: center;
+      gap: $gap24;
+
+      @include media($mobile) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    &__cta-note,
+    &__survey-note {
+      max-width: 354px;
+      padding: 0;
+      font-size: $fsize14;
+      line-height: 22px;
+    }
+
+    &__stats.card-same-height {
+      .card-cont:not(.card-cont--row-stagger) {
+        gap: $gap16 !important;
+
+        @include media($mobile) {
+          padding: 0;
+        }
+      }
+    }
+  }
+}

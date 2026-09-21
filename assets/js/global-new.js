@@ -112,7 +112,7 @@ jQuery(document).ready(function($) {
 			},
 		});
 
-		// Ping-pong: 1 → 2 → 3 → 2 → 1 (no jump from last back to first).
+		// Ping-pong: forward to the last slide, then back (no jump from last to first).
 		setInterval(function () {
 			if (swiper.destroyed) {
 				return;

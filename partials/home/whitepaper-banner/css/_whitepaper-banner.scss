@@ -21,6 +21,7 @@
         position: relative;
         overflow: hidden;
         border-radius: $corners8;
+        background: white;
 
         .swiper-wrapper {
             align-items: stretch;
@@ -70,8 +71,6 @@
         height: 100%;
         padding: $gap40;
         padding-bottom: $gap60;
-        background: white;
-        border-radius: $corners8;
 
         @include media($tablet) {
             gap: $gap24;

@@ -1,0 +1,35 @@
+@import '../../../../../assets/css/_tools/variable';
+@import '../../../../../assets/css/_tools/mixins';
+
+.gc-report-consequence-gap {
+  .cgr-report-footer-cta {
+
+    .custom-whitepaper-hero__details p {
+      font-size: $base-fsize !important;
+    }
+
+    .trust-gap-report-hero__cta {
+      margin-bottom: $gap8;
+    }
+
+    .trust-gap-cta__note {
+      margin: 0 0 $gap40;
+      padding: 0;
+      font-size: $fsize12;
+    }
+
+    .trust-gap-cta__footnote {
+      margin: $gap40 0 0;
+      padding: 0;
+
+      a {
+        color: $blue300;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

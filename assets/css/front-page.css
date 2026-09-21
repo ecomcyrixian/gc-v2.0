@@ -57,6 +57,7 @@
   position: relative;
   overflow: hidden;
   border-radius: 8px;
+  background: white;
 }
 #whitepaper-banner .wb-swiper-shell .swiper-wrapper {
   align-items: stretch;
@@ -100,8 +101,6 @@
   height: 100%;
   padding: 40px;
   padding-bottom: 60px;
-  background: white;
-  border-radius: 8px;
 }
 @media screen and (max-width: 1023px) {
   #whitepaper-banner .wb-card {

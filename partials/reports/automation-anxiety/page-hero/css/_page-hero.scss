@@ -13,7 +13,8 @@
 $report-hero-header-offset: calc(#{$gap20} + #{$gap20} + 56px);
 
 body:has(.gc-report-automation-anxiety),
-body:has(.gc-report-shadow-workforce) {
+body:has(.gc-report-shadow-workforce),
+body:has(.gc-report-consequence-gap) {
   header#typical {
     background: transparent;
     border-bottom: 1px solid transparent;
@@ -72,7 +73,8 @@ body:has(.gc-report-shadow-workforce) {
 }
 
 .gc-report-automation-anxiety,
-.gc-report-shadow-workforce {
+.gc-report-shadow-workforce,
+.gc-report-consequence-gap {
   --aar-font-bebas: 'Bebas Neue', 'Bebas Neue Fallback', 'Arial Narrow', Arial, sans-serif;
 
   .aar-report-hero {

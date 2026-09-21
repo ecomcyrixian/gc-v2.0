@@ -65,7 +65,7 @@ function gc_aar_report_register_cwv_hooks() {
 				? gc_theme_static_html_resolve_slug_for_post( $post )
 				: '';
 
-			if ( ! is_page_template( 'page-parallax.php' ) || ! in_array( $slug, array( 'automation-anxiety-report', 'shadow-workforce-report', 'rise-of-the-shadow-workforce-report' ), true ) ) {
+			if ( ! is_page_template( 'page-parallax.php' ) || ! in_array( $slug, array( 'automation-anxiety-report', 'shadow-workforce-report', 'rise-of-the-shadow-workforce-report', 'consequence-gap-report' ), true ) ) {
 				return;
 			}
 

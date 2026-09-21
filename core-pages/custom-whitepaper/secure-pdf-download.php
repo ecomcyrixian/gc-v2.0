@@ -33,6 +33,11 @@ function gc_secure_pdf_registry() {
 			'filename' => 'shadow-workforce-report.pdf',
 			'slug'     => 'rise-of-the-shadow-workforce-report',
 		),
+		'consequence_gap_report'      => array(
+			'url'      => 'https://gcheck.com/wp-content/uploads/resources/pdf-documents/The-Consequence-Gap.pdf',
+			'filename' => 'The-Consequence-Gap.pdf',
+			'slug'     => 'consequence-gap-report',
+		),
 	);
 }
 
@@ -84,6 +89,15 @@ function gc_secure_pdf_automation_anxiety_report_key() {
  */
 function gc_secure_pdf_shadow_workforce_report_key() {
 	return 'shadow_workforce_report';
+}
+
+/**
+ * Registry key for the Consequence Gap Report.
+ *
+ * @return string
+ */
+function gc_secure_pdf_consequence_gap_report_key() {
+	return 'consequence_gap_report';
 }
 
 /**

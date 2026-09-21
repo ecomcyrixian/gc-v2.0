@@ -1,13 +1,13 @@
 <?php
 /**
  * Template Part: Blog V2 Right Sidebar
- * About The Creator, About The Reviewer, featured whitepaper card (Automation Anxiety Report).
+ * About The Creator, About The Reviewer, featured whitepaper card (Consequence Gap Report).
  * No ACF; no card.php.
  */
 
-$blog_v2_whitepaper_aar_url   = home_url( '/whitepapers/rise-of-the-shadow-workforce-report' );
-$blog_v2_whitepaper_aar_title = __( 'The Rise of the Shadow Workforce Report', 'gc-v2' );
-$blog_v2_whitepaper_aar_thumb = get_template_directory_uri() . '/partials/home/whitepaper-banner/images/Whitepaper-Thumbnail-3.webp';
+$blog_v2_whitepaper_aar_url   = home_url( '/whitepapers/consequence-gap-report/' );
+$blog_v2_whitepaper_aar_title = __( 'The 2026 Consequence Gap Report', 'gc-v2' );
+$blog_v2_whitepaper_aar_thumb = get_template_directory_uri() . '/partials/home/whitepaper-banner/images/Whitepaper-Thumbnail-4.png';
 
 /*
  * Non-TIH whitepaper: related / random from whitepapers category (excludes TIH page). Re-enable to show a second card.

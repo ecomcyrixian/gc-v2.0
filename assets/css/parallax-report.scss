@@ -39,3 +39,9 @@ $report-whitepaper-bg: '../images/custom-whitepaper-bg.webp';
 @import '../../partials/reports/shadow-workforce/page-hero/css/page-hero';
 @import '../../partials/reports/shadow-workforce/content/css/content';
 @import '../../partials/reports/shadow-workforce/content/css/figure-card-graph';
+
+// ── Consequence Gap Report ───────────────────────────────────────────────────
+@import '../../partials/reports/consequence-gap/page-hero/css/page-hero';
+@import '../../partials/reports/consequence-gap/content/css/content';
+@import '../../partials/reports/consequence-gap/content/css/figure-card-graph';
+@import '../../partials/reports/consequence-gap/footer/css/footer';

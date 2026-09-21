@@ -29,6 +29,10 @@ $gc_parallax_reports = array(
 		'folder'   => 'shadow-workforce',
 		'template' => 'shadow-workforce-report',
 	),
+	'consequence-gap-report'       => array(
+		'folder'   => 'consequence-gap',
+		'template' => 'consequence-gap-report',
+	),
 );
 $gc_parallax_report = isset( $gc_parallax_reports[ $gc_parallax_slug ] )
 	? $gc_parallax_reports[ $gc_parallax_slug ]
@@ -46,7 +50,7 @@ $gc_parallax_template = $gc_parallax_slug
 	? locate_template( 'partials/reports/' . $gc_parallax_report_folder . '/' . $gc_parallax_report_template . '.php', false, false )
 	: '';
 
-if ( in_array( $gc_parallax_slug, array( 'automation-anxiety-report', 'shadow-workforce-report', 'rise-of-the-shadow-workforce-report' ), true ) ) {
+if ( in_array( $gc_parallax_slug, array( 'automation-anxiety-report', 'shadow-workforce-report', 'rise-of-the-shadow-workforce-report', 'consequence-gap-report' ), true ) ) {
 	require_once get_template_directory() . '/partials/reports/automation-anxiety/shared/content.php';
 }
 
