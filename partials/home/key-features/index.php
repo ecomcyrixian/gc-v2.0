@@ -34,7 +34,7 @@
                     </span>
                 </h4>
                 <p>
-                    Talk to a real compliance expert by phone, not a chatbot or an automated queue, whenever a question comes up.
+                Talk to a real compliance expert by phone, not a chatbot or an automated queue, whenever a question comes up.
                 </p>
             </div>
             
@@ -48,7 +48,7 @@
                     </span>
                 </h4>
                 <p>
-                Our built-in FCRA compliance tools and automation make multiregional background check compliance simple.
+                Our built-in FCRA compliance filters and automation make multiregional background check compliance simple.
                 </p>
             </div>
 
@@ -62,7 +62,9 @@
                     </span>
                 </h4>
                 <p>
-                    Our streamlined interface and branded candidate portal offer a premium experience for users and candidates.
+                Our built-in FCRA compliance filters and automation make multiregional background check compliance simple.
+
+
                 </p>
             </div>
 
@@ -76,7 +78,8 @@
                     </span>
                 </h4>
                 <p>
-                    Mobile-friendly reports enable on-the-go reviews and approvals, replacing PDFs that fail on mobile devices.
+                Mobile-friendly reports enable on-the-go reviews and approvals, replacing PDFs that fail on mobile devices.
+
                 </p>
             </div>
 
@@ -90,7 +93,9 @@
                     </span>
                 </h4>
                 <p>
-                    API integrations available for 73+ ATS and HRIS applications, in addition to custom integrations for proprietary platforms.
+                API integrations available for 73+ ATS and HRIS applications, in addition to custom integrations for proprietary platforms.
+
+
                 </p>
             </div>
            
