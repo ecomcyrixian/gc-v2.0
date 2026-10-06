@@ -23,7 +23,11 @@ body:has(.gc-report-consequence-gap) {
       fill: $white;
     }
 
-    nav #desktop-nav li > a {
+    nav #desktop-nav .main-menu > li > a {
+      color: $white;
+    }
+
+    nav .desktop-menu-buttons .login-button {
       color: $white;
     }
 
@@ -54,7 +58,11 @@ body:has(.gc-report-consequence-gap) {
       fill: $black;
     }
 
-    nav #desktop-nav li > a {
+    nav #desktop-nav .main-menu > li > a {
+      color: $black;
+    }
+
+    nav .desktop-menu-buttons .login-button {
       color: $black;
     }
 

@@ -23,21 +23,17 @@ jQuery(document).ready(function($) {
     }
     const myDebouncedFunction = debounce(() => {
         jQuery('#header-cont').toggleClass('active');
-        //jQuery('#mobile-nav').toggleClass('active');
         $("#mobile-nav").slideToggle("fast");
     }, 300); // Adjust delay as needed
     document.getElementById('mobile-menu').addEventListener('click', myDebouncedFunction);
 
-    // Close menus when resizing to mobile view
-    // This ensures mega panels are hidden when switching from desktop to mobile
+    // Close desktop panels when resizing to mobile view
     let resizeTimeout;
     $(window).on('resize', function() {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(function() {
             if ($(window).width() <= 1230) {
-                // Force hide mega panels on mobile by removing any active classes
                 $('#desktop-nav .menu-block').removeClass('active');
-                $('.hamburger-desktop').removeClass('active');
             }
         }, 250);
     });

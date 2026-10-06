@@ -388,7 +388,7 @@ $honesty_tax_items = array(
 			</div>
 			<div class="panel panel--blue-box">
 				<div class="aar-report-blue-box">
-					<h2 class="aar-report-blue-box__heading">COMPLIANCE FOR GOOD™: <br/>Transparent Compliance</h2>
+					<h2 class="aar-report-blue-box__heading">COMPLIANCE FOR GOOD®: <br/>Transparent Compliance</h2>
 					<p class="aar-report-blue-box__text aar-report-blue-box-copy">The verification feedback loop thrives in opacity. When candidates do not know what will be checked (56% report this concern), they assume the answer is minimal and calibrate their embellishment accordingly. Organizations that clearly communicate what will be verified before candidates apply can disrupt this cycle at its root.</p>
 				</div>
 			</div>
@@ -448,7 +448,7 @@ $honesty_tax_items = array(
 					</div>
 					<p class="tih-report-paradox__caption">The paradox is the point. Candidates are rational participants in a broken system.</p>
 					<div class="tih-report-paradox__copy">
-						<div class="tih-report-paradox__copy-title">COMPLIANCE FOR GOOD™: Protective Compliance</div>
+						<div class="tih-report-paradox__copy-title">COMPLIANCE FOR GOOD®: Protective Compliance</div>
 						<div class="tih-report-paradox__copy-text">
 							When candidates themselves acknowledge that misrepresentation creates organizational risk, the case for consistent verification processes is self-evident. Protective screening reduces negligent hiring exposure and reduces the post-hire anxiety that embellishers carry into their new roles.
 						</div>

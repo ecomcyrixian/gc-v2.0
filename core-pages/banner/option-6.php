@@ -28,7 +28,7 @@ $option6_connect    = $banner_img( 'option-6-card-3.webp' );
                 <img class="option6-card__bg" src="<?php echo esc_url( $option6_primary_bg['uri'] ); ?>" alt=""<?php echo $option6_primary_bg['attrs']; ?> loading="lazy" decoding="async" fetchpriority="low" aria-hidden="true">
                 <div class="option6-card__content">
                     <h3>Grow With Our Team</h3>
-                    <p>GCheck&rsquo;s leadership is supported by an exceptional team of compliance experts, technologists, customer success professionals, and operations specialists, all committed to delivering Compliance for Good&trade;.</p>
+                    <p>GCheck&rsquo;s leadership is supported by an exceptional team of compliance experts, technologists, customer success professionals, and operations specialists, all committed to delivering Compliance for Good®.</p>
                     <a class="button white" href="<?php echo esc_url( home_url('/contact-us/') ); ?>">Join Our Team Pool</a>
                 </div>
             </article>
@@ -58,7 +58,7 @@ $option6_connect    = $banner_img( 'option-6-card-3.webp' );
                         </div>
                         <div>
                             <h4>Connect With GCheck</h4>
-                            <p>Ready to learn how our team can help your organization achieve <strong>Compliance for Good™?</strong></p>
+                            <p>Ready to learn how our team can help your organization achieve <strong>Compliance for Good®?</strong></p>
                             <a class="button white" href="<?php echo esc_url( home_url('/contact-us/') ); ?>">Connect With Us</a>
                         </div>
                     </div>

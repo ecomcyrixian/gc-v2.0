@@ -1853,4 +1853,8 @@
   }
 }
 
+body:has(#header-cont.active) .floating-cta-btn {
+  display: none;
+}
+
 /*# sourceMappingURL=front-page-new.css.map */

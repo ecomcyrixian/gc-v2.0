@@ -1,243 +1,69 @@
+<?php
+/**
+ * Mobile drawer nav. Sections come straight from the same menus the desktop
+ * header uses; category descriptions are mobile-only.
+ */
+
+$m_nav_icon_chevron = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M20.8712 17.7023L12.6072 6.30938C12.3072 5.89688 11.6931 5.89688 11.3954 6.30938L3.12903 17.7023C3.10869 17.7304 3.0965 17.7635 3.09382 17.798C3.09114 17.8325 3.09808 17.8671 3.11385 17.8979C3.12963 17.9288 3.15363 17.9546 3.1832 17.9726C3.21277 17.9906 3.24675 18.0001 3.28138 18H5.03919C5.15872 18 5.27122 17.9414 5.34153 17.8453L12.0001 8.66719L18.6587 17.8453C18.729 17.9414 18.8415 18 18.9611 18H20.7189C20.8712 18 20.9603 17.8266 20.8712 17.7023V17.7023Z" fill="#4F51FD"/>
+</svg>
+'; 
+$m_nav_icon_plus    = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 5V19" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M5 12H19" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+'; 
+$m_nav_icon_minus   = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 12H19" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+';
+
+$m_nav_icons = array(
+	'icon_chevron' => $m_nav_icon_chevron,
+	'icon_plus'    => $m_nav_icon_plus,
+	'icon_minus'   => $m_nav_icon_minus,
+);
+
+$m_nav_sections = array(
+	array( 'menu' => 'GCv2.0 : Services' ),
+	array(
+		'menu'           => 'GCv2.0 : Industries',
+		'view_all_label' => __( 'View All Industries', 'gc-v2' ),
+		'view_all_url'   => home_url( '/industries/' ),
+	),
+	array( 'menu' => 'GCv2.0 : Integrations' ),
+	array( 'menu' => 'GCv2.0 : Pricing' ),
+	array( 'menu' => 'GCv2.0 : Company' ),
+	array( 'menu' => 'GCv2.0 : Contact Us' ),
+);
+?>
 <nav>
-    <div id="mobile-nav">
-        
-        <div>
-            
-            <!-- GCv2.0 : Identity -->
-            <div>
-                <input type="checkbox" id="Identity" class="toggle" />
-                <label for="Identity">
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 1024 1024"><path fill="#000000" d="M104.704 338.752a64 64 0 0 1 90.496 0l316.8 316.8 316.8-316.8a64 64 0 0 1 90.496 90.496L557.248 791.296a64 64 0 0 1-90.496 0L104.704 429.248a64 64 0 0 1 0-90.496z"/></svg>
-                    </span>
-                    <?php
-                         wp_nav_menu( array(
-                           'menu' => 'GCv2.0 : Identity',
-                            'walker'  => new Parent_Menu_Walker(),
-                        ) );  
-                    ?>
+	<div id="mobile-nav">
+		<div class="m-nav__sections">
+			<?php
+			foreach ( $m_nav_sections as $m_nav_section ) {
+				wp_nav_menu(
+					array_merge(
+						$m_nav_icons,
+						$m_nav_section,
+						array(
+							'walker'     => new Mobile_Nav_Walker(),
+							'menu_class' => 'm-nav__section-list',
+							'container'  => false,
+						)
+					)
+				);
+			}
+			?>
+		</div>
 
-                </label>
-                <div class="content-to-show-hide">
-                    <?php 
-                        wp_nav_menu( array(
-                            'menu' => 'GCv2.0 : Identity',
-                            'menu_class'     => 'main-menu',
-                            'walker'         => new Walker_Nav_Menu_With_Description(),
-                            
-                        ) );
-                    ?>
-                </div>
-            </div>
-
-            <!-- GCv2.0 : Background Checks -->
-            <div>
-                <input type="checkbox" id="Background-Checks" class="toggle" />
-                <label for="Background-Checks">
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 1024 1024"><path fill="#000000" d="M104.704 338.752a64 64 0 0 1 90.496 0l316.8 316.8 316.8-316.8a64 64 0 0 1 90.496 90.496L557.248 791.296a64 64 0 0 1-90.496 0L104.704 429.248a64 64 0 0 1 0-90.496z"/></svg>
-                    </span>
-                    <?php
-                         wp_nav_menu( array(
-                           'menu' => 'GCv2.0 : Background Checks',
-                            'walker'  => new Parent_Menu_Walker(),
-                        ) );  
-                    ?>
-
-                </label>
-                <div class="content-to-show-hide">
-                    <?php 
-                        wp_nav_menu( array(
-                            'menu' => 'GCv2.0 : Background Checks',
-                            'menu_class'     => 'main-menu',
-                            'walker'         => new Walker_Nav_Menu_With_Description(),
-                            
-                        ) );
-                    ?>
-                </div>
-            </div>
-
-            <!-- GCv2.0 : Verifications -->
-            <div>
-                <input type="checkbox" id="Verifications" class="toggle"/>
-                <label for="Verifications">
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 1024 1024"><path fill="#000000" d="M104.704 338.752a64 64 0 0 1 90.496 0l316.8 316.8 316.8-316.8a64 64 0 0 1 90.496 90.496L557.248 791.296a64 64 0 0 1-90.496 0L104.704 429.248a64 64 0 0 1 0-90.496z"/></svg>
-                    </span>
-                    <?php
-                         wp_nav_menu( array(
-                           'menu' => 'GCv2.0 : Verifications',
-                            'walker' => new Parent_Menu_Walker(),
-                        ) );  
-                    ?>
-
-                </label>
-                <div class="content-to-show-hide">
-                    <?php 
-                        wp_nav_menu( array(
-                            'menu' => 'GCv2.0 : Verifications',
-                            'menu_class'     => 'main-menu',
-                            'walker'         => new Walker_Nav_Menu_With_Description(),
-                            
-                        ) );
-                    ?>
-                </div>
-            </div>
-
-            <!-- GCv2.0 : Drug & Health -->
-            <div>
-                <input type="checkbox" id="Drug-Health" class="toggle"/>
-                <label for="Drug-Health">
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 1024 1024"><path fill="#000000" d="M104.704 338.752a64 64 0 0 1 90.496 0l316.8 316.8 316.8-316.8a64 64 0 0 1 90.496 90.496L557.248 791.296a64 64 0 0 1-90.496 0L104.704 429.248a64 64 0 0 1 0-90.496z"/></svg>
-                    </span>
-                    <?php
-                         wp_nav_menu( array(
-                           'menu' => 'GCv2.0 : Drug & Health',
-                            'walker' => new Parent_Menu_Walker(),
-                        ) );  
-                    ?>
-
-                </label>
-                <div class="content-to-show-hide">
-                    <?php 
-                        wp_nav_menu( array(
-                            'menu' => 'GCv2.0 : Drug & Health',
-                            'menu_class'     => 'main-menu',
-                            'walker'         => new Walker_Nav_Menu_With_Description(),
-                            
-                        ) );
-                    ?>
-                </div>
-            </div>
-
-            <!-- GCv2.0 : Risk Monitoring -->
-            <div>
-                <input type="checkbox" id="Risk-Monitoring" class="toggle"/>
-                <label for="Risk-Monitoring">
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 1024 1024"><path fill="#000000" d="M104.704 338.752a64 64 0 0 1 90.496 0l316.8 316.8 316.8-316.8a64 64 0 0 1 90.496 90.496L557.248 791.296a64 64 0 0 1-90.496 0L104.704 429.248a64 64 0 0 1 0-90.496z"/></svg>
-                    </span>
-                    <?php
-                         wp_nav_menu( array(
-                           'menu' => 'GCv2.0 : Risk Monitoring',
-                            'walker' => new Parent_Menu_Walker(),
-                        ) );  
-                    ?>
-
-                </label>
-                <div class="content-to-show-hide">
-                    <?php 
-                        wp_nav_menu( array(
-                            'menu' => 'GCv2.0 : Risk Monitoring',
-                            'menu_class'     => 'main-menu',
-                            'walker'         => new Walker_Nav_Menu_With_Description(),
-                            
-                        ) );
-                    ?>
-                </div>
-            </div>
-
-            <!-- GCv2.0 : Compliance -->
-            <div>
-                <input type="checkbox" id="Compliance" class="toggle"/>
-                <label for="Compliance">
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="800px" height="800px" viewBox="0 0 1024 1024"><path fill="#000000" d="M104.704 338.752a64 64 0 0 1 90.496 0l316.8 316.8 316.8-316.8a64 64 0 0 1 90.496 90.496L557.248 791.296a64 64 0 0 1-90.496 0L104.704 429.248a64 64 0 0 1 0-90.496z"/></svg>
-                    </span>
-                    <?php
-                         wp_nav_menu( array(
-                           'menu' => 'GCv2.0 : Compliance',
-                            'walker' => new Parent_Menu_Walker(),
-                        ) );  
-                    ?>
-
-                </label>
-                <div class="content-to-show-hide">
-                    <?php 
-                        wp_nav_menu( array(
-                            'menu' => 'GCv2.0 : Compliance',
-                            'menu_class'     => 'main-menu',
-                            'walker'         => new Walker_Nav_Menu_With_Description(),
-                            
-                        ) );
-                    ?>
-                </div>
-            </div>
-            
-            <div class="mobile-quick-links">
-                <h3 class="mobile-quick-links__label">Quick links</h3>
-                <ul class="quick-links-list">
-                    <li>
-                        <a href="<?php echo esc_url( home_url('/industry/') ); ?>" target="_parent">
-                            <svg class="quick-link-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path d="M10 16L14 12L10 8" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span>Industries</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?php echo esc_url( home_url('/integrations/') ); ?>" target="_parent">
-                            <svg class="quick-link-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path d="M10 16L14 12L10 8" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span>Integrations</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?php echo esc_url( home_url('/pricing-packages/') ); ?>" target="_parent">
-                            <svg class="quick-link-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path d="M10 16L14 12L10 8" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span>Pricing</span>
-                        </a>
-                    </li>
-                </ul>
-                <h3 class="mobile-quick-links__label">Company</h3>
-                <ul class="quick-links-list">
-                    <li>
-                        <a href="<?php echo esc_url( home_url('/company/') ); ?>" target="_parent">
-                            <svg class="quick-link-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path d="M10 16L14 12L10 8" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span>About Us</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?php echo esc_url( home_url('/leadership-team/') ); ?>" target="_parent">
-                            <svg class="quick-link-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path d="M10 16L14 12L10 8" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span>Leadership</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?php echo esc_url( home_url('/compliance-for-good/') ); ?>" target="_parent">
-                            <svg class="quick-link-chevron" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path d="M10 16L14 12L10 8" stroke="currentColor" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                            <span>Compliance for Good&trade;</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-          
-        </div>
-        
-        <div id="buttons">
-            <a href="<?php echo esc_url( home_url('/contact-us/') ); ?>" target="_parent" class="button blue full">
-                Get Started Today
-            </a>
-            <a href="https://app.gcheck.com/sdocs/secure_home.html" target="_parent" class="button outline login-button full">
-                Account Login
-            </a>
-        </div>
-    
-    </div>
+		<div id="buttons">
+			<a href="<?php echo esc_url( home_url( '/talk-to-sales/' ) ); ?>" target="_parent" class="button blue full">
+				<?php esc_html_e( 'Talk To Sales', 'gc-v2' ); ?>
+			</a>
+			<a href="https://app.gcheck.com/sdocs/secure_home.html" target="_parent" class="button white full">
+				<?php esc_html_e( 'Login', 'gc-v2' ); ?>
+			</a>
+		</div>
+	</div>
 </nav>
-
-
-
-
-
-

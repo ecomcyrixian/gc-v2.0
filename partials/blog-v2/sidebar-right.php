@@ -172,7 +172,7 @@ if ( $wpq->have_posts() ) {
             <div class="blog-v2-card__content">
                 <p class="blog-v2-card__book-demo-eyebrow">Book a demo</p>
                 <h4 class="blog-v2-card__book-demo-heading">Experience Faster, Smarter Screening</h4>
-                <a href="<?php echo esc_url( home_url( '/book-a-demo/' ) ); ?>" class="button white">See GCheck in Action</a>
+                <a href="<?php echo esc_url( home_url( '/talk-to-sales/' ) ); ?>" class="button white">See GCheck in Action</a>
             </div>
         </div>
     </div>

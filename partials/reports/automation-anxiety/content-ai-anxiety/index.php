@@ -907,7 +907,7 @@ $aar_appendix_by_race_rows = array(
 					<div class="aar-report-split-copy__column aar-report-split-copy__column--items">
 						<div class="aar-report-split-copy__item">
 							<h3 class="aar-report-split-copy__heading">Mapping the mandate to Compliance for Good</h3>
-							<p>The Compliance for Good™ framework rests on three pillars: Transparent, Fair, and Protective Compliance. The 2026 data operates as the framework’s operating agenda for the automation era. Each pillar maps to a specific workforce mandate documented in this report.</p>
+							<p>The Compliance for Good® framework rests on three pillars: Transparent, Fair, and Protective Compliance. The 2026 data operates as the framework’s operating agenda for the automation era. Each pillar maps to a specific workforce mandate documented in this report.</p>
 						</div>
 					</div>
 				</div>

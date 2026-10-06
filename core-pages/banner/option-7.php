@@ -3,7 +3,7 @@
         <div class="banner-info banner-option7__info">
             <div class="banner-option7__content">
                 <h2>Make Compliance Your <span class="banner-option7__accent">Competitive Advantage</span></h2>
-                <p>Join organizations that are transforming hiring with Compliance for Good™.</p>
+                <p>Join organizations that are transforming hiring with Compliance for Good®.</p>
                 <ul>
                     <li>
                         <span>
@@ -28,7 +28,7 @@
                     <a href="<?php echo esc_url( home_url( '/contact-us/' ) ); ?>" target="_parent" class="button blue">
                         Start Free Trial
                     </a>
-                    <a href="<?php echo esc_url( home_url( '/book-a-demo/' ) ); ?>" target="_parent" class="button white">
+                    <a href="<?php echo esc_url( home_url( '/talk-to-sales/' ) ); ?>" target="_parent" class="button white">
                         Book A Demo
                     </a>
                 </div>

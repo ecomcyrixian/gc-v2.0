@@ -613,6 +613,266 @@ class Parent_Menu_Walker extends Walker_Nav_Menu {
     }
 }
 
+/**
+ * Desktop nav walker for the header redesign.
+ *
+ * Added beside the existing walkers, so the live menu partials keep working
+ * until desktop-menu.php and mobile-menu.php are uploaded.
+ *
+ * Panel layout is driven by wp_nav_menu() args:
+ *   panel_type       'list' (Company) | 'grid' (Industries) | 'group' (Services)
+ *   panel_eyebrow    small uppercase label above the links
+ *   panel_link_label / panel_link_url  optional "View all ..." link
+ */
+class Desktop_Nav_Walker extends Walker_Nav_Menu {
+
+    /** Title of the group being rendered, reused as the label of its links pane. */
+    private $group_title = '';
+
+    /** Id of the group being rendered, pairing its row with its links pane. */
+    private $group_pane_id = '';
+
+    /** Where the pane being rendered starts in $output, so it can be moved out of its <li>. */
+    private $pane_offset = 0;
+
+    /** Panes collected out of their <li>, flushed as one column after the group list. */
+    private $group_panes = '';
+
+    public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+        $classes    = empty( $item->classes ) ? array() : (array) $item->classes;
+        $classes[]  = 'menu-item-' . $item->ID;
+        $panel_type = ! empty( $args->panel_type ) ? $args->panel_type : 'list';
+        $has_group  = $depth === 1 && in_array( 'menu-item-has-children', $classes, true );
+
+        $class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) );
+        $class_names = $class_names ? ' class="' . esc_attr( $class_names ) . '"' : '';
+
+        $pane_att = $has_group ? ' data-pane="nav-pane-' . $item->ID . '"' : '';
+
+        $output .= '<li' . $class_names . $pane_att . '>';
+
+        $atts = array(
+            'title'  => ! empty( $item->attr_title ) ? $item->attr_title : '',
+            'target' => ! empty( $item->target )     ? $item->target     : '',
+            'rel'    => ! empty( $item->xfn )        ? $item->xfn        : '',
+            'href'   => ! empty( $item->url )        ? $item->url        : '',
+        );
+
+        if ( $depth === 0 ) {
+            $atts['class'] = 'nav-trigger';
+        }
+
+        $atts = apply_filters( 'nav_menu_link_attributes', $atts, $item, $args );
+
+        $attributes = '';
+        foreach ( $atts as $attr => $value ) {
+            if ( ! empty( $value ) ) {
+                $value       = ( 'href' === $attr ) ? esc_url( $value ) : esc_attr( $value );
+                $attributes .= ' ' . $attr . '="' . $value . '"';
+            }
+        }
+
+        $title = apply_filters( 'the_title', $item->title, $item->ID );
+
+        if ( $depth === 1 ) {
+            $this->group_title   = $title;
+            $this->group_pane_id = 'nav-pane-' . $item->ID;
+        }
+
+        $item_output  = $args->before;
+        $item_output .= '<a' . $attributes . '>';
+        $item_output .= $args->link_before . '<span class="nav-item-title">' . $title . '</span>' . $args->link_after;
+
+        // arrow marking the group whose links are shown (Services)
+        if ( $depth === 1 && ! empty( $args->group_arrow ) && in_array( 'menu-item-has-children', $classes, true ) ) {
+            $item_output .= $args->group_arrow;
+        }
+
+        // Services shows its links in a side pane, so descriptions would crowd the group list.
+        $description = 'group' === $panel_type ? '' : gc_get_menu_item_description( $item );
+        if ( $description && $depth > 0 ) {
+            $item_output .= '<span class="menu-item-description">' . $description . '</span>';
+        }
+
+        $item_output .= '</a>';
+        $item_output .= $args->after;
+
+        $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
+    }
+
+    public function start_lvl( &$output, $depth = 0, $args = array() ) {
+        if ( $depth > 0 ) {
+            // Links of one group, shown beside the group list (Services).
+            $this->pane_offset = strlen( $output );
+
+            $output .= '<div class="nav-panel__group-pane" id="' . esc_attr( $this->group_pane_id ) . '">';
+            if ( $this->group_title ) {
+                $output .= '<span class="nav-panel__group-label">' . $this->group_title . '</span>';
+            }
+            $output .= '<ul class="sub-menu nav-panel__group-items">';
+            return;
+        }
+
+        $panel_type = ! empty( $args->panel_type ) ? $args->panel_type : 'list';
+
+        $output .= '<div class="nav-panel nav-panel--' . esc_attr( $panel_type ) . '">';
+
+        if ( ! empty( $args->panel_eyebrow ) || ! empty( $args->panel_link_label ) ) {
+            $output .= '<div class="nav-panel__head">';
+            if ( ! empty( $args->panel_eyebrow ) ) {
+                $output .= '<span class="nav-panel__eyebrow">' . esc_html( $args->panel_eyebrow ) . '</span>';
+            }
+            if ( ! empty( $args->panel_link_label ) && ! empty( $args->panel_link_url ) ) {
+                $output .= '<a class="nav-panel__view-all" href="' . esc_url( $args->panel_link_url ) . '">'
+                    . esc_html( $args->panel_link_label ) . '</a>';
+            }
+            $output .= '</div>';
+        }
+
+        $output .= '<ul class="sub-menu nav-panel__items">';
+    }
+
+    public function end_lvl( &$output, $depth = 0, $args = array() ) {
+        if ( $depth > 0 ) {
+            $output .= '</ul></div>';
+
+            // Move the pane out of its <li> and into the panes column, so the panel
+            // grows with whichever column is taller instead of the pane overflowing it.
+            $this->group_panes .= substr( $output, $this->pane_offset );
+            $output             = substr( $output, 0, $this->pane_offset );
+
+            return;
+        }
+
+        $output .= '</ul>';
+
+        if ( '' !== $this->group_panes ) {
+            $output           .= '<div class="nav-panel__panes">' . $this->group_panes . '</div>';
+            $this->group_panes = '';
+        }
+
+        $output .= '</div>';
+    }
+}
+
+/**
+ * Menu item description, from the ACF field when present,
+ * otherwise the native WordPress menu description.
+ */
+function gc_get_menu_item_description( $item ) {
+    $description = function_exists( 'get_field' ) ? get_field( 'menu_item_description', $item->ID ) : '';
+
+    if ( empty( $description ) && ! empty( $item->description ) ) {
+        $description = $item->description;
+    }
+
+    return $description;
+}
+
+/**
+ * Mobile nav walker for the header redesign.
+ *
+ * Renders the drawer as a checkbox-driven accordion, three levels deep:
+ *   depth 0  section row (Services, Industries, ...), chevron when it has a panel
+ *   depth 1  category row, its description, plus/minus when it has links
+ *   depth 2  plain link
+ *
+ * Icons and the optional panel footer link come from wp_nav_menu() args:
+ *   icon_chevron / icon_plus / icon_minus   inline SVG markup
+ *   view_all_label / view_all_url           link rendered below the panel list
+ */
+class Mobile_Nav_Walker extends Walker_Nav_Menu {
+
+    private function has_children( $item ) {
+        $classes = empty( $item->classes ) ? array() : (array) $item->classes;
+
+        return in_array( 'menu-item-has-children', $classes, true );
+    }
+
+    private function icon( $args, $key ) {
+        return ! empty( $args->{$key} ) ? $args->{$key} : '';
+    }
+
+    public function start_lvl( &$output, $depth = 0, $args = array() ) {
+        $output .= 0 === $depth
+            ? '<div class="m-nav__panel"><ul class="m-nav__list">'
+            : '<ul class="m-nav__sublist">';
+    }
+
+    public function end_lvl( &$output, $depth = 0, $args = array() ) {
+        if ( 0 !== $depth ) {
+            $output .= '</ul>';
+            return;
+        }
+
+        $output .= '</ul>';
+
+        if ( ! empty( $args->view_all_label ) && ! empty( $args->view_all_url ) ) {
+            $output .= '<a class="m-nav__view-all" href="' . esc_url( $args->view_all_url ) . '">'
+                . esc_html( $args->view_all_label ) . '</a>';
+        }
+
+        $output .= '</div>';
+    }
+
+    public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+        $title        = apply_filters( 'the_title', $item->title, $item->ID );
+        $url          = ! empty( $item->url ) ? $item->url : '';
+        $has_children = $this->has_children( $item );
+        $toggle_id    = 'm-nav-toggle-' . $item->ID;
+
+        if ( 0 === $depth ) {
+            $output .= '<li class="m-nav__section' . ( $has_children ? ' m-nav__section--has-panel' : '' ) . '">';
+
+            if ( ! $has_children ) {
+                $output .= '<a class="m-nav__row" href="' . esc_url( $url ) . '">'
+                    . '<span class="m-nav__row-title">' . $title . '</span></a>';
+                return;
+            }
+
+            $output .= '<input type="checkbox" class="m-nav__toggle" id="' . esc_attr( $toggle_id ) . '">';
+            $output .= '<label class="m-nav__row" for="' . esc_attr( $toggle_id ) . '">'
+                . '<span class="m-nav__row-title">' . $title . '</span>'
+                . '<span class="m-nav__row-icon" aria-hidden="true">' . $this->icon( $args, 'icon_chevron' ) . '</span>'
+                . '</label>';
+
+            return;
+        }
+
+        if ( 1 === $depth ) {
+            $description = gc_get_menu_item_description( $item );
+
+            $text = '<span class="m-nav__item-text"><span class="m-nav__item-title">' . $title . '</span>';
+            if ( $description ) {
+                $text .= '<span class="m-nav__item-desc">' . $description . '</span>';
+            }
+            $text .= '</span>';
+
+            $output .= '<li class="m-nav__item' . ( $has_children ? ' m-nav__item--has-children' : '' ) . '">';
+
+            if ( ! $has_children ) {
+                $output .= '<a class="m-nav__item-row" href="' . esc_url( $url ) . '">' . $text . '</a>';
+                return;
+            }
+
+            $output .= '<input type="checkbox" class="m-nav__toggle" id="' . esc_attr( $toggle_id ) . '">';
+            $output .= '<label class="m-nav__item-row" for="' . esc_attr( $toggle_id ) . '">' . $text
+                . '<span class="m-nav__item-icon" aria-hidden="true">'
+                . '<span class="m-nav__item-icon-plus">' . $this->icon( $args, 'icon_plus' ) . '</span>'
+                . '<span class="m-nav__item-icon-minus">' . $this->icon( $args, 'icon_minus' ) . '</span>'
+                . '</span></label>';
+
+            return;
+        }
+
+        $output .= '<li class="m-nav__link"><a href="' . esc_url( $url ) . '">' . $title . '</a>';
+    }
+
+    public function end_el( &$output, $item, $depth = 0, $args = array() ) {
+        $output .= '</li>';
+    }
+}
+
 /*
  * categories and tags to page
  */

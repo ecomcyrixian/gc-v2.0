@@ -33,3 +33,7 @@ $chat-widget-breakpoint: 575px;
         bottom: calc(#{$chat-widget-inset-sm + $chat-widget-height + $chat-widget-gap} + env(safe-area-inset-bottom, 0px));
     }
 }
+
+body:has(#header-cont.active) .floating-cta-btn {
+    display: none;
+}

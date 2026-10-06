@@ -29,6 +29,11 @@ jQuery(document).ready(function($) {
         };
     }
     var myDebouncedFunction = debounce(function() {
+        var headerCont = document.getElementById('header-cont');
+        var mobileNav = document.getElementById('mobile-nav');
+        if (headerCont && mobileNav) {
+            mobileNav.style.setProperty('--gc-header-h', headerCont.offsetHeight + 'px');
+        }
         $('#header-cont').toggleClass('active');
         $('#mobile-nav').slideToggle('fast');
     }, 300);
@@ -43,9 +48,54 @@ jQuery(document).ready(function($) {
         resizeTimeout = setTimeout(function() {
             if ($(window).width() <= 1230) {
                 $('#desktop-nav .menu-block').removeClass('active');
-                $('.hamburger-desktop').removeClass('active');
             }
         }, 250);
+    });
+
+    /* Services nav panel: a group only takes over once the cursor rests on it,
+       so travelling diagonally to the links pane keeps the current group open */
+    var GROUP_HOVER_DELAY = 150;
+
+    $('#desktop-nav .nav-panel--group').each(function() {
+        var $rows = $(this).children('.nav-panel__items').children('li');
+        var $panes = $(this).children('.nav-panel__panes').children('.nav-panel__group-pane');
+        var $menuBlock = $(this).closest('.menu-block');
+        var hoverTimer;
+
+        if (!$rows.length) {
+            return;
+        }
+
+        function activate($row) {
+            var paneId = $row.attr('data-pane');
+
+            $rows.not($row).removeClass('is-active');
+            $row.addClass('is-active');
+
+            $panes.removeClass('is-active');
+            if (paneId) {
+                $panes.filter('[id="' + paneId + '"]').addClass('is-active');
+            }
+        }
+
+        activate($rows.first());
+
+        $rows.on('mouseenter', function() {
+            var $row = $(this);
+            clearTimeout(hoverTimer);
+            hoverTimer = setTimeout(function() {
+                activate($row);
+            }, GROUP_HOVER_DELAY);
+        });
+
+        $rows.on('mouseleave', function() {
+            clearTimeout(hoverTimer);
+        });
+
+        $menuBlock.on('mouseleave', function() {
+            clearTimeout(hoverTimer);
+            activate($rows.first());
+        });
     });
 
     /* FAQ accordion */
@@ -284,5 +334,66 @@ jQuery(document).ready(function($) {
         document.addEventListener('DOMContentLoaded', initHeroCopyLink);
     } else {
         initHeroCopyLink();
+    }
+})();
+
+/* Book a demo: reveal the help card once the Calendly calendar has rendered */
+(function () {
+    'use strict';
+
+    var READY_CLASS = 'is-calendar-ready';
+    var FALLBACK_DELAY = 6000;
+
+    function initDemoCalendar() {
+        var rows = document.querySelectorAll('.demo-calendar');
+        if (!rows.length) {
+            return;
+        }
+
+        rows.forEach(function (row) {
+            var widget = row.querySelector('.calendly-inline-widget');
+            if (!widget) {
+                row.classList.add(READY_CLASS);
+                return;
+            }
+
+            var reveal = function () {
+                row.classList.add(READY_CLASS);
+            };
+
+            window.addEventListener('message', function (e) {
+                if (!e.data || typeof e.data.event !== 'string') {
+                    return;
+                }
+                // Posted once the scheduling page is visible inside the iframe.
+                if (e.data.event === 'calendly.event_type_viewed') {
+                    reveal();
+                }
+                // Calendly reports its own content height, so the CSS values are only a fallback.
+                if (e.data.event === 'calendly.page_height' && e.data.payload && e.data.payload.height) {
+                    widget.style.height = e.data.payload.height;
+                }
+            });
+
+            // The iframe is injected by widget.js, so watch for it instead of querying now.
+            var observer = new MutationObserver(function () {
+                var frame = widget.querySelector('iframe');
+                if (!frame) {
+                    return;
+                }
+                observer.disconnect();
+                frame.addEventListener('load', reveal);
+            });
+            observer.observe(widget, { childList: true, subtree: true });
+
+            // Never leave the card hidden if Calendly is blocked or slow.
+            window.setTimeout(reveal, FALLBACK_DELAY);
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initDemoCalendar);
+    } else {
+        initDemoCalendar();
     }
 })();

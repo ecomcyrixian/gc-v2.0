@@ -4,6 +4,14 @@
 @import '../../core-pages/about-hero/css/about-hero';
 @import '../../core-pages/pricing/css/pricing-page';
 
+@font-face {
+    font-family: 'Source Code Pro';
+    src: url('../fonts/source-code-pro-latin.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 400 700;
+    font-display: swap;
+}
+
 body.page{
 
     .cols{
@@ -427,6 +435,10 @@ body.page{
         }
     }
 
+    .container:has(.form-template .talk-to-sales){
+        max-width: 1067px;
+    }
+
     .form-template{
         // new forms format
         margin-bottom: $gap80;;
@@ -752,6 +764,74 @@ body.page{
             }
         }
 
+        // talk to sales format
+        section:has(.talk-to-sales){
+            gap: $gap40;
+
+            &>div:first-child{
+                flex: 1 1 660px;
+                max-width: 660px;
+                border-radius: $corners8;
+
+                .title{
+                    gap: $gap24;
+                    flex-direction: row;
+                    align-items: flex-start;
+                }
+
+                .title-copy{
+                    gap: $gap8;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .title-dots{
+                    flex: 0 0 88px;
+
+                    @include media($mobile){
+                        display: none;
+                    }
+                }
+            }
+
+            .gcheck-contact-container .gcheck-contact-form{
+                padding: $gap40 0;
+            }
+
+            &>div:last-child{
+                padding: 0;
+                background: none;
+            }
+        }
+
+        .talk-to-sales{
+            gap: $gap16;
+            display: flex;
+            padding: $gap20;
+            background: $white;
+            flex-direction: column;
+            border-radius: $corners8;
+            border: 1px solid $gray75;
+
+            .snippet{
+                color: $blue300;
+                font-weight: $fSemiBold;
+            }
+
+            .title{
+                font-size: $fsize28;
+                font-weight: $fSemiBold;
+            }
+
+            p {
+                padding: 0;
+            }
+
+            .button{
+                display: block;
+            }
+        }
+
         // old forms format
         .gcheck-contact-container{
              display: flex;
@@ -1021,9 +1101,8 @@ body.page{
         }
 
         .book-a-demo-container {
-            padding: $gap20;
+            padding: $gap40 0 0;
             text-align: center;
-
 
             .snippet {
                 font-size: $fsize14;
@@ -1031,27 +1110,91 @@ body.page{
                 color: $gray100;
                 text-transform: uppercase;
                 letter-spacing: 0.06em;
-                line-height: 22px;
             }
 
             .title {
                 font-size: $fsize40;
                 font-weight: $fSemiBold;
-                line-height: 1.5;
-                margin: $gap16 auto;
+                margin: $gap8 0;
 
-                span{
-                    color: $blue300;
-                }
             }
 
             .description {
                 font-size: $base-fsize;
-                font-weight: $fRegular;
-                line-height: 24px;
-                color: $gray300;
-                margin: 0 auto;
-                max-width: 800px;
+            }
+        }
+
+        .demo-calendar {
+            display: flex;
+            align-items: flex-start;
+
+            > p:empty {
+                display: none;
+            }
+
+            .calendly-inline-widget {
+                flex: 1 1 auto;
+                min-width: 0;
+                height: 700px;
+            }
+
+            .demo-help {
+                flex: 0 0 320px;
+                width: 320px;
+                display: flex;
+                flex-direction: column;
+                gap: $gap16;
+                padding: $gap20;
+                background: $white;
+                border: 1px solid $gray75;
+                border-radius: $corners8;
+                margin-top: 66px;
+                opacity: 0;
+                visibility: hidden;
+                @include transition-fade(0.3);
+
+                .snippet {
+                    font-weight: $fSemiBold;
+                    color: $blue300;
+                }
+
+                .title {
+                    font-size: $fsize24;
+                    font-weight: $fSemiBold;
+                }
+
+                p {
+                    padding: 0;
+                    font-size: $fsize14;
+                }
+
+                .button {
+                    align-self: flex-start;
+                    display: block;
+                }
+            }
+
+            &.is-calendar-ready .demo-help {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            @include media($custom) {
+                flex-direction: column;
+                align-items: center;
+                gap: $gap20;
+                margin: $gap24 auto 0;
+
+                .calendly-inline-widget {
+                    width: 100%;
+                    height: 1000px;
+                }
+
+                .demo-help {
+                    flex: 0 0 auto;
+                    width: auto;
+                    margin-top: 0;
+                }
             }
         }
 
@@ -1277,6 +1420,268 @@ body.page{
                     }
 
                     
+                }
+            }
+        }
+    }
+
+    /* Procurement / RFP page. Markup is pasted into Gutenberg; only .rfp is affected. */
+    #standard-page{
+        &:has(.rfp){
+            padding: $gap80;
+
+            @include media($mobile){
+                padding: $gap40 0;
+            }
+        }
+
+        .rfp{
+            color: $gray300;
+
+            p{
+                padding: 0;
+                line-height: 24px;
+                text-align: justify;
+            }
+
+            a{
+                color: $blue300;
+                text-decoration: none;
+
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
+
+            h1{
+                font-size: $fsize64;
+                font-weight: $fBold;
+                line-height: normal;
+
+                @include media($mobile){
+                    font-size: $fsize32;
+                }
+            }
+
+            h2{
+                margin: $gap40 0 0;
+                padding-bottom: $gap8;
+                font-size: $fsize24;
+                font-weight: $fSemiBold;
+                line-height: 1.5;
+                border-bottom: 2px solid $gray300;
+
+                @include media($mobile){
+                    margin-top: $gap20;
+                    font-size: $fsize20;
+                }
+            }
+
+            h3{
+                margin: $gap40 0 0;
+                font-size: $base-fsize;
+                font-weight: $fBold;
+                line-height: 24px;
+
+                @include media($mobile){
+                    margin-top: $gap20;
+                }
+            }
+
+            h2 + h3,
+            h2 + p,
+            h2 + ul{
+                margin-top: $gap40;
+
+                @include media($mobile){
+                    margin-top: $gap20;
+                }
+            }
+
+            ul{
+                margin: $gap8 0 $gap40;
+
+                @include media($mobile){
+                    margin: $gap8 0 $gap20;
+                }
+            }
+
+            li{
+                list-style-position: outside;
+                padding-bottom: 0;
+            }
+
+            .gap-40 {
+                gap: $gap40;
+                display: flex;
+                flex-direction: column;
+
+                @include media($mobile){
+                    gap: $gap20;
+                }
+            }
+
+            .rfp-kicker{
+                margin-bottom: $gap16;
+                color: $gray100;
+                font-size: $fsize14;
+                font-weight: $fSemiBold;
+                letter-spacing: 0.16em;
+                text-transform: uppercase;
+
+                @include media($mobile){
+                    letter-spacing: 0.08em;
+                }
+            }
+
+            .rfp-hero{
+                gap: $gap80;
+                align-items: flex-end;
+            }
+
+            .rfp-meta{
+                display: flex;
+                gap: $gap80;
+                margin: $gap40 0;
+                border-top: 2px solid $gray300;
+                border-bottom: 2px solid $gray300;
+                padding: $gap20 0;
+
+                span{
+                    display: block;
+                    margin-bottom: $gap8;
+                    font-size: $fsize12;
+                    letter-spacing: 0.08em;
+                    text-transform: uppercase;
+                }
+
+                strong{
+                    font-size: $fsize18;
+                    font-family: 'Source Code Pro', monospace;
+                }
+
+                @include media($mobile){
+                    flex-direction: column;
+                    gap: $gap20;
+                }
+            }
+
+            .rfp-contacts{
+                padding: $gap20;
+                gap: $gap80;
+
+                .rfp-label{
+                    margin-bottom: $gap4;
+                    font-size: $fsize12;
+                    font-weight: $fBold;
+                    letter-spacing: 0.08em;
+                    text-transform: uppercase;
+                }
+
+                .rfp-label-role {
+                    font-family: 'Source Code Pro';
+                }
+
+                .rfp-name{
+                    margin-bottom: $gap4;
+                    font-weight: $fSemiBold;
+                    font-size: $fsize18;
+                    font-family: 'Source Code Pro', monospace;
+                }
+
+                .rfp-role{
+                    margin-bottom: $gap4;
+                    color: $gray100;
+                    font-size: $fsize14;
+                }
+
+                a {
+                    font-family: 'Source Code Pro';
+                }
+
+                @include media($mobile){
+                    padding: $gap20 $gap16;
+                }
+                
+            }
+
+            .rfp-callout{
+                padding: $gap20;
+                margin: $gap16 0;
+                border-left: 2px solid $gray75;
+
+                @include media($mobile){
+                    padding: $gap10 $gap16;
+                }
+            }
+
+            .rfp-affiliations{
+                margin: 0;
+                padding: $gap20;
+                font-size: $fsize18;
+                font-family: 'Source Code Pro', monospace;
+                font-weight: $fSemiBold;
+            }
+
+            .rfp-table-wrap{
+                overflow-x: auto;
+                margin-top: $gap40;
+
+                @include media($mobile){
+                    margin-top: $gap20;
+                }
+            }
+
+            .rfp-table{
+                width: 100%;
+                border-collapse: collapse;
+                border-spacing: 0;
+
+                tr {
+                    background-color: $white;
+                    border-bottom: 1px solid $gray75;
+                }
+
+                td {
+                    padding: $gap12 $gap16;
+                    font-size: $fsize14;
+                }
+
+                td:first-child {
+                    width: 300px;
+                }
+            }
+
+            .rfp-table--codes{
+                thead tr{
+                    background: $black;
+                    border-bottom: 0;
+                }
+
+                th{
+                    padding: $gap12 $gap16;
+                    border: 0;
+                    background: $black;
+                    color: $white;
+                    font-size: $fsize14;
+                    font-weight: $fRegular;
+                    text-align: left;
+                }
+
+                td:nth-child(1),
+                th:nth-child(1),
+                td:nth-child(2),
+                th:nth-child(2){
+                    width: 160px;
+                    white-space: nowrap;
+                }
+            }
+
+
+            @include media($mobile){
+                .rfp-hero.cols > div + div,
+                .rfp-contacts.cols > div + div{
+                    margin-top: $gap24;
                 }
             }
         }

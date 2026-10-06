@@ -3630,9 +3630,14 @@ body:has(.gc-report-shadow-workforce) header#typical .gCheck-logo .gcText,
 body:has(.gc-report-consequence-gap) header#typical .gCheck-logo .gcText {
   fill: #FFFFFF;
 }
-body:has(.gc-report-automation-anxiety) header#typical nav #desktop-nav li > a,
-body:has(.gc-report-shadow-workforce) header#typical nav #desktop-nav li > a,
-body:has(.gc-report-consequence-gap) header#typical nav #desktop-nav li > a {
+body:has(.gc-report-automation-anxiety) header#typical nav #desktop-nav .main-menu > li > a,
+body:has(.gc-report-shadow-workforce) header#typical nav #desktop-nav .main-menu > li > a,
+body:has(.gc-report-consequence-gap) header#typical nav #desktop-nav .main-menu > li > a {
+  color: #FFFFFF;
+}
+body:has(.gc-report-automation-anxiety) header#typical nav .desktop-menu-buttons .login-button,
+body:has(.gc-report-shadow-workforce) header#typical nav .desktop-menu-buttons .login-button,
+body:has(.gc-report-consequence-gap) header#typical nav .desktop-menu-buttons .login-button {
   color: #FFFFFF;
 }
 body:has(.gc-report-automation-anxiety) header#typical nav .icon-menu,
@@ -3673,12 +3678,20 @@ body:has(.gc-report-consequence-gap) header#typical #header-cont.scroll .gCheck-
 body:has(.gc-report-consequence-gap) header#typical #header-cont.active .gCheck-logo .gcText {
   fill: #000000;
 }
-body:has(.gc-report-automation-anxiety) header#typical #header-cont.scroll nav #desktop-nav li > a,
-body:has(.gc-report-automation-anxiety) header#typical #header-cont.active nav #desktop-nav li > a,
-body:has(.gc-report-shadow-workforce) header#typical #header-cont.scroll nav #desktop-nav li > a,
-body:has(.gc-report-shadow-workforce) header#typical #header-cont.active nav #desktop-nav li > a,
-body:has(.gc-report-consequence-gap) header#typical #header-cont.scroll nav #desktop-nav li > a,
-body:has(.gc-report-consequence-gap) header#typical #header-cont.active nav #desktop-nav li > a {
+body:has(.gc-report-automation-anxiety) header#typical #header-cont.scroll nav #desktop-nav .main-menu > li > a,
+body:has(.gc-report-automation-anxiety) header#typical #header-cont.active nav #desktop-nav .main-menu > li > a,
+body:has(.gc-report-shadow-workforce) header#typical #header-cont.scroll nav #desktop-nav .main-menu > li > a,
+body:has(.gc-report-shadow-workforce) header#typical #header-cont.active nav #desktop-nav .main-menu > li > a,
+body:has(.gc-report-consequence-gap) header#typical #header-cont.scroll nav #desktop-nav .main-menu > li > a,
+body:has(.gc-report-consequence-gap) header#typical #header-cont.active nav #desktop-nav .main-menu > li > a {
+  color: #000000;
+}
+body:has(.gc-report-automation-anxiety) header#typical #header-cont.scroll nav .desktop-menu-buttons .login-button,
+body:has(.gc-report-automation-anxiety) header#typical #header-cont.active nav .desktop-menu-buttons .login-button,
+body:has(.gc-report-shadow-workforce) header#typical #header-cont.scroll nav .desktop-menu-buttons .login-button,
+body:has(.gc-report-shadow-workforce) header#typical #header-cont.active nav .desktop-menu-buttons .login-button,
+body:has(.gc-report-consequence-gap) header#typical #header-cont.scroll nav .desktop-menu-buttons .login-button,
+body:has(.gc-report-consequence-gap) header#typical #header-cont.active nav .desktop-menu-buttons .login-button {
   color: #000000;
 }
 body:has(.gc-report-automation-anxiety) header#typical #header-cont.scroll nav .icon-menu,
