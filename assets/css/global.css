@@ -292,8 +292,9 @@ header#typical nav .desktop-menu-buttons .login-button {
   color: #000000;
 }
 header#home {
-  height: 800px;
-  background: url(../images/home-header-bg.jpg) no-repeat top center #30319A;
+  min-height: 800px;
+  border-bottom: 0;
+  background: url(../images/new-header.jpg) no-repeat top center #00014F;
   background-size: cover;
   z-index: auto;
 }
@@ -303,101 +304,108 @@ header#home .gCheck-logo .gcText {
 header#home nav .icon-menu {
   color: #FFFFFF;
 }
-@media (min-width: 1231px) {
+@media (min-width: 1024px) {
   header#home nav #desktop-nav .menu-block:hover > .main-menu > li > a {
     color: #FFFFFF !important;
   }
 }
 @media screen and (max-width: 1023px) {
   header#home {
-    height: 100%;
-    padding-bottom: 40px;
+    min-height: 0;
+    height: auto;
+    padding-bottom: 80px;
   }
 }
 @media screen and (max-width: 767px) {
   header#home {
+    padding-bottom: 60px;
     margin-bottom: 60px;
   }
 }
-header#home > .container > div {
+header#home .home-hero {
   color: #FFFFFF;
-  margin: 40px auto;
-  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  max-width: 800px;
+  margin: 60px auto;
   text-align: center;
 }
 @media screen and (max-width: 767px) {
-  header#home > .container > div {
-    max-width: 100%;
-    width: 100%;
+  header#home .home-hero {
+    gap: 24px;
+    margin-top: 40px;
   }
 }
-header#home > .container > div h1 {
-  display: block;
-  margin: 0 auto 40px auto;
+header#home .home-hero__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 24px;
+}
+header#home .home-hero h1 {
   font-size: 4em;
   font-weight: 700;
+  line-height: 72px;
   transform: skew(-8deg);
-  padding: 0 8px;
 }
 @media screen and (max-width: 767px) {
-  header#home > .container > div h1 .home-br-desktop {
-    display: none;
+  header#home .home-hero h1 {
+    font-size: 40px;
+    line-height: 48px;
   }
 }
-@media screen and (max-width: 767px) {
-  header#home > .container > div h1 {
-    font-size: 2.5em;
-  }
+header#home .home-title-gradient {
+  background-image: linear-gradient(90deg, #E072F9 18.45%, #4F51FD 86.82%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
-header#home > .container > div > .header-subtitle-container {
+header#home .home-hero__subtitle {
+  color: #CDD6E0;
+  font-size: 24px;
+  padding-bottom: 0;
+}
+header#home .home-hero .buttons {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 24px;
-  width: 100%;
-}
-@media screen and (max-width: 767px) {
-  header#home > .container > div > .header-subtitle-container {
-    gap: 8px;
-  }
-}
-header#home > .container > div > .header-subtitle-container .header-subtitle-pill {
-  margin: 0;
-  margin-bottom: 40px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-header#home > .container > div > .header-subtitle-container .header-subtitle-pill > span {
-  font-size: 1.75em;
-  font-weight: 500;
-  color: inherit;
-  transform: skew(-8deg);
-}
-@media screen and (max-width: 767px) {
-  header#home > .container > div > .header-subtitle-container .header-subtitle-pill > span {
-    font-size: 1.25em;
-  }
-}
-@media screen and (max-width: 767px) {
-  header#home > .container > div > .header-subtitle-container .header-subtitle-pill {
-    gap: 4px;
-  }
-}
-header#home > .container > div .buttons {
   gap: 16px;
-  display: flex;
-  margin-bottom: 24px;
-  justify-content: center;
+}
+header#home .home-hero .buttons .home-hero__sales {
+  display: none;
+}
+@media screen and (max-width: 1023px) {
+  header#home .home-hero .buttons .home-hero__sales {
+    display: inline-block;
+  }
 }
 @media screen and (max-width: 767px) {
-  header#home > .container > div .buttons {
+  header#home .home-hero .buttons {
     flex-wrap: wrap;
-  }
-  header#home > .container > div .buttons > a {
     width: 100%;
+  }
+  header#home .home-hero .buttons > a {
+    width: 100%;
+  }
+}
+header#home .home-hero__rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-weight: 600;
+}
+header#home .home-hero__rating .home-hero-start {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+@media screen and (max-width: 767px) {
+  header#home .home-hero__rating {
+    flex-direction: column;
   }
 }
 header#home:has(#header-cont.scroll) > .container {
@@ -407,6 +415,10 @@ header#home:has(#header-cont.scroll) > .container {
   header#home:has(#header-cont.scroll) > .container {
     padding-top: calc(10px + 10px + 52px);
   }
+}
+
+#key-features {
+  scroll-margin-top: 88px;
 }
 
 /* Dark hero pages: transparent nav over hero background, white nav on scroll */
@@ -559,7 +571,7 @@ body.page-id-1043 header#typical #header-cont.active nav .icon-menu {
 #header-cont.scroll nav #desktop-nav .menu-block > .main-menu > li > a, #header-cont.active nav #desktop-nav .menu-block > .main-menu > li > a {
   color: #000000;
 }
-@media (min-width: 1231px) {
+@media (min-width: 1024px) {
   #header-cont.scroll nav #desktop-nav .menu-block:hover > .main-menu > li > a, #header-cont.active nav #desktop-nav .menu-block:hover > .main-menu > li > a {
     color: #000000 !important;
   }
@@ -594,7 +606,7 @@ nav .desktop-menu-buttons {
   gap: 24px;
   flex-shrink: 0;
 }
-@media screen and (max-width: 1230px) {
+@media screen and (max-width: 1023px) {
   nav .desktop-menu-buttons {
     display: none;
   }
@@ -609,7 +621,7 @@ nav .desktop-menu-buttons .login-button {
   font-size: 14px;
   font-weight: 600;
 }
-@media screen and (max-width: 1230px) {
+@media screen and (max-width: 1023px) {
   nav {
     justify-content: space-between;
   }
@@ -623,7 +635,7 @@ nav #desktop-nav {
   min-width: 0;
   align-items: center;
 }
-@media screen and (max-width: 1230px) {
+@media screen and (max-width: 1023px) {
   nav #desktop-nav {
     display: none;
   }
@@ -669,7 +681,7 @@ nav #desktop-nav .menu-block > .main-menu > li.menu-item-has-children > a::after
   -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'><path d='M9.84861 3.51562H2.15173C1.92087 3.51562 1.79196 3.75937 1.93493 3.92578L5.78337 8.38828C5.89353 8.51602 6.10564 8.51602 6.21696 8.38828L10.0654 3.92578C10.2084 3.75937 10.0795 3.51562 9.84861 3.51562Z' fill='black'/></svg>") center/contain no-repeat;
   mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'><path d='M9.84861 3.51562H2.15173C1.92087 3.51562 1.79196 3.75937 1.93493 3.92578L5.78337 8.38828C5.89353 8.51602 6.10564 8.51602 6.21696 8.38828L10.0654 3.92578C10.2084 3.75937 10.0795 3.51562 9.84861 3.51562Z' fill='black'/></svg>") center/contain no-repeat;
 }
-@media (min-width: 1231px) {
+@media (min-width: 1024px) {
   nav #desktop-nav .menu-block::after {
     content: "";
     position: absolute;
@@ -685,7 +697,7 @@ nav #desktop-nav .menu-block > .main-menu > li.menu-item-has-children > a::after
     pointer-events: auto;
   }
 }
-@media (min-width: 1231px) {
+@media (min-width: 1024px) {
   nav #desktop-nav .menu-block:hover > .main-menu > li > .nav-panel {
     display: block;
   }
@@ -1024,7 +1036,7 @@ nav .icon-menu {
   display: none;
   color: #000000;
 }
-@media screen and (max-width: 1230px) {
+@media screen and (max-width: 1023px) {
   nav .icon-menu {
     display: block;
     margin-left: auto;
@@ -1226,6 +1238,41 @@ footer .gCheck-logo {
 }
 footer .gCheck-logo .gcText {
   fill: #FFFFFF;
+}
+footer .footer-g2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 40px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid rgba(205, 214, 224, 0.1607843137);
+  gap: 16px;
+}
+footer .footer-g2 p {
+  font-size: 2em;
+  font-weight: 600;
+  padding: 0;
+}
+footer .footer-g2 .footer-g2__badges {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+footer .footer-g2 .footer-g2__badges img {
+  display: block;
+  width: auto;
+  height: 120px;
+}
+@media screen and (max-width: 767px) {
+  footer .footer-g2 {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  footer .footer-g2 .footer-g2__badges {
+    flex-wrap: wrap;
+  }
 }
 footer .footer-top-row {
   display: grid;

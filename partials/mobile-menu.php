@@ -58,7 +58,7 @@ $m_nav_sections = array(
 		</div>
 
 		<div id="buttons">
-			<a href="<?php echo esc_url( home_url( '/talk-to-sales/' ) ); ?>" target="_parent" class="button blue full">
+			<a href="<?php echo esc_url( home_url( '/book-a-demo/' ) ); ?>" target="_parent" class="button blue full">
 				<?php esc_html_e( 'Talk To Sales', 'gc-v2' ); ?>
 			</a>
 			<a href="https://app.gcheck.com/sdocs/secure_home.html" target="_parent" class="button white full">

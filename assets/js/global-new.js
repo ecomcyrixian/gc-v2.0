@@ -18,6 +18,17 @@ jQuery(document).ready(function($) {
         }
     });
 
+    $('header#home a[href="#key-features"]').on('click', function (e) {
+        var target = document.getElementById('key-features');
+        if (!target) {
+            return;
+        }
+
+        e.preventDefault();
+        this.blur();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
     /* Hamburger menu */
     function debounce(func, delay) {
         var timeout;
@@ -46,7 +57,7 @@ jQuery(document).ready(function($) {
     $(window).on('resize', function() {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(function() {
-            if ($(window).width() <= 1230) {
+            if ($(window).width() <= 1023) {
                 $('#desktop-nav .menu-block').removeClass('active');
             }
         }, 250);
@@ -334,66 +345,5 @@ jQuery(document).ready(function($) {
         document.addEventListener('DOMContentLoaded', initHeroCopyLink);
     } else {
         initHeroCopyLink();
-    }
-})();
-
-/* Book a demo: reveal the help card once the Calendly calendar has rendered */
-(function () {
-    'use strict';
-
-    var READY_CLASS = 'is-calendar-ready';
-    var FALLBACK_DELAY = 6000;
-
-    function initDemoCalendar() {
-        var rows = document.querySelectorAll('.demo-calendar');
-        if (!rows.length) {
-            return;
-        }
-
-        rows.forEach(function (row) {
-            var widget = row.querySelector('.calendly-inline-widget');
-            if (!widget) {
-                row.classList.add(READY_CLASS);
-                return;
-            }
-
-            var reveal = function () {
-                row.classList.add(READY_CLASS);
-            };
-
-            window.addEventListener('message', function (e) {
-                if (!e.data || typeof e.data.event !== 'string') {
-                    return;
-                }
-                // Posted once the scheduling page is visible inside the iframe.
-                if (e.data.event === 'calendly.event_type_viewed') {
-                    reveal();
-                }
-                // Calendly reports its own content height, so the CSS values are only a fallback.
-                if (e.data.event === 'calendly.page_height' && e.data.payload && e.data.payload.height) {
-                    widget.style.height = e.data.payload.height;
-                }
-            });
-
-            // The iframe is injected by widget.js, so watch for it instead of querying now.
-            var observer = new MutationObserver(function () {
-                var frame = widget.querySelector('iframe');
-                if (!frame) {
-                    return;
-                }
-                observer.disconnect();
-                frame.addEventListener('load', reveal);
-            });
-            observer.observe(widget, { childList: true, subtree: true });
-
-            // Never leave the card hidden if Calendly is blocked or slow.
-            window.setTimeout(reveal, FALLBACK_DELAY);
-        });
-    }
-
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initDemoCalendar);
-    } else {
-        initDemoCalendar();
     }
 })();

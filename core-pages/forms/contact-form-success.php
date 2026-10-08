@@ -3,7 +3,7 @@
  * Contact form success state — mirrors /thanks-for-reaching-out/ content
  * without navigating away (GTM / dataLayer can finish on the same page).
  */
-$book_demo_url = home_url( '/talk-to-sales/' );
+$book_demo_url = home_url( '/book-a-demo/' );
 $blog_url      = home_url( '/blog/' );
 ?>
 

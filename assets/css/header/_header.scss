@@ -45,10 +45,12 @@ header{
     
 
     &#home{
-        height: 800px;
-        background: url(../images/home-header-bg.jpg) no-repeat top center $blue500;
+        min-height: 800px;
+        border-bottom: 0;
+        background: url(../images/new-header.jpg) no-repeat top center $darkblue;
         background-size: cover;
         z-index: auto;
+
         .gCheck-logo{
             .gcText{
                 fill: $white;
@@ -58,99 +60,113 @@ header{
             color: $white;
         }
         
-        @media (min-width: 1231px) {
+        @media (min-width: 1024px) {
             nav #desktop-nav .menu-block:hover > .main-menu > li > a{
                 color: $white !important;
             }
         }
         
         @include media($tablet){
-            height: 100%;
-            padding-bottom: $gap40;
+            min-height: 0;
+            height: auto;
+            padding-bottom: $gap80;
         }
 
         @include media($mobile){
+            padding-bottom: $gap60;
             margin-bottom: $gap60;
         }
 
-        &>.container>div{
+        .home-hero{
             color: $white;
-            margin: $gap40 auto;
-            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 48px;
+            max-width: 800px;
+            margin: $gap60 auto;
             text-align: center;
 
             @include media($mobile){
-                max-width: 100%;
-                width: 100%;
-            }
-
-            h1{
-                display: block;
-                margin: 0 auto $gap40 auto;
-                font-size: $fsize64;
-                font-weight: $fBold;
-                transform: skew(-8deg);
-                padding: 0 $gap8;
-
-                .home-br-desktop{
-                    @include media($mobile){
-                        display: none;
-                    }
-                }
-
-                @include media($mobile){
-                    font-size: $fsize40;
-                }
-            }
-
-            &>.header-subtitle-container{
-                display: flex;
-                flex-wrap: wrap;
-                align-items: center;
-                justify-content: center;
                 gap: $gap24;
-                width: 100%;
+                margin-top: $gap40;
+            }
+        }
 
-                @include media($mobile){
-                    gap: $gap8;
-                }
+        .home-hero__copy{
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: $gap24;
+        }
 
-                .header-subtitle-pill{
-                    margin: 0;
-                    margin-bottom: $gap40;
-                    display: inline-flex;
-                    align-items: center;
-                    justify-content: center;
-                    gap: $gap8;
+        .home-hero h1{            
+            font-size: $fsize64;
+            font-weight: $fBold;
+            line-height: 72px;
+            transform: skew(-8deg);
 
-                    > span{
-                        font-size: $fsize28;
-                        font-weight: 500;
-                        color: inherit;
-                        transform: skew(-8deg);
+            @include media($mobile){
+                font-size: $gap40;
+                line-height: 48px;
+            }
+        }
 
-                        @include media($mobile){
-                            font-size: $fsize20;
-                        }
-                    }
+        .home-title-gradient{
+            background-image: linear-gradient(90deg, #E072F9 18.45%, #4F51FD 86.82%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
 
-                    @include media($mobile){
-                        gap: $gap4;
-                    }
+        .home-hero__subtitle{
+           color: $gray75;
+           font-size: $fsize24;
+           padding-bottom: 0;
+        }
+
+        .home-hero .buttons{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: $gap16;
+
+            .home-hero__sales{
+                display: none;
+            }
+
+            @include media($tablet){
+                .home-hero__sales{
+                    display: inline-block;
                 }
             }
 
-            .buttons{
-                gap: $gap16;
-                display: flex;
-                margin-bottom: $gap24;
-                justify-content: center;
-                @include media($mobile){
-                    flex-wrap: wrap;
-                    &>a{
-                        width: 100%;
-                    }
+            @include media($mobile){
+                flex-wrap: wrap;
+                width: 100%;
+
+                > a{
+                    width: 100%;
                 }
+            }
+        }
+
+        .home-hero__rating{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: $gap16;
+            font-weight: $fSemiBold;
+
+            .home-hero-start{
+                display: flex;
+                align-items: center;
+                gap: $gap16;
+            }
+
+            @include media($mobile){
+                flex-direction: column;
             }
         }
 
@@ -163,6 +179,10 @@ header{
         }
 
     }
+}
+
+#key-features{
+    scroll-margin-top: 88px;
 }
 
 /* Dark hero pages: transparent nav over hero background, white nav on scroll */
@@ -305,7 +325,7 @@ body.page-id-1043 {
             color: $black;
         }
 
-        @media (min-width: 1231px) {
+        @media (min-width: 1024px) {
             nav #desktop-nav .menu-block:hover > .main-menu > li > a{
                 color: $black !important;
             }
@@ -346,7 +366,7 @@ nav{
         gap: $gap24;
         flex-shrink: 0;
 
-        @include media($custom){
+        @include media($tablet){
             display: none;
         }
 
@@ -362,7 +382,7 @@ nav{
         }
     }
 
-        @include media($custom){
+        @include media($tablet){
             justify-content: space-between;
         }
 
@@ -375,7 +395,7 @@ nav{
         min-width: 0;
         align-items: center;
 
-        @include media($custom){
+        @include media($tablet){
             display: none;
         }
 
@@ -427,7 +447,7 @@ nav{
 
             }
 
-            @media (min-width: 1231px) {
+            @media (min-width: 1024px) {
                 &::after{
                     content: '';
                     position: absolute;
@@ -446,7 +466,7 @@ nav{
             }
 
             
-            @media (min-width: 1231px) {
+            @media (min-width: 1024px) {
                 &:hover{
                     &>.main-menu>li>.nav-panel{
                         display: block;
@@ -863,7 +883,7 @@ nav{
     .icon-menu{
         display: none;
         color: $black; 
-        @include media($custom){
+        @include media($tablet){
             display:block;
             margin-left: auto;
         }

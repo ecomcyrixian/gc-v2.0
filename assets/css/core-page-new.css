@@ -2216,9 +2216,6 @@ body.page #landing-page .demo-calendar .demo-help {
   border: 1px solid #CDD6E0;
   border-radius: 8px;
   margin-top: 66px;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease 0s;
 }
 body.page #landing-page .demo-calendar .demo-help .snippet {
   font-weight: 600;
@@ -2235,10 +2232,6 @@ body.page #landing-page .demo-calendar .demo-help p {
 body.page #landing-page .demo-calendar .demo-help .button {
   align-self: flex-start;
   display: block;
-}
-body.page #landing-page .demo-calendar.is-calendar-ready .demo-help {
-  opacity: 1;
-  visibility: visible;
 }
 @media screen and (max-width: 1230px) {
   body.page #landing-page .demo-calendar {

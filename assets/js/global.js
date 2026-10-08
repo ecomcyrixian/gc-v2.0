@@ -32,7 +32,7 @@ jQuery(document).ready(function($) {
     $(window).on('resize', function() {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(function() {
-            if ($(window).width() <= 1230) {
+            if ($(window).width() <= 1023) {
                 $('#desktop-nav .menu-block').removeClass('active');
             }
         }, 250);

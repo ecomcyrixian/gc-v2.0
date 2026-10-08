@@ -11,7 +11,7 @@
                     <!-- <a href="" target="_parent" class="button blue">
                         Get Started Today
                     </a> -->
-                    <a href="<?php echo esc_url( home_url('/talk-to-sales/') ); ?>" target="_parent" class="button white">
+                    <a href="<?php echo esc_url( home_url('/book-a-demo/') ); ?>" target="_parent" class="button white">
                         Book a Demo
                     </a>
                 </div>

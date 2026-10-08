@@ -69,7 +69,7 @@
             <span>Login</span>
         </a>
 
-        <a href="<?php echo esc_url( home_url('/talk-to-sales/') ); ?>" target="_parent" class="button white">
+        <a href="<?php echo esc_url( home_url('/book-a-demo/') ); ?>" target="_parent" class="button white">
         Talk to Sales
         </a>
     </div>

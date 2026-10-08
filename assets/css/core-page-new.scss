@@ -1149,9 +1149,6 @@ body.page{
                 border: 1px solid $gray75;
                 border-radius: $corners8;
                 margin-top: 66px;
-                opacity: 0;
-                visibility: hidden;
-                @include transition-fade(0.3);
 
                 .snippet {
                     font-weight: $fSemiBold;
@@ -1172,11 +1169,6 @@ body.page{
                     align-self: flex-start;
                     display: block;
                 }
-            }
-
-            &.is-calendar-ready .demo-help {
-                opacity: 1;
-                visibility: visible;
             }
 
             @include media($custom) {

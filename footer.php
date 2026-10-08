@@ -12,6 +12,25 @@
                 - GCv2.0 Footer : Resources
                 - GCv2.0 Footer : Company
             -->
+            <div class="footer-g2">
+                <p>The Teams We Screen For Say It Best</p>
+                <div class="footer-g2__badges">
+                    <?php
+                    $footer_g2_img = get_template_directory_uri() . '/partials/home/grid-layout/images/';
+                    $footer_g2_badges = array(
+                        'hp.png'    => 'G2 High Performer',
+                        'roi.png'   => 'G2 Best Estimated ROI',
+                        'umltr.png' => 'G2 Users Most Likely To Recommend',
+                        'hua.png'   => 'G2 Highest User Adoption',
+                        'ulu.png'   => 'G2 Users Love Us',
+                    );
+                    foreach ( $footer_g2_badges as $file => $alt ) :
+                    ?>
+                        <img src="<?php echo esc_url( $footer_g2_img . $file ); ?>" alt="<?php echo esc_attr( $alt ); ?>" width="111" height="127" loading="lazy" decoding="async">
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
             <!-- Top Row: 4 columns -->
             <div class="footer-top-row">
                 <!-- Identity & Trust -->
@@ -168,12 +187,12 @@
             <div class="copyright-row">
                 <div class="copyright-left">
                     <div class="copyright-links">
+						<span><a href="/trust-center/">Trust Center</a></span>
                         <span><a href="<?php echo esc_url( home_url('/legal/') ); ?>">Legal</a></span>
                         <span><a href="<?php echo esc_url( home_url('/privacy-policy/') ); ?>">Privacy Policy</a></span>
                         <span><a href="<?php echo esc_url( home_url('/terms/') ); ?>">Terms of Service</a></span>
                         <span><a href="<?php echo esc_url( home_url('/legal/#manage-cookies/') ); ?>">Manage Cookies</a></span>
-                        <!-- <span><a href="https://trust.gcheck.com" target="_blank" rel="noopener noreferrer">Trust Center</a></span>
-                        <span><a href="<?php echo esc_url( home_url('/dsar-form/') ); ?>">Request for My Data</a></span> -->
+                        <span><a href="<?php echo esc_url( home_url('/do-not-sell-my-info/') ); ?>">Do Not Sell My Info</a></span>
                     </div>
                     <div class="copyright-text">
                         <span>&copy; <?php echo date('Y'); ?> GCheck. All rights reserved.</span>
