@@ -70,7 +70,7 @@
         </a>
 
         <a href="<?php echo esc_url( home_url('/book-a-demo/') ); ?>" target="_parent" class="button white">
-        Talk to Sales
+        Book a Demo
         </a>
     </div>
 </nav>
