@@ -131,4 +131,90 @@ if ( ! function_exists( 'gc_theme_static_html_directory' ) ) {
 	function gc_theme_static_html_wrapper_attrs( $html ) {
 		return '';
 	}
+
+	/**
+	 * PHP compositions live at static/{slug}/{slug}.php and render inside the theme header and footer.
+	 */
+	function gc_theme_static_php_file_path( $slug ) {
+		if ( $slug === '' ) {
+			return null;
+		}
+
+		$dir       = gc_theme_static_html_directory();
+		$real_file = realpath( $dir . '/' . $slug . '/' . $slug . '.php' );
+		$real_dir  = realpath( $dir );
+
+		if ( ! $real_file || ! $real_dir || ! is_file( $real_file ) || strpos( $real_file, $real_dir ) !== 0 ) {
+			return null;
+		}
+
+		return $real_file;
+	}
+
+	function gc_theme_get_static_php_page_slug( $post = null ) {
+		if ( ! is_page_template( 'page-static-html.php' ) ) {
+			return '';
+		}
+
+		$post = $post instanceof WP_Post ? $post : get_post();
+		$slug = gc_theme_static_html_resolve_slug_for_post( $post );
+
+		return gc_theme_static_php_file_path( $slug ) ? $slug : '';
+	}
+
+	function gc_theme_enqueue_static_php_page_assets( $post ) {
+		if ( gc_theme_get_static_php_page_slug( $post ) === '' ) {
+			return;
+		}
+
+		$theme_dir  = get_template_directory();
+		$static_css = $theme_dir . '/assets/css/static-page.css';
+		$scss_files = array( $theme_dir . '/assets/css/static-page.scss' );
+
+		foreach ( (array) glob( $theme_dir . '/static/*/*/css/*.scss' ) as $scss_file ) {
+			$scss_files[] = $scss_file;
+		}
+
+		wp_enqueue_style(
+			'static-page-style',
+			get_template_directory_uri() . '/assets/css/static-page.css',
+			array( 'global-style', 'page-style' ),
+			gc_theme_asset_version( $static_css, $scss_files ),
+			'screen'
+		);
+	}
+
+	function gc_theme_get_static_php_page_schema_builders() {
+		return array(
+			'verified-entry' => array(
+				'file'     => 'static/verified-entry/schema.php',
+				'function' => 'gc_static_verified_entry_schema',
+			),
+		);
+	}
+
+	function gc_theme_render_static_php_page_schema() {
+		$post     = get_post();
+		$slug     = gc_theme_get_static_php_page_slug( $post );
+		$builders = gc_theme_get_static_php_page_schema_builders();
+
+		if ( $slug === '' || ! isset( $builders[ $slug ] ) ) {
+			return;
+		}
+
+		require_once get_template_directory() . '/' . $builders[ $slug ]['file'];
+
+		if ( ! function_exists( $builders[ $slug ]['function'] ) ) {
+			return;
+		}
+
+		$schema = call_user_func( $builders[ $slug ]['function'], $post );
+
+		if ( empty( $schema ) ) {
+			return;
+		}
+
+		echo '<script type="application/ld+json">' . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . '</script>' . "\n";
+	}
+	add_action( 'wp_head', 'gc_theme_render_static_php_page_schema' );
 }

@@ -1,7 +1,13 @@
 <?php
 // Detect which page we're on and load the correct form
 
-if ( is_page( 'human-trafficking-dispute-form' ) ) {
+$gc_form_details = function_exists( 'get_sub_field' ) ? (string) get_sub_field( 'details' ) : '';
+$gc_is_quote_form = strpos( $gc_form_details, 'service-form-hero__content' ) !== false;
+
+if ( $gc_is_quote_form ) {
+    echo do_shortcode( '[gcheck_contact_form variant="quote"]' );
+
+} elseif ( is_page( 'human-trafficking-dispute-form' ) ) {
     // Human Trafficking Background Dispute form
     echo do_shortcode( '[gcheck_human_trafficking_dispute_form]' );
 
@@ -9,8 +15,6 @@ if ( is_page( 'human-trafficking-dispute-form' ) ) {
     // Regular Dispute form
     echo do_shortcode( '[gcheck_dispute_form]' );
 
-} elseif ( is_page( 'contact-support' ) ) {
-    echo do_shortcode( '[gcheck_support_form]' );
 } else {
     // Default Contact form
     echo do_shortcode( '[gcheck_contact_form]' );

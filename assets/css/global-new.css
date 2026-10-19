@@ -282,8 +282,8 @@ header#typical {
   position: sticky;
   top: 0;
 }
-header#typical .gCheck-logo .gcText {
-  fill: #000000;
+header#typical .gCheck-logo .gCheck-logo__img--light {
+  display: none;
 }
 header#typical nav #desktop-nav .main-menu > li > a {
   color: #000000;
@@ -294,17 +294,29 @@ header#typical nav .desktop-menu-buttons .login-button {
 header#home {
   min-height: 800px;
   border-bottom: 0;
-  background: url(../images/new-header.jpg) no-repeat top center #00014F;
-  background-size: cover;
+  background: #00014F;
   z-index: auto;
 }
-header#home .gCheck-logo .gcText {
-  fill: #FFFFFF;
+header#home .home-hero__bg {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  position: absolute;
+  object-fit: cover;
+  object-position: top center;
+  pointer-events: none;
+}
+header#home .gCheck-logo .gCheck-logo__img--dark {
+  display: none;
+}
+header#home .gCheck-logo .gCheck-logo__img--light {
+  display: block;
 }
 header#home nav .icon-menu {
   color: #FFFFFF;
 }
-@media (min-width: 1024px) {
+@media screen and (min-width: 1124px) {
   header#home nav #desktop-nav .menu-block:hover > .main-menu > li > a {
     color: #FFFFFF !important;
   }
@@ -322,13 +334,16 @@ header#home nav .icon-menu {
     margin-bottom: 60px;
   }
 }
+header#home > .container {
+  position: relative;
+  z-index: 1;
+}
 header#home .home-hero {
   color: #FFFFFF;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 48px;
-  max-width: 800px;
   margin: 60px auto;
   text-align: center;
 }
@@ -409,11 +424,11 @@ header#home .home-hero__rating .home-hero-start {
   }
 }
 header#home:has(#header-cont.scroll) > .container {
-  padding-top: calc(20px + 20px + 56px);
+  padding-top: calc(20px + 20px + 37px);
 }
 @media screen and (max-width: 767px) {
   header#home:has(#header-cont.scroll) > .container {
-    padding-top: calc(10px + 10px + 52px);
+    padding-top: calc(10px + 10px + 37px);
   }
 }
 
@@ -428,10 +443,15 @@ body.page-id-1043 header#typical {
   background: transparent;
   border-bottom: 1px solid transparent;
 }
-body:has(.text-only--management-team) header#typical .gCheck-logo .gcText,
-body:has(#pricing.pricing-page) header#typical .gCheck-logo .gcText,
-body.page-id-1043 header#typical .gCheck-logo .gcText {
-  fill: #FFFFFF;
+body:has(.text-only--management-team) header#typical .gCheck-logo .gCheck-logo__img--dark,
+body:has(#pricing.pricing-page) header#typical .gCheck-logo .gCheck-logo__img--dark,
+body.page-id-1043 header#typical .gCheck-logo .gCheck-logo__img--dark {
+  display: none;
+}
+body:has(.text-only--management-team) header#typical .gCheck-logo .gCheck-logo__img--light,
+body:has(#pricing.pricing-page) header#typical .gCheck-logo .gCheck-logo__img--light,
+body.page-id-1043 header#typical .gCheck-logo .gCheck-logo__img--light {
+  display: block;
 }
 body:has(.text-only--management-team) header#typical nav #desktop-nav .main-menu > li > a,
 body:has(#pricing.pricing-page) header#typical nav #desktop-nav .main-menu > li > a,
@@ -463,13 +483,21 @@ body.page-id-1043 header#typical #header-cont.active {
   background: #FFFFFF;
   border-bottom: 1px solid #CDD6E0;
 }
-body:has(.text-only--management-team) header#typical #header-cont.scroll .gCheck-logo .gcText,
-body:has(.text-only--management-team) header#typical #header-cont.active .gCheck-logo .gcText,
-body:has(#pricing.pricing-page) header#typical #header-cont.scroll .gCheck-logo .gcText,
-body:has(#pricing.pricing-page) header#typical #header-cont.active .gCheck-logo .gcText,
-body.page-id-1043 header#typical #header-cont.scroll .gCheck-logo .gcText,
-body.page-id-1043 header#typical #header-cont.active .gCheck-logo .gcText {
-  fill: #000000;
+body:has(.text-only--management-team) header#typical #header-cont.scroll .gCheck-logo .gCheck-logo__img--dark,
+body:has(.text-only--management-team) header#typical #header-cont.active .gCheck-logo .gCheck-logo__img--dark,
+body:has(#pricing.pricing-page) header#typical #header-cont.scroll .gCheck-logo .gCheck-logo__img--dark,
+body:has(#pricing.pricing-page) header#typical #header-cont.active .gCheck-logo .gCheck-logo__img--dark,
+body.page-id-1043 header#typical #header-cont.scroll .gCheck-logo .gCheck-logo__img--dark,
+body.page-id-1043 header#typical #header-cont.active .gCheck-logo .gCheck-logo__img--dark {
+  display: block;
+}
+body:has(.text-only--management-team) header#typical #header-cont.scroll .gCheck-logo .gCheck-logo__img--light,
+body:has(.text-only--management-team) header#typical #header-cont.active .gCheck-logo .gCheck-logo__img--light,
+body:has(#pricing.pricing-page) header#typical #header-cont.scroll .gCheck-logo .gCheck-logo__img--light,
+body:has(#pricing.pricing-page) header#typical #header-cont.active .gCheck-logo .gCheck-logo__img--light,
+body.page-id-1043 header#typical #header-cont.scroll .gCheck-logo .gCheck-logo__img--light,
+body.page-id-1043 header#typical #header-cont.active .gCheck-logo .gCheck-logo__img--light {
+  display: none;
 }
 body:has(.text-only--management-team) header#typical #header-cont.scroll nav #desktop-nav .main-menu > li > a,
 body:has(.text-only--management-team) header#typical #header-cont.active nav #desktop-nav .main-menu > li > a,
@@ -505,6 +533,7 @@ body.page-id-1043 header#typical #header-cont.active nav .icon-menu {
   background: transparent;
   padding: 20px 0;
   position: relative;
+  z-index: 100;
 }
 @media screen and (max-width: 767px) {
   #header-cont {
@@ -520,7 +549,7 @@ body.page-id-1043 header#typical #header-cont.active nav .icon-menu {
   z-index: 999;
   position: relative;
   padding: 0;
-  gap: 16px;
+  gap: 40px;
   justify-content: flex-start;
   min-width: 0;
 }
@@ -532,20 +561,27 @@ body.page-id-1043 header#typical #header-cont.active nav .icon-menu {
 @media screen and (max-width: 767px) {
   #header-cont > .container {
     padding: 0;
+    gap: 16px;
   }
 }
 #header-cont .gCheck-logo {
   flex: 0 0 auto;
   z-index: 99;
   position: relative;
-  min-width: 100px;
-  margin-right: 12px;
 }
-#header-cont .gCheck-logo svg {
-  max-width: 100px;
-  width: 100%;
-  height: auto;
+#header-cont .gCheck-logo a {
+  display: flex;
+  align-items: center;
+  line-height: 0;
+}
+#header-cont .gCheck-logo .gCheck-logo__img {
+  display: block;
+  width: auto;
+  height: 37px;
   transition: all 0.2s ease 0s;
+}
+#header-cont .gCheck-logo .gCheck-logo__img--light {
+  display: none;
 }
 #header-cont.scroll, #header-cont.active {
   top: 0;
@@ -562,8 +598,11 @@ body.page-id-1043 header#typical #header-cont.active nav .icon-menu {
 #header-cont.scroll .button.white, #header-cont.active .button.white {
   color: #4F51FD;
 }
-#header-cont.scroll .gCheck-logo .gcText, #header-cont.active .gCheck-logo .gcText {
-  fill: #000000;
+#header-cont.scroll .gCheck-logo .gCheck-logo__img--dark, #header-cont.active .gCheck-logo .gCheck-logo__img--dark {
+  display: block;
+}
+#header-cont.scroll .gCheck-logo .gCheck-logo__img--light, #header-cont.active .gCheck-logo .gCheck-logo__img--light {
+  display: none;
 }
 #header-cont.scroll nav .icon-menu, #header-cont.active nav .icon-menu {
   color: #000000;
@@ -571,7 +610,7 @@ body.page-id-1043 header#typical #header-cont.active nav .icon-menu {
 #header-cont.scroll nav #desktop-nav .menu-block > .main-menu > li > a, #header-cont.active nav #desktop-nav .menu-block > .main-menu > li > a {
   color: #000000;
 }
-@media (min-width: 1024px) {
+@media screen and (min-width: 1124px) {
   #header-cont.scroll nav #desktop-nav .menu-block:hover > .main-menu > li > a, #header-cont.active nav #desktop-nav .menu-block:hover > .main-menu > li > a {
     color: #000000 !important;
   }
@@ -606,7 +645,7 @@ nav .desktop-menu-buttons {
   gap: 24px;
   flex-shrink: 0;
 }
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1123px) {
   nav .desktop-menu-buttons {
     display: none;
   }
@@ -621,7 +660,7 @@ nav .desktop-menu-buttons .login-button {
   font-size: 14px;
   font-weight: 600;
 }
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1123px) {
   nav {
     justify-content: space-between;
   }
@@ -635,7 +674,7 @@ nav #desktop-nav {
   min-width: 0;
   align-items: center;
 }
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1123px) {
   nav #desktop-nav {
     display: none;
   }
@@ -681,7 +720,7 @@ nav #desktop-nav .menu-block > .main-menu > li.menu-item-has-children > a::after
   -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'><path d='M9.84861 3.51562H2.15173C1.92087 3.51562 1.79196 3.75937 1.93493 3.92578L5.78337 8.38828C5.89353 8.51602 6.10564 8.51602 6.21696 8.38828L10.0654 3.92578C10.2084 3.75937 10.0795 3.51562 9.84861 3.51562Z' fill='black'/></svg>") center/contain no-repeat;
   mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'><path d='M9.84861 3.51562H2.15173C1.92087 3.51562 1.79196 3.75937 1.93493 3.92578L5.78337 8.38828C5.89353 8.51602 6.10564 8.51602 6.21696 8.38828L10.0654 3.92578C10.2084 3.75937 10.0795 3.51562 9.84861 3.51562Z' fill='black'/></svg>") center/contain no-repeat;
 }
-@media (min-width: 1024px) {
+@media screen and (min-width: 1124px) {
   nav #desktop-nav .menu-block::after {
     content: "";
     position: absolute;
@@ -697,7 +736,7 @@ nav #desktop-nav .menu-block > .main-menu > li.menu-item-has-children > a::after
     pointer-events: auto;
   }
 }
-@media (min-width: 1024px) {
+@media screen and (min-width: 1124px) {
   nav #desktop-nav .menu-block:hover > .main-menu > li > .nav-panel {
     display: block;
   }
@@ -1036,7 +1075,7 @@ nav .icon-menu {
   display: none;
   color: #000000;
 }
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1123px) {
   nav .icon-menu {
     display: block;
     margin-left: auto;
@@ -3117,6 +3156,11 @@ body.search h4 span {
 .cards.cards--executive-team {
   margin-bottom: 100px;
 }
+@media screen and (max-width: 767px) {
+  .cards.cards--executive-team {
+    margin-bottom: 40px;
+  }
+}
 .cards.cards--executive-team > .container {
   padding: 0;
 }
@@ -3145,11 +3189,14 @@ body.search h4 span {
 }
 .cards.cards--executive-team .card-cont {
   gap: 40px;
+  align-items: stretch;
 }
 .cards.cards--executive-team .card-cont > div {
   padding: 0;
   display: flex;
   align-items: stretch;
+  align-self: stretch;
+  height: auto;
   min-height: 594px;
   overflow: hidden;
 }
@@ -3228,16 +3275,25 @@ body.search h4 span {
     display: block;
   }
   .cards.cards--executive-team .card-cont > div > span:first-child {
-    width: 200px;
-    min-width: 200px;
-    max-width: 200px;
-    height: 280px;
-    margin: 0 auto;
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    height: auto;
+    aspect-ratio: 1/1;
+    margin: 0;
+    background-color: #30319A;
+    background-repeat: no-repeat;
+    background-size: auto 120%;
+    background-position: center top;
+  }
+  .cards.cards--executive-team .card-cont > div:nth-child(1) > span:first-child {
+    background-image: url("../images/houman.webp");
+  }
+  .cards.cards--executive-team .card-cont > div:nth-child(2) > span:first-child {
+    background-image: url("../images/pat.webp");
   }
   .cards.cards--executive-team .card-cont > div > span:first-child img {
-    height: 100%;
-    object-fit: contain;
-    object-position: center top;
+    display: none;
   }
   .cards.cards--executive-team .card-cont > div > .desc {
     padding: 16px;
@@ -3453,6 +3509,242 @@ body.search h4 span {
   margin-top: 10px;
   text-align: center;
   background: #EDEEFF;
+}
+.cards:has(.heading .service-description-pillars) > .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cards:has(.heading .service-description-pillars) .heading:has(.service-description-pillars) {
+  display: contents;
+}
+.cards:has(.heading .service-description-pillars) .heading:has(.service-description-pillars) > h2,
+.cards:has(.heading .service-description-pillars) .heading:has(.service-description-pillars) > .service-description-pillars {
+  width: 100%;
+}
+@media screen and (max-width: 767px) {
+  .cards:has(.heading .service-description-pillars) .heading:has(.service-description-pillars) > h2,
+  .cards:has(.heading .service-description-pillars) .heading:has(.service-description-pillars) > .service-description-pillars {
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-bottom: 20px;
+  }
+}
+.cards:has(.heading .service-description-pillars) .heading:has(.service-description-pillars) > p:has(.order-3) {
+  display: contents;
+}
+.cards:has(.heading .service-description-pillars) .service-description-pillars {
+  order: 1;
+  margin-bottom: 60px;
+}
+.cards:has(.heading .service-description-pillars) .card-cont {
+  order: 2;
+}
+.cards:has(.heading .service-description-pillars) .heading a.order-3 {
+  order: 3;
+  margin-top: 40px;
+}
+.cards:has(.heading .service-description-steps) {
+  background: #FFFFFF;
+  margin-bottom: 0;
+  padding-bottom: 80px;
+}
+.cards:has(.heading .service-description-steps) .service-description-steps {
+  margin-top: 12px;
+}
+.cards:has(.heading .service-description-steps) .card-cont > .card-item,
+.cards:has(.heading .service-description-steps) .card-cont > a {
+  position: relative;
+  overflow: visible;
+  background: #f5f5f5;
+}
+.cards:has(.heading .service-description-steps) .card-cont > .card-item:not(:last-child)::after,
+.cards:has(.heading .service-description-steps) .card-cont > a:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 50px;
+  right: -24px;
+  z-index: 1;
+  width: 8px;
+  height: 8px;
+  border-top: 2px solid #4F51FD;
+  border-right: 2px solid #4F51FD;
+  transform: rotate(45deg);
+}
+@media screen and (max-width: 767px) {
+  .cards:has(.heading .service-description-steps) {
+    padding-bottom: 40px;
+  }
+}
+.cards:has(.heading .service-description-steps.explore) {
+  background: #f5f5f5;
+}
+.cards:has(.heading .service-description-steps.explore) .heading {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 24px;
+  padding: 0 0 24px;
+  margin-bottom: 0;
+  text-align: left;
+}
+.cards:has(.heading .service-description-steps.explore) .heading h2 {
+  margin: 0;
+}
+.cards:has(.heading .service-description-steps.explore) .heading h2 span {
+  margin-bottom: 8px;
+}
+@media screen and (max-width: 1311px) {
+  .cards:has(.heading .service-description-steps.explore) .heading {
+    padding: 0 16px 24px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .cards:has(.heading .service-description-steps.explore) .heading {
+    grid-template-columns: 1fr;
+    margin: 0;
+  }
+}
+.cards:has(.heading .service-description-steps.explore) .service-description-steps.explore {
+  margin-top: 0;
+}
+.cards:has(.heading .service-description-steps.explore) .service-description-steps.explore p {
+  padding: 0;
+}
+.cards:has(.heading .service-description-steps.explore) .service-description-steps.explore a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4F51FD;
+  text-decoration: none;
+}
+.cards:has(.heading .service-description-steps.explore) .service-description-steps.explore a::after {
+  content: "";
+  width: 14px;
+  height: 14px;
+  background-color: currentColor;
+  mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>') no-repeat center/contain;
+  transition: transform 0.2s ease;
+}
+.cards:has(.heading .service-description-steps.explore) .service-description-steps.explore a:hover {
+  color: #6D6FFD;
+  text-decoration: underline;
+}
+.cards:has(.heading .service-description-steps.explore) .service-description-steps.explore a:hover::after {
+  transform: translateX(3px);
+}
+.cards:has(.heading .service-description-steps.explore) .card-cont:not(.card-cont--row-stagger) {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 16px;
+}
+@media screen and (max-width: 1023px) {
+  .cards:has(.heading .service-description-steps.explore) .card-cont:not(.card-cont--row-stagger) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media screen and (max-width: 767px) {
+  .cards:has(.heading .service-description-steps.explore) .card-cont:not(.card-cont--row-stagger) {
+    grid-template-columns: 1fr;
+  }
+}
+.cards:has(.heading .service-description-steps.explore) .card-cont:not(.card-cont--row-stagger) > .card-item,
+.cards:has(.heading .service-description-steps.explore) .card-cont:not(.card-cont--row-stagger) > div {
+  width: auto;
+  background: #FFFFFF;
+}
+.cards:has(.heading .service-description-steps.explore) .card-cont:not(.card-cont--row-stagger) > a {
+  width: auto;
+  background: transparent;
+}
+.cards:has(.heading .service-description-steps.explore) .card-cont:not(.card-cont--row-stagger) > .card-item::after,
+.cards:has(.heading .service-description-steps.explore) .card-cont:not(.card-cont--row-stagger) > a::after {
+  content: none;
+}
+.cards:has(.heading .service-description-steps.explore) .card-item {
+  min-height: 183px;
+  padding: 24px;
+  border: 1px solid transparent;
+  transition: border-color 0.2s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+.cards:has(.heading .service-description-steps.explore) .card-item h4 {
+  margin-bottom: 8px;
+}
+.cards:has(.heading .service-description-steps.explore) .card-item h4,
+.cards:has(.heading .service-description-steps.explore) .card-item h4 p {
+  font-size: 1.125em;
+  font-weight: 600;
+}
+.cards:has(.heading .service-description-steps.explore) .card-item h4 > span:last-child:empty {
+  display: none;
+}
+.cards:has(.heading .service-description-steps.explore) .card-item p {
+  padding: 0;
+  font-size: 14px;
+  line-height: 22px;
+}
+.cards:has(.heading .service-description-steps.explore) .card-item > p:has(> a),
+.cards:has(.heading .service-description-steps.explore) .card-item > a,
+.cards:has(.heading .service-description-steps.explore) .card-item > p:last-child:not(:first-of-type),
+.cards:has(.heading .service-description-steps.explore) .card-item > span:last-child,
+.cards:has(.heading .service-description-steps.explore) .card-item .explore-link {
+  margin-top: auto;
+  padding-top: 24px;
+}
+.cards:has(.heading .service-description-steps.explore) .card-item a,
+.cards:has(.heading .service-description-steps.explore) .card-item > p:last-child:not(:first-of-type),
+.cards:has(.heading .service-description-steps.explore) .card-item > span:last-child,
+.cards:has(.heading .service-description-steps.explore) .card-item .explore-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4F51FD;
+  text-decoration: none;
+}
+.cards:has(.heading .service-description-steps.explore) .card-item a::after,
+.cards:has(.heading .service-description-steps.explore) .card-item > p:last-child:not(:first-of-type)::after,
+.cards:has(.heading .service-description-steps.explore) .card-item > span:last-child::after,
+.cards:has(.heading .service-description-steps.explore) .card-item .explore-link::after {
+  content: "";
+  width: 14px;
+  height: 14px;
+  background-color: currentColor;
+  mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>') no-repeat center/contain;
+  transition: transform 0.2s ease;
+}
+.cards:has(.heading .service-description-steps.explore) .card-item:hover a::after, .cards:has(.heading .service-description-steps.explore) .card-item:hover > p:last-child:not(:first-of-type)::after, .cards:has(.heading .service-description-steps.explore) .card-item:hover > span:last-child::after, .cards:has(.heading .service-description-steps.explore) .card-item:hover .explore-link::after {
+  transform: translateX(3px);
+}
+.cards:has(.heading .service-description-steps.explore) .card-link:hover .card-item,
+.cards:has(.heading .service-description-steps.explore) .card-cont > .card-item:hover {
+  border-color: #D9DAFF;
+  box-shadow: 0 18px 40px -20px rgba(26, 28, 30, 0.25);
+  transform: translateY(-2px);
+}
+@media screen and (max-width: 767px) {
+  .cards:has(.heading .service-description-steps.explore) {
+    padding: 40px 0;
+  }
+}
+.cards .service-sub-description {
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 0.75em;
+  font-weight: 600;
+  width: fit-content;
+  margin-top: auto;
+}
+.cards .service-sub-description.green {
+  background: #EEF9EF;
+  color: #2B7A34;
+}
+.cards .service-sub-description.blue {
+  background: #F2F3FF;
+  color: #4F51FD;
 }
 
 /*
@@ -4371,6 +4663,15 @@ body.search h4 span {
   padding: 80px 0;
 }
 
+#faq.cards:has(.faq-collabsible.service-pillars.top-60) {
+  margin-top: 60px;
+}
+@media screen and (max-width: 767px) {
+  #faq.cards:has(.faq-collabsible.service-pillars.top-60) {
+    margin-top: 20px;
+  }
+}
+
 #faq.faq--collapsible:has(.faq-collabsible.full) > .container {
   max-width: 1000px;
 }
@@ -4432,6 +4733,70 @@ body.search h4 span {
 }
 #faq.faq--collapsible:has(.faq-collabsible.full) .card-cont.cols2 > .faq-card {
   width: 100%;
+}
+#faq.faq--collapsible:has(.faq-collabsible.service-pillars) > .container {
+  display: flex;
+  align-items: flex-start;
+  gap: 60px;
+}
+#faq.faq--collapsible:has(.faq-collabsible.service-pillars) .heading {
+  flex: 0 0 380px;
+  padding: 0;
+  text-align: left;
+}
+#faq.faq--collapsible:has(.faq-collabsible.service-pillars) .faq-collabsible.service-pillars p {
+  margin: 16px 0 24px;
+}
+#faq.faq--collapsible:has(.faq-collabsible.service-pillars) .card-cont.cols2 > .faq-card {
+  width: 100%;
+  transition: box-shadow 0.2s ease;
+}
+#faq.faq--collapsible:has(.faq-collabsible.service-pillars) .card-cont.cols2 > .faq-card.is-open {
+  box-shadow: 0 10px 30px -18px rgba(26, 28, 30, 0.25);
+}
+#faq.faq--collapsible:has(.faq-collabsible.service-pillars) .faq-card__toggle {
+  align-items: center;
+  padding: 20px 24px;
+}
+#faq.faq--collapsible:has(.faq-collabsible.service-pillars) .faq-card__icon {
+  width: 28px;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  background: #F2F3FF;
+  border-radius: 4px;
+  transition: transform 0.2s ease;
+}
+#faq.faq--collapsible:has(.faq-collabsible.service-pillars) .faq-card__icon svg {
+  display: none;
+}
+#faq.faq--collapsible:has(.faq-collabsible.service-pillars) .faq-card__icon::before, #faq.faq--collapsible:has(.faq-collabsible.service-pillars) .faq-card__icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 2px;
+  background: #4F51FD;
+  border-radius: 1px;
+  transform: translate(-50%, -50%);
+}
+#faq.faq--collapsible:has(.faq-collabsible.service-pillars) .faq-card__icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+#faq.faq--collapsible:has(.faq-collabsible.service-pillars) .faq-card.is-open .faq-card__icon {
+  transform: rotate(45deg);
+}
+@media screen and (max-width: 1023px) {
+  #faq.faq--collapsible:has(.faq-collabsible.service-pillars) > .container {
+    flex-direction: column;
+    gap: 24px;
+  }
+  #faq.faq--collapsible:has(.faq-collabsible.service-pillars) .heading {
+    flex: none;
+    text-align: center;
+    padding: 0 16px;
+  }
 }
 #faq.faq--collapsible .faq-card {
   padding: 0;
@@ -6179,6 +6544,37 @@ body.search h4 span {
   top: 0.4em;
   flex-shrink: 0;
   background-image: none;
+}
+
+@media screen and (max-width: 767px) {
+  .page-hero:has(.services-hero__compliance) .cols.cols2:not(.Top) {
+    padding: 0 20px;
+  }
+}
+
+.page-hero .services-hero__compliance {
+  gap: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 24px 0 0;
+  padding: 0;
+}
+.page-hero .services-hero__compliance li {
+  gap: 8px;
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  background: #FFFFFF;
+  border: 1px solid #CDD6E0;
+  border-radius: 4px;
+}
+.page-hero .services-hero__compliance li::before {
+  position: static;
+  width: 20px;
+  height: 20px;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 1.5C6.2 1.5 1.5 6.2 1.5 12S6.2 22.5 12 22.5 22.5 17.8 22.5 12 17.8 1.5 12 1.5zm4.54 7.07l-4.94 6.84a.75.75 0 01-1.21 0l-2.92-4.05a.19.19 0 01.15-.3h1.1c.24 0 .47.12.61.31l1.67 2.32 3.68-5.11c.14-.2.37-.31.61-.31h1.1c.15 0 .24.17.15.3z' fill='%235DC567'/%3E%3C/svg%3E") center/contain no-repeat;
 }
 
 /*

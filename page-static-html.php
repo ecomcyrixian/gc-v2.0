@@ -1,12 +1,26 @@
 <?php
 /**
  * Template Name: Static HTML
+ *
+ * Renders static/{page-slug}/{page-slug}.php inside the theme header and footer when it exists,
+ * otherwise prints static/{page-slug}.html as-is.
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
 require_once get_template_directory() . '/static-html-helpers.php';
+
+$gc_static_php_template = gc_theme_static_php_file_path(
+	gc_theme_static_html_resolve_slug_for_post( get_post() )
+);
+
+if ( $gc_static_php_template ) {
+	get_header();
+	require $gc_static_php_template;
+	get_footer();
+	return;
+}
 
 while ( have_posts() ) :
 	the_post();

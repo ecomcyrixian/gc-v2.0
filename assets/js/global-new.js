@@ -29,6 +29,61 @@ jQuery(document).ready(function($) {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
+    /* Keep #quote out of the URL. If it stays, the next click scrolls back to the form and the button never opens. */
+    function clearQuoteHash() {
+        if (window.location.hash === '#quote' && window.history.replaceState) {
+            window.history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+    }
+
+    function samePageQuoteLink(node) {
+        var link = node && node.closest ? node.closest('a[href="#quote"], a[href$="#quote"]') : null;
+        var url;
+
+        if (!link) {
+            return null;
+        }
+
+        try {
+            url = new URL(link.href, window.location.href);
+        } catch (err) {
+            return null;
+        }
+
+        if (url.origin !== window.location.origin || url.pathname !== window.location.pathname || url.hash !== '#quote') {
+            return null;
+        }
+
+        return document.getElementById('quote') ? link : null;
+    }
+
+    document.addEventListener('mousedown', function (event) {
+        if (samePageQuoteLink(event.target)) {
+            return;
+        }
+
+        clearQuoteHash();
+    }, true);
+
+    document.addEventListener('click', function (event) {
+        var link = samePageQuoteLink(event.target);
+        var target = document.getElementById('quote');
+
+        if (!link || !target) {
+            return;
+        }
+
+        event.preventDefault();
+        clearQuoteHash();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        link.blur();
+    }, true);
+
+    if (window.location.hash === '#quote' && document.getElementById('quote')) {
+        clearQuoteHash();
+        document.getElementById('quote').scrollIntoView({ behavior: 'auto', block: 'start' });
+    }
+
     /* Hamburger menu */
     function debounce(func, delay) {
         var timeout;
@@ -57,7 +112,7 @@ jQuery(document).ready(function($) {
     $(window).on('resize', function() {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(function() {
-            if ($(window).width() <= 1023) {
+            if ($(window).width() <= 1123) {
                 $('#desktop-nav .menu-block').removeClass('active');
             }
         }, 250);
@@ -346,4 +401,241 @@ jQuery(document).ready(function($) {
     } else {
         initHeroCopyLink();
     }
+})();
+
+/* GCheck in action: homepage tabs */
+(function () {
+    'use strict';
+
+    var AUTOPLAY_MS = 9000;
+    var TICK_MS = 50;
+
+    function initGcAction(root) {
+        var tabs = Array.prototype.slice.call(root.querySelectorAll('[role="tab"]'));
+        var panels = tabs.map(function (tab) {
+            return document.getElementById(tab.getAttribute('aria-controls'));
+        });
+
+        var elapsed = 0;
+
+        if (!tabs.length) {
+            return;
+        }
+
+        function select(index, focus) {
+            elapsed = 0;
+
+            tabs.forEach(function (tab, i) {
+                var active = i === index;
+                var bar = tab.querySelector('.progress');
+                tab.setAttribute('aria-selected', active ? 'true' : 'false');
+                tab.tabIndex = active ? 0 : -1;
+                if (bar) {
+                    bar.style.transform = 'scaleX(0)';
+                }
+                if (panels[i]) {
+                    panels[i].hidden = !active;
+                }
+            });
+
+            if (focus) {
+                tabs[index].focus();
+            }
+
+            var list = tabs[index].parentNode;
+            if (list.scrollWidth > list.clientWidth) {
+                list.scrollTo({ left: tabs[index].offsetLeft - list.offsetLeft, behavior: 'smooth' });
+            }
+
+            var nextPanel = panels[(index + 1) % panels.length];
+            var nextImg = nextPanel ? nextPanel.querySelector('img') : null;
+            if (nextImg) {
+                nextImg.loading = 'eager';
+            }
+        }
+
+        tabs.forEach(function (tab, i) {
+            tab.addEventListener('click', function () {
+                select(i, false);
+            });
+
+            tab.addEventListener('keydown', function (e) {
+                var count = tabs.length;
+                var to = null;
+
+                if (e.key === 'ArrowRight') {
+                    to = (i + 1) % count;
+                } else if (e.key === 'ArrowLeft') {
+                    to = (i - 1 + count) % count;
+                } else if (e.key === 'Home') {
+                    to = 0;
+                } else if (e.key === 'End') {
+                    to = count - 1;
+                }
+
+                if (to !== null) {
+                    e.preventDefault();
+                    select(to, true);
+                }
+            });
+        });
+
+        root.querySelectorAll('[data-gc-next]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                var current = tabs.findIndex(function (tab) {
+                    return tab.getAttribute('aria-selected') === 'true';
+                });
+                select((current + 1) % tabs.length, true);
+            });
+        });
+
+        // Autoplay (like the whitepaper banner): a plain timer moves to the next
+        // tab every AUTOPLAY_MS and fills the active tab's progress bar.
+        // Hovering the active tab pauses it (checked live each tick, so it
+        // can't get stuck); clicking a tab restarts the count.
+        var canHover = window.matchMedia('(hover: hover)').matches;
+
+        root.classList.add('is-autoplay');
+
+        setInterval(function () {
+            if (canHover && root.querySelector('.tab[aria-selected="true"]:hover')) {
+                return;
+            }
+
+            elapsed += TICK_MS;
+
+            if (elapsed >= AUTOPLAY_MS) {
+                var current = tabs.findIndex(function (tab) {
+                    return tab.getAttribute('aria-selected') === 'true';
+                });
+                select((current + 1) % tabs.length, false);
+                return;
+            }
+
+            var bar = root.querySelector('[aria-selected="true"] .progress');
+            if (bar) {
+                bar.style.transform = 'scaleX(' + elapsed / AUTOPLAY_MS + ')';
+            }
+        }, TICK_MS);
+    }
+
+    function bootGcAction() {
+        document.querySelectorAll('#gcheck-in-action').forEach(initGcAction);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bootGcAction);
+    } else {
+        bootGcAction();
+    }
+})();
+
+/* Verified Entry: before/after phone tabs */
+(function () {
+    'use strict';
+
+    function initVeToggle(root) {
+        var tabs = Array.prototype.slice.call(root.querySelectorAll('[role="tab"]'));
+
+        if (!tabs.length) {
+            return;
+        }
+
+        function select(tab, focus) {
+            tabs.forEach(function (item) {
+                var active = item === tab;
+                var panel = document.getElementById(item.getAttribute('aria-controls'));
+
+                item.setAttribute('aria-selected', active ? 'true' : 'false');
+                item.tabIndex = active ? 0 : -1;
+
+                if (panel) {
+                    panel.hidden = !active;
+                }
+            });
+
+            if (focus) {
+                tab.focus();
+            }
+        }
+
+        tabs.forEach(function (tab, index) {
+            tab.addEventListener('click', function () {
+                select(tab);
+            });
+
+            tab.addEventListener('keydown', function (event) {
+                var next = null;
+
+                if (event.key === 'ArrowRight') next = tabs[(index + 1) % tabs.length];
+                if (event.key === 'ArrowLeft') next = tabs[(index - 1 + tabs.length) % tabs.length];
+                if (event.key === 'Home') next = tabs[0];
+                if (event.key === 'End') next = tabs[tabs.length - 1];
+
+                if (next) {
+                    event.preventDefault();
+                    select(next, true);
+                }
+            });
+        });
+
+        window.addEventListener('load', function () {
+            root.querySelectorAll('[role="tabpanel"][hidden] img').forEach(function (img) {
+                img.loading = 'eager';
+            });
+        });
+    }
+
+    function bootVeToggle() {
+        document.querySelectorAll('#verified-entry .ve-hero').forEach(initVeToggle);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bootVeToggle);
+    } else {
+        bootVeToggle();
+    }
+})();
+
+/* Pricing with quote: compare table */
+(function () {
+    var root = document.querySelector('.pricing-with-quote');
+    if (!root) {
+        return;
+    }
+
+    var toggle = root.querySelector('[data-compare-toggle]');
+    var panel = root.querySelector('[data-compare]');
+    if (toggle && panel) {
+        toggle.addEventListener('click', function () {
+            var open = toggle.getAttribute('aria-expanded') === 'true';
+            toggle.setAttribute('aria-expanded', String(!open));
+            panel.hidden = open;
+            toggle.querySelector('span').textContent = open ? 'Compare all features' : 'Hide comparison';
+        });
+    }
+
+    var cards = root.querySelectorAll('.pricing-card');
+
+    function selectCard(card) {
+        cards.forEach(function (item) {
+            item.classList.remove('is-selected');
+        });
+        if (card) {
+            card.classList.add('is-selected');
+        }
+    }
+
+    root.addEventListener('click', function (event) {
+        var cta = event.target.closest('.pricing-card__cta');
+        if (cta && root.contains(cta)) {
+            selectCard(cta.closest('.pricing-card'));
+            return;
+        }
+
+        var otherPackage = event.target.closest('[data-pkg]');
+        if (otherPackage && root.contains(otherPackage)) {
+            selectCard(null);
+        }
+    });
 })();

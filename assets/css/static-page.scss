@@ -1,0 +1,13 @@
+/**
+ * Static PHP pages (static/{slug}/{slug}.php) — single CSS bundle, loaded only on those pages.
+ *
+ * Compile:
+ *   sass assets/css/static-page.scss assets/css/static-page.css --no-charset --style=compressed --source-map
+ *
+ * Section sources live under static/{slug}/. Add new pages below.
+ */
+@import '_tools/variable';
+@import '_tools/mixins';
+
+// ── Verified Entry ─────────────────────────────────────────────────────────
+@import '../../static/verified-entry/content/css/content';

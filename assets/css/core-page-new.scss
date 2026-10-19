@@ -294,7 +294,7 @@ body.page{
         }
 
         @include media($mobile){
-            padding: $gap16;
+            padding: $gap40 $gap16 $gap20;
             &>.container,
             .cards .card-cont{
                 padding: 0;
@@ -433,10 +433,134 @@ body.page{
         .button{
             margin-top: $gap20;
         }
+
+        &.join-us--service-pillars{
+            > .container{
+                max-width: 1320px;
+                text-align: left;
+            }
+
+            .box{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: $gap40;
+                position: relative;
+                overflow: hidden;
+                padding: $gap60;
+                background: $gray300;
+                border-radius: $corners8;
+
+                &::before{
+                    content: "";
+                    position: absolute;
+                    right: -$gap120;
+                    top: -$gap200;
+                    width: 520px;
+                    height: 520px;
+                    border-radius: 50%;
+                    pointer-events: none;
+                    background: radial-gradient(circle, rgba($blue300, .4), rgba($blue300, 0) 65%);
+                }
+            }
+
+            h2{
+                color: $cyan;
+                line-height: 1.2;
+            }
+
+            p{
+                margin: $gap12 0 0;
+                color: $gray75;
+            }
+
+            .acts{
+                display: flex;
+                flex: none;
+                align-items: center;
+                gap: $gap12;
+            }
+
+            .button.ghost{
+                color: $white;
+                border: 1px solid rgba($white, .5);
+                &:hover{
+                    background: rgba($white, .08);
+                }
+            }
+
+            @include media($mobile){
+                margin: $gap40 $gap16;
+                .box{
+                    flex-direction: column;
+                    align-items: flex-start;
+                    padding: $gap40 $gap24;
+                    gap: $gap20;
+                }
+                .acts{
+                    flex-direction: column;
+                    width: 100%;
+                    gap: 0;
+                }
+                .button{
+                    width: 100%;
+                }
+            }
+        }
     }
 
     .container:has(.form-template .talk-to-sales){
         max-width: 1067px;
+    }
+
+    .gcheck-form-state--service-hero{
+        color: $white;
+        overflow: hidden;
+        position: relative;
+        background: $gray300;
+
+        &::before,
+        &::after{
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        &::before{
+            top: -220px;
+            right: -180px;
+            width: 720px;
+            height: 720px;
+            background: radial-gradient(circle, rgba(79, 81, 253, .35) 0%, rgba(79, 81, 253, 0) 65%);
+        }
+
+        &::after{
+            left: -200px;
+            bottom: -320px;
+            width: 640px;
+            height: 640px;
+            background: radial-gradient(circle, rgba(63, 197, 253, .14) 0%, rgba(63, 197, 253, 0) 65%);
+        }
+
+        &>.container{
+            z-index: 1;
+            position: relative;
+            max-width: 1440px;
+            padding: $gap60 $gap80;
+
+            @include media($tablet){
+                padding: $gap40 $gap24;
+            }
+
+            @include media($mobile){
+                padding: $gap30 $gap16 $gap40;
+            }
+        }
+
+        .form-template{
+            margin-bottom: 0;
+        }
     }
 
     .form-template{
@@ -829,6 +953,196 @@ body.page{
 
             .button{
                 display: block;
+            }
+        }
+
+        section.service-form-hero{
+            gap: $gap80;
+
+            @include media(1120px){
+                gap: $gap40;
+            }
+
+            @include media($tablet){
+                align-items: stretch;
+            }
+
+            &>div:first-child{
+                flex: 0 1 440px;
+                align-self: flex-start;
+                scroll-margin-top: 140px;
+                padding: 28px $gap24;
+                color: $gray300;
+                background: $white;
+                border: 14px solid #EBEBFE;
+                border-radius: 16px;
+
+                @include media($mobile){
+                    max-width: 100%;
+                    padding: $gap20 $gap16;
+                    margin-bottom: 0;
+                }
+
+                .title{
+                    margin-bottom: $gap20;
+                }
+
+                .title h2{
+                    font-size: $fsize24;
+                }
+
+                .title p{
+                    padding: 0;
+                    color: $gray100;
+                    font-size: $fsize14;
+                }
+            }
+
+            &>div.service-form-hero__details{
+                max-width: none;
+                padding: 0;
+                background: none;
+            }
+
+            .service-form-hero__content{
+                max-width: 680px;
+
+                em{
+                    display: block;
+                    color: $blue75;
+                    margin-bottom: $gap8;
+                    font-size: $fsize14;
+                    font-style: normal;
+                    font-weight: $fSemiBold;
+                    letter-spacing: 0.04em;
+                    text-transform: uppercase;
+                }
+
+                h1{
+                    color: $cyan;
+                    font-size: $fsize48;
+                    line-height: normal;
+
+                    span{
+                        display: block;
+                        color: $white;
+                    }
+
+                    @include media($mobile){
+                        font-size: $fsize28;
+                        span{
+                            margin-top: $gap8;
+                            font-size: $fsize24;
+                        }
+                    }
+                }
+            }
+
+            .service-form-hero__intro{
+                margin: $gap24 0;
+                font-size: $fsize20;
+
+                @include media($mobile){
+                    font-size: $base-fsize;
+                }
+            }
+
+            .service-form-hero__promises{ 
+                gap: $gap12;
+                display: flex;
+                flex-wrap: wrap;
+                margin: 0 0 $gap40;
+                padding: 0;
+
+                li{
+                    gap: $gap10;
+                    display: flex;
+                    align-items: center;
+                    padding: 0;
+
+                    &::before{
+                        position: static;
+                        width: $gap20;
+                        height: $gap20;
+                        background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 1.5C6.2 1.5 1.5 6.2 1.5 12S6.2 22.5 12 22.5 22.5 17.8 22.5 12 17.8 1.5 12 1.5zm4.54 7.07l-4.94 6.84a.75.75 0 01-1.21 0l-2.92-4.05a.19.19 0 01.15-.3h1.1c.24 0 .47.12.61.31l1.67 2.32 3.68-5.11c.14-.2.37-.31.61-.31h1.1c.15 0 .24.17.15.3z' fill='%235DC567'/%3E%3C/svg%3E") center / contain no-repeat;
+                    }
+                }
+            }
+
+            .service-form-hero__stats{
+                display: flex;
+                padding-top: $gap24;
+                border-top: 1px solid rgba($white, .14);
+
+                &>div{
+                    flex: 1;
+                }
+
+                &>div+div{
+                    padding-left: $gap24;
+                    border-left: 1px solid rgba($white, .14);
+                }
+
+                strong,
+                span{
+                    display: block;
+                }
+
+                strong{
+                    font-size: $fsize32;
+                    line-height: 1.2;
+                }
+
+                span{
+                    color: $gray75;
+                    font-size: $fsize14;
+                }
+
+                @include media($mobile){
+                    &>div+div{
+                        padding-left: $gap12;
+                    }
+
+                    strong{
+                        font-size: $fsize20;
+                    }
+
+                    span{
+                        font-size: $fsize12;
+                    }
+                }
+            }
+
+            .service-form-hero__g2{
+                gap: $gap16;
+                display: flex;
+                margin-top: $gap40;
+                align-items: center;
+
+                &>span{
+                    color: $gray75;
+                    font-size: $fsize12;
+                }
+            }
+
+            .service-form-hero__badges{
+                gap: $gap12;
+                display: flex;
+
+                img{
+                    width: auto;
+                    height: 104px;
+                }
+
+                @include media($mobile){
+                    display: grid;
+                    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+                    img{
+                        width: 100%;
+                        height: auto;
+                    }
+                }
             }
         }
 
