@@ -23,6 +23,14 @@ body:has(.gc-report-consequence-gap) {
       fill: $white;
     }
 
+    .gCheck-logo__img--dark {
+      display: none;
+    }
+
+    .gCheck-logo__img--light {
+      display: block;
+    }
+
     nav #desktop-nav .main-menu > li > a {
       color: $white;
     }
@@ -56,6 +64,14 @@ body:has(.gc-report-consequence-gap) {
 
     .gCheck-logo .gcText {
       fill: $black;
+    }
+
+    .gCheck-logo__img--dark {
+      display: block;
+    }
+
+    .gCheck-logo__img--light {
+      display: none;
     }
 
     nav #desktop-nav .main-menu > li > a {

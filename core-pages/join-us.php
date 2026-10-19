@@ -107,19 +107,45 @@
     $link_url = $button['url'];
     $link_title = $button['title'];
     $link_target = $button['target'] ? $button['target'] : '_self';
+
+    $tagline_html = is_string( $tagline ) ? $tagline : '';
+    $is_service_pillars = strpos( $tagline_html, 'join-us-service-pillars' ) !== false;
 ?>
 
 <?php if ( $display_selection ) : ?>
-    
+
+      <?php if ( $is_service_pillars ) : ?>
+      <div class="join-us join-us--service-pillars">
+        <div class="container">
+            <div class="box">
+                <div>
+                    <h2><?= $h2 ?></h2>
+                    <?= wp_kses_post( $tagline_html ) ?>
+                </div>
+                <div class="acts">
+                    <a class="button blue" href="#quote" data-pkg="Custom (50+ checks/year)" data-hires="51-250">Get My Free Quote</a>
+                    <?php if ( $link_url ) : ?>
+                    <a class="button ghost" href="<?= esc_url( $link_url ); ?>" target="<?= esc_attr( $link_target ); ?>" aria-label="<?= esc_attr( $link_title ); ?>">
+                        <?= esc_html( $link_title ); ?>
+                    </a>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+      </div>
+      <?php else : ?>
       <div class="join-us">
         <div class="container">
             <h2><?= $h2 ?></h2>
             <p><?= $tagline ?></p>
+            <?php if ( $link_url ) : ?>
             <a class="button blue" href="<?= esc_url( $link_url ); ?>" target="<?= esc_attr( $link_target ); ?>" aria-label="<?= esc_attr( $link_title ); ?>">
-                <?= esc_attr( $link_title ); ?>
+                <?= esc_html( $link_title ); ?>
             </a>
+            <?php endif; ?>
         </div>
     </div>
+      <?php endif; ?>
 
 
 <?php endif; ?> 

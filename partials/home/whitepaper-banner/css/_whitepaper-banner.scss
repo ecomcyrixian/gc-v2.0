@@ -156,7 +156,7 @@
 #as-featured-in {
     max-width: 1320px;
     margin: 0 auto;
-    padding-top: $gap80;
+    padding: $gap80 0;
     text-align: center;
 
     @include media($tablet) {

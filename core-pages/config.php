@@ -75,7 +75,13 @@
 
         // Case: Price Widget
         elseif( get_row_layout() == 'prcing' ):
-            get_template_part( 'core-pages/pricing/pricing' );
+            $gc_pricing_layout = function_exists( 'get_sub_field' ) ? (string) get_sub_field( 'layout' ) : '';
+
+            if ( 'Pricing w/ Quote' === $gc_pricing_layout ) {
+                get_template_part( 'core-pages/pricing/pricing-with-quote' );
+            } else {
+                get_template_part( 'core-pages/pricing/pricing' );
+            }
 
         // Case: Price Widget
         elseif( get_row_layout() == 'side_by_side_feature_comparison' ):

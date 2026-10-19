@@ -478,3 +478,142 @@
 
     @include pricing-section;
 }
+
+.pricing-with-quote {
+    padding: $gap80 0;
+    background: $white;
+
+    @include media($mobile) {
+        padding: $gap60 0;
+    }
+
+    @include pricing-section;
+
+    .pricing-header__title,
+    .pricing-header__pill,
+    .pricing-disclaimer,
+    .pricing-trust p,
+    .pricing-trust__cta {
+        color: $gray300;
+    }
+
+    .pricing-header__pills {
+        background: $blue50;
+        border-color: transparent;
+    }
+
+    .pricing-trust__cta > a {
+        color: $blue300;
+    }
+
+    .pricing-card {
+        border: 1px solid $gray75;
+        box-shadow: 0 2px 6px rgba($gray300, .06);
+
+        &.is-selected {
+            border-color: $blue300;
+            box-shadow: 0 20px 50px -22px rgba($blue300, .45);
+        }
+    }
+
+    .pricing-card__cta {
+        width: 100%;
+    }
+
+    .pricing-quote__banner {
+        border: 1px solid $gray75;
+    }
+
+    .pricing-compare {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &__toggle {
+            gap: $gap8;
+            display: flex;
+            align-items: center;
+            color: $blue300;
+            cursor: pointer;
+            font-weight: $fSemiBold;
+            border: 0;
+            background: none;
+
+            svg {
+                transition: transform .2s;
+            }
+
+            &[aria-expanded="true"] svg {
+                transform: rotate(180deg);
+            }
+        }
+
+        &__table {
+            width: 100%;
+            margin-top: $gap20;
+            overflow: auto;
+            border: 1px solid #E3E4EA;
+            border-radius: $corners8;
+            background: $white;
+
+            &[hidden] {
+                display: none;
+            }
+        }
+
+        table {
+            width: 100%;
+            min-width: 640px;
+            border-collapse: collapse;
+            font-size: $fsize14;
+        }
+
+        th,
+        td {
+            padding: $gap12 $gap16;
+            color: $gray300;
+            text-align: center;
+            border-bottom: 1px solid #E3E4EA;
+
+            &:first-child {
+                text-align: left;
+            }
+        }
+
+        thead th {
+            font-size: $base-fsize;
+            font-weight: $fBold;
+            background: #FAFAFB;
+
+            small {
+                display: block; 
+                color: $blue300;
+                font-size: $fsize14;
+                font-weight: $fMedium;
+            }
+        }
+
+        .is-highlight {
+            background: #F8F8FF;
+        }
+
+        td svg {
+            display: block;
+            margin: 0 auto;
+        }
+
+        &__none {
+            color: #B8BBC3;
+        }
+
+        tr:last-child td {
+            border-bottom: 0;
+        }
+    }
+
+    @include media($tablet) {
+        .pricing-card.is-popular {
+            order: -1;
+        }
+    }
+}

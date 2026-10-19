@@ -31,6 +31,14 @@
     padding: $gap80 0;
 }
 
+#faq.cards:has(.faq-collabsible.service-pillars.top-60) {
+    margin-top: $gap60;
+
+    @include media($mobile) {
+        margin-top: $gap20;
+    }
+}
+
 #faq.faq--collapsible {
     &:has(.faq-collabsible.full) {
         > .container {
@@ -99,6 +107,86 @@
 
     &:has(.faq-collabsible.full) .card-cont.cols2 > .faq-card {
         width: 100%;
+    }
+
+    &:has(.faq-collabsible.service-pillars) {
+        > .container {
+            display: flex;
+            align-items: flex-start;
+            gap: $gap60;
+        }
+
+        .heading {
+            flex: 0 0 380px;
+            padding: 0;
+            text-align: left;
+        }
+
+        .faq-collabsible.service-pillars p {
+            margin: $gap16 0 $gap24;
+        }
+
+        .card-cont.cols2 > .faq-card {
+            width: 100%;
+            transition: box-shadow .2s ease;
+
+            &.is-open {
+                box-shadow: 0 10px 30px -18px rgba(26, 28, 30, .25);
+            }
+        }
+
+        .faq-card__toggle {
+            align-items: center;
+            padding: $gap20 $gap24;
+        }
+
+        .faq-card__icon {
+            width: 28px;
+            height: 28px;
+            align-items: center;
+            justify-content: center;
+            background: $blue50;
+            border-radius: $corners4;
+            transition: transform .2s ease;
+
+            svg {
+                display: none;
+            }
+
+            &::before,
+            &::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                width: 12px;
+                height: 2px;
+                background: $blue300;
+                border-radius: 1px;
+                transform: translate(-50%, -50%);
+            }
+
+            &::after {
+                transform: translate(-50%, -50%) rotate(90deg);
+            }
+        }
+
+        .faq-card.is-open .faq-card__icon {
+            transform: rotate(45deg);
+        }
+
+        @include media($tablet) {
+            > .container {
+                flex-direction: column;
+                gap: $gap24;
+            }
+
+            .heading {
+                flex: none;
+                text-align: center;
+                padding: 0 $gap16;
+            }
+        }
     }
 
     .faq-card {
