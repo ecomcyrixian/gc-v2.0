@@ -670,8 +670,21 @@
     width: 100%;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+  #verified-entry .ve-proof .ve-badges {
+    flex: 1 1 100%;
+    flex-wrap: nowrap;
+    width: 100%;
+    gap: 8px;
+    justify-content: center;
+  }
+  #verified-entry .ve-proof .ve-badges li {
+    flex: 0 1 64px;
+    min-width: 0;
+  }
   #verified-entry .ve-proof .ve-badges img {
-    width: 64px;
+    display: block;
+    width: 100%;
+    height: auto;
   }
 }
 

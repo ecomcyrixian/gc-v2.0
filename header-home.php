@@ -19,8 +19,8 @@
         <div class="home-hero">
             <div class="home-hero__copy">
                 <h1>
-                    <span class="home-title-gradient">Better Teams</span> Start With<br class="home-br-desktop" aria-hidden="true">
-                    Better Background Checks
+                    <span class="home-title-gradient">Better Teams</span> <span class="home-title-kicker">Start With</span><br class="home-br-desktop" aria-hidden="true">
+                    <span class="home-title-main">Better Background Checks</span>
                 </h1>
                 <p class="home-hero__subtitle">Faster results. Accurate insights. Compliance at every step.</p>
                 <div class="buttons">

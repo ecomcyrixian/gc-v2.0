@@ -193,12 +193,27 @@ if ( ! function_exists( 'gc_theme_static_html_directory' ) ) {
 		);
 	}
 
+	function gc_theme_static_php_page_has_schema( $post = null ) {
+		$slug = gc_theme_get_static_php_page_slug( $post );
+
+		return $slug !== '' && isset( gc_theme_get_static_php_page_schema_builders()[ $slug ] );
+	}
+
+	/**
+	 * Static pages with their own schema builder replace Yoast's graph. Both use the same
+	 * @id values (#breadcrumb, #organization), so Google merges them into one broken node.
+	 */
+	function gc_theme_disable_seo_schema_for_static_php_page( $data ) {
+		return is_singular() && gc_theme_static_php_page_has_schema() ? false : $data;
+	}
+	add_filter( 'wpseo_json_ld_output', 'gc_theme_disable_seo_schema_for_static_php_page' );
+
 	function gc_theme_render_static_php_page_schema() {
 		$post     = get_post();
 		$slug     = gc_theme_get_static_php_page_slug( $post );
 		$builders = gc_theme_get_static_php_page_schema_builders();
 
-		if ( $slug === '' || ! isset( $builders[ $slug ] ) ) {
+		if ( ! gc_theme_static_php_page_has_schema( $post ) ) {
 			return;
 		}
 

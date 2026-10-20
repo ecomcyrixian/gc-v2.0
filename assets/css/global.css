@@ -378,10 +378,39 @@ header#home .home-title-gradient {
   -webkit-text-fill-color: transparent;
   color: transparent;
 }
+@media screen and (max-width: 767px) {
+  header#home .home-title-gradient {
+    display: block;
+  }
+}
+@media screen and (max-width: 767px) {
+  header#home .home-title-kicker {
+    display: block;
+    font-size: 24px;
+    line-height: 32px;
+  }
+}
+@media screen and (max-width: 767px) {
+  header#home .home-title-main {
+    display: block;
+    white-space: nowrap;
+    font-size: clamp(24px, 7vw, 2.5em);
+  }
+}
+@media screen and (max-width: 767px) {
+  header#home .home-br-desktop {
+    display: none;
+  }
+}
 header#home .home-hero__subtitle {
   color: #CDD6E0;
   font-size: 24px;
   padding-bottom: 0;
+}
+@media screen and (max-width: 767px) {
+  header#home .home-hero__subtitle {
+    font-size: 1.25em;
+  }
 }
 header#home .home-hero .buttons {
   display: flex;

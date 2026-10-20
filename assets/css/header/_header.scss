@@ -136,12 +136,42 @@ header{
             background-clip: text;
             -webkit-text-fill-color: transparent;
             color: transparent;
+
+            @include media($mobile){
+                display: block;
+            }
+        }
+
+        .home-title-kicker{
+            @include media($mobile){
+                display: block;
+                font-size: $fsize24;
+                line-height: 32px;
+            }
+        }
+
+        .home-title-main{
+            @include media($mobile){
+                display: block;
+                white-space: nowrap;
+                font-size: clamp($fsize24, 7vw, $fsize40);
+            }
+        }
+
+        .home-br-desktop{
+            @include media($mobile){
+                display: none;
+            }
         }
 
         .home-hero__subtitle{
            color: $gray75;
            font-size: $fsize24;
            padding-bottom: 0;
+
+            @include media($mobile){
+                font-size: $fsize20;
+            }
         }
 
         .home-hero .buttons{

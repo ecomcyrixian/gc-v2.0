@@ -654,8 +654,23 @@ $ve-narrow: 960px;
             @include ve-cols(2);
         }
 
-        .ve-badges img {
-            width: 64px;
+        .ve-badges {
+            flex: 1 1 100%;
+            flex-wrap: nowrap;
+            width: 100%;
+            gap: $gap8;
+            justify-content: center;
+
+            li {
+                flex: 0 1 64px;
+                min-width: 0;
+            }
+
+            img {
+                display: block;
+                width: 100%;
+                height: auto;
+            }
         }
     }
 }
