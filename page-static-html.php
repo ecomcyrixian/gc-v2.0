@@ -2,7 +2,7 @@
 /**
  * Template Name: Static HTML
  *
- * Renders static/{page-slug}/{page-slug}.php inside the theme header and footer when it exists,
+ * Renders static/{folder}/content/index.php inside the theme header and footer when it exists,
  * otherwise prints static/{page-slug}.html as-is.
  */
 if ( ! defined( 'ABSPATH' ) ) {
@@ -11,13 +11,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once get_template_directory() . '/static-html-helpers.php';
 
-$gc_static_php_template = gc_theme_static_php_file_path(
-	gc_theme_static_html_resolve_slug_for_post( get_post() )
-);
+$gc_static_slug = gc_theme_static_html_resolve_slug_for_post( get_post() );
 
-if ( $gc_static_php_template ) {
+if ( gc_theme_static_php_file_path( $gc_static_slug ) ) {
+	$gc_static_folder = gc_theme_static_php_folder( $gc_static_slug );
+
 	get_header();
-	require $gc_static_php_template;
+	?>
+	<main id="<?php echo esc_attr( $gc_static_folder ); ?>" class="gc-static-page">
+		<?php get_template_part( 'static/' . $gc_static_folder . '/content/index' ); ?>
+	</main>
+	<?php
 	get_footer();
 	return;
 }

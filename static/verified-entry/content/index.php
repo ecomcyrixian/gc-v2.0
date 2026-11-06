@@ -7,10 +7,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require_once get_template_directory() . '/static/verified-entry/content.php';
+require_once get_template_directory() . '/static/shared/content.php';
 
 $ve         = gc_static_verified_entry_content();
 $ve_img_uri = gc_static_verified_entry_images_uri();
-$ve_g2_uri  = get_template_directory_uri() . '/partials/home/grid-layout/images/';
 
 $ve_icon = function ( $name, $modifier = '' ) {
 	$class = 've-icon' . ( $modifier ? ' ve-icon--' . $modifier : '' );
@@ -22,7 +22,7 @@ $ve_steps = function ( $set, $variant, $lazy = true ) use ( $ve, $ve_img_uri ) {
 	<ol class="ve-steps ve-steps--<?php echo esc_attr( $variant ); ?>">
 		<?php foreach ( $ve['phones'][ $set ]['items'] as $index => $phone ) : ?>
 			<li class="ve-step">
-				<img src="<?php echo esc_url( $ve_img_uri . $phone['img'] . '.webp' ); ?>" alt="<?php echo esc_attr( $phone['title'] ); ?>" width="560" height="1218"<?php echo $lazy ? ' loading="lazy"' : ''; ?> decoding="async">
+				<img src="<?php echo esc_url( $ve_img_uri . $phone['img'] . '.webp' ); ?>" alt="<?php echo esc_attr( $phone['title'] ); ?>" width="560" height="1218"<?php echo $lazy ? ' loading="lazy"' : ( 0 === $index ? ' fetchpriority="high"' : '' ); ?> decoding="async">
 				<div class="ve-step__cap">
 					<span class="ve-num"><?php echo esc_html( $index + 1 ); ?></span>
 					<div>
@@ -52,7 +52,7 @@ $ve_steps = function ( $set, $variant, $lazy = true ) use ( $ve, $ve_img_uri ) {
 
 <section class="ve-hero" aria-labelledby="ve-hero-title">
 	<div class="container ve-hero__inner">
-		<p class="ve-wordmark" aria-label="Verified Entry">Verified <span class="ve-wordmark__accent">Entry</span><span class="ve-tm">™</span></p>
+		<p class="ve-wordmark" aria-label="Verified Entry">Verified <span class="ve-wordmark__accent">Entry</span><span class="ve-tm">®</span></p>
 		<h1 id="ve-hero-title" class="ve-hero__title"><?php echo esc_html( $ve['headline'] ); ?></h1>
 
 		<div class="ve-pills" role="tablist" aria-label="Verified Entry flow">
@@ -72,44 +72,31 @@ $ve_steps = function ( $set, $variant, $lazy = true ) use ( $ve, $ve_img_uri ) {
 	</div>
 </section>
 
-<section class="ve-proof" aria-label="Ratings and compliance">
-	<div class="container ve-proof__inner">
-		<div class="ve-proof__g2">
-			<span class="ve-eyebrow">Rated by real customers on G2</span>
-			<span class="ve-stars" role="img" aria-label="5 out of 5 stars"><i></i><i></i><i></i><i></i><i></i></span>
-		</div>
-
-		<ul class="ve-badges">
-			<?php foreach ( $ve['badges'] as $file => $alt ) : ?>
-				<li><img src="<?php echo esc_url( $ve_g2_uri . $file ); ?>" alt="<?php echo esc_attr( $alt ); ?>" width="111" height="127" loading="lazy"></li>
-			<?php endforeach; ?>
-		</ul>
-
-		<ul class="ve-chips">
-			<?php foreach ( $ve['compliance'] as $label ) : ?>
-				<li><?php echo $ve_icon( 'lock' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php echo esc_html( $label ); ?></li>
-			<?php endforeach; ?>
-		</ul>
-	</div>
-</section>
+<?php
+gc_static_render_proof(
+	array(
+		'badges'    => $ve['badges'],
+		'chips'     => $ve['compliance'],
+		'chip_icon' => $ve_icon( 'lock' ),
+	)
+);
+?>
 
 <section class="ve-section" aria-labelledby="ve-halflife">
 	<div class="container ve-stack">
 		<div class="heading">
 			<h2 id="ve-halflife"><span>The Verification Half-Life™</span>A background check’s confidence starts to fade after hire</h2>
-			<p>A check confirms who someone is once. Nothing reconfirms that the person screened is the person who shows up next week. We call that erosion the Verification Half-Life™, and Verified Entry™ resets the clock.</p>
+			<p>A check confirms who someone is once. Nothing reconfirms that the person screened is the person who shows up next week. We call that erosion the Verification Half-Life™, and Verified Entry® resets the clock.</p>
 		</div>
 
-		<ul class="ve-stats">
-			<?php foreach ( $ve['stats'] as $stat ) : ?>
-				<li class="ve-stat ve-stat--<?php echo esc_attr( $stat['tone'] ); ?>">
-					<strong><?php echo esc_html( $stat['value'] ); ?></strong>
-					<span><?php echo esc_html( $stat['text'] ); ?></span>
-				</li>
-			<?php endforeach; ?>
-		</ul>
-
-		<p class="ve-source"><?php echo esc_html( $ve['stats_source'] ); ?></p>
+		<?php
+		gc_static_render_stats(
+			array(
+				'items'  => $ve['stats'],
+				'source' => $ve['stats_source'],
+			)
+		);
+		?>
 	</div>
 </section>
 
@@ -166,7 +153,7 @@ $ve_steps = function ( $set, $variant, $lazy = true ) use ( $ve, $ve_img_uri ) {
 		</div>
 
 		<ol class="ve-how">
-			<?php foreach ( $ve['steps'] as $index => $step ) : ?>
+			<?php foreach ( array_values( $ve['steps'] ) as $index => $step ) : ?>
 				<li>
 					<span class="ve-how__num"><?php echo esc_html( sprintf( '%02d', $index + 1 ) ); ?></span>
 					<strong><?php echo esc_html( $step['title'] ); ?></strong>
@@ -243,7 +230,7 @@ $ve_steps = function ( $set, $variant, $lazy = true ) use ( $ve, $ve_img_uri ) {
 				<tr>
 					<th scope="col">Today</th>
 					<th scope="col">Where it breaks</th>
-					<th scope="col">With Verified Entry<span class="ve-tm">™</span></th>
+					<th scope="col">With Verified Entry<span class="ve-tm">®</span></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -251,7 +238,7 @@ $ve_steps = function ( $set, $variant, $lazy = true ) use ( $ve, $ve_img_uri ) {
 					<tr>
 						<th scope="row"><?php echo esc_html( $row['today'] ); ?></th>
 						<td data-label="Where it breaks"><?php echo esc_html( $row['breaks'] ); ?></td>
-						<td data-label="With Verified Entry™" class="ve-table__win"><?php echo $ve_icon( 'check-circle-filled', 'ok' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span><?php echo esc_html( $row['with'] ); ?></span></td>
+						<td data-label="With Verified Entry®" class="ve-table__win"><?php echo $ve_icon( 'check-circle-filled', 'ok' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span><?php echo esc_html( $row['with'] ); ?></span></td>
 					</tr>
 				<?php endforeach; ?>
 			</tbody>
@@ -259,31 +246,17 @@ $ve_steps = function ( $set, $variant, $lazy = true ) use ( $ve, $ve_img_uri ) {
 	</div>
 </section>
 
-<section id="faq" class="ve-section faq--collapsible ve-faq" aria-labelledby="ve-faq">
-	<div class="container ve-container--narrow ve-stack">
-		<div class="heading center">
-			<h2 id="ve-faq"><span>Common questions</span>Verified Entry<span class="ve-tm ve-tm--mid">™</span>, answered</h2>
-		</div>
-
-		<div class="card-cont">
-			<?php foreach ( $ve['faqs'] as $index => $faq ) : ?>
-				<?php
-				$ve_faq_open  = 0 === $index;
-				$ve_faq_panel = 've-faq-panel-' . ( $index + 1 );
-				?>
-				<div class="faq-card<?php echo $ve_faq_open ? ' is-open' : ''; ?>">
-					<button class="faq-card__toggle" type="button" aria-expanded="<?php echo $ve_faq_open ? 'true' : 'false'; ?>" aria-controls="<?php echo esc_attr( $ve_faq_panel ); ?>">
-						<span><?php echo gc_static_verified_entry_tm( $faq['q'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
-						<span class="faq-card__icon" aria-hidden="true"></span>
-					</button>
-					<div id="<?php echo esc_attr( $ve_faq_panel ); ?>" class="faq-card__panel"<?php echo $ve_faq_open ? '' : ' hidden'; ?>>
-						<p><?php echo gc_static_verified_entry_tm( $faq['a'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></p>
-					</div>
-				</div>
-			<?php endforeach; ?>
-		</div>
-	</div>
-</section>
+<?php
+gc_static_render_faq(
+	array(
+		'heading_id'   => 've-faq',
+		'title_html'   => 'Verified Entry<span class="ve-tm ve-tm--mid">®</span>, answered',
+		'items'        => $ve['faqs'],
+		'panel_prefix' => 've-faq-panel',
+		'format'       => 'gc_static_verified_entry_tm',
+	)
+);
+?>
 
 <section class="ve-section ve-section--tint" aria-labelledby="ve-blog">
 	<div class="container ve-stack">
@@ -331,17 +304,24 @@ $ve_steps = function ( $set, $variant, $lazy = true ) use ( $ve, $ve_img_uri ) {
 	</div>
 </section>
 
-<section class="ve-section ve-section--cta" aria-labelledby="ve-cta">
-	<div class="container">
-		<div class="ve-cta">
-			<div class="ve-cta__copy">
-				<h2 id="ve-cta" class="ve-cta__title">Reset the <span class="ve-nowrap">Verification Half-Life<span class="ve-tm ve-tm--mid">™</span></span> on every shift</h2>
-				<p>See Verified Entry™ with your own hiring flow in a 20-minute demo.</p>
-			</div>
-			<div class="ve-cta__btns">
-				<a class="button white" href="<?php echo esc_url( home_url( '/book-a-demo/' ) ); ?>">Book a demo</a>
-				<a class="button ghost" href="<?php echo esc_url( home_url( '/contact-us/' ) ); ?>">Talk to sales</a>
-			</div>
-		</div>
-	</div>
-</section>
+<?php
+gc_static_render_banner(
+	array(
+		'heading_id' => 've-cta',
+		'title_html' => 'Reset the <span class="ve-nowrap">Verification Half-Life<span class="ve-tm ve-tm--mid">™</span></span> on every shift',
+		'text'       => 'See Verified Entry® with your own hiring flow in a 20-minute demo.',
+		'buttons'    => array(
+			array(
+				'class' => 'white',
+				'href'  => home_url( '/book-a-demo/' ),
+				'label' => 'Book a demo',
+			),
+			array(
+				'class' => 'ghost',
+				'href'  => home_url( '/contact-us/' ),
+				'label' => 'Talk to sales',
+			),
+		),
+	)
+);
+?>

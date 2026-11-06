@@ -12,11 +12,11 @@ if ( ! function_exists( 'gc_static_verified_entry_content' ) ) {
 	}
 
 	/**
-	 * Escapes text and wraps every ™ so it can be sized by context.
+	 * Escapes text and wraps every ® so it can be sized by context.
 	 */
 	function gc_static_verified_entry_tm( $text, $modifier = '' ) {
 		$class = 've-tm' . ( $modifier ? ' ve-tm--' . $modifier : '' );
-		return str_replace( '™', '<span class="' . esc_attr( $class ) . '">™</span>', esc_html( $text ) );
+		return str_replace( '®', '<span class="' . esc_attr( $class ) . '">®</span>', esc_html( $text ) );
 	}
 
 	function gc_static_verified_entry_content() {
@@ -50,7 +50,7 @@ if ( ! function_exists( 'gc_static_verified_entry_content' ) ) {
 		);
 
 		$content = array(
-			'title'       => 'Verified Entry™',
+			'title'       => 'Verified Entry®',
 			'headline'    => 'Stop candidate fraud before day one, and prove identity on every shift after',
 			'description' => 'Stop candidate fraud before day one, and prove identity on every shift after. Verified Entry confirms identity with ID forensics, face match and liveness before the background check runs, then issues a signed credential anyone can scan later.',
 
@@ -166,17 +166,17 @@ if ( ! function_exists( 'gc_static_verified_entry_content' ) ) {
 			),
 
 			'faqs'        => array(
-				array( 'q' => 'What is Verified Entry™?', 'a' => 'It confirms a candidate’s identity with ID forensics, face match and liveness before the background check runs, then issues a signed credential employers can scan later.' ),
+				array( 'q' => 'What is Verified Entry®?', 'a' => 'It confirms a candidate’s identity with ID forensics, face match and liveness before the background check runs, then issues a signed credential employers can scan later.' ),
 				array( 'q' => 'How does it improve background check accuracy?', 'a' => 'Searches use verified details from the ID instead of typed-in data, so fewer name mismatches, typos and reorders.' ),
 				array( 'q' => 'Is candidate consent required?', 'a' => 'Yes. Candidates consent before any biometric or document data is processed, and consent is stored with the record.' ),
 				array( 'q' => 'Does it work for remote hiring?', 'a' => 'Yes. Candidates verify from their own phone, with no site visit or in-person check.' ),
 				array( 'q' => 'How does it detect fraud?', 'a' => 'Document forensics catch altered IDs, liveness blocks replays and synthetic media, and face match confirms the ID belongs to the person holding it.' ),
-				array( 'q' => 'How are biometrics kept secure?', 'a' => 'Verified Entry™ never keeps biometric data. It converts the selfie and ID photo into mathematical facial vectors, uses them only to return a pass/fail match in under 10 seconds, then deletes them immediately. ID and selfie images may still be retained for compliance under the GCheck Privacy Policy.' ),
+				array( 'q' => 'How are biometrics kept secure?', 'a' => 'Verified Entry® never keeps biometric data. It converts the selfie and ID photo into mathematical facial vectors, uses them only to return a pass/fail match in under 10 seconds, then deletes them immediately. ID and selfie images may still be retained for compliance under the GCheck Privacy Policy.' ),
 				array( 'q' => 'How long does it take?', 'a' => 'About two minutes for most candidates when the ID photo and selfie are clear.' ),
 				array( 'q' => 'Are results documented for audits?', 'a' => 'Yes. Every verification event and outcome is recorded with the screening file for compliance reviews.' ),
 				array( 'q' => 'Does the person scanning need an app?', 'a' => 'No. Only the verified person uses the app. Anyone checking just points their phone camera at the code, with no download or account.' ),
 				array( 'q' => 'Can someone just show a screenshot?', 'a' => 'No. Each scan opens a live verification page from GCheck, so an expired or inactive credential won’t pass.' ),
-				array( 'q' => 'We already run background checks. Why add this?', 'a' => 'A background check screens a name. Verified Entry™ proves the person in front of you is that name.' ),
+				array( 'q' => 'We already run background checks. Why add this?', 'a' => 'A background check screens a name. Verified Entry® proves the person in front of you is that name.' ),
 				array( 'q' => 'Who benefits most?', 'a' => 'Any organization that lets screened people on-site: youth sports and schools, home and in-home services, contractor and vendor access, staffing, healthcare and event teams.' ),
 			),
 		);

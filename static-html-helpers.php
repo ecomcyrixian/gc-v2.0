@@ -133,7 +133,20 @@ if ( ! function_exists( 'gc_theme_static_html_directory' ) ) {
 	}
 
 	/**
-	 * PHP compositions live at static/{slug}/{slug}.php and render inside the theme header and footer.
+	 * Folder name for a static page. The public slug stays short when the folder
+	 * name would collide or needs to say which page it is.
+	 */
+	function gc_theme_static_php_folder( $slug ) {
+		$folders = array(
+			'compare' => 'pricing-compare',
+		);
+
+		return isset( $folders[ $slug ] ) ? $folders[ $slug ] : $slug;
+	}
+
+	/**
+	 * PHP pages live at static/{folder}/content/index.php and render inside
+	 * <main id="{folder}" class="gc-static-page"> between the theme header and footer.
 	 */
 	function gc_theme_static_php_file_path( $slug ) {
 		if ( $slug === '' ) {
@@ -141,7 +154,8 @@ if ( ! function_exists( 'gc_theme_static_html_directory' ) ) {
 		}
 
 		$dir       = gc_theme_static_html_directory();
-		$real_file = realpath( $dir . '/' . $slug . '/' . $slug . '.php' );
+		$folder    = gc_theme_static_php_folder( $slug );
+		$real_file = realpath( $dir . '/' . $folder . '/content/index.php' );
 		$real_dir  = realpath( $dir );
 
 		if ( ! $real_file || ! $real_dir || ! is_file( $real_file ) || strpos( $real_file, $real_dir ) !== 0 ) {
@@ -163,7 +177,9 @@ if ( ! function_exists( 'gc_theme_static_html_directory' ) ) {
 	}
 
 	function gc_theme_enqueue_static_php_page_assets( $post ) {
-		if ( gc_theme_get_static_php_page_slug( $post ) === '' ) {
+		$slug = gc_theme_get_static_php_page_slug( $post );
+
+		if ( $slug === '' ) {
 			return;
 		}
 
@@ -175,6 +191,10 @@ if ( ! function_exists( 'gc_theme_static_html_directory' ) ) {
 			$scss_files[] = $scss_file;
 		}
 
+		foreach ( (array) glob( $theme_dir . '/static/shared/css/*.scss' ) as $scss_file ) {
+			$scss_files[] = $scss_file;
+		}
+
 		wp_enqueue_style(
 			'static-page-style',
 			get_template_directory_uri() . '/assets/css/static-page.css',
@@ -182,6 +202,26 @@ if ( ! function_exists( 'gc_theme_static_html_directory' ) ) {
 			gc_theme_asset_version( $static_css, $scss_files ),
 			'screen'
 		);
+
+		if ( 'compare' === $slug ) {
+			require_once get_template_directory() . '/static/pricing-compare/content.php';
+
+			$compare_js = $theme_dir . '/static/pricing-compare/content/js/compare.js';
+
+			wp_enqueue_script(
+				'pricing-compare',
+				get_template_directory_uri() . '/static/pricing-compare/content/js/compare.js',
+				array(),
+				gc_theme_asset_version( $compare_js ),
+				true
+			);
+
+			wp_add_inline_script(
+				'pricing-compare',
+				'var gcPricingCompare = ' . wp_json_encode( gc_static_pricing_compare_config() ) . ';',
+				'before'
+			);
+		}
 	}
 
 	function gc_theme_get_static_php_page_schema_builders() {
@@ -189,6 +229,10 @@ if ( ! function_exists( 'gc_theme_static_html_directory' ) ) {
 			'verified-entry' => array(
 				'file'     => 'static/verified-entry/schema.php',
 				'function' => 'gc_static_verified_entry_schema',
+			),
+			'compare'        => array(
+				'file'     => 'static/pricing-compare/schema.php',
+				'function' => 'gc_static_pricing_compare_schema',
 			),
 		);
 	}

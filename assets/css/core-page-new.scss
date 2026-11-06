@@ -284,13 +284,58 @@ body.page{
         
 
         &.dark{
+            position: relative;
+            overflow: hidden;
             color: $white;
             background: $gray300;
+
+            &::before{
+                content: "";
+                position: absolute;
+                top: -260px;
+                left: 50%;
+                width: 900px;
+                height: 520px;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba($blue300, .28), rgba($blue300, 0) 65%);
+                transform: translateX(-50%);
+                pointer-events: none;
+            }
+
+            &:has(.services) {
+                .heading {
+                    max-width: 900px;
+                    margin: 0 auto;
+                    text-align: center;
+                }
+            }
 
             h2{
                 color: $cyan;                
             }
             
+            .cards .card-cont{
+                gap: $gap20;
+
+                &>div{
+                    padding: $gap24;
+                }
+
+                p {
+                    padding-bottom: 0;
+                }
+            }
+
+            .cards h4{
+                margin-bottom: $gap12;
+                font-size: $fsize20;
+
+                svg{
+                    width: $gap40;
+                    height: $gap40;
+                }
+            }
+           
         }
 
         @include media($mobile){
@@ -528,6 +573,7 @@ body.page{
         }
 
         &::before{
+            z-index: 0;
             top: -220px;
             right: -180px;
             width: 720px;
@@ -541,6 +587,31 @@ body.page{
             width: 640px;
             height: 640px;
             background: radial-gradient(circle, rgba(63, 197, 253, .14) 0%, rgba(63, 197, 253, 0) 65%);
+        }
+
+        .service-form-hero__bg{
+            position: absolute;
+            inset: 0 0 0 auto;
+            width: 58%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            opacity: .5;
+            pointer-events: none;
+            mask-image: linear-gradient(90deg, transparent 0%, #000 55%);
+
+            &::after{
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(180deg, rgba($gray300, .55), rgba($gray300, .25) 40%, rgba($gray300, .7));
+            }
+
+            @include media($tablet){
+                width: 100%;
+                opacity: .22;
+
+            }
         }
 
         &>.container{
@@ -1047,6 +1118,29 @@ body.page{
                 }
             }
 
+            .service-form-hero__included{
+                gap: $gap8;
+                display: inline-flex;
+                align-items: center;
+                margin-bottom: $gap24;
+                padding: $gap8 $gap20;
+                color: $white;
+                font-size: $base-fsize;
+                text-decoration: none;
+                background: rgba($blue300, .18);
+                border: 1px solid rgba(169, 171, 255, .35);
+                border-radius: 999px;
+
+                strong{
+                    color: $cyan;
+                }
+
+                &:hover,
+                &:focus-visible{
+                    background: rgba($blue300, .3);
+                }
+            }
+
             .service-form-hero__promises{ 
                 gap: $gap12;
                 display: flex;
@@ -1110,6 +1204,15 @@ body.page{
                     span{
                         font-size: $fsize12;
                     }
+                }
+            }
+
+            // Stats inside the .img content column: smaller numbers.
+            .service-form-hero__content.img .service-form-hero__stats strong{
+                font-size: 1.375em; /* 22 px */
+
+                @include media($mobile){
+                    font-size: $fsize20;
                 }
             }
 
@@ -1258,6 +1361,10 @@ body.page{
 
     #landing-page{
         margin: $gap40 0;
+
+        > .container:has(.demo-calendar) {
+            max-width: 1390px;
+        }
 
         .enzuzo-policy-card{
             padding: $gap20;
@@ -1453,8 +1560,8 @@ body.page{
             }
 
             .demo-help {
-                flex: 0 0 320px;
-                width: 320px;
+                flex: 0 0 270px;
+                width: 270px;
                 display: flex;
                 flex-direction: column;
                 gap: $gap16;

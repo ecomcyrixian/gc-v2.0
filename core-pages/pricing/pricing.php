@@ -112,11 +112,22 @@ $hero_pills = array(
     'No long-term contracts',
 );
 
-$quote_features = array(
-    'Hire candidates faster',
-    'Integrated FCRA Compliance',
-    'ATS and HRIS integrations',
-    'Customized workflows',
+$compare_url = home_url( '/pricing-packages/compare/' );
+
+$compare_prices = array(
+    array(
+        'name'  => 'GCheck',
+        'price' => '$18.95',
+        'is_us' => true,
+    ),
+    array(
+        'name'  => 'Checkr',
+        'price' => '$44.99',
+    ),
+    array(
+        'name'  => 'GoodHire',
+        'price' => '$54.99',
+    ),
 );
 ?>
 
@@ -207,20 +218,23 @@ $quote_features = array(
         <p class="pricing-disclaimer">*Additional third party fees may apply to some products and will be passed through with no markup.</p>
 
         <div class="pricing-quote">
-            <div class="pricing-quote__banner">
-                <div class="pricing-quote__content">
-                    <h2>Running more than 50 background checks a year?</h2>
-                    <ul>
-                        <?php foreach ( $quote_features as $feature ) : ?>
-                            <li>
-                                <?php echo $check_icon; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-                                <?php echo esc_html( $feature ); ?>
+            <div class="pricing-quote__banner pricing-quote__banner--compare">
+                <div class="pqc-copy">
+                    <p class="pqc-eyebrow">How we compare</p>
+                    <h2>Your first county search is on us.</h2>
+                    <p class="pqc-sub">Many providers charge extra for the county criminal search. Here's what one check costs once it's included.</p>
+                    <ul class="pqc-prices" aria-label="Price per check with one county criminal search">
+                        <?php foreach ( $compare_prices as $provider ) : ?>
+                            <li<?php echo ! empty( $provider['is_us'] ) ? ' class="is-us"' : ''; ?>>
+                                <span><?php echo esc_html( $provider['name'] ); ?></span>
+                                <strong><?php echo esc_html( $provider['price'] ); ?></strong>
                             </li>
                         <?php endforeach; ?>
                     </ul>
+                    <p class="pqc-note">Lowest published price per check with one county criminal search. Verified November 2026.</p>
                 </div>
-                <a class="button blue" href="<?php echo esc_url( $contact_url ); ?>">
-                    Get a Custom Quote
+                <a class="button blue" href="<?php echo esc_url( $compare_url ); ?>">
+                    Compare providers <span aria-hidden="true">&rarr;</span>
                 </a>
             </div>
         </div>
@@ -231,14 +245,14 @@ $quote_features = array(
 
             <div class="copyright-badges">
                 <span class="soc2-badge">
-                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/soc2.png' ); ?>" alt="SOC 2 Type 2 Certification" width="100" height="100" loading="lazy" decoding="async">
+                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/soc2.png' ); ?>" alt="SOC 2 Type II attestation" width="100" height="100" loading="lazy" decoding="async">
                 </span>
                 <span class="hpaa-badge">
-                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/hpaa.png' ); ?>" alt="HIPAA Accreditations" width="100" height="100" loading="lazy" decoding="async">
+                    <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/hpaa.png' ); ?>" alt="HIPAA compliance program" width="100" height="100" loading="lazy" decoding="async">
                 </span>
                 <span class="pbsa-badge">
                     <a href="https://credential.thepbsa.org/114492a9-638f-4bc4-bda1-bd465b3a5c2b#acc.Pw2lZ9sL" target="_blank" rel="noopener noreferrer">
-                        <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/PBSA logo.png' ); ?>" alt="PBSA" width="100" height="100" loading="lazy" decoding="async">
+                        <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/PBSA logo.png' ); ?>" alt="PBSA Member" width="100" height="100" loading="lazy" decoding="async">
                     </a>
                 </span>
                 <span class="bbb-badge">
@@ -247,7 +261,7 @@ $quote_features = array(
                     </a>
                 </span>
                 <span class="shrm-badge">
-                    <img src="<?php echo esc_url( get_template_directory_uri() . '/core-pages/pricing/css/shrm.webp' ); ?>" alt="SHRM, ASA Accreditations" width="100" height="100" loading="lazy" decoding="async">
+                    <img src="<?php echo esc_url( get_template_directory_uri() . '/core-pages/pricing/css/shrm.webp' ); ?>" alt="SHRM and ASA memberships" width="100" height="100" loading="lazy" decoding="async">
                 </span>
             </div>
         </div>

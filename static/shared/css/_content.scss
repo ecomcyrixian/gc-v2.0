@@ -1,0 +1,296 @@
+// Shared sections: proof bar, stat tiles, FAQ, closing banner.
+// This is the deployed Verified Entry design. Pricing differences are overrides
+// in static/pricing-compare/content/css; do not change Verified Entry from here.
+// Imported after Verified Entry so the ve-* tokens and mixins already exist.
+
+:is(#verified-entry, #pricing-compare) {
+    .ve-eyebrow {
+        color: $gray100;
+        @include ve-caps($fSemiBold, $fsize12);
+    }
+
+    .ve-proof {
+        background: $white;
+        border-top: 1px solid $gray75;
+        border-bottom: 1px solid $gray75;
+
+        .ve-proof__inner {
+            @include dFlex($gap24 $gap40, wrap, center);
+            padding-top: 28px;
+            padding-bottom: 28px;
+            justify-content: center;
+        }
+
+        .ve-proof__g2 {
+            @include ve-col($gap8);
+        }
+
+        .ve-stars {
+            gap: 3px;
+            display: flex;
+
+            i {
+                width: 18px;
+                height: 18px;
+                background: #FF492C;
+                clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            }
+        }
+
+        .ve-badges {
+            @include dFlex($gap12, wrap, center);
+            flex: 1 1 420px;
+            justify-content: center;
+
+            img {
+                width: 88px;
+            }
+        }
+
+        .ve-chips {
+            gap: $gap8;
+            display: grid;
+            grid-template-columns: repeat(2, auto);
+
+            li {
+                @include dFlex(6px, nowrap, center);
+                height: 36px;
+                color: $ve-ink-2;
+                padding: 0 $gap12;
+                border-radius: $corners4;
+                border: 1px solid $gray75;
+                @include ve-font($fSemiBold, 13px, 1);
+            }
+
+            .ve-icon {
+                width: 14px;
+                height: 14px;
+                color: $blue300;
+            }
+        }
+
+        @include media($mobile) {
+            .ve-chips {
+                width: 100%;
+                @include ve-cols(2);
+            }
+
+            .ve-badges {
+                flex: 1 1 100%;
+                flex-wrap: nowrap;
+                gap: $gap8;
+
+                li {
+                    flex: 0 1 64px;
+                    min-width: 0;
+                }
+            }
+        }
+    }
+
+    .ve-stats {
+        @include ve-grid(3);
+
+        .ve-stat {
+            @include ve-col(14px);
+            padding: 32px;
+            min-height: 220px;
+            border-radius: $gap16;
+
+            strong {
+                letter-spacing: -0.03em;
+                @include ve-font($fBlack, $fsize64, 1);
+            }
+
+            span {
+                text-wrap: pretty;
+                @include ve-font($fMedium, $fsize18, 1.45);
+            }
+
+            &--blue {
+                color: $white;
+                background: $blue300;
+            }
+
+            &--soft {
+                background: $blue50;
+
+                strong {
+                    color: $blue300;
+                }
+            }
+
+            &--warm {
+                background: $ve-warm;
+
+                strong {
+                    color: $ve-warm-ink;
+                }
+            }
+        }
+
+        @include media($tablet) {
+            @include ve-cols(1);
+
+            .ve-stat {
+                min-height: 0;
+            }
+        }
+    }
+
+    .ve-source {
+        color: $gray100;
+        @include ve-font($fRegular, 13px, 1.4);
+    }
+
+    // Global #faq.faq--collapsible accordion, styled as basis divider rows.
+    #faq.ve-faq {
+        .card-cont {
+            padding: 0;
+            border-top: 1px solid $gray75;
+        }
+
+        .faq-card {
+            border-radius: 0;
+            overflow: visible;
+            background: none;
+            border-bottom: 1px solid $gray75;
+
+            &.is-open .faq-card__icon::after {
+                transform: rotate(0deg);
+            }
+        }
+
+        .faq-card__toggle {
+            gap: $gap16;
+            color: $gray300;
+            align-items: center;
+            padding: 22px $gap4;
+            @include ve-font($fBold, $fsize18, 1.35);
+
+            &:focus-visible {
+                outline-offset: 2px;
+                outline: 2px solid $blue300;
+            }
+        }
+
+        .faq-card__icon {
+            @include circle(28);
+            background: $blue50;
+
+            &::before,
+            &::after {
+                top: 50%;
+                left: 50%;
+                width: 12px;
+                height: 2px;
+                content: "";
+                position: absolute;
+                border-radius: 1px;
+                margin: -1px 0 0 -6px;
+                background: $blue300;
+                @include transition-fade(.15);
+            }
+
+            &::after {
+                transform: rotate(90deg);
+            }
+        }
+
+        .faq-card__panel {
+            padding: 0 $gap4 $gap24;
+
+            p {
+                max-width: 800px;
+                @include ve-muted($base-fsize, 1.55);
+            }
+        }
+
+        @include media($mobile) {
+            .faq-card__toggle {
+                font-size: $base-fsize;
+                padding: 18px 2px;
+            }
+        }
+    }
+
+    .ve-section--cta {
+        padding: $gap80 0;
+
+        @include media($mobile) {
+            padding: $gap60 0;
+        }
+    }
+
+    .ve-cta {
+        @include ve-dot-wave(.75);
+        @include dFlex($gap40, wrap, center);
+        color: $white;
+        padding: 72px 64px;
+        border-radius: $gap24;
+
+        .ve-cta__copy {
+            @include ve-col(14px);
+            flex: 1 1 320px;
+
+            p {
+                color: $ve-caption;
+                @include ve-font($fRegular, $fsize18, 1.5);
+            }
+        }
+
+        .ve-cta__title {
+            text-wrap: balance;
+            letter-spacing: -0.03em;
+            @include ve-font($fBlack, clamp(30px, 3.6vw, 44px), 1);
+        }
+
+        .ve-cta__btns {
+            @include dFlex($gap12, wrap, stretch);
+        }
+
+        // Global .button / .button.white, sized to the basis. The hero buttons on both pages use the same rule.
+        :is(&, .ve-hero) .button {
+            height: 52px;
+            padding: 0 26px;
+            align-items: center;
+            display: inline-flex;
+            justify-content: center;
+            @include ve-font($fBold, $base-fsize, 1);
+
+            &.white {
+                border-color: $white;
+
+                &:hover {
+                    background: $blue10;
+                    color: $ve-blue-hover;
+                }
+            }
+
+            &.ghost {
+                color: $white;
+                border: 1px solid rgba($white, .6);
+                @include transition-fade(.3);
+
+                &:hover {
+                    color: $white;
+                    background: rgba($white, .12);
+                }
+            }
+        }
+
+        @include media($tablet) {
+            padding: 48px 32px;
+        }
+
+        @include media($mobile) {
+            padding: $gap40 $gap24;
+            border-radius: $gap16;
+
+            .ve-cta__btns,
+            .button {
+                width: 100%;
+            }
+        }
+    }
+}

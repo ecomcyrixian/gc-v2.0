@@ -1,5 +1,5 @@
 /**
- * Static PHP pages (static/{slug}/{slug}.php) — single CSS bundle, loaded only on those pages.
+ * Static PHP pages (static/{folder}/content/index.php) — single CSS bundle, loaded only on those pages.
  *
  * Compile:
  *   sass assets/css/static-page.scss assets/css/static-page.css --no-charset --style=compressed --source-map
@@ -9,5 +9,11 @@
 @import '_tools/variable';
 @import '_tools/mixins';
 
-// ── Verified Entry ─────────────────────────────────────────────────────────
+// ── Verified Entry (tokens, mixins, page-only sections) ────────────────────
 @import '../../static/verified-entry/content/css/content';
+
+// ── Shared sections (proof, steps, stats, FAQ) ─────────────────────────────
+@import '../../static/shared/css/content';
+
+// ── Pricing compare (slug: compare) ────────────────────────────────────────
+@import '../../static/pricing-compare/content/css/content';

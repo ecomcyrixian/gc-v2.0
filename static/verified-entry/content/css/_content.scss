@@ -21,7 +21,7 @@ $ve-content: 1280px;
 $ve-narrow: 960px;
 
 @mixin ve-font($weight, $size, $line-height: null) {
-    @include inter($weight);
+    font-weight: $weight;
     font-size: $size;
     line-height: $line-height;
 }
@@ -58,6 +58,40 @@ $ve-narrow: 960px;
     border: 1px solid $gray75;
 }
 
+// Moment cards. Verified Entry nests them in the persona row; pricing includes the same mixins on its own list.
+@mixin ve-moment-list {
+    @include ve-col(14px);
+
+    li {
+        @include dFlex($gap16, nowrap, flex-start);
+        background: $white;
+        padding: $gap20 22px;
+        border-radius: $gap12;
+        box-shadow: 0 10px 30px rgba($ve-shadow, .06);
+
+        > div {
+            @include ve-col(5px);
+
+            > span:last-child {
+                @include ve-muted($fsize14, 1.45);
+            }
+        }
+    }
+
+    strong {
+        @include ve-font($fBold, 17px, 1.25);
+    }
+}
+
+@mixin ve-moment-icon {
+    @include circle(40);
+    flex: none;
+    display: flex;
+    align-items: center;
+    background: $ve-ok-bg;
+    justify-content: center;
+}
+
 // Dark panel with the header dot-wave behind its children.
 @mixin ve-dot-wave($opacity: .9) {
     overflow: hidden;
@@ -77,7 +111,7 @@ $ve-narrow: 960px;
     }
 }
 
-#verified-entry {
+:is(#verified-entry, #pricing-compare) {
     --ve-pad-x: 32px;
     --ve-sec-y: 96px;
 
@@ -128,7 +162,6 @@ $ve-narrow: 960px;
     .ve-sprite {
         width: 0;
         height: 0;
-        overflow: hidden;
         position: absolute;
     }
 
@@ -177,10 +210,6 @@ $ve-narrow: 960px;
                 color: $ve-lilac;
             }
         }
-
-        &--cta {
-            padding: $gap80 0 96px;
-        }
     }
 
     .ve-stack {
@@ -201,7 +230,6 @@ $ve-narrow: 960px;
         text-align: left;
 
         h2 {
-            color: inherit;
             text-wrap: balance;
             letter-spacing: -0.02em;
             @include ve-font($fBold, clamp(30px, 3.4vw, 42px), 1.1);
@@ -276,11 +304,6 @@ $ve-narrow: 960px;
         }
     }
 
-    .ve-eyebrow {
-        color: $gray100;
-        @include ve-caps($fSemiBold, $fsize12);
-    }
-
     .ve-link {
         @include ve-font($fBold, 15px, 1);
     }
@@ -293,7 +316,6 @@ $ve-narrow: 960px;
     .ve-tm {
         letter-spacing: 0;
         margin-left: .04em;
-        font-size: max(.5em, min(1em, 18px));
 
         &--mid {
             line-height: 0;
@@ -310,10 +332,13 @@ $ve-narrow: 960px;
             padding-left: $gap30;
             @include ve-font($fMedium, $base-fsize, 1.4);
 
+            // Global check SVG has no viewBox, so it clips below 24px; same icon with one.
             &::before {
                 top: 1px;
                 width: 20px;
                 height: 20px;
+                background-image: url('data:image/svg+xml,<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 1.5C6.20156 1.5 1.5 6.20156 1.5 12C1.5 17.7984 6.20156 22.5 12 22.5C17.7984 22.5 22.5 17.7984 22.5 12C22.5 6.20156 17.7984 1.5 12 1.5ZM16.5352 8.57109L11.5992 15.4148C11.5302 15.5111 11.4393 15.5896 11.3339 15.6437C11.2286 15.6978 11.1118 15.7261 10.9934 15.7261C10.8749 15.7261 10.7582 15.6978 10.6528 15.6437C10.5474 15.5896 10.4565 15.5111 10.3875 15.4148L7.46484 11.3648C7.37578 11.2406 7.46484 11.0672 7.61719 11.0672H8.71641C8.95547 11.0672 9.18281 11.182 9.32344 11.3789L10.9922 13.6945L14.6766 8.58516C14.8172 8.39062 15.0422 8.27344 15.2836 8.27344H16.3828C16.5352 8.27344 16.6242 8.44688 16.5352 8.57109V8.57109Z" fill="%235DC567"/></svg>');
+                background-size: 100% 100%;
             }
         }
     }
@@ -457,831 +482,497 @@ $ve-narrow: 960px;
             transition: none !important;
         }
     }
-}
 
-
-// 1. Hero
-#verified-entry .ve-hero {
-    color: $white;
-    @include ve-dot-wave;
-
-    .ve-hero__inner {
-        @include ve-col(22px);
-        text-align: center;
-        align-items: center;
-        padding-top: 96px;
-        padding-bottom: 72px;
-    }
-
-    .ve-wordmark {
-        letter-spacing: -0.035em;
-        text-transform: uppercase;
-        @include ve-font($fBlack, clamp(44px, 7vw, 80px), .95);
-
-        .ve-tm {
-            line-height: 1;
-            font-size: .32em;
-            vertical-align: top;
-            display: inline-block;
-            margin: .18em 0 0 .1em;
-        }
-    }
-
-    .ve-wordmark__accent {
-        color: transparent;
-        background: linear-gradient(90deg, $ve-lilac 0%, #6C8BFF 45%, $cyan 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-    }
-
-    .ve-hero__title {
+    // 1. Hero
+    .ve-hero {
         color: $white;
-        max-width: 820px;
-        text-wrap: balance;
-        letter-spacing: -0.015em;
-        @include ve-font($fSemiBold, clamp(22px, 2.4vw, 30px), 1.25);
-    }
+        @include ve-dot-wave;
 
-    .ve-pills {
-        gap: $gap4;
-        padding: 5px;
-        margin-top: 28px;
-        border-radius: 26px;
-        display: inline-flex;
-        background: rgba($white, .12);
-        border: 1px solid rgba($white, .22);
-    }
-
-    .ve-pill {
-        @include dFlex($gap8, nowrap, center);
-        border: 0;
-        height: 42px;
-        color: $white;
-        cursor: pointer;
-        padding: 0 $gap20;
-        border-radius: 21px;
-        background: transparent;
-        @include ve-font($fBold, $fsize14, 1);
-        @include transition-fade(.15);
-
-        span {
-            opacity: .75;
-            font-size: 13px;
-            font-weight: $fMedium;
-        }
-
-        &:hover {
-            background: rgba($white, .14);
-        }
-
-        &[aria-selected="true"] {
-            color: $blue300;
-            background: $white;
-        }
-
-        &:focus-visible {
-            outline-offset: 2px;
-            outline: 2px solid $cyan;
-        }
-    }
-
-    // Stretch so the panel is capped at the hero width and the phone row can scroll.
-    .ve-panel {
-        margin-top: 28px;
-        align-self: stretch;
-
-        &[hidden] {
-            display: none;
-        }
-    }
-
-    @include media($tablet) {
-        .ve-panel {
-            min-width: 0;
-            margin-left: calc(var(--ve-pad-x) * -1);
-            margin-right: calc(var(--ve-pad-x) * -1);
-        }
-    }
-
-    @include media($mobile) {
         .ve-hero__inner {
-            padding-top: 64px;
-            padding-bottom: 48px;
+            @include ve-col(22px);
+            text-align: center;
+            align-items: center;
+            padding-top: 96px;
+            padding-bottom: 72px;
+        }
+
+        .ve-wordmark {
+            letter-spacing: -0.035em;
+            text-transform: uppercase;
+            @include ve-font($fBlack, clamp(44px, 7vw, 80px), .95);
+
+            .ve-tm {
+                line-height: 1;
+                font-size: .32em;
+                vertical-align: top;
+                display: inline-block;
+                margin: .18em 0 0 .1em;
+            }
+        }
+
+        .ve-wordmark__accent {
+            color: transparent;
+            background: linear-gradient(90deg, $ve-lilac 0%, #6C8BFF 45%, $cyan 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .ve-hero__title {
+            max-width: 820px;
+            text-wrap: balance;
+            letter-spacing: -0.015em;
+            @include ve-font($fSemiBold, clamp(22px, 2.4vw, 30px), 1.25);
         }
 
         .ve-pills {
-            width: 100%;
+            gap: $gap4;
+            padding: 5px;
+            margin-top: 28px;
+            border-radius: 26px;
+            display: inline-flex;
+            background: rgba($white, .12);
+            border: 1px solid rgba($white, .22);
         }
 
         .ve-pill {
-            flex: 1;
-            font-size: 13px;
-            padding: 0 $gap10;
-            justify-content: center;
+            @include dFlex($gap8, nowrap, center);
+            border: 0;
+            height: 42px;
+            color: $white;
+            cursor: pointer;
+            padding: 0 $gap20;
+            border-radius: 21px;
+            background: transparent;
+            @include ve-font($fBold, $fsize14, 1);
+            @include transition-fade(.15);
 
             span {
-                display: none;
-            }
-        }
-    }
-}
-
-
-// 2. Trust strip
-#verified-entry .ve-proof {
-    background: $white;
-    border-top: 1px solid $gray75;
-    border-bottom: 1px solid $gray75;
-
-    .ve-proof__inner {
-        @include dFlex($gap24 $gap40, wrap, center);
-        padding-top: 28px;
-        padding-bottom: 28px;
-        justify-content: center;
-    }
-
-    .ve-proof__g2 {
-        @include ve-col($gap8);
-    }
-
-    .ve-stars {
-        gap: 3px;
-        display: flex;
-
-        i {
-            width: 18px;
-            height: 18px;
-            background: #FF492C;
-            clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-        }
-    }
-
-    .ve-badges {
-        @include dFlex($gap12, wrap, center);
-        flex: 1 1 420px;
-        justify-content: center;
-
-        img {
-            width: 88px;
-        }
-    }
-
-    .ve-chips {
-        gap: $gap8;
-        display: grid;
-        grid-template-columns: repeat(2, auto);
-
-        li {
-            @include dFlex(6px, nowrap, center);
-            height: 36px;
-            color: $ve-ink-2;
-            padding: 0 $gap12;
-            border-radius: $corners4;
-            border: 1px solid $gray75;
-            @include ve-font($fSemiBold, 13px, 1);
-        }
-
-        .ve-icon {
-            width: 14px;
-            height: 14px;
-            color: $blue300;
-        }
-    }
-
-    @include media($mobile) {
-        .ve-chips {
-            width: 100%;
-            @include ve-cols(2);
-        }
-
-        .ve-badges {
-            flex: 1 1 100%;
-            flex-wrap: nowrap;
-            width: 100%;
-            gap: $gap8;
-            justify-content: center;
-
-            li {
-                flex: 0 1 64px;
-                min-width: 0;
+                opacity: .75;
+                font-size: 13px;
+                font-weight: $fMedium;
             }
 
-            img {
-                display: block;
-                width: 100%;
-                height: auto;
+            &:hover {
+                background: rgba($white, .14);
             }
-        }
-    }
-}
 
-
-// 3. Verification Half-Life stats
-#verified-entry .ve-stats {
-    @include ve-grid(3);
-
-    .ve-stat {
-        @include ve-col(14px);
-        padding: 32px;
-        min-height: 220px;
-        border-radius: $gap16;
-
-        strong {
-            letter-spacing: -0.03em;
-            @include ve-font($fBlack, $fsize64, 1);
-        }
-
-        span {
-            text-wrap: pretty;
-            @include ve-font($fMedium, $fsize18, 1.45);
-        }
-
-        &--blue {
-            color: $white;
-            background: $blue300;
-        }
-
-        &--soft {
-            background: $blue50;
-
-            strong {
+            &[aria-selected="true"] {
                 color: $blue300;
+                background: $white;
+            }
+
+            &:focus-visible {
+                outline-offset: 2px;
+                outline: 2px solid $cyan;
             }
         }
 
-        &--warm {
-            background: $ve-warm;
+        // Stretch so the panel is capped at the hero width and the phone row can scroll.
+        .ve-panel {
+            margin-top: 28px;
+            align-self: stretch;
+        }
 
-            strong {
-                color: $ve-warm-ink;
+        @include media($tablet) {
+            .ve-panel {
+                min-width: 0;
+                margin-left: calc(var(--ve-pad-x) * -1);
+                margin-right: calc(var(--ve-pad-x) * -1);
+            }
+        }
+
+        @include media($mobile) {
+            .ve-hero__inner {
+                padding-top: 64px;
+                padding-bottom: 48px;
+            }
+
+            .ve-pills {
+                width: 100%;
+            }
+
+            .ve-pill {
+                flex: 1;
+                font-size: 13px;
+                padding: 0 $gap10;
+                justify-content: center;
+
+                span {
+                    display: none;
+                }
             }
         }
     }
 
-    @include media($tablet) {
-        @include ve-cols(1);
-
-        .ve-stat {
-            min-height: 0;
-        }
-    }
-}
-
-#verified-entry .ve-source {
-    color: $gray100;
-    @include ve-font($fRegular, 13px, 1.4);
-}
-
-
-// 4. Two halves
-#verified-entry .ve-half {
-    gap: $gap40;
-    display: grid;
-    align-items: center;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.9fr);
-
-    .ve-half__copy {
-        @include ve-col(18px);
-
-        > p {
-            @include ve-muted(17px, 1.5);
-        }
-    }
-
-    .ve-h3 {
-        text-wrap: balance;
-        letter-spacing: -0.03em;
-        @include ve-font($fBlack, clamp(26px, 2.8vw, 34px), 1.05);
-    }
-
-    .ve-tag {
-        color: $white;
-        padding: 7px $gap12;
-        border-radius: 14px;
-        align-self: flex-start;
-        background: $blue300;
-        @include ve-caps($fBold, $fsize12);
-    }
-
-    .ve-flow {
-        padding: $gap24;
-        background: $white;
-        border-radius: $gap16;
-        box-shadow: 0 20px 50px rgba($ve-shadow, .12);
-    }
-
-    .ve-flow__dark {
-        @include ve-dot-wave;
-        border-radius: $gap12;
-        padding: $gap24 18px 22px;
-    }
-
-    @include media($nav-tablet) {
-        gap: 28px;
-        @include ve-cols(1);
+    // 4. Two halves
+    .ve-half {
+        gap: $gap40;
+        display: grid;
+        align-items: center;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.9fr);
 
         .ve-half__copy {
-            max-width: 680px;
-        }
-    }
+            @include ve-col(18px);
 
-    @include media($mobile) {
+            > p {
+                @include ve-muted(17px, 1.5);
+            }
+        }
+
+        .ve-h3 {
+            text-wrap: balance;
+            letter-spacing: -0.03em;
+            @include ve-font($fBlack, clamp(26px, 2.8vw, 34px), 1.05);
+        }
+
+        .ve-tag {
+            color: $white;
+            padding: 7px $gap12;
+            border-radius: 14px;
+            align-self: flex-start;
+            background: $blue300;
+            @include ve-caps($fBold, $fsize12);
+        }
+
         .ve-flow {
-            padding: $gap12;
-        }
-    }
-}
-
-
-// 5. Benefit cards
-#verified-entry .ve-cards {
-    @include ve-grid(3);
-
-    .ve-card {
-        @include ve-col($gap12);
-        @include ve-outline;
-        padding: 28px;
-
-        strong {
-            @include ve-font($fBold, 19px, 1.25);
-        }
-
-        > span:last-child {
-            @include ve-muted(15px, 1.5);
-        }
-    }
-
-    @include media($nav-tablet) {
-        @include ve-cols(2);
-    }
-
-    @include media($mobile) {
-        @include ve-cols(1);
-    }
-}
-
-
-// 6. How it works
-#verified-entry .ve-how {
-    @include ve-grid(4);
-
-    li {
-        @include ve-col(14px);
-        padding-top: $gap20;
-        border-top: 2px solid $blue300;
-
-        > span:last-child {
-            color: $ve-lilac-text;
-            @include ve-font($fRegular, 15px, 1.5);
-        }
-    }
-
-    .ve-how__num {
-        color: $ve-lilac;
-        @include ve-font($fBlack, $fsize40, 1);
-    }
-
-    strong {
-        @include ve-font($fBold, 19px, 1.25);
-    }
-
-    @include media($nav-tablet) {
-        gap: 32px $gap20;
-        @include ve-cols(2);
-    }
-
-    @include media($mobile) {
-        @include ve-cols(1);
-    }
-}
-
-
-// 7. Use cases
-#verified-entry .ve-uses {
-    @include ve-grid(2);
-
-    .ve-use {
-        @include ve-col(18px);
-        @include ve-outline;
-        padding: 28px $gap24;
-
-        li {
-            @include ve-col($gap4);
-            padding: $gap12 0;
-            border-top: 1px solid $gray75;
-
-            strong {
-                @include ve-font($fBold, 15px, 1.3);
-            }
-
-            span {
-                @include ve-muted($fsize14, 1.45);
-            }
-        }
-    }
-
-    .ve-use__title {
-        @include dFlex($gap12, nowrap, center);
-        @include ve-font($fBold, $fsize18, 1.2);
-
-        .ve-icon-box {
-            width: 40px;
-            height: 40px;
-        }
-
-        .ve-icon {
-            width: 20px;
-            height: 20px;
-        }
-    }
-
-    @include media($tablet) {
-        @include ve-cols(1);
-    }
-}
-
-
-// 8. Persona
-#verified-entry .ve-persona {
-    gap: 48px;
-    display: grid;
-    align-items: center;
-    grid-template-columns: minmax(0, 1fr) 240px minmax(0, 1.1fr);
-
-    .ve-persona__phone img {
-        border-radius: 28px;
-        box-shadow: 0 28px 60px rgba($ve-shadow, .22);
-    }
-
-    .ve-moments {
-        @include ve-col(14px);
-
-        li {
-            @include dFlex($gap16, nowrap, flex-start);
+            padding: $gap24;
             background: $white;
-            padding: $gap20 22px;
+            border-radius: $gap16;
+            box-shadow: 0 20px 50px rgba($ve-shadow, .12);
+        }
+
+        .ve-flow__dark {
+            @include ve-dot-wave;
             border-radius: $gap12;
-            box-shadow: 0 10px 30px rgba($ve-shadow, .06);
+            padding: $gap24 18px 22px;
+        }
 
-            > div {
-                @include ve-col(5px);
+        @include media($nav-tablet) {
+            gap: 28px;
+            @include ve-cols(1);
 
-                > span:last-child {
+            .ve-half__copy {
+                max-width: 680px;
+            }
+        }
+
+        @include media($mobile) {
+            .ve-flow {
+                padding: $gap12;
+            }
+        }
+    }
+
+    // 7. Use cases
+    .ve-uses {
+        @include ve-grid(2);
+
+        .ve-use {
+            @include ve-col(18px);
+            @include ve-outline;
+            padding: 28px $gap24;
+
+            li {
+                @include ve-col($gap4);
+                padding: $gap12 0;
+                border-top: 1px solid $gray75;
+
+                strong {
+                    @include ve-font($fBold, 15px, 1.3);
+                }
+
+                span {
                     @include ve-muted($fsize14, 1.45);
                 }
             }
         }
 
-        strong {
-            @include ve-font($fBold, 17px, 1.25);
+        .ve-use__title {
+            @include dFlex($gap12, nowrap, center);
+            @include ve-font($fBold, $fsize18, 1.2);
+
+            .ve-icon-box {
+                width: 40px;
+                height: 40px;
+            }
+
+            .ve-icon {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        @include media($tablet) {
+            @include ve-cols(1);
         }
     }
 
-    .ve-moment__icon {
-        @include circle(40);
-        flex: none;
-        display: flex;
+    // 8. Persona
+    .ve-persona {
+        gap: 48px;
+        display: grid;
         align-items: center;
-        background: $ve-ok-bg;
-        justify-content: center;
-    }
+        grid-template-columns: minmax(0, 1fr) 240px minmax(0, 1.1fr);
 
-    .ve-moment__when {
-        color: $gray100;
-        letter-spacing: .06em;
-        @include ve-font($fSemiBold, $fsize12, 1);
-    }
+        .ve-persona__phone img {
+            border-radius: 28px;
+            box-shadow: 0 28px 60px rgba($ve-shadow, .22);
+        }
 
-    @include media($nav-tablet) {
-        grid-template-columns: 200px minmax(0, 1fr);
+        .ve-moments {
+            @include ve-moment-list;
+        }
 
-        .ve-persona__copy {
-            max-width: 680px;
-            grid-column: 1 / -1;
+        .ve-moment__icon {
+            @include ve-moment-icon;
+        }
+
+        .ve-moment__when {
+            color: $gray100;
+            letter-spacing: .06em;
+            @include ve-font($fSemiBold, $fsize12, 1);
+        }
+
+        @include media($nav-tablet) {
+            grid-template-columns: 200px minmax(0, 1fr);
+
+            .ve-persona__copy {
+                max-width: 680px;
+                grid-column: 1 / -1;
+            }
+        }
+
+        @include media($mobile) {
+            @include ve-cols(1);
+
+            .ve-persona__phone {
+                margin: 0 auto;
+                max-width: 220px;
+            }
         }
     }
 
-    @include media($mobile) {
-        @include ve-cols(1);
+    // 9. What it replaces
+    .ve-table {
+        @include ve-outline;
+        width: 100%;
+        overflow: hidden;
+        border-spacing: 0;
+        table-layout: fixed;
 
-        .ve-persona__phone {
-            margin: 0 auto;
-            max-width: 220px;
-        }
-    }
-}
+        thead th {
+            text-align: left;
+            color: $ve-ink-2;
+            background: $ve-tint;
+            padding: $gap16 $gap24;
+            @include ve-caps($fBold, $fsize12);
 
+            &:last-child {
+                color: $blue300;
+            }
 
-// 9. What it replaces
-#verified-entry .ve-table {
-    @include ve-outline;
-    width: 100%;
-    overflow: hidden;
-    border-spacing: 0;
-    table-layout: fixed;
-    border-collapse: separate;
-
-    thead th {
-        text-align: left;
-        color: $ve-ink-2;
-        background: $ve-tint;
-        padding: $gap16 $gap24;
-        @include ve-caps($fBold, $fsize12);
-
-        &:last-child {
-            color: $blue300;
+            &:nth-child(3) {
+                width: 38%;
+            }
         }
 
-        &:nth-child(3) {
-            width: 38%;
-        }
-    }
-
-    tbody th,
-    td {
-        text-align: left;
-        padding: 22px $gap24;
-        vertical-align: middle;
-        border-top: 1px solid $gray75;
-    }
-
-    tbody th {
-        @include ve-font($fBold, $base-fsize, 1.35);
-    }
-
-    td {
-        @include ve-muted(15px, 1.45);
-
-        &.ve-table__win {
-            color: $gray300;
-            font-weight: $fSemiBold;
-        }
-    }
-
-    .ve-table__win .ve-icon {
-        width: 18px;
-        height: 18px;
-        margin-right: 10px;
-        vertical-align: -3px;
-        display: inline-block;
-    }
-
-    // Table → stacked cards
-    @include media($mobile) {
-        border: 0;
-        border-radius: 0;
-
-        &,
-        tbody,
-        tr,
-        th,
+        tbody th,
         td {
-            width: 100%;
-            display: block;
-        }
-
-        thead {
-            display: none;
-        }
-
-        tr {
-            @include ve-outline;
-            overflow: hidden;
-            margin-bottom: $gap12;
+            text-align: left;
+            padding: 22px $gap24;
+            border-top: 1px solid $gray75;
         }
 
         tbody th {
-            border-top: 0;
-            padding: $gap16 18px;
-            background: $ve-tint;
+            @include ve-font($fBold, $base-fsize, 1.35);
         }
 
         td {
-            padding: 14px 18px;
+            @include ve-muted(15px, 1.45);
 
-            &::before {
+            &.ve-table__win {
+                color: $gray300;
+                font-weight: $fSemiBold;
+            }
+        }
+
+        .ve-table__win .ve-icon {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            vertical-align: -3px;
+            display: inline-block;
+        }
+
+        // Table → stacked cards
+        @include media($mobile) {
+            border: 0;
+            border-radius: 0;
+
+            &,
+            tbody,
+            tr,
+            th,
+            td {
+                width: 100%;
                 display: block;
-                color: $gray100;
-                margin-bottom: 6px;
-                content: attr(data-label);
-                @include ve-caps($fBold, 11px);
             }
 
-            &.ve-table__win::before {
-                color: $blue300;
+            thead {
+                display: none;
+            }
+
+            tr {
+                @include ve-outline;
+                overflow: hidden;
+                margin-bottom: $gap12;
+            }
+
+            tbody th {
+                border-top: 0;
+                padding: $gap16 18px;
+                background: $ve-tint;
+            }
+
+            td {
+                padding: 14px 18px;
+
+                &::before {
+                    display: block;
+                    color: $gray100;
+                    margin-bottom: 6px;
+                    content: attr(data-label);
+                    @include ve-caps($fBold, 11px);
+                }
+
+                &.ve-table__win::before {
+                    color: $blue300;
+                }
             }
         }
     }
-}
 
+    // 11. Blog
+    .ve-posts {
+        @include ve-grid(3, $gap24);
 
-// 10. FAQ: global #faq.faq--collapsible accordion, styled as basis divider rows.
-#verified-entry #faq.ve-faq {
-    .card-cont {
-        padding: 0;
-        border-top: 1px solid $gray75;
-    }
-
-    .faq-card {
-        border-radius: 0;
-        overflow: visible;
-        background: none;
-        border-bottom: 1px solid $gray75;
-
-        &.is-open .faq-card__icon::after {
-            transform: rotate(0deg);
-        }
-    }
-
-    .faq-card__toggle {
-        gap: $gap16;
-        color: $gray300;
-        align-items: center;
-        padding: 22px $gap4;
-        @include ve-font($fBold, $fsize18, 1.35);
-
-        &:focus-visible {
-            outline-offset: 2px;
-            outline: 2px solid $blue300;
-        }
-    }
-
-    .faq-card__icon {
-        @include circle(28);
-        background: $blue50;
-
-        &::before,
-        &::after {
-            top: 50%;
-            left: 50%;
-            width: 12px;
-            height: 2px;
-            content: "";
-            position: absolute;
-            border-radius: 1px;
-            margin: -1px 0 0 -6px;
-            background: $blue300;
-            @include transition-fade(.15);
-        }
-
-        &::after {
-            transform: rotate(90deg);
-        }
-    }
-
-    .faq-card__panel {
-        padding: 0 $gap4 $gap24;
-
-        p {
-            max-width: 800px;
-            @include ve-muted($base-fsize, 1.55);
-        }
-    }
-
-    @include media($mobile) {
-        .faq-card__toggle {
-            font-size: $base-fsize;
-            padding: 18px 2px;
-        }
-    }
-}
-
-
-// 11. Blog
-#verified-entry .ve-posts {
-    @include ve-grid(3, $gap24);
-
-    .ve-post a {
-        height: 100%;
-        display: flex;
-        color: inherit;
-        overflow: hidden;
-        background: $white;
-        border-radius: $gap12;
-        flex-direction: column;
-
-        &:hover {
-            color: $ve-blue-hover;
-        }
-    }
-
-    .ve-post__img {
-        display: block;
-        overflow: hidden;
-        aspect-ratio: 16 / 9;
-        background: linear-gradient(135deg, $blue300, $cyan);
-
-        img {
+        .ve-post a {
             height: 100%;
-            object-fit: cover;
-        }
-    }
-
-    .ve-post:nth-child(2) .ve-post__img {
-        background: linear-gradient(135deg, #1C1D5E, $blue300);
-    }
-
-    .ve-post:nth-child(3) .ve-post__img {
-        background: linear-gradient(135deg, #6C8BFF, #C9CBFF);
-    }
-
-    .ve-post__body {
-        @include ve-col(10px);
-        padding: 22px;
-    }
-
-    .ve-post__cat {
-        color: $blue300;
-        @include ve-caps($fBold, $fsize12, .06em);
-    }
-
-    strong {
-        text-wrap: pretty;
-        @include ve-font($fBold, $fsize18, 1.3);
-    }
-
-    .ve-post__meta {
-        color: $gray100;
-        @include ve-font($fRegular, 13px, 1);
-    }
-
-    @include media($tablet) {
-        @include ve-cols(1);
-    }
-}
-
-
-// 12. Final CTA
-#verified-entry .ve-cta {
-    @include ve-dot-wave(.75);
-    @include dFlex($gap40, wrap, center);
-    color: $white;
-    padding: 72px 64px;
-    border-radius: $gap24;
-
-    .ve-cta__copy {
-        @include ve-col(14px);
-        flex: 1 1 320px;
-
-        p {
-            color: $ve-caption;
-            @include ve-font($fRegular, $fsize18, 1.5);
-        }
-    }
-
-    .ve-cta__title {
-        color: $white;
-        text-wrap: balance;
-        letter-spacing: -0.03em;
-        @include ve-font($fBlack, clamp(30px, 3.6vw, 44px), 1);
-    }
-
-    .ve-cta__btns {
-        @include dFlex($gap12, wrap, stretch);
-    }
-
-    // Global .button / .button.white, sized to the basis.
-    .button {
-        height: 52px;
-        padding: 0 26px;
-        align-items: center;
-        display: inline-flex;
-        justify-content: center;
-        @include ve-font($fBold, $base-fsize, 1);
-
-        &.white {
-            border-color: $white;
+            display: flex;
+            color: inherit;
+            overflow: hidden;
+            background: $white;
+            border-radius: $gap12;
+            flex-direction: column;
 
             &:hover {
-                background: $blue10;
                 color: $ve-blue-hover;
             }
         }
 
-        &.ghost {
-            color: $white;
-            background: transparent;
-            border: 1px solid rgba($white, .6);
-            @include transition-fade(.3);
+        .ve-post__img {
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, $blue300, $cyan);
 
-            &:hover {
-                color: $white;
-                background: rgba($white, .12);
+            img {
+                height: 100%;
+                object-fit: cover;
             }
+        }
+
+        .ve-post:nth-child(2) .ve-post__img {
+            background: linear-gradient(135deg, #1C1D5E, $blue300);
+        }
+
+        .ve-post:nth-child(3) .ve-post__img {
+            background: linear-gradient(135deg, #6C8BFF, #C9CBFF);
+        }
+
+        .ve-post__body {
+            @include ve-col(10px);
+            padding: 22px;
+        }
+
+        .ve-post__cat {
+            color: $blue300;
+            @include ve-caps($fBold, $fsize12, .06em);
+        }
+
+        strong {
+            text-wrap: pretty;
+            @include ve-font($fBold, $fsize18, 1.3);
+        }
+
+        .ve-post__meta {
+            color: $gray100;
+            @include ve-font($fRegular, 13px, 1);
+        }
+
+        @include media($tablet) {
+            @include ve-cols(1);
+        }
+    }
+}
+
+// Benefit cards and numbered steps. Used only on Verified Entry.
+#verified-entry {
+    .ve-cards {
+        @include ve-grid(3);
+
+        .ve-card {
+            @include ve-col($gap12);
+            @include ve-outline;
+            padding: 28px;
+
+            strong {
+                @include ve-font($fBold, 19px, 1.25);
+            }
+
+            > span:last-child {
+                @include ve-muted(15px, 1.5);
+            }
+        }
+
+        @include media($nav-tablet) {
+            @include ve-cols(2);
+        }
+
+        @include media($mobile) {
+            @include ve-cols(1);
         }
     }
 
-    @include media($tablet) {
-        padding: 48px 32px;
-    }
+    .ve-how {
+        @include ve-grid(4);
 
-    @include media($mobile) {
-        padding: $gap40 $gap24;
-        border-radius: $gap16;
+        li {
+            @include ve-col(14px);
+            padding-top: $gap20;
+            border-top: 2px solid $blue300;
 
-        .ve-cta__btns,
-        .button {
-            width: 100%;
+            > span:last-child {
+                color: $ve-lilac-text;
+                @include ve-font($fRegular, 15px, 1.5);
+            }
+        }
+
+        .ve-how__num {
+            color: $ve-lilac;
+            @include ve-font($fBlack, $fsize40, 1);
+        }
+
+        strong {
+            @include ve-font($fBold, 19px, 1.25);
+        }
+
+        @include media($nav-tablet) {
+            gap: 32px $gap20;
+            @include ve-cols(2);
+        }
+
+        @include media($mobile) {
+            @include ve-cols(1);
         }
     }
 }

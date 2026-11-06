@@ -1,0 +1,1090 @@
+@import '../../../../assets/css/_tools/variable';
+@import '../../../../assets/css/_tools/mixins';
+
+// Page-only pieces. Shared proof, stats, FAQ, and banner stay in static/shared/css.
+
+#pricing-compare {
+    .num {
+        font-variant-numeric: tabular-nums;
+    }
+
+    .ve-icon--line {
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .ve-moments {
+        @include ve-moment-list;
+    }
+
+    .ve-moment__icon {
+        @include ve-moment-icon;
+    }
+
+    .ve-moments--grid {
+        @include ve-grid(3);
+
+        @include media($tablet) {
+            @include ve-cols(1);
+        }
+    }
+
+    .ve-proof .ve-badges {
+        flex-wrap: nowrap;
+        min-width: 0;
+
+        li {
+            min-width: 0;
+        }
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .ve-proof .ve-chips li {
+        @include media($mobile) {
+            height: auto;
+            min-height: 36px;
+            padding: 6px $gap10;
+        }
+    }
+
+    .ve-stats {
+        @include ve-cols(2);
+
+        @include media($tablet) {
+            @include ve-cols(1);
+        }
+
+        @include media($mobile) {
+            .ve-stat {
+                gap: $gap10;
+                padding: $gap24;
+
+                strong {
+                    font-size: 44px;
+                }
+
+                span {
+                    font-size: $base-fsize;
+                }
+            }
+        }
+    }
+
+    .heading {
+        gap: $gap16;
+        max-width: 1040px;
+
+        &:not(.ve-heading--xl) h2 {
+            text-wrap: pretty;
+            letter-spacing: -0.02em;
+            @include ve-font($fBold, clamp(28px, 3.4vw, 42px), 1.15);
+        }
+
+        p {
+            max-width: 68ch;
+            @include ve-font($fRegular, 17px, 1.55);
+        }
+    }
+
+    .ve-cta .ve-cta__title {
+        text-wrap: pretty;
+        line-height: 1.12;
+    }
+
+    // Light hero. Solid #F2F3FF; no photo.
+    .pc-hero {
+        color: $gray300;
+        background: $blue50;
+        border-bottom: 1px solid $gray75;
+
+        .pc-hero__grid {
+            gap: 56px;
+            display: grid;
+            align-items: start;
+            padding-top: $gap80;
+            padding-bottom: $gap80;
+            grid-template-columns: minmax(0, 1.5fr) minmax(0, .8fr);
+        }
+
+        .pc-hero__copy {
+            @include ve-col($gap20);
+        }
+
+        .pc-kicker {
+            color: $blue300;
+            @include ve-caps($fSemiBold, 13px);
+        }
+
+        .pc-hero__h1 {
+            color: $gray300;
+            text-wrap: pretty;
+            letter-spacing: -0.035em;
+            @include ve-font($fBlack, clamp(34px, 4.2vw, 54px), 1.1);
+        }
+
+        .pc-hero__accent {
+            color: $blue300;
+            white-space: nowrap;
+        }
+
+        .pc-hero__vs {
+            display: block;
+            color: $ve-ink-2;
+            margin-top: 14px;
+            text-wrap: pretty;
+            letter-spacing: -0.005em;
+            @include ve-font($fSemiBold, clamp(17px, 1.6vw, 21px), 1.35);
+        }
+
+        .pc-hero__lede {
+            max-width: 52ch;
+            color: $ve-ink-2;
+            @include ve-font($fRegular, $fsize18, 1.55);
+
+            b {
+                color: $gray300;
+            }
+        }
+
+        .pc-hero__next {
+            margin: 0;
+            max-width: 560px;
+            @include ve-col(0);
+            border-top: 1px solid $gray75;
+
+            > div {
+                gap: $gap16;
+                display: grid;
+                padding: $gap12 0;
+                border-bottom: 1px solid $gray75;
+                grid-template-columns: 150px minmax(0, 1fr);
+            }
+
+            dt {
+                color: $gray100;
+                padding-top: 2px;
+                @include ve-caps($fBold, $fsize12);
+                @include ve-font($fBold, $fsize12, 1.35);
+            }
+
+            dd {
+                margin: 0;
+                color: $ve-ink-2;
+                @include dFlex(6px 18px, wrap, center);
+                @include ve-font($fRegular, 15px, 1.4);
+            }
+
+            b {
+                color: $gray300;
+                margin-right: $gap4;
+                font-weight: $fExtraBold;
+            }
+        }
+
+        .pc-meta {
+            color: $gray100;
+            @include dFlex(6px 18px, wrap, center);
+            @include ve-font($fRegular, 13px, 1.4);
+
+            b,
+            time {
+                color: $gray300;
+                font-weight: $fSemiBold;
+            }
+
+            span {
+                white-space: nowrap;
+            }
+
+            span + span::before {
+                content: "\00B7";
+                opacity: .6;
+                margin-left: -10px;
+                margin-right: 18px;
+            }
+        }
+
+        .pc-hero__ctas {
+            @include dFlex($gap12, wrap, stretch);
+            margin-top: $gap8;
+        }
+
+        .button {
+            height: 52px;
+            padding: 0 26px;
+            align-items: center;
+            display: inline-flex;
+            justify-content: center;
+            @include ve-font($fBold, $base-fsize, 1);
+
+            &.white {
+                color: $white;
+                background: $blue300;
+                border: 1px solid $blue300;
+
+                &:hover {
+                    color: $white;
+                    background: $ve-blue-hover;
+                    border-color: $ve-blue-hover;
+                }
+            }
+
+            &.ghost {
+                color: $blue300;
+                background: $white;
+                border: 1px solid $blue300;
+
+                &:hover {
+                    color: $ve-blue-hover;
+                    background: $blue10;
+                }
+            }
+        }
+
+        .pc-ticket {
+            color: $gray300;
+            min-width: 0;
+            margin-top: 36px;
+            padding: 30px 28px;
+            background: $white;
+            border-radius: $gap16;
+            border: 1px solid $gray75;
+            box-shadow: 0 1px 3px rgba($black, .16);
+        }
+
+        .pc-ticket__label {
+            color: $blue300;
+            @include ve-caps($fBold, $fsize12);
+        }
+
+        .pc-ticket__price {
+            gap: 2px;
+            display: flex;
+            margin-top: $gap10;
+            align-items: flex-start;
+        }
+
+        .pc-ticket__cur {
+            margin-top: $gap12;
+            @include ve-font($fExtraBold, $fsize28, 1);
+        }
+
+        .pc-ticket__amt {
+            letter-spacing: -0.045em;
+            @include ve-font($fBlack, clamp(64px, 7vw, 84px), 1);
+        }
+
+        .pc-ticket__per {
+            color: $gray100;
+            margin: 0 0 $gap12 $gap8;
+            align-self: flex-end;
+            @include ve-font($fRegular, 15px, 1);
+        }
+
+        .pc-ticket__list {
+            @include ve-col($gap12);
+            margin-top: $gap20;
+            padding-top: $gap20;
+            border-top: 1px dashed $gray75;
+
+            li {
+                @include dFlex($gap10, nowrap, flex-start);
+                color: $ve-ink-2;
+                @include ve-font($fRegular, 15px, 1.4);
+
+                b {
+                    color: $gray300;
+                }
+            }
+
+            .ve-icon {
+                margin-top: 1px;
+            }
+        }
+
+        .pc-ticket__foot {
+            color: $gray100;
+            margin-top: 18px;
+            padding-top: $gap16;
+            border-top: 1px solid $gray75;
+            @include ve-font($fRegular, 13px, 1.55);
+
+            b {
+                color: $gray300;
+            }
+
+            sup {
+                font-size: 10px;
+            }
+        }
+
+        @include media($tablet) {
+            .pc-hero__grid {
+                gap: 36px;
+                padding-top: 56px;
+                padding-bottom: 56px;
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .pc-ticket {
+                margin-top: 0;
+                max-width: 520px;
+            }
+        }
+
+        @include media($mobile) {
+            .pc-hero__ctas,
+            .pc-hero__ctas .button {
+                width: 100%;
+            }
+
+            .pc-hero__next > div {
+                gap: 6px;
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .pc-meta span {
+                white-space: normal;
+            }
+
+            .pc-meta span + span::before {
+                display: none;
+            }
+
+            .pc-ticket {
+                padding: $gap24 $gap20;
+            }
+        }
+    }
+
+    .pc-toc {
+        background: $white;
+        border-bottom: 1px solid $gray75;
+
+        .pc-toc__inner {
+            @include dFlex(10px $gap20, wrap, center);
+            padding-top: $gap16;
+            padding-bottom: $gap16;
+        }
+
+        .pc-toc__label {
+            color: $gray100;
+            @include ve-caps($fBold, $fsize12);
+        }
+
+        ul {
+            min-width: 0;
+            @include dFlex($gap8, wrap, center);
+        }
+
+        a {
+            height: 34px;
+            color: $ve-ink-2;
+            padding: 0 $gap12;
+            border-radius: $corners4;
+            border: 1px solid $gray75;
+            align-items: center;
+            display: inline-flex;
+            text-decoration: none;
+            @include ve-font($fSemiBold, $fsize14, 1);
+            @include transition-fade(.15);
+
+            &:hover {
+                color: $blue300;
+                background: $blue50;
+                border-color: $blue300;
+            }
+        }
+
+        @include media($mobile) {
+            .pc-toc__inner {
+                width: 100%;
+                min-width: 0;
+            }
+
+            ul {
+                width: 100%;
+                min-width: 0;
+                flex-wrap: wrap;
+            }
+
+            li {
+                max-width: 100%;
+            }
+
+            a {
+                white-space: nowrap;
+            }
+        }
+    }
+
+    :is(#pc-quick, #pc-compare, #pc-county, #pc-calc, #pc-provs, #pc-method, #faq, #pc-sources) {
+        scroll-margin-top: 96px;
+    }
+
+    .pc-quick {
+        @include ve-col(0);
+        border-top: 1px solid $gray75;
+
+        li {
+            gap: $gap8 $gap20;
+            display: grid;
+            align-items: baseline;
+            padding: 18px $gap4;
+            border-bottom: 1px solid $gray75;
+            grid-template-columns: 40px minmax(0, 190px) minmax(0, 1fr);
+            @include ve-font($fRegular, $base-fsize, 1.5);
+            color: $ve-ink-2;
+        }
+
+        a {
+            color: $gray300;
+            text-decoration: none;
+            font-weight: $fExtraBold;
+
+            &:hover {
+                color: $blue300;
+            }
+        }
+
+        @include media($mobile) {
+            li {
+                grid-template-columns: 28px minmax(0, 1fr);
+            }
+
+            li > span:last-child {
+                grid-column: 2;
+            }
+        }
+    }
+
+    .pc-quick__n {
+        color: $blue300;
+        @include ve-font($fBlack, $fsize20, 1);
+    }
+
+    .pc-table-wrap {
+        overflow-x: auto;
+        background: $white;
+        @include ve-outline;
+
+        @include media($mobile) {
+            border: 0;
+            overflow: visible;
+            background: none;
+            border-radius: 0;
+        }
+    }
+
+    .pc-table {
+        width: 100%;
+        min-width: 1080px;
+        border-spacing: 0;
+        table-layout: fixed;
+        border-collapse: separate;
+
+        col.pc-c-row {
+            width: 210px;
+        }
+
+        thead th,
+        td {
+            overflow-wrap: anywhere;
+        }
+
+        thead th {
+            text-align: left;
+            color: $ve-ink-2;
+            background: $ve-tint;
+            vertical-align: bottom;
+            padding: 18px $gap16;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            @include ve-font($fBold, $fsize12, 1.2);
+
+            small {
+                display: block;
+                margin-top: 6px;
+                color: $gray100;
+                letter-spacing: 0;
+                text-transform: none;
+                @include ve-font($fMedium, 11px, 1.3);
+            }
+
+            &.pc-k {
+                color: $blue300;
+                box-shadow: inset 0 -2px 0 $blue300;
+            }
+        }
+
+        tbody th,
+        td {
+            text-align: left;
+            vertical-align: top;
+            padding: $gap20 $gap16;
+            border-top: 1px solid $gray75;
+        }
+
+        tbody th {
+            @include ve-font($fBold, 15px, 1.35);
+
+            a {
+                color: $gray300;
+                text-decoration: none;
+
+                &:hover {
+                    color: $blue300;
+                }
+            }
+
+            small {
+                display: block;
+                margin-top: $gap4;
+                color: $gray100;
+                @include ve-font($fRegular, 13px, 1.4);
+            }
+        }
+
+        td {
+            color: $ve-ink-2;
+            @include ve-font($fRegular, $fsize14, 1.45);
+
+            b {
+                display: block;
+                color: $gray300;
+                letter-spacing: -0.01em;
+                @include ve-font($fExtraBold, $fsize20, 1.2);
+            }
+        }
+
+        sup {
+            margin-left: 2px;
+            color: $gray100;
+            @include ve-font($fSemiBold, 10px, 1);
+        }
+
+        .pc-dim {
+            color: $gray100;
+        }
+
+        tr.pc-us th,
+        tr.pc-us td {
+            background: $blue50;
+        }
+
+        tr.pc-us th {
+            box-shadow: inset 3px 0 0 $blue300;
+        }
+
+        tr.pc-us th a,
+        tr.pc-us td b {
+            color: $blue300;
+        }
+
+        tbody tr:not(.pc-us) td.pc-k {
+            background: #FAFAFF;
+        }
+
+        .pc-tag {
+            display: inline-block;
+            margin-bottom: $gap8;
+            padding: 3px $gap8;
+            border-radius: 999px;
+            @include ve-font($fBold, 11px, 1.3);
+
+            &--ok {
+                color: #1E7A3A;
+                background: $ve-ok-bg;
+            }
+
+            &--q {
+                color: $gray100;
+                background: $ve-tint;
+                border: 1px solid $gray75;
+            }
+        }
+
+        .pc-yes {
+            @include dFlex(6px, nowrap, center);
+            color: $gray300;
+            font-weight: $fSemiBold;
+
+            .ve-icon {
+                width: 18px;
+                height: 18px;
+            }
+        }
+
+        @include media($mobile) {
+            min-width: 0;
+
+            &,
+            tbody,
+            tr,
+            th,
+            td {
+                width: 100%;
+                display: block;
+            }
+
+            colgroup,
+            thead {
+                display: none;
+            }
+
+            tr {
+                overflow: hidden;
+                background: $white;
+                margin-bottom: $gap12;
+                border-radius: $gap12;
+                border: 1px solid $gray75;
+            }
+
+            tbody th {
+                border-top: 0;
+                background: $ve-tint;
+                padding: $gap16 18px;
+            }
+
+            td {
+                min-height: 48px;
+                position: relative;
+                padding: $gap12 18px $gap12 136px;
+
+                &::before {
+                    content: attr(data-label);
+                    position: absolute;
+                    top: $gap16;
+                    left: 18px;
+                    width: 108px;
+                    color: $gray100;
+                    @include ve-caps($fBold, 11px);
+                }
+
+                b {
+                    font-size: 17px;
+                }
+            }
+
+            tr.pc-us {
+                border: 2px solid $blue300;
+            }
+
+            tbody tr:not(.pc-us) td.pc-k {
+                background: $white;
+            }
+        }
+    }
+
+    .pc-method {
+        @include ve-grid(2);
+
+        div {
+            @include ve-col($gap8);
+            @include ve-outline;
+            padding: $gap24;
+            background: $white;
+        }
+
+        strong {
+            @include ve-font($fBold, 17px, 1.3);
+        }
+
+        p {
+            color: $ve-ink-2;
+            @include ve-font($fRegular, 15px, 1.55);
+        }
+
+        @include media($mobile) {
+            @include ve-cols(1);
+        }
+    }
+
+    .pc-why {
+        gap: 48px;
+        display: grid;
+        padding: $gap40;
+        background: $blue50;
+        border-radius: $gap16;
+        grid-template-columns: minmax(0, .9fr) minmax(0, 1.4fr);
+
+        h3 {
+            text-wrap: pretty;
+            letter-spacing: -0.015em;
+            @include ve-font($fBold, clamp(24px, 2.4vw, 30px), 1.2);
+
+            > span {
+                display: block;
+                color: $blue300;
+                margin-bottom: $gap12;
+                @include ve-caps($fSemiBold, 13px);
+            }
+        }
+
+        p {
+            text-wrap: pretty;
+            color: $ve-ink-2;
+            @include ve-font($fRegular, 17px, 1.6);
+        }
+
+        a {
+            color: $blue300;
+            text-underline-offset: 2px;
+            text-decoration: underline;
+
+            &:hover {
+                color: #3B3DE0;
+            }
+        }
+
+        .pc-why__note {
+            color: #555B66;
+            @include ve-font($fRegular, $fsize14, 1.55);
+        }
+
+        @include media($tablet) {
+            gap: $gap20;
+            padding: 28px;
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+
+    .pc-why__body {
+        @include ve-col(14px);
+    }
+
+    #pc-calc .pc-calc {
+        @include ve-col(32px);
+    }
+
+    .pc-pilltag {
+        color: $white;
+        padding: 7px $gap12;
+        border-radius: 14px;
+        align-self: flex-start;
+        background: $blue300;
+        @include ve-caps($fBold, $fsize12);
+    }
+
+    .pc-calc__copy {
+        @include ve-col($gap16);
+
+        > p {
+            max-width: 760px;
+            text-wrap: pretty;
+            @include ve-muted(17px, 1.5);
+        }
+    }
+
+    .pc-calc__h {
+        text-wrap: pretty;
+        letter-spacing: -0.03em;
+        @include ve-font($fBlack, clamp(30px, 3.3vw, 42px), 1.1);
+
+        @media screen and (min-width: 1200px) {
+            white-space: nowrap;
+        }
+    }
+
+    #pc-calc .pc-flow {
+        gap: $gap24 $gap40;
+        display: grid;
+        min-width: 0;
+        align-items: start;
+        padding: 28px;
+        background: $white;
+        border-radius: $gap16;
+        box-shadow: 0 20px 50px rgba($ve-shadow, .12);
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+
+        .pc-bars {
+            grid-column: 2;
+            grid-row: 1 / span 3;
+        }
+
+        @include media($tablet) {
+            grid-template-columns: minmax(0, 1fr);
+
+            .pc-bars {
+                grid-column: auto;
+                grid-row: auto;
+            }
+        }
+
+        @include media($mobile) {
+            padding: $gap20;
+        }
+    }
+
+    .pc-flow-label,
+    #pc-calc label {
+        display: block;
+        margin-bottom: $gap10;
+        @include ve-font($fBold, $fsize14, 1.3);
+    }
+
+    .pc-range {
+        @include dFlex(14px, nowrap, center);
+
+        input[type="range"] {
+            flex: 1;
+            min-width: 0;
+            accent-color: $blue300;
+        }
+
+        input[type="number"] {
+            width: 104px;
+            height: 44px;
+            color: $gray300;
+            padding: 0 $gap12;
+            border-radius: $corners8;
+            border: 1px solid $gray75;
+            @include ve-font($fSemiBold, $base-fsize, 1);
+        }
+    }
+
+    .pc-presets {
+        @include dFlex($gap8, wrap, center);
+
+        button {
+            height: 36px;
+            color: $ve-ink-2;
+            cursor: pointer;
+            padding: 0 14px;
+            background: $white;
+            border-radius: 18px;
+            border: 1px solid $gray75;
+            @include ve-font($fSemiBold, 13px, 1);
+
+            &[aria-pressed="true"] {
+                color: $blue300;
+                background: $blue50;
+                border-color: $blue300;
+            }
+        }
+    }
+
+    .pc-bars {
+        @include ve-col(14px);
+    }
+
+    .pc-bar {
+        gap: $gap12;
+        display: grid;
+        align-items: center;
+        font-size: $fsize14;
+        grid-template-columns: 176px minmax(0, 1fr) 96px;
+
+        .pc-bar__who {
+            font-weight: $fBold;
+        }
+
+        .pc-bar__track {
+            height: $gap24;
+            overflow: hidden;
+            border-radius: 6px;
+            background: $ve-tint;
+        }
+
+        .pc-bar__fill {
+            height: 100%;
+            border-radius: 6px;
+            background: #B9BCD0;
+            transition: width .35s ease;
+        }
+
+        .pc-bar__amt {
+            text-align: right;
+            font-weight: $fExtraBold;
+        }
+
+        &--us .pc-bar__fill {
+            background: linear-gradient(90deg, $blue300, #6C8BFF);
+        }
+
+        @include media($mobile) {
+            gap: 6px $gap12;
+            font-size: 13px;
+            grid-template-columns: minmax(0, 1fr) 72px;
+
+            .pc-bar__who {
+                grid-column: 1 / -1;
+                font-size: 13px;
+            }
+        }
+    }
+
+    .pc-bar__pkg {
+        display: block;
+        margin-top: 2px;
+        color: $ve-ink-2;
+        font-weight: 500;
+        font-size: 11px;
+        line-height: 1.3;
+
+        &:empty {
+            display: none;
+        }
+    }
+
+    .pc-save {
+        @include ve-col($gap8);
+        padding: $gap20 22px;
+        border-radius: $gap12;
+        background: $ve-ok-bg;
+
+        > span:first-child {
+            color: #1E6B2E;
+            @include ve-caps($fBold, 13px);
+        }
+
+        strong {
+            color: #1E7A35;
+            letter-spacing: -0.035em;
+            @include ve-font($fBlack, clamp(40px, 4.4vw, 56px), 1);
+        }
+
+        #pc-save-t {
+            color: $ve-ink-2;
+            @include ve-font($fRegular, 15px, 1.45);
+        }
+
+        .pc-save__note {
+            color: $ve-ink-2;
+            font-size: 13px;
+            line-height: 1.45;
+        }
+    }
+
+    .pc-provs {
+        @include ve-grid(2);
+
+        @include media($tablet) {
+            @include ve-cols(1);
+        }
+    }
+
+    .pc-prov {
+        @include ve-col($gap20);
+        @include ve-outline;
+        padding: 32px;
+        background: $white;
+        scroll-margin-top: 96px;
+
+        &--us {
+            border: 2px solid $blue300;
+            grid-column: 1 / -1;
+        }
+
+        h3 {
+            letter-spacing: -0.02em;
+            @include ve-font($fExtraBold, $gap24, 1.15);
+
+            span {
+                color: $blue300;
+                margin-right: $gap8;
+            }
+
+            @include media($mobile) {
+                font-size: 22px;
+            }
+        }
+
+        @include media($mobile) {
+            padding: 22px $gap20;
+
+            dl {
+                gap: $gap4;
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            dd {
+                margin-bottom: $gap10;
+            }
+        }
+    }
+
+    .pc-prov__head {
+        @include ve-col($gap12);
+    }
+
+    .pc-prov__lead {
+        color: $ve-ink-2;
+        @include ve-font($fRegular, $base-fsize, 1.55);
+    }
+
+    .pc-prov dl {
+        gap: $gap12 $gap20;
+        display: grid;
+        margin: 0;
+        padding-top: 18px;
+        border-top: 1px solid $gray75;
+        grid-template-columns: minmax(0, 130px) minmax(0, 1fr);
+        @include ve-font($fRegular, 15px, 1.5);
+
+        @include media($mobile) {
+            grid-template-columns: minmax(0, 1fr);
+        }
+    }
+
+    .pc-prov dt {
+        color: $gray100;
+        padding-top: 3px;
+        @include ve-caps($fBold, $fsize12);
+    }
+
+    .pc-prov dd {
+        margin: 0;
+        color: $ve-ink-2;
+    }
+
+    .pc-notes {
+        padding: 0 0 72px;
+
+        h3 {
+            color: $gray100;
+            margin-bottom: $gap12;
+            @include ve-caps($fBold, 13px);
+        }
+
+        ol {
+            gap: $gap8;
+            display: grid;
+            counter-reset: pc-note;
+        }
+
+        li {
+            @include dFlex($gap10, nowrap, flex-start);
+            color: $gray100;
+            max-width: 110ch;
+            counter-increment: pc-note;
+            @include ve-font($fRegular, 13px, 1.5);
+
+            &::before {
+                content: counter(pc-note);
+                flex: none;
+                width: $gap20;
+                color: $ve-ink-2;
+                font-weight: $fBold;
+            }
+
+            span {
+                min-width: 0;
+            }
+        }
+
+        .pc-source,
+        .ve-source {
+            margin-top: $gap16;
+            color: $gray100;
+            max-width: 110ch;
+            @include ve-font($fRegular, 13px, 1.5);
+        }
+    }
+}

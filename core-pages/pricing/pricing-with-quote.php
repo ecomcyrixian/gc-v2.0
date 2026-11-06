@@ -155,8 +155,85 @@ $gc_quote_compare_cell = static function ( $value ) use ( $gc_quote_check ) {
 
 	return '<strong>' . esc_html( $value ) . '</strong>';
 };
+
+$gc_editor_html = static function ( $html ) {
+	$html = trim( (string) $html );
+	$html = preg_replace( '#<p>\s*(?=<(?:div|ul|ol|h[1-6]|a|span)\b)#i', '', $html );
+	$html = preg_replace( '#(</(?:div|ul|ol|h[1-6]|a|span)>)\s*</p>#i', '$1', $html );
+	$html = preg_replace( '#<p>(\s|&nbsp;|<br\s*/?>)*</p>#i', '', $html );
+	$html = preg_replace( '#(?<=>)\s*<br\s*/?>\s*(?=<)#i', '', $html );
+
+	return trim( $html );
+};
+
+$gc_quote_layout  = function_exists( 'get_sub_field' ) ? strtolower( trim( (string) get_sub_field( 'pricing_w_quote_layout' ) ) ) : '';
+$gc_quote_details = function_exists( 'get_sub_field' ) ? $gc_editor_html( get_sub_field( 'details', false ) ) : '';
+$gc_quote_is_addon = in_array( $gc_quote_layout, array( 'add-on', 'addon', 'add on' ), true );
 ?>
 
+<?php if ( 'included all' === $gc_quote_layout ) : ?>
+	<?php
+	$gc_included_head = $gc_quote_details;
+	$gc_included_note = '';
+
+	if ( preg_match( '/<p[^>]*class="[^"]*\bpricing-disclaimer\b[^"]*"[^>]*>.*?<\/p>/is', $gc_included_head, $gc_included_note_match ) ) {
+		$gc_included_note = $gc_included_note_match[0];
+		$gc_included_head = trim( str_replace( $gc_included_note_match[0], '', $gc_included_head ) );
+	}
+	?>
+<section id="pricing" class="pricing-with-quote pricing-with-quote--included">
+	<div class="container">
+		<?php if ( '' !== trim( $gc_included_head ) ) : ?>
+			<div class="pricing-header pricing-header--split">
+				<?php echo $gc_included_head; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			</div>
+		<?php endif; ?>
+
+		<?php if ( function_exists( 'have_rows' ) && have_rows( 'cards' ) ) : ?>
+			<div class="pricing-cards">
+				<?php
+				while ( have_rows( 'cards' ) ) :
+					the_row();
+					$gc_card_title   = (string) get_sub_field( 'h4' );
+					$gc_card_details = $gc_editor_html( get_sub_field( 'details', false ) );
+					$gc_card_badge   = '';
+
+					if ( preg_match( '/<span[^>]*class="[^"]*\bpricing-card__badge\b[^"]*"[^>]*>.*?<\/span>/is', $gc_card_details, $gc_card_badge_match ) ) {
+						$gc_card_badge   = $gc_card_badge_match[0];
+						$gc_card_details = str_replace( $gc_card_badge_match[0], '', $gc_card_details );
+					}
+
+					$gc_card_popular = false !== strpos( $gc_card_badge, 'pricing-card__badge--popular' );
+					?>
+					<article class="pricing-card<?php echo $gc_card_popular ? ' is-popular is-selected' : ''; ?>">
+						<div class="pricing-card__heading-row">
+							<h4 class="pricing-card__title"><?php echo esc_html( $gc_card_title ); ?></h4>
+							<?php echo $gc_card_badge; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+						</div>
+						<div class="pricing-card__body">
+							<?php echo $gc_card_details; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+						</div>
+					</article>
+				<?php endwhile; ?>
+			</div>
+		<?php endif; ?>
+
+		<?php echo $gc_included_note; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+	</div>
+</section>
+
+<?php elseif ( $gc_quote_is_addon ) : ?>
+<section id="pricing" class="pricing-with-quote pricing-with-quote--addon">
+	<div class="container">
+		<div class="pricing-quote">
+			<div class="pricing-quote__banner pricing-quote__banner--compare pricing-quote__banner--addon">
+				<?php echo $gc_quote_details; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+			</div>
+		</div>
+	</div>
+</section>
+
+<?php else : ?>
 <section id="pricing" class="pricing-with-quote">
 	<div class="container">
 		<div class="pricing-header">
@@ -277,7 +354,7 @@ $gc_quote_compare_cell = static function ( $value ) use ( $gc_quote_check ) {
 						<?php endforeach; ?>
 					</ul>
 				</div>
-				<a class="button blue" href="#quote" data-pkg="Custom (50+ checks/year)" data-hires="51-250">Get a Custom Quote</a>
+				<a class="button blue" href="#quote" data-pkg="Custom (50+ checks/year)" data-hires="51-100">Get a Custom Quote</a>
 			</div>
 		</div>
 
@@ -287,3 +364,4 @@ $gc_quote_compare_cell = static function ( $value ) use ( $gc_quote_check ) {
 		</div>
 	</div>
 </section>
+<?php endif; ?>
