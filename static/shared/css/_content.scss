@@ -5,7 +5,7 @@
 
 :is(#verified-entry, #pricing-compare) {
     .ve-eyebrow {
-        color: $gray100;
+        color: $ve-muted-ink;
         @include ve-caps($fSemiBold, $fsize12);
     }
 
@@ -139,7 +139,7 @@
     }
 
     .ve-source {
-        color: $gray100;
+        color: $ve-muted-ink;
         @include ve-font($fRegular, 13px, 1.4);
     }
 

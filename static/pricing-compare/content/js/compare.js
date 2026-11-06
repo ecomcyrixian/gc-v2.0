@@ -39,7 +39,7 @@
 			var amount = document.getElementById('pc-a' + index);
 
 			if (bar) {
-				bar.style.width = (total === null || !max ? 0 : total / max * 100) + '%';
+				bar.style.transform = 'scaleX(' + (total === null || !max ? 0 : total / max) + ')';
 			}
 			if (amount) {
 				amount.textContent = total === null ? 'Not published' : money(total);
@@ -90,4 +90,30 @@
 	if (numberInput.value !== numberInput.defaultValue) {
 		render(Number(numberInput.value) || 250);
 	}
+})();
+
+(function () {
+	var buttons = document.querySelectorAll('#pc-tier button');
+	var wraps = document.querySelectorAll('.pc-mx-wrap[data-tier]');
+
+	if (!buttons.length || !wraps.length) {
+		return;
+	}
+
+	function show(tier) {
+		buttons.forEach(function (button) {
+			button.setAttribute('aria-pressed', button.getAttribute('data-tier') === tier ? 'true' : 'false');
+		});
+		wraps.forEach(function (wrap) {
+			wrap.hidden = wrap.getAttribute('data-tier') !== tier;
+		});
+	}
+
+	buttons.forEach(function (button) {
+		button.addEventListener('click', function () {
+			show(button.getAttribute('data-tier'));
+		});
+	});
+
+	show('entry');
 })();

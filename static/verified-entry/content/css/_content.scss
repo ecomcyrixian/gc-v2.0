@@ -16,6 +16,8 @@ $ve-ok-bg: #EFF9F0;
 $ve-warm: #FFF4D6;
 $ve-warm-ink: #C2410C;
 $ve-shadow: rgb(20, 22, 120);
+// Small text needs 4.5:1. $gray100 (#777E8C) is 3.7:1 on the blue tint.
+$ve-muted-ink: #616876;
 
 $ve-content: 1280px;
 $ve-narrow: 960px;
@@ -147,6 +149,16 @@ $ve-narrow: 960px;
 
         &:hover {
             color: $ve-blue-hover;
+        }
+    }
+
+    // Links inside copy need an underline; colour alone fails the contrast check.
+    :is(p, .pc-notes li) a {
+        text-underline-offset: 2px;
+        text-decoration: underline;
+
+        &:hover {
+            text-decoration: underline;
         }
     }
 
@@ -728,7 +740,7 @@ $ve-narrow: 960px;
         }
 
         .ve-moment__when {
-            color: $gray100;
+            color: $ve-muted-ink;
             letter-spacing: .06em;
             @include ve-font($fSemiBold, $fsize12, 1);
         }
@@ -839,7 +851,7 @@ $ve-narrow: 960px;
 
                 &::before {
                     display: block;
-                    color: $gray100;
+                    color: $ve-muted-ink;
                     margin-bottom: 6px;
                     content: attr(data-label);
                     @include ve-caps($fBold, 11px);
@@ -905,7 +917,7 @@ $ve-narrow: 960px;
         }
 
         .ve-post__meta {
-            color: $gray100;
+            color: $ve-muted-ink;
             @include ve-font($fRegular, 13px, 1);
         }
 

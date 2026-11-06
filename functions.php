@@ -156,7 +156,10 @@ function theme_styles_script() {
                 )
             );
 
-            wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/core-page-new.css', array(), $version, 'screen' );
+            // Static PHP pages ship their own bundle. core-page-new.css is unused there and blocks rendering.
+            if ( ! gc_theme_get_static_php_page_slug( $post ) ) {
+                wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/core-page-new.css', array(), $version, 'screen' );
+            }
             gc_theme_enqueue_static_php_page_assets( $post );
         }
     } elseif ( is_single() || is_search() || is_category() || is_author() || is_tax( 'author' ) ) {

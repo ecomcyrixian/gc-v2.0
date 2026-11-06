@@ -1841,9 +1841,13 @@
         }
     }
 
+    &:has(.related-screening) {
+        padding-top: $gap60;
+        padding-bottom: $gap80;
+    }
+
     &:has(.heading .service-description-steps.explore) {
         background: $white75;
-        // padding: $gap80 0;
 
         .heading {
             display: grid;
@@ -1913,12 +1917,28 @@
             grid-template-columns: repeat(5, minmax(0, 1fr));
             gap: $gap16;
 
-            @include media($tablet) {
+            &.cols2 {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
 
+            &.cols3 {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            &.cols4 {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+
+            &.cols5 {
+                grid-template-columns: repeat(5, minmax(0, 1fr));
+            }
+
+            @include media($tablet) {
+                grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            }
+
             @include media($mobile) {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr !important;
             }
 
             > .card-item,
@@ -2033,4 +2053,40 @@
             color: $blue300;
         }
     }
+
+    &:has(.heading .service-description-steps.services) {
+
+        .service-description-steps.services {
+            font-size: $fsize18;
+        }
+
+        .card-cont {
+            gap: $gap20;
+
+            > .card-item,
+            > a .card-item,
+            > div {
+                padding: 28px $gap24;
+            }
+
+            > .card-item:not(:last-child)::after,
+            > a:not(:last-child)::after {
+                top: 47px;
+                right: -14px;
+                border-color: #C4C6FF;
+            }
+
+            h4 {
+                span:first-child > p{
+                    font-size: 20px;
+                    line-height: 1.5;
+                }
+            }
+
+            p {
+                padding-bottom: 0;
+            }
+        }
+    }
 }
+

@@ -10,6 +10,7 @@
  *     @type array  $badges     Badge file => alt text.
  *     @type array  $chips      Chip labels, or rows with icon HTML and label.
  *     @type string $chip_icon  Icon HTML used when a chip is a plain label.
+ *     @type bool   $show_stars  Whether to render the star row (default true).
  * }
  */
 if ( ! defined( 'ABSPATH' ) ) {
@@ -28,6 +29,7 @@ if ( ! function_exists( 'gc_static_render_proof' ) ) {
 				'badges'     => array(),
 				'chips'      => array(),
 				'chip_icon'  => '',
+				'show_stars' => true,
 			)
 		);
 
@@ -42,13 +44,15 @@ if ( ! function_exists( 'gc_static_render_proof' ) ) {
 			<div class="container ve-proof__inner">
 				<div class="ve-proof__g2">
 					<span class="ve-eyebrow"><?php echo esc_html( $args['eyebrow'] ); ?></span>
-					<span class="ve-stars" role="img" aria-label="<?php echo esc_attr( $args['stars'] ); ?>"><i></i><i></i><i></i><i></i><i></i></span>
+					<?php if ( ! empty( $args['show_stars'] ) ) : ?>
+						<span class="ve-stars" role="img" aria-label="<?php echo esc_attr( $args['stars'] ); ?>"><i></i><i></i><i></i><i></i><i></i></span>
+					<?php endif; ?>
 				</div>
 
 				<?php if ( $badges ) : ?>
 					<ul class="ve-badges">
 						<?php foreach ( $badges as $file => $alt ) : ?>
-							<li><img src="<?php echo esc_url( $args['badges_uri'] . $file ); ?>" alt="<?php echo esc_attr( $alt ); ?>" width="111" height="127" loading="lazy"></li>
+							<li><img src="<?php echo esc_url( $args['badges_uri'] . $file ); ?>" alt="<?php echo esc_attr( $alt ); ?>" width="111" height="127" loading="lazy" decoding="async"></li>
 						<?php endforeach; ?>
 					</ul>
 				<?php endif; ?>

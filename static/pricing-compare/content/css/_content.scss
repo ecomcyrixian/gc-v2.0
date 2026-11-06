@@ -4,11 +4,31 @@
 // Page-only pieces. Shared proof, stats, FAQ, and banner stay in static/shared/css.
 
 #pricing-compare {
+    @include media($tablet) {
+        --ve-pad-x: 24px;
+        --ve-sec-y: 72px;
+    }
+
+    @include media($mobile) {
+        --ve-pad-x: 20px;
+        --ve-sec-y: 56px;
+    }
+
     .num {
         font-variant-numeric: tabular-nums;
     }
 
-    .ve-icon--line {
+    .pc-sprite {
+        position: absolute;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+    }
+
+    .pc-icon {
+        flex: 0 0 auto;
+        width: 20px;
+        height: 20px;
         fill: none;
         stroke: currentColor;
         stroke-width: 2;
@@ -16,85 +36,209 @@
         stroke-linejoin: round;
     }
 
-    .ve-moments {
-        @include ve-moment-list;
+    .ve-icon--line,
+    .pc-icon {
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
     }
 
-    .ve-moment__icon {
-        @include ve-moment-icon;
-    }
+    .pc-section {
+        padding: var(--ve-sec-y) 0;
+        background: $white;
+        scroll-margin-top: 24px;
 
-    .ve-moments--grid {
-        @include ve-grid(3);
+        &--tint {
+            background: $ve-tint;
+        }
 
-        @include media($tablet) {
-            @include ve-cols(1);
+        &--dark {
+            color: $white;
+            background: $ve-dark;
         }
     }
 
-    .ve-proof .ve-badges {
-        flex-wrap: nowrap;
+    .pc-stack {
+        width: 100%;
         min-width: 0;
+        @include ve-col(40px);
+    }
 
-        li {
+    .pc-narrow {
+        max-width: 960px;
+        margin: 0 auto;
+    }
+
+    .pc-heading {
+        @include ve-col($gap16);
+        max-width: 1040px;
+
+        &--center {
+            margin: 0 auto;
+            text-align: center;
+            align-items: center;
+        }
+
+        h2 {
+            text-wrap: pretty;
+            letter-spacing: -0.02em;
+            color: inherit;
+            @include ve-font($fBold, clamp(28px, 3.4vw, 42px), 1.15);
+
+            > span {
+                display: block;
+                color: $blue300;
+                margin-bottom: 14px;
+                @include ve-caps($fSemiBold, 13px);
+            }
+        }
+
+        &--xl h2 {
+            letter-spacing: -0.03em;
+            line-height: 1;
+            @include ve-font($fBlack, clamp(34px, 4vw, 48px), 1);
+        }
+
+        p {
+            max-width: 68ch;
+            color: $ve-ink-2;
+            @include ve-font($fRegular, 17px, 1.55);
+        }
+    }
+
+    .pc-section--dark .pc-heading {
+        h2 > span {
+            color: $ve-lilac;
+        }
+
+        p {
+            color: $ve-caption;
+        }
+    }
+
+    .pc-source,
+    .ve-source {
+        color: $ve-muted-ink;
+        @include ve-font($fRegular, 13px, 1.45);
+
+        a {
+            color: $blue300;
+
+            &:hover {
+                color: $ve-blue-hover;
+            }
+        }
+    }
+
+    .pc-callout {
+        margin: 0;
+        padding: 18px $gap20;
+        border-radius: $gap12;
+        background: $blue50;
+        border-left: 4px solid $blue300;
+        color: $ve-ink-2;
+        @include ve-font($fRegular, $base-fsize, 1.55);
+
+        b {
+            color: $gray300;
+        }
+    }
+
+    // Shared ve-proof / ve-stats; pricing-only layout tweaks.
+    .ve-proof {
+        .ve-badges {
+            gap: clamp(6px, 1.2vw, $gap12);
             min-width: 0;
+            flex: 1 1 420px;
+            flex-wrap: nowrap;
+
+            li {
+                flex: 0 1 88px;
+                min-width: 0;
+            }
+
+            img {
+                width: 100%;
+                height: auto;
+                display: block;
+            }
         }
 
-        img {
-            width: 100%;
-        }
-    }
+        .ve-chips {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
 
-    .ve-proof .ve-chips li {
+            li {
+                white-space: nowrap;
+            }
+
+            .pc-icon {
+                width: 14px;
+                height: 14px;
+                color: $blue300;
+            }
+        }
+
         @include media($mobile) {
-            height: auto;
-            min-height: 36px;
-            padding: 6px $gap10;
-        }
-    }
+            .ve-badges {
+                flex: 1 1 100%;
+            }
 
-    .ve-stats {
-        @include ve-cols(2);
+            .ve-chips {
+                width: 100%;
 
-        @include media($tablet) {
-            @include ve-cols(1);
-        }
-
-        @include media($mobile) {
-            .ve-stat {
-                gap: $gap10;
-                padding: $gap24;
-
-                strong {
-                    font-size: 44px;
-                }
-
-                span {
-                    font-size: $base-fsize;
+                li {
+                    height: auto;
+                    min-height: 36px;
+                    padding: 6px $gap10;
+                    white-space: normal;
                 }
             }
         }
     }
 
-    .heading {
-        gap: $gap16;
-        max-width: 1040px;
+    #pc-quick .ve-stats {
+        gap: $gap20;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
 
-        &:not(.ve-heading--xl) h2 {
-            text-wrap: pretty;
-            letter-spacing: -0.02em;
-            @include ve-font($fBold, clamp(28px, 3.4vw, 42px), 1.15);
+        > .ve-stat:first-child {
+            grid-column: 1 / -1;
+            min-height: 0;
         }
 
-        p {
-            max-width: 68ch;
-            @include ve-font($fRegular, 17px, 1.55);
+        @include media($tablet) {
+            grid-template-columns: minmax(0, 1fr);
+
+            > .ve-stat:first-child {
+                grid-column: auto;
+            }
         }
     }
 
-    .ve-cta .ve-cta__title {
-        text-wrap: pretty;
-        line-height: 1.12;
+    #pc-quick .ve-stat {
+        min-width: 0;
+
+        strong {
+            text-wrap: balance;
+            overflow-wrap: anywhere;
+            @include ve-font($fBlack, clamp(32px, 9vw, 64px), 1.05);
+        }
+
+        @include media($mobile) {
+            gap: $gap10;
+            padding: $gap24;
+            min-height: 0;
+
+            strong {
+                font-size: clamp(28px, 8.5vw, 44px);
+                line-height: 1.05;
+            }
+
+            span {
+                font-size: $base-fsize;
+            }
+        }
     }
 
     // Light hero. Solid #F2F3FF; no photo.
@@ -167,7 +311,7 @@
             }
 
             dt {
-                color: $gray100;
+                color: $ve-muted-ink;
                 padding-top: 2px;
                 @include ve-caps($fBold, $fsize12);
                 @include ve-font($fBold, $fsize12, 1.35);
@@ -188,7 +332,7 @@
         }
 
         .pc-meta {
-            color: $gray100;
+            color: $ve-muted-ink;
             @include dFlex(6px 18px, wrap, center);
             @include ve-font($fRegular, 13px, 1.4);
 
@@ -281,7 +425,7 @@
         }
 
         .pc-ticket__per {
-            color: $gray100;
+            color: $ve-muted-ink;
             margin: 0 0 $gap12 $gap8;
             align-self: flex-end;
             @include ve-font($fRegular, 15px, 1);
@@ -303,13 +447,15 @@
                 }
             }
 
+            .pc-icon,
             .ve-icon {
                 margin-top: 1px;
+                color: #5DC567;
             }
         }
 
         .pc-ticket__foot {
-            color: $gray100;
+            color: $ve-muted-ink;
             margin-top: 18px;
             padding-top: $gap16;
             border-top: 1px solid $gray75;
@@ -374,7 +520,7 @@
         }
 
         .pc-toc__label {
-            color: $gray100;
+            color: $ve-muted-ink;
             @include ve-caps($fBold, $fsize12);
         }
 
@@ -411,11 +557,13 @@
             ul {
                 width: 100%;
                 min-width: 0;
-                flex-wrap: wrap;
-            }
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                scrollbar-width: none;
 
-            li {
-                max-width: 100%;
+                &::-webkit-scrollbar {
+                    display: none;
+                }
             }
 
             a {
@@ -511,7 +659,7 @@
             small {
                 display: block;
                 margin-top: 6px;
-                color: $gray100;
+                color: $ve-muted-ink;
                 letter-spacing: 0;
                 text-transform: none;
                 @include ve-font($fMedium, 11px, 1.3);
@@ -546,7 +694,7 @@
             small {
                 display: block;
                 margin-top: $gap4;
-                color: $gray100;
+                color: $ve-muted-ink;
                 @include ve-font($fRegular, 13px, 1.4);
             }
         }
@@ -565,12 +713,12 @@
 
         sup {
             margin-left: 2px;
-            color: $gray100;
+            color: $ve-muted-ink;
             @include ve-font($fSemiBold, 10px, 1);
         }
 
         .pc-dim {
-            color: $gray100;
+            color: $ve-muted-ink;
         }
 
         tr.pc-us th,
@@ -603,8 +751,13 @@
                 background: $ve-ok-bg;
             }
 
+            &--add {
+                color: $ve-warm-ink;
+                background: $ve-warm;
+            }
+
             &--q {
-                color: $gray100;
+                color: $ve-muted-ink;
                 background: $ve-tint;
                 border: 1px solid $gray75;
             }
@@ -615,9 +768,11 @@
             color: $gray300;
             font-weight: $fSemiBold;
 
-            .ve-icon {
+            .ve-icon,
+            .pc-icon {
                 width: 18px;
                 height: 18px;
+                color: #5DC567;
             }
         }
 
@@ -650,6 +805,7 @@
                 border-top: 0;
                 background: $ve-tint;
                 padding: $gap16 18px;
+                box-shadow: none;
             }
 
             td {
@@ -663,8 +819,13 @@
                     top: $gap16;
                     left: 18px;
                     width: 108px;
-                    color: $gray100;
+                    line-height: 1.3;
+                    color: $ve-muted-ink;
                     @include ve-caps($fBold, 11px);
+                }
+
+                &.pc-us::before {
+                    color: $blue300;
                 }
 
                 b {
@@ -674,12 +835,243 @@
 
             tr.pc-us {
                 border: 2px solid $blue300;
+
+                th,
+                td {
+                    border-left: 0;
+                    border-right: 0;
+                }
             }
 
             tbody tr:not(.pc-us) td.pc-k {
                 background: $white;
             }
         }
+    }
+
+    .pc-mx-block {
+        @include ve-col($gap16);
+        min-width: 0;
+        max-width: 100%;
+        margin-top: $gap24;
+
+        h3 {
+            margin: 0;
+            color: $gray300;
+            letter-spacing: -0.01em;
+            @include ve-font($fBold, clamp(22px, 2.4vw, 28px), 1.2);
+        }
+
+        > p {
+            margin: 0;
+            max-width: 760px;
+            color: $ve-ink-2;
+            @include ve-font($fRegular, $base-fsize, 1.55);
+        }
+
+        > .pc-mx-hint {
+            display: none;
+            margin: 0;
+            color: $blue300;
+            @include ve-font($fSemiBold, 13px, 1.4);
+        }
+
+        @include media($mobile) {
+            > .pc-mx-hint {
+                display: block;
+            }
+        }
+    }
+
+    .pc-mx-key {
+        @include dFlex($gap8 $gap20, wrap, center);
+        margin: 0;
+        padding: 0;
+        color: $ve-ink-2;
+        @include ve-font($fRegular, 13px, 1.4);
+
+        b {
+            font-weight: $fBold;
+        }
+
+        .y b {
+            color: #1E7A3A;
+        }
+
+        .c b {
+            color: #8A5A00;
+        }
+
+        .x b {
+            color: #5B6270;
+        }
+    }
+
+    .pc-mx-wrap {
+        position: relative;
+        min-width: 0;
+        max-width: 100%;
+        background: $white;
+        @include ve-outline;
+
+        &[hidden] {
+            display: none;
+        }
+    }
+
+    .pc-mx-cap {
+        text-align: left;
+        padding: 14px $gap16;
+        color: $blue300;
+        border-bottom: 1px solid $gray75;
+        @include ve-caps($fBold, 13px);
+    }
+
+    .pc-mx-scroll {
+        min-width: 0;
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .pc-mx {
+        width: 100%;
+        min-width: 980px;
+        border-spacing: 0;
+        table-layout: fixed;
+        border-collapse: separate;
+        color: $ve-ink-2;
+        @include ve-font($fRegular, $fsize14, 1.4);
+
+        col.pc-mx-f {
+            width: 210px;
+        }
+
+        col.pc-mx-bg {
+            width: 212px;
+        }
+
+        caption {
+            caption-side: top;
+            text-align: left;
+            padding: 14px $gap16;
+            color: $blue300;
+            @include ve-caps($fBold, 13px);
+        }
+
+        th,
+        td {
+            text-align: left;
+            vertical-align: top;
+            padding: $gap12 14px;
+            border-top: 1px solid $gray75;
+            overflow-wrap: anywhere;
+        }
+
+        thead th {
+            color: $gray300;
+            background: $ve-tint;
+            @include ve-font($fBold, $fsize14, 1.4);
+
+            small {
+                display: block;
+                margin-top: $gap4;
+                color: $ve-ink-2;
+                @include ve-font($fSemiBold, 13px, 1.4);
+            }
+
+            &.pc-mx-us {
+                color: $blue300;
+                background: $blue50;
+            }
+
+            &.pc-mx-bg {
+                overflow-wrap: break-word;
+                word-break: normal;
+            }
+        }
+
+        tbody th {
+            font-weight: $fSemiBold;
+            color: $gray300;
+        }
+
+        th:first-child {
+            position: sticky;
+            left: 0;
+            z-index: 1;
+            background: $white;
+            box-shadow: 1px 0 0 $gray75;
+        }
+
+        thead th:first-child {
+            background: $ve-tint;
+            z-index: 2;
+        }
+
+        td.pc-mx-us,
+        thead th.pc-mx-us {
+            background: $blue50;
+        }
+
+        td small {
+            display: block;
+            margin-top: 2px;
+            color: $ve-muted-ink;
+            @include ve-font($fRegular, $fsize12, 1.4);
+        }
+
+        td.y {
+            color: $gray300;
+            font-weight: $fSemiBold;
+
+            &::before {
+                content: "\2713";
+                display: block;
+                color: #1E7A3A;
+                @include ve-font($fExtraBold, $fsize20, 1);
+            }
+        }
+
+        td.c {
+            color: #8A5A00;
+            font-weight: $fSemiBold;
+        }
+
+        td.n,
+        td.x {
+            color: $ve-muted-ink;
+        }
+
+        @include media($mobile) {
+            min-width: 820px;
+            font-size: 13px;
+
+            col.pc-mx-f {
+                width: 140px;
+            }
+
+            col.pc-mx-bg {
+                width: 212px;
+            }
+
+            th,
+            td {
+                padding: 10px;
+            }
+        }
+    }
+
+    .pc-sr {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
     }
 
     .pc-method {
@@ -759,7 +1151,7 @@
         @include ve-col(14px);
     }
 
-    #pc-calc .pc-calc {
+    .pc-calc {
         @include ve-col(32px);
     }
 
@@ -893,10 +1285,13 @@
         }
 
         .pc-bar__fill {
+            width: 100%;
             height: 100%;
             border-radius: 6px;
             background: #B9BCD0;
-            transition: width .35s ease;
+            transform: scaleX(0);
+            transform-origin: left center;
+            transition: transform .35s ease;
         }
 
         .pc-bar__amt {
@@ -1034,7 +1429,7 @@
     }
 
     .pc-prov dt {
-        color: $gray100;
+        color: $ve-muted-ink;
         padding-top: 3px;
         @include ve-caps($fBold, $fsize12);
     }
@@ -1044,11 +1439,51 @@
         color: $ve-ink-2;
     }
 
+    .pc-moments {
+        @include ve-grid(3);
+
+        li {
+            @include dFlex($gap16, nowrap, flex-start);
+            background: $white;
+            padding: 22px;
+            border-radius: $gap12;
+            box-shadow: 0 10px 30px rgba($ve-shadow, .06);
+
+            > div {
+                @include ve-col(5px);
+
+                > span:last-child {
+                    color: $ve-ink-2;
+                    @include ve-font($fRegular, $fsize14, 1.45);
+                }
+            }
+
+            strong {
+                @include ve-font($fBold, 17px, 1.25);
+            }
+        }
+
+        @include media($tablet) {
+            @include ve-cols(1);
+        }
+    }
+
+    .pc-moment__icon {
+        @include ve-moment-icon;
+        color: #5DC567;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .pc-bar__fill {
+            transition: none;
+        }
+    }
+
     .pc-notes {
         padding: 0 0 72px;
 
         h3 {
-            color: $gray100;
+            color: $ve-muted-ink;
             margin-bottom: $gap12;
             @include ve-caps($fBold, 13px);
         }
@@ -1061,7 +1496,7 @@
 
         li {
             @include dFlex($gap10, nowrap, flex-start);
-            color: $gray100;
+            color: $ve-muted-ink;
             max-width: 110ch;
             counter-increment: pc-note;
             @include ve-font($fRegular, 13px, 1.5);
@@ -1082,7 +1517,7 @@
         .pc-source,
         .ve-source {
             margin-top: $gap16;
-            color: $gray100;
+            color: $ve-muted-ink;
             max-width: 110ch;
             @include ve-font($fRegular, 13px, 1.5);
         }

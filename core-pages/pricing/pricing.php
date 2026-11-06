@@ -122,11 +122,11 @@ $compare_prices = array(
     ),
     array(
         'name'  => 'Checkr',
-        'price' => '$44.99',
+        'price' => '$29.99',
     ),
     array(
         'name'  => 'GoodHire',
-        'price' => '$54.99',
+        'price' => '$29.99',
     ),
 );
 ?>

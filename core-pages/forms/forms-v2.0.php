@@ -18,6 +18,19 @@
 
     $has_talk_to_sales = strpos( (string) $details, 'talk-to-sales' ) !== false;
     $is_service_form_hero = strpos( (string) $details, 'service-form-hero__content' ) !== false;
+    $has_service_hero_img = false;
+
+    if ( $is_service_form_hero && preg_match_all( '/class=(["\'])([^"\']*)\1/', (string) $details, $service_hero_classes ) ) {
+        foreach ( $service_hero_classes[2] as $service_hero_class_attr ) {
+            $service_hero_class_list = preg_split( '/\s+/', trim( $service_hero_class_attr ) );
+            if ( in_array( 'service-form-hero__content', $service_hero_class_list, true ) && in_array( 'img', $service_hero_class_list, true ) ) {
+                $has_service_hero_img = true;
+                break;
+            }
+        }
+    }
+
+    $service_hero_bg = $has_service_hero_img ? get_the_post_thumbnail_url( get_the_ID(), 'full' ) : '';
 
     $form_classes = trim(
         $formSetting . ( $is_service_form_hero ? ' service-form-hero' : '' )
@@ -26,6 +39,9 @@
 <?php if ( $display_selection ) : ?>
 
 <div id="gcheck-form-state" class="gcheck-form-state<?php echo $is_service_form_hero ? ' gcheck-form-state--service-hero' : ''; ?>">
+    <?php if ( $service_hero_bg ) : ?>
+    <div class="service-form-hero__bg" aria-hidden="true" style="background-image:url('<?php echo esc_url( $service_hero_bg ); ?>')"></div>
+    <?php endif; ?>
     <div class="container">
         <div class="form-template">
             <section class="<?= esc_attr( $form_classes ) ?>">

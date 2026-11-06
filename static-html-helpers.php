@@ -198,7 +198,7 @@ if ( ! function_exists( 'gc_theme_static_html_directory' ) ) {
 		wp_enqueue_style(
 			'static-page-style',
 			get_template_directory_uri() . '/assets/css/static-page.css',
-			array( 'global-style', 'page-style' ),
+			array( 'global-style' ),
 			gc_theme_asset_version( $static_css, $scss_files ),
 			'screen'
 		);
@@ -251,6 +251,33 @@ if ( ! function_exists( 'gc_theme_static_html_directory' ) ) {
 		return is_singular() && gc_theme_static_php_page_has_schema() ? false : $data;
 	}
 	add_filter( 'wpseo_json_ld_output', 'gc_theme_disable_seo_schema_for_static_php_page' );
+
+	/**
+	 * The Verified Entry hero is painted from a CSS background, so the browser
+	 * cannot discover it until the stylesheet arrives. Preload it.
+	 */
+	function gc_theme_preload_verified_entry_hero() {
+		if ( 'verified-entry' !== gc_theme_get_static_php_page_slug() ) {
+			return;
+		}
+
+		echo '<link rel="preload" as="image" href="' . esc_url( get_template_directory_uri() . '/assets/images/new-header.webp' ) . '" type="image/webp" fetchpriority="high">' . "\n";
+	}
+	add_action( 'wp_head', 'gc_theme_preload_verified_entry_hero', 1 );
+
+	/**
+	 * jQuery is only needed by the footer script on these pages. Keep it out of the head.
+	 */
+	function gc_theme_static_php_page_footer_jquery() {
+		if ( '' === gc_theme_get_static_php_page_slug() ) {
+			return;
+		}
+
+		foreach ( array( 'jquery', 'jquery-core', 'jquery-migrate' ) as $handle ) {
+			wp_script_add_data( $handle, 'group', 1 );
+		}
+	}
+	add_action( 'wp_enqueue_scripts', 'gc_theme_static_php_page_footer_jquery', 100 );
 
 	function gc_theme_render_static_php_page_schema() {
 		$post     = get_post();

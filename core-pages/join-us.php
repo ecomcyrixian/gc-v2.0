@@ -123,7 +123,7 @@
                     <?= wp_kses_post( $tagline_html ) ?>
                 </div>
                 <div class="acts">
-                    <a class="button blue" href="#quote" data-pkg="Custom (50+ checks/year)" data-hires="51-250">Get My Free Quote</a>
+                    <a class="button blue" href="#quote" data-pkg="Custom (50+ checks/year)" data-hires="51-100">Get My Free Quote</a>
                     <?php if ( $link_url ) : ?>
                     <a class="button ghost" href="<?= esc_url( $link_url ); ?>" target="<?= esc_attr( $link_target ); ?>" aria-label="<?= esc_attr( $link_title ); ?>">
                         <?= esc_html( $link_title ); ?>

@@ -22,7 +22,7 @@ $ve_steps = function ( $set, $variant, $lazy = true ) use ( $ve, $ve_img_uri ) {
 	<ol class="ve-steps ve-steps--<?php echo esc_attr( $variant ); ?>">
 		<?php foreach ( $ve['phones'][ $set ]['items'] as $index => $phone ) : ?>
 			<li class="ve-step">
-				<img src="<?php echo esc_url( $ve_img_uri . $phone['img'] . '.webp' ); ?>" alt="<?php echo esc_attr( $phone['title'] ); ?>" width="560" height="1218"<?php echo $lazy ? ' loading="lazy"' : ( 0 === $index ? ' fetchpriority="high"' : '' ); ?> decoding="async">
+				<img src="<?php echo esc_url( $ve_img_uri . $phone['img'] . '.webp' ); ?>" alt="<?php echo esc_attr( $phone['title'] ); ?>" width="560" height="1218"<?php echo $lazy ? ' loading="lazy"' : ''; ?> decoding="async">
 				<div class="ve-step__cap">
 					<span class="ve-num"><?php echo esc_html( $index + 1 ); ?></span>
 					<div>
@@ -273,6 +273,7 @@ gc_static_render_faq(
 				'orderby'             => 'date',
 				'order'               => 'DESC',
 				'ignore_sticky_posts' => true,
+				'no_found_rows'       => true,
 			)
 		);
 		?>

@@ -94,8 +94,8 @@ function gc_static_pricing_compare_schema( $post ) {
 					'url'   => $image,
 				),
 				'datePublished'      => '2026-10-24',
-				'dateModified'       => '2026-11-09',
-				'lastReviewed'       => '2026-11-09',
+				'dateModified'       => '2026-11-05',
+				'lastReviewed'       => '2026-11-05',
 				'mainEntity'         => array( '@id' => $url . '#article' ),
 			),
 			array(
@@ -106,7 +106,7 @@ function gc_static_pricing_compare_schema( $post ) {
 				'image'            => $image,
 				'inLanguage'       => 'en-US',
 				'datePublished'    => '2026-10-24',
-				'dateModified'     => '2026-11-09',
+				'dateModified'     => '2026-11-05',
 				'author'           => array( '@id' => $home . '#organization' ),
 				'publisher'        => array( '@id' => $home . '#organization' ),
 				'mainEntityOfPage' => array( '@id' => $url . '#webpage' ),
@@ -118,6 +118,7 @@ function gc_static_pricing_compare_schema( $post ) {
 				),
 				'mentions'         => array(
 					array( '@id' => $url . '#org-backgroundcheckscom' ),
+					array( '@id' => $url . '#org-verifiedfirst' ),
 					array( '@id' => $url . '#org-first' ),
 					array( '@id' => $url . '#org-checkr' ),
 					array( '@id' => $url . '#org-goodhire' ),
@@ -128,10 +129,13 @@ function gc_static_pricing_compare_schema( $post ) {
 					$packages,
 					'https://app.backgroundchecks.com/order-report',
 					'https://fadv.com/solutions/small-business-background-checks/',
-					'https://smb.fadv.com/order/online/package',
+					'https://fadv.com/article/first-advantage-background-checks-for-growing-businesses/',
 					'https://checkr.com/pricing',
 					'https://checkr.com/pricing/passthrough-fees',
 					'https://www.goodhire.com/pricing/',
+					'https://www.goodhire.com/about/',
+					'https://verifiedfirst.com/pricing/',
+					'https://www.backgroundchecks.com/about',
 					'https://www.hireright.com/pricing',
 					'https://www.sterlingcheck.com/',
 					'https://www.hireright.com/global',
@@ -173,7 +177,7 @@ function gc_static_pricing_compare_schema( $post ) {
 				'name'            => 'Background check providers compared by published price',
 				'description'     => 'Ranked by lowest published per-check price for a check that includes a county criminal search, checked November 2026. Court and DMV fees excluded.',
 				'itemListOrder'   => 'https://schema.org/ItemListOrderAscending',
-				'numberOfItems'   => 7,
+				'numberOfItems'   => 5,
 				'itemListElement' => array(
 					array(
 						'@type'    => 'ListItem',
@@ -186,9 +190,9 @@ function gc_static_pricing_compare_schema( $post ) {
 							$home . '#organization',
 							array(
 								'offers' => array(
-									$offer( 'GCheck Basic', $c['base'], 'Includes a national criminal database search, SSN trace, nationwide sex offender registry search and a county criminal search of the current county of residence', $packages, 2, '2026-10-01' ),
-									$offer( 'GCheck Standard', $c['standard'], 'Unlimited counties of residence', $packages, 2, '2026-10-01' ),
-									$offer( 'GCheck Advanced', $c['advanced'], 'Unlimited counties of residence plus federal criminal search', $packages, 2, '2026-10-01' ),
+									$offer( 'GCheck Basic', $c['base'], 'Includes a national criminal database search, SSN trace, nationwide sex offender registry search and a county criminal search of the current county of residence. If the national search finds possible records in other counties, those counties are automatically searched for $9.95 each. Third-party court fees may also apply.', $packages, 2, '2026-10-01' ),
+									$offer( 'GCheck Standard', $c['standard'], 'Unlimited counties of residence, last 7 years, plus biometric ID verification. If the national search finds possible records in other counties, those counties are automatically searched for $9.95 each. Third-party court fees may also apply.', $packages, 2, '2026-10-01' ),
+									$offer( 'GCheck Advanced', $c['advanced'], 'Unlimited counties of residence, last 7 years, plus federal criminal search and biometric ID verification. If the national search finds possible records in other counties, those counties are automatically searched for $9.95 each. Third-party court fees may also apply.', $packages, 2, '2026-10-01' ),
 								),
 							)
 						),
@@ -196,25 +200,6 @@ function gc_static_pricing_compare_schema( $post ) {
 					array(
 						'@type'    => 'ListItem',
 						'position' => 2,
-						'name'     => 'First Advantage',
-						'url'      => $url . '#first-advantage',
-						'item'     => $service(
-							'First Advantage background checks',
-							'first-advantage',
-							$url . '#org-first',
-							array(
-								'offers' => array(
-									$offer( 'First Advantage Basic', $c['faBasic'], 'Sex offender, national criminal record and SSN trace; no county search listed. Published price as checked November 2026.', 'https://smb.fadv.com/order/online/package', 0 ),
-									$offer( 'First Advantage Standard', $c['faStandard'], 'Adds a county criminal search (scope not listed). Published price as checked November 2026.', 'https://smb.fadv.com/order/online/package', 0 ),
-									$offer( 'First Advantage Choice', $c['faChoice'], '7-year county search and global sanctions. Published price as checked November 2026.', 'https://smb.fadv.com/order/online/package', 0 ),
-									$offer( 'First Advantage Premium', $c['faPremium'], 'Choice plus driving record. Published price as checked November 2026.', 'https://smb.fadv.com/order/online/package', 0 ),
-								),
-							)
-						),
-					),
-					array(
-						'@type'    => 'ListItem',
-						'position' => 3,
 						'name'     => 'BackgroundChecks.com',
 						'url'      => $url . '#backgroundchecks',
 						'item'     => $service(
@@ -232,6 +217,24 @@ function gc_static_pricing_compare_schema( $post ) {
 					),
 					array(
 						'@type'    => 'ListItem',
+						'position' => 3,
+						'name'     => 'Verified First',
+						'url'      => $url . '#verified-first',
+						'item'     => $service(
+							'Verified First background checks',
+							'verified-first',
+							$url . '#org-verifiedfirst',
+							array(
+								'offers' => array(
+									$offer( 'Verified First Basic', $c['vfBasic'], 'Nationwide criminal search, sex offender registry, address trace and global watch list; no county search listed. Published price as checked November 2026.', 'https://verifiedfirst.com/pricing/' ),
+									$offer( 'Verified First Essential', $c['vfEssential'], 'Adds unlimited county criminal search. Published price as checked November 2026.', 'https://verifiedfirst.com/pricing/' ),
+									$offer( 'Verified First Premium', $c['vfPremium'], 'Adds employment and education verification. Published price as checked November 2026.', 'https://verifiedfirst.com/pricing/' ),
+								),
+							)
+						),
+					),
+					array(
+						'@type'    => 'ListItem',
 						'position' => 4,
 						'name'     => 'Checkr',
 						'url'      => $url . '#checkr',
@@ -241,7 +244,7 @@ function gc_static_pricing_compare_schema( $post ) {
 							$url . '#org-checkr',
 							array(
 								'offers' => array(
-									$offer( 'Checkr Basic', $c['checkrBasic'], 'National criminal search; if it identifies potential records, Checkr runs county searches in the relevant counties for $15, plus court fees. Published price as checked November 2026.', 'https://checkr.com/pricing' ),
+									$offer( 'Checkr Basic', $c['checkrBasic'], 'National criminal search. The price includes no county criminal search. If the national search finds possible records, the relevant counties are automatically searched for $15. Third-party court fees may also apply. Published price as checked November 2026.', 'https://checkr.com/pricing' ),
 									$offer( 'Checkr Essential', $c['checkrEssential'], 'Unlimited county criminal search and identity verification. Published price as checked November 2026.', 'https://checkr.com/pricing' ),
 									$offer( 'Checkr Complete', $c['checkrComplete'], 'Adds unlimited state and federal criminal search. Published price as checked November 2026.', 'https://checkr.com/pricing' ),
 								),
@@ -263,34 +266,6 @@ function gc_static_pricing_compare_schema( $post ) {
 									$offer( 'GoodHire Essential', $c['goodhireEssential'], 'Unlimited county criminal search and identity verification. Published price as checked November 2026.', 'https://www.goodhire.com/pricing/' ),
 									$offer( 'GoodHire Complete', $c['goodhireComplete'], 'Adds unlimited state and federal criminal search. Published price as checked November 2026.', 'https://www.goodhire.com/pricing/' ),
 								),
-							)
-						),
-					),
-					array(
-						'@type'    => 'ListItem',
-						'position' => 6,
-						'name'     => 'HireRight',
-						'url'      => $url . '#hireright',
-						'item'     => $service(
-							'HireRight background checks',
-							'hireright',
-							$url . '#org-hireright',
-							array(
-								'description' => 'Pricing by quote only; no per-check prices published as of November 2026.',
-							)
-						),
-					),
-					array(
-						'@type'    => 'ListItem',
-						'position' => 7,
-						'name'     => 'Sterling (now First Advantage)',
-						'url'      => $url . '#sterling',
-						'item'     => $service(
-							'Sterling (now First Advantage) background checks',
-							'sterling',
-							$url . '#org-sterling',
-							array(
-								'description' => 'Pricing by quote only; no per-check prices published as of November 2026.',
 							)
 						),
 					),
@@ -327,6 +302,12 @@ function gc_static_pricing_compare_schema( $post ) {
 				'name'               => 'GoodHire',
 				'url'                => 'https://www.goodhire.com/',
 				'parentOrganization' => array( '@id' => $url . '#org-checkr' ),
+			),
+			array(
+				'@type' => 'Organization',
+				'@id'   => $url . '#org-verifiedfirst',
+				'name'  => 'Verified First',
+				'url'   => 'https://verifiedfirst.com/',
 			),
 			array(
 				'@type' => 'Organization',

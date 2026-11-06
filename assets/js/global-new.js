@@ -587,7 +587,7 @@ jQuery(document).ready(function($) {
     }
 
     function bootVeToggle() {
-        document.querySelectorAll('#verified-entry .ve-hero').forEach(initVeToggle);
+        document.querySelectorAll('.gc-static-page .ve-hero').forEach(initVeToggle);
     }
 
     if (document.readyState === 'loading') {
@@ -597,45 +597,38 @@ jQuery(document).ready(function($) {
     }
 })();
 
-/* Pricing with quote: compare table */
+/* Pricing with quote: compare table and selected card */
 (function () {
-    var root = document.querySelector('.pricing-with-quote');
-    if (!root) {
-        return;
-    }
+    document.querySelectorAll('.pricing-with-quote').forEach(function (root) {
+        var toggle = root.querySelector('[data-compare-toggle]');
+        var panel = root.querySelector('[data-compare]');
+        if (toggle && panel) {
+            toggle.addEventListener('click', function () {
+                var open = toggle.getAttribute('aria-expanded') === 'true';
+                toggle.setAttribute('aria-expanded', String(!open));
+                panel.hidden = open;
+                toggle.querySelector('span').textContent = open ? 'Compare all features' : 'Hide comparison';
+            });
+        }
 
-    var toggle = root.querySelector('[data-compare-toggle]');
-    var panel = root.querySelector('[data-compare]');
-    if (toggle && panel) {
-        toggle.addEventListener('click', function () {
-            var open = toggle.getAttribute('aria-expanded') === 'true';
-            toggle.setAttribute('aria-expanded', String(!open));
-            panel.hidden = open;
-            toggle.querySelector('span').textContent = open ? 'Compare all features' : 'Hide comparison';
+        var cards = root.querySelectorAll('.pricing-card');
+
+        function selectCard(card) {
+            cards.forEach(function (item) {
+                item.classList.remove('is-selected');
+            });
+            if (card) {
+                card.classList.add('is-selected');
+            }
+        }
+
+        root.addEventListener('click', function (event) {
+            var pkg = event.target.closest('[data-pkg], .pricing-card__cta');
+            if (!pkg || !root.contains(pkg)) {
+                return;
+            }
+
+            selectCard(pkg.closest('.pricing-card'));
         });
-    }
-
-    var cards = root.querySelectorAll('.pricing-card');
-
-    function selectCard(card) {
-        cards.forEach(function (item) {
-            item.classList.remove('is-selected');
-        });
-        if (card) {
-            card.classList.add('is-selected');
-        }
-    }
-
-    root.addEventListener('click', function (event) {
-        var cta = event.target.closest('.pricing-card__cta');
-        if (cta && root.contains(cta)) {
-            selectCard(cta.closest('.pricing-card'));
-            return;
-        }
-
-        var otherPackage = event.target.closest('[data-pkg]');
-        if (otherPackage && root.contains(otherPackage)) {
-            selectCard(null);
-        }
     });
 })();

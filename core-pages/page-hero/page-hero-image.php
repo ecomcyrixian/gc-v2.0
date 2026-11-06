@@ -26,6 +26,13 @@
             <?= $logos ?>
             </span>
             <?= $details ?>
+            <?php if ( is_string( $details ) && false !== strpos( $details, 'hero-trust' ) ) : ?>
+                <?php $gc_trust_badges = get_template_directory_uri() . '/assets/images/'; ?>
+                <div class="hero-trust__badges">
+                    <img src="<?php echo esc_url( $gc_trust_badges . 'soc2.png' ); ?>" alt="SOC 2 Type II attestation" width="60" height="60" loading="lazy">
+                    <img src="<?php echo esc_url( $gc_trust_badges . 'hpaa.png' ); ?>" alt="HIPAA compliance program" width="60" height="60" loading="lazy">
+                </div>
+            <?php endif; ?>
             <span>
                 <?php if( have_rows('cta') ): ?>                
                     <?php while( have_rows('cta') ) : the_row(); ?>
