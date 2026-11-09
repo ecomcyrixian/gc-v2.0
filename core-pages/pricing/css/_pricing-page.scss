@@ -846,6 +846,30 @@ $pricing-check-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='h
             strong {
                 color: $blue300;
             }
+
+            &.not {
+                background: #FAFAFB;
+                color: #6B6E76;
+
+                &::before {
+                    content: "\2013";
+                    display: grid;
+                    place-items: center;
+                    width: 18px;
+                    height: 18px;
+                    border-radius: 50%;
+                    background: #E3E4EA;
+                    color: #6B6E76;
+                    font-weight: $fBold;
+                    font-size: 12px;
+                    line-height: 1;
+                }
+
+                small,
+                span {
+                    color: #6B6E76;
+                }
+            }
         }
     }
 
@@ -865,6 +889,10 @@ $pricing-check-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='h
         }
 
         .pqc-prices {
+            li > span {
+                color: $black !important;
+            }
+
             strong {
                 color: $blue300;
 
@@ -892,6 +920,11 @@ $pricing-check-icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='h
             display: flex;
             flex-direction: column;
             align-items: center;
+
+            a {
+                min-width: 230px;
+                text-align: center;
+            }
 
             @include media($tablet) {
                 width: 100%;

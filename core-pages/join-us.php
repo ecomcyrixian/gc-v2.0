@@ -110,6 +110,7 @@
 
     $tagline_html = is_string( $tagline ) ? $tagline : '';
     $is_service_pillars = strpos( $tagline_html, 'join-us-service-pillars' ) !== false;
+    $is_second = $is_service_pillars && (bool) preg_match( '/class="[^"]*\bsecond\b/', $tagline_html );
 ?>
 
 <?php if ( $display_selection ) : ?>
@@ -123,11 +124,20 @@
                     <?= wp_kses_post( $tagline_html ) ?>
                 </div>
                 <div class="acts">
-                    <a class="button blue" href="#quote" data-pkg="Custom (50+ checks/year)" data-hires="51-100">Get My Free Quote</a>
-                    <?php if ( $link_url ) : ?>
-                    <a class="button ghost" href="<?= esc_url( $link_url ); ?>" target="<?= esc_attr( $link_target ); ?>" aria-label="<?= esc_attr( $link_title ); ?>">
-                        <?= esc_html( $link_title ); ?>
-                    </a>
+                    <?php if ( $is_second ) : ?>
+                        <?php if ( $link_url ) : ?>
+                        <a class="button blue" href="<?= esc_url( $link_url ); ?>" target="<?= esc_attr( $link_target ); ?>" aria-label="<?= esc_attr( $link_title ); ?>">
+                            <?= esc_html( $link_title ); ?>
+                        </a>
+                        <?php endif; ?>
+                        <a class="button ghost" href="<?= esc_url( home_url( '/book-a-demo/' ) ); ?>">Book a Demo</a>
+                    <?php else : ?>
+                        <a class="button blue" href="#quote" data-pkg="Custom (50+ checks/year)" data-hires="51-100">Get My Free Quote</a>
+                        <?php if ( $link_url ) : ?>
+                        <a class="button ghost" href="<?= esc_url( $link_url ); ?>" target="<?= esc_attr( $link_target ); ?>" aria-label="<?= esc_attr( $link_title ); ?>">
+                            <?= esc_html( $link_title ); ?>
+                        </a>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
             </div>

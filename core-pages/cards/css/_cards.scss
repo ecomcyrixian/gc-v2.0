@@ -1846,6 +1846,10 @@
         padding-bottom: $gap80;
     }
 
+    &:has(.heading .service-description-steps.explore.related-screening) .card-item h4 p {
+        font-size: 18px;
+    }
+
     &:has(.heading .service-description-steps.explore) {
         background: $white75;
 

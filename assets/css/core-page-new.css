@@ -2084,6 +2084,27 @@
 .pricing-with-quote--included .pricing-card__coverage strong {
   color: #4F51FD;
 }
+.pricing-with-quote--included .pricing-card__coverage.not {
+  background: #FAFAFB;
+  color: #6B6E76;
+}
+.pricing-with-quote--included .pricing-card__coverage.not::before {
+  content: "–";
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #E3E4EA;
+  color: #6B6E76;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1;
+}
+.pricing-with-quote--included .pricing-card__coverage.not small,
+.pricing-with-quote--included .pricing-card__coverage.not span {
+  color: #6B6E76;
+}
 .pricing-with-quote--addon .pricing-quote__banner--addon {
   background: linear-gradient(120deg, #FFFFFF 55%, #F2F3FF 100%);
 }
@@ -2095,6 +2116,9 @@
   font-weight: 600;
   background: #F2F3FF;
   border-radius: 4px;
+}
+.pricing-with-quote--addon .pqc-prices li > span {
+  color: #000000 !important;
 }
 .pricing-with-quote--addon .pqc-prices strong {
   color: #4F51FD;
@@ -2118,6 +2142,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.pricing-with-quote--addon .pqc-cta a {
+  min-width: 230px;
+  text-align: center;
 }
 @media screen and (max-width: 1023px) {
   .pricing-with-quote--addon .pqc-cta {
@@ -2528,8 +2556,10 @@ body.page .join-us .button {
 body.page .join-us.join-us--service-pillars > .container {
   max-width: 1320px;
   text-align: left;
+  align-items: stretch;
 }
 body.page .join-us.join-us--service-pillars .box {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;

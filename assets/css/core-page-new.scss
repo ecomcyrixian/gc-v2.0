@@ -483,9 +483,11 @@ body.page{
             > .container{
                 max-width: 1320px;
                 text-align: left;
+                align-items: stretch;
             }
 
             .box{
+                width: 100%;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;

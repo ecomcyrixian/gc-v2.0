@@ -4,7 +4,9 @@
     $snippet = get_sub_field('snippet');
     $heading_details = get_sub_field('details');
     $image = get_sub_field('image');
+    $faqs_list = get_sub_field('faqs_list');
     $is_collapsible = is_string( $heading_details ) && strpos( $heading_details, 'faq-collabsible' ) !== false;
+    $open_first     = $is_collapsible && false !== strpos( $heading_details, 'open-first' );
 ?>
 
 <?php if ( $display_selection ) : ?>
@@ -23,20 +25,20 @@
         </div>
 
         <div class="card-cont cols2">
-            <?php if( have_rows('faqs_list') ): ?>                
-                <?php while( have_rows('faqs_list') ) : the_row(); ?>
+            <?php if ( is_array( $faqs_list ) ) : ?>
+                <?php foreach ( $faqs_list as $faq_index => $faq ) : ?>
                     <?php
-                        $h4 = get_sub_field('h4');
-                        $faq_details = get_sub_field('details');
-                        $faq_index = function_exists( 'get_row_index' ) ? get_row_index() : 0;
-                        $faq_panel_id = 'faq-panel-' . $faq_index;
+                        $h4 = isset( $faq['h4'] ) ? $faq['h4'] : '';
+                        $faq_details = isset( $faq['details'] ) ? $faq['details'] : '';
+                        $faq_panel_id = 'faq-panel-' . ( $faq_index + 1 );
+                        $faq_is_open = $open_first && 0 === $faq_index;
                     ?>
-                    <div class="faq-card">
+                    <div class="faq-card<?php echo $faq_is_open ? ' is-open' : ''; ?>">
                         <?php if ( $is_collapsible ) : ?>
                             <button
                                 class="faq-card__toggle"
                                 type="button"
-                                aria-expanded="false"
+                                aria-expanded="<?php echo $faq_is_open ? 'true' : 'false'; ?>"
                                 aria-controls="<?php echo esc_attr( $faq_panel_id ); ?>"
                             >
                                 <span><?php echo esc_html( $h4 ); ?></span>
@@ -49,7 +51,7 @@
                                     </svg>
                                 </span>
                             </button>
-                            <div id="<?php echo esc_attr( $faq_panel_id ); ?>" class="faq-card__panel" hidden>
+                            <div id="<?php echo esc_attr( $faq_panel_id ); ?>" class="faq-card__panel"<?php echo $faq_is_open ? '' : ' hidden'; ?>>
                                 <?php echo wp_kses_post( $faq_details ); ?>
                             </div>
                         <?php else : ?>
@@ -73,7 +75,7 @@
                             ?>
                         <?php endif; ?>
                     </div>
-                <?php endwhile; ?>
+                <?php endforeach; ?>
             <?php endif; ?>
         </div>
     

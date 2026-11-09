@@ -3609,6 +3609,9 @@ body.search h4 span {
   padding-top: 60px;
   padding-bottom: 80px;
 }
+.cards:has(.heading .service-description-steps.explore.related-screening) .card-item h4 p {
+  font-size: 18px;
+}
 .cards:has(.heading .service-description-steps.explore) {
   background: #f5f5f5;
 }
