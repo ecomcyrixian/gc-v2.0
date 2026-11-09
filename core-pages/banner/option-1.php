@@ -16,10 +16,17 @@
                     </a> -->
                 </div>
             </div>
+<<<<<<< Updated upstream
             <em><img src="<?php echo get_template_directory_uri() . '/core-pages/banner/images/dotted-img.webp' ?>" alt="gceck" loading="lazy"></em>
         </div>
         <span>
             <img class="photo" src="<?php echo get_template_directory_uri() . '/core-pages/banner/images/close-up-adult-working-his-laptop-office-photo-1.webp' ?>" alt="gceck" loading="lazy">
+=======
+            <em><img src="<?php echo get_template_directory_uri() . '/core-pages/banner/images/dotted-img.png' ?>" alt="gceck" loading="lazy"></em>
+        </div>
+        <span>
+            <img class="photo" src="<?php echo get_template_directory_uri() . '/core-pages/banner/images/close-up-adult-working-his-laptop-office-photo-1.jpg' ?>" alt="gceck" loading="lazy">
+>>>>>>> Stashed changes
         </span>
     </div>
 </div>

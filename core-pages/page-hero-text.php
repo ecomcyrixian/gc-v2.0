@@ -13,11 +13,7 @@
         <span class="logos <?= $alignment ?> ">
                 <?= $logos ?>
         </span>
-        <div class="heading">
-            
-        </div>
         <?= $details ?>
-        
         <?php if( have_rows('cta') ): ?>                
             <?php while( have_rows('cta') ) : the_row(); ?>
                 <?php
