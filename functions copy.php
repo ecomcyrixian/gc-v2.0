@@ -1,0 +1,575 @@
+<?php
+/*
+ * featured image
+ */
+add_theme_support( 'post-thumbnails' );
+add_theme_support( 'title-tag' );
+
+require_once get_template_directory() . '/partials/publishpress-author-sync.php';
+require_once get_template_directory() . '/static-html-helpers.php';
+require_once get_template_directory() . '/partials/reports/report-enqueue-helpers.php';
+
+/*
+ * Blog hero image size: ~540px width so srcset can serve smaller file when displayed at 535px (mobile LCP).
+ * Regenerate thumbnails for existing uploads to get this size.
+ */
+add_image_size( 'blog_hero', 540, 0, false );
+
+/**
+ * Build width/height attributes for <img> to reserve space (CLS). Does not affect download speed.
+ *
+ * @param mixed $image ACF image field (array or ID), attachment ID, or other value passed to gc_get_acf_image_src.
+ * @return string Attributes with trailing space, e.g. width="800" height="600" , or empty.
+ */
+function gc_theme_img_dimension_attrs( $image ) {
+	if ( $image === null || $image === '' || $image === array() ) {
+		return '';
+	}
+	$w = 0;
+	$h = 0;
+	if ( function_exists( 'gc_get_acf_image_src' ) ) {
+		$src = gc_get_acf_image_src( $image );
+		if ( is_array( $src ) && ! empty( $src['width'] ) && ! empty( $src['height'] ) ) {
+			$w = (int) $src['width'];
+			$h = (int) $src['height'];
+		}
+	}
+	if ( ( $w < 1 || $h < 1 ) && is_array( $image ) ) {
+		if ( ! empty( $image['width'] ) && ! empty( $image['height'] ) ) {
+			$w = (int) $image['width'];
+			$h = (int) $image['height'];
+		} else {
+			$aid = isset( $image['ID'] ) ? (int) $image['ID'] : ( isset( $image['id'] ) ? (int) $image['id'] : 0 );
+			if ( $aid && function_exists( 'wp_get_attachment_image_src' ) ) {
+				$meta = wp_get_attachment_image_src( $aid, 'full' );
+				if ( $meta && isset( $meta[1], $meta[2] ) ) {
+					$w = (int) $meta[1];
+					$h = (int) $meta[2];
+				}
+			}
+		}
+	} elseif ( ( $w < 1 || $h < 1 ) && is_numeric( $image ) && function_exists( 'wp_get_attachment_image_src' ) ) {
+		$meta = wp_get_attachment_image_src( (int) $image, 'full' );
+		if ( $meta && isset( $meta[1], $meta[2] ) ) {
+			$w = (int) $meta[1];
+			$h = (int) $meta[2];
+		}
+	}
+	if ( $w > 0 && $h > 0 ) {
+		return 'width="' . esc_attr( (string) $w ) . '" height="' . esc_attr( (string) $h ) . '" ';
+	}
+	return '';
+}
+
+/*
+ * Build a cache-busting asset version from the built file's modification time.
+ * Recompiling any SCSS partial rewrites the target CSS, so the compiled file alone is enough.
+ */
+function gc_theme_asset_version( $asset_file_path ) {
+    $asset_time = file_exists( $asset_file_path ) ? filemtime( $asset_file_path ) : 0;
+
+    return $asset_time ? (string) $asset_time : '1';
+}
+
+function theme_styles_script() {
+	
+    global $post;
+    
+	if ( is_front_page() ) {
+    	$front_page_css = get_template_directory() . '/assets/css/front-page-new.css';
+
+        $front_page_version = gc_theme_asset_version( $front_page_css );
+
+        wp_enqueue_style(
+            'swiper',
+            'https://cdn.jsdelivr.net/npm/swiper@11.2.10/swiper-bundle.min.css',
+            array(),
+            null
+        );
+
+        wp_enqueue_style(
+            'homepage-style',
+            get_template_directory_uri() . '/assets/css/front-page-new.css',
+            array( 'swiper' ),
+            $front_page_version,
+            'screen'
+        );
+
+        wp_enqueue_script(
+            'swiper',
+            'https://cdn.jsdelivr.net/npm/swiper@11.2.10/swiper-bundle.min.js',
+            array(),
+            null,
+            true
+        );
+
+    } elseif ( is_page() ) {
+        if ( ! gc_theme_enqueue_parallax_report_assets( $post ) ) {
+            $core_page_css = get_template_directory() . '/assets/css/core-page-new.css';
+            $version = gc_theme_asset_version( $core_page_css );
+
+            wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/core-page-new.css', array(), $version, 'screen' );
+        }
+    } elseif ( is_single() || is_search() || is_category() || is_author() || is_tax( 'author' ) ) {
+        $blog_page_css = get_template_directory() . '/assets/css/blog-page-new.css';
+        $version = gc_theme_asset_version( $blog_page_css );
+        
+        wp_enqueue_style( 'page-style', get_template_directory_uri() . '/assets/css/blog-page-new.css', array(), $version, 'screen' );
+    }
+	
+}
+add_action( 'wp_enqueue_scripts', 'theme_styles_script' );
+
+function gc_add_preconnect_hints() {
+    if ( is_front_page() ) {
+        echo '<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>' . "\n";
+    }
+}
+add_action( 'wp_head', 'gc_add_preconnect_hints', 1 );
+
+require_once get_template_directory() . '/core-pages/custom-whitepaper/gcheck-pdf-form.php';
+require_once get_template_directory() . '/core-pages/custom-whitepaper/secure-pdf-download.php';
+
+/*
+ * Enqueue jQuery and theme scripts
+ * Automatic cache busting based on file timestamps + file hash
+ */
+function gcheck_scripts() {
+    wp_enqueue_script('jquery');
+
+    $js_file_path = get_template_directory() . '/assets/js/global-new.js';
+    $global_js_version = gc_theme_asset_version( $js_file_path );
+
+    $global_js_deps = array( 'jquery' );
+    if ( wp_script_is( 'swiper', 'registered' ) ) {
+        $global_js_deps[] = 'swiper';
+    }
+
+    wp_enqueue_script(
+        'my-custom-script',
+        get_template_directory_uri() . '/assets/js/global-new.js',
+        $global_js_deps,
+        $global_js_version,
+        true
+    );
+
+    if ( is_single() ) {
+        $blog_v2_js_path = get_template_directory() . '/assets/js/blog-v2.js';
+        $blog_v2_js_version = gc_theme_asset_version( $blog_v2_js_path );
+
+        wp_enqueue_script(
+            'blog-v2',
+            get_template_directory_uri() . '/assets/js/blog-v2.js',
+            array(),
+            $blog_v2_js_version,
+            true
+        );
+
+        $expert_insight_data = array(
+            'charmAvatarUrl' => '',
+            'charmLink'      => home_url('/blog/author/charm/'),
+        );
+        if ( function_exists( 'blog_v2_expert_insight_experts' ) ) {
+            $expert_insight_data['experts'] = blog_v2_expert_insight_experts( get_the_ID() );
+        } else {
+            $expert_insight_data['experts'] = array();
+        }
+        wp_localize_script(
+            'blog-v2',
+            'blogV2ExpertInsight',
+            $expert_insight_data
+        );
+    }
+}
+add_action('wp_enqueue_scripts', 'gcheck_scripts');
+
+/**
+ * Dequeue Contact Form 7 JS + CSS on single blog posts (no forms present).
+ * Saves ~136 ms main-thread blocking + 2 network requests.
+ */
+function theme_dequeue_cf7_on_blog_posts() {
+    if ( ! is_singular( 'post' ) ) {
+        return;
+    }
+    wp_dequeue_script( 'contact-form-7' );
+    wp_dequeue_script( 'swv' );
+    wp_dequeue_style( 'contact-form-7' );
+}
+add_action( 'wp_enqueue_scripts', 'theme_dequeue_cf7_on_blog_posts', 999 );
+
+/**
+ * Load Blog V2 functions only on single post views (author helpers, content filters, related post, shortcode).
+ * Expand condition later if [article_card] or other blog-v2 logic is needed on pages/archives.
+ */
+function maybe_load_blog_v2_functions() {
+    if ( is_singular( 'post' ) ) {
+        require_once get_template_directory() . '/partials/blog-v2/blog-v2-functions.php';
+    }
+}
+add_action( 'wp', 'maybe_load_blog_v2_functions' );
+
+/*
+ * Enqueue global CSS with automatic cache busting based on the compiled CSS modification time
+ */
+function enqueue_global_styles() {
+    $css_file_path = get_template_directory() . '/assets/css/global-new.css';
+    $version = gc_theme_asset_version( $css_file_path );
+
+    wp_enqueue_style(
+        'global-style',
+        get_template_directory_uri() . '/assets/css/global-new.css',
+        array(), // No dependencies
+        $version,
+        'all'
+    );
+}
+add_action( 'wp_enqueue_scripts', 'enqueue_global_styles' );
+
+
+/*
+ * Register menu
+ */
+function register_my_menu() {
+    register_nav_menu( 'primary', __( 'Main Menu', 'theme-slug' ) );
+    register_nav_menu( 'footer', __( 'Footer Menu', 'theme-slug' ) );
+}
+add_action( 'after_setup_theme', 'register_my_menu' );
+
+
+
+/**
+ * Desktop nav walker for the 09.16.26 header redesign.
+ *
+ * Renders a top-level trigger plus a hover panel built from the menu's
+ * sub-items. Panel layout is driven by wp_nav_menu() args:
+ *   panel_type       'list' (Company) | 'grid' (Industries) | 'group' (Services)
+ *   panel_eyebrow    small uppercase label above the links
+ *   panel_link_label / panel_link_url  optional "View all ..." link
+ */
+class Desktop_Nav_Walker extends Walker_Nav_Menu {
+
+    /** Title of the group being rendered, reused as the label of its links pane. */
+    private $group_title = '';
+
+    /** Id of the group being rendered, pairing its row with its links pane. */
+    private $group_pane_id = '';
+
+    /** Where the pane being rendered starts in $output, so it can be moved out of its <li>. */
+    private $pane_offset = 0;
+
+    /** Panes collected out of their <li>, flushed as one column after the group list. */
+    private $group_panes = '';
+
+    public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+        $classes    = empty( $item->classes ) ? array() : (array) $item->classes;
+        $classes[]  = 'menu-item-' . $item->ID;
+        $panel_type = ! empty( $args->panel_type ) ? $args->panel_type : 'list';
+        $has_group  = $depth === 1 && in_array( 'menu-item-has-children', $classes, true );
+
+        $class_names = join( ' ', apply_filters( 'nav_menu_css_class', array_filter( $classes ), $item, $args ) );
+        $class_names = $class_names ? ' class="' . esc_attr( $class_names ) . '"' : '';
+
+        $pane_att = $has_group ? ' data-pane="nav-pane-' . $item->ID . '"' : '';
+
+        $output .= '<li' . $class_names . $pane_att . '>';
+
+        $atts = array(
+            'title'  => ! empty( $item->attr_title ) ? $item->attr_title : '',
+            'target' => ! empty( $item->target )     ? $item->target     : '',
+            'rel'    => ! empty( $item->xfn )        ? $item->xfn        : '',
+            'href'   => ! empty( $item->url )        ? $item->url        : '',
+        );
+
+        if ( $depth === 0 ) {
+            $atts['class'] = 'nav-trigger';
+        }
+
+        $atts = apply_filters( 'nav_menu_link_attributes', $atts, $item, $args );
+
+        $attributes = '';
+        foreach ( $atts as $attr => $value ) {
+            if ( ! empty( $value ) ) {
+                $value       = ( 'href' === $attr ) ? esc_url( $value ) : esc_attr( $value );
+                $attributes .= ' ' . $attr . '="' . $value . '"';
+            }
+        }
+
+        $title = apply_filters( 'the_title', $item->title, $item->ID );
+
+        if ( $depth === 1 ) {
+            $this->group_title   = $title;
+            $this->group_pane_id = 'nav-pane-' . $item->ID;
+        }
+
+        $item_output  = $args->before;
+        $item_output .= '<a' . $attributes . '>';
+        $item_output .= $args->link_before . '<span class="nav-item-title">' . $title . '</span>' . $args->link_after;
+
+        // arrow marking the group whose links are shown (Services)
+        if ( $depth === 1 && ! empty( $args->group_arrow ) && in_array( 'menu-item-has-children', $classes, true ) ) {
+            $item_output .= $args->group_arrow;
+        }
+
+        // Services shows its links in a side pane, so descriptions would crowd the group list.
+        $description = 'group' === $panel_type ? '' : gc_get_menu_item_description( $item );
+        if ( $description && $depth > 0 ) {
+            $item_output .= '<span class="menu-item-description">' . $description . '</span>';
+        }
+
+        $item_output .= '</a>';
+        $item_output .= $args->after;
+
+        $output .= apply_filters( 'walker_nav_menu_start_el', $item_output, $item, $depth, $args );
+    }
+
+    public function start_lvl( &$output, $depth = 0, $args = array() ) {
+        if ( $depth > 0 ) {
+            // Links of one group, shown beside the group list (Services).
+            $this->pane_offset = strlen( $output );
+
+            $output .= '<div class="nav-panel__group-pane" id="' . esc_attr( $this->group_pane_id ) . '">';
+            if ( $this->group_title ) {
+                $output .= '<span class="nav-panel__group-label">' . $this->group_title . '</span>';
+            }
+            $output .= '<ul class="sub-menu nav-panel__group-items">';
+            return;
+        }
+
+        $panel_type = ! empty( $args->panel_type ) ? $args->panel_type : 'list';
+
+        $output .= '<div class="nav-panel nav-panel--' . esc_attr( $panel_type ) . '">';
+
+        if ( ! empty( $args->panel_eyebrow ) || ! empty( $args->panel_link_label ) ) {
+            $output .= '<div class="nav-panel__head">';
+            if ( ! empty( $args->panel_eyebrow ) ) {
+                $output .= '<span class="nav-panel__eyebrow">' . esc_html( $args->panel_eyebrow ) . '</span>';
+            }
+            if ( ! empty( $args->panel_link_label ) && ! empty( $args->panel_link_url ) ) {
+                $output .= '<a class="nav-panel__view-all" href="' . esc_url( $args->panel_link_url ) . '">'
+                    . esc_html( $args->panel_link_label ) . '</a>';
+            }
+            $output .= '</div>';
+        }
+
+        $output .= '<ul class="sub-menu nav-panel__items">';
+    }
+
+    public function end_lvl( &$output, $depth = 0, $args = array() ) {
+        if ( $depth > 0 ) {
+            $output .= '</ul></div>';
+
+            // Move the pane out of its <li> and into the panes column, so the panel
+            // grows with whichever column is taller instead of the pane overflowing it.
+            $this->group_panes .= substr( $output, $this->pane_offset );
+            $output             = substr( $output, 0, $this->pane_offset );
+
+            return;
+        }
+
+        $output .= '</ul>';
+
+        if ( '' !== $this->group_panes ) {
+            $output           .= '<div class="nav-panel__panes">' . $this->group_panes . '</div>';
+            $this->group_panes = '';
+        }
+
+        $output .= '</div>';
+    }
+}
+
+/**
+ * Menu item description, from the ACF field when present,
+ * otherwise the native WordPress menu description.
+ */
+function gc_get_menu_item_description( $item ) {
+    $description = function_exists( 'get_field' ) ? get_field( 'menu_item_description', $item->ID ) : '';
+
+    if ( empty( $description ) && ! empty( $item->description ) ) {
+        $description = $item->description;
+    }
+
+    return $description;
+}
+
+/**
+ * Mobile nav walker for the 09.22.26 header redesign.
+ *
+ * Renders the drawer as a checkbox-driven accordion, three levels deep:
+ *   depth 0  section row (Services, Industries, ...), chevron when it has a panel
+ *   depth 1  category row, its description, plus/minus when it has links
+ *   depth 2  plain link
+ *
+ * Icons and the optional panel footer link come from wp_nav_menu() args:
+ *   icon_chevron / icon_plus / icon_minus   inline SVG markup
+ *   view_all_label / view_all_url           link rendered below the panel list
+ */
+class Mobile_Nav_Walker extends Walker_Nav_Menu {
+
+    private function has_children( $item ) {
+        $classes = empty( $item->classes ) ? array() : (array) $item->classes;
+
+        return in_array( 'menu-item-has-children', $classes, true );
+    }
+
+    private function icon( $args, $key ) {
+        return ! empty( $args->{$key} ) ? $args->{$key} : '';
+    }
+
+    public function start_lvl( &$output, $depth = 0, $args = array() ) {
+        $output .= 0 === $depth
+            ? '<div class="m-nav__panel"><ul class="m-nav__list">'
+            : '<ul class="m-nav__sublist">';
+    }
+
+    public function end_lvl( &$output, $depth = 0, $args = array() ) {
+        if ( 0 !== $depth ) {
+            $output .= '</ul>';
+            return;
+        }
+
+        $output .= '</ul>';
+
+        if ( ! empty( $args->view_all_label ) && ! empty( $args->view_all_url ) ) {
+            $output .= '<a class="m-nav__view-all" href="' . esc_url( $args->view_all_url ) . '">'
+                . esc_html( $args->view_all_label ) . '</a>';
+        }
+
+        $output .= '</div>';
+    }
+
+    public function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+        $title        = apply_filters( 'the_title', $item->title, $item->ID );
+        $url          = ! empty( $item->url ) ? $item->url : '';
+        $has_children = $this->has_children( $item );
+        $toggle_id    = 'm-nav-toggle-' . $item->ID;
+
+        if ( 0 === $depth ) {
+            $output .= '<li class="m-nav__section' . ( $has_children ? ' m-nav__section--has-panel' : '' ) . '">';
+
+            if ( ! $has_children ) {
+                $output .= '<a class="m-nav__row" href="' . esc_url( $url ) . '">'
+                    . '<span class="m-nav__row-title">' . $title . '</span></a>';
+                return;
+            }
+
+            $output .= '<input type="checkbox" class="m-nav__toggle" id="' . esc_attr( $toggle_id ) . '">';
+            $output .= '<label class="m-nav__row" for="' . esc_attr( $toggle_id ) . '">'
+                . '<span class="m-nav__row-title">' . $title . '</span>'
+                . '<span class="m-nav__row-icon" aria-hidden="true">' . $this->icon( $args, 'icon_chevron' ) . '</span>'
+                . '</label>';
+
+            return;
+        }
+
+        if ( 1 === $depth ) {
+            $description = gc_get_menu_item_description( $item );
+
+            $text = '<span class="m-nav__item-text"><span class="m-nav__item-title">' . $title . '</span>';
+            if ( $description ) {
+                $text .= '<span class="m-nav__item-desc">' . $description . '</span>';
+            }
+            $text .= '</span>';
+
+            $output .= '<li class="m-nav__item' . ( $has_children ? ' m-nav__item--has-children' : '' ) . '">';
+
+            if ( ! $has_children ) {
+                $output .= '<a class="m-nav__item-row" href="' . esc_url( $url ) . '">' . $text . '</a>';
+                return;
+            }
+
+            $output .= '<input type="checkbox" class="m-nav__toggle" id="' . esc_attr( $toggle_id ) . '">';
+            $output .= '<label class="m-nav__item-row" for="' . esc_attr( $toggle_id ) . '">' . $text
+                . '<span class="m-nav__item-icon" aria-hidden="true">'
+                . '<span class="m-nav__item-icon-plus">' . $this->icon( $args, 'icon_plus' ) . '</span>'
+                . '<span class="m-nav__item-icon-minus">' . $this->icon( $args, 'icon_minus' ) . '</span>'
+                . '</span></label>';
+
+            return;
+        }
+
+        $output .= '<li class="m-nav__link"><a href="' . esc_url( $url ) . '">' . $title . '</a>';
+    }
+
+    public function end_el( &$output, $item, $depth = 0, $args = array() ) {
+        $output .= '</li>';
+    }
+}
+
+/**
+ * Deploy shim for the 09.16.26 header redesign.
+ *
+ * The walkers above replace Desktop_Mega_Walker, Parent_Menu_Walker and
+ * Walker_Nav_Menu_With_Description. While functions.php is uploaded ahead of the
+ * menu partials, the old partials are still live and instantiate those names, so
+ * keeping them resolvable turns a fatal error into a plainly rendered menu.
+ *
+ * Delete once the new header is live on every environment.
+ */
+foreach ( array( 'Walker_Nav_Menu_With_Description', 'Desktop_Mega_Walker', 'Parent_Menu_Walker' ) as $gc_retired_walker ) {
+    if ( ! class_exists( $gc_retired_walker ) ) {
+        class_alias( 'Walker_Nav_Menu', $gc_retired_walker );
+    }
+}
+unset( $gc_retired_walker );
+
+
+/*
+ * categories and tags to page
+ */
+
+function register_category_and_tag_with_pages() {
+    // Add categories to pages
+    register_taxonomy_for_object_type('category', 'page');
+    // Add tags to pages
+    register_taxonomy_for_object_type('post_tag', 'page');
+}
+add_action('init', 'register_category_and_tag_with_pages');
+
+function allow_category_and_tag_archives_for_pages($query) {
+    if (is_admin() || !$query->is_main_query()) {
+        return;
+    }
+
+    // Allow pages to be included in category archives
+    if ($query->is_category() && $query->is_main_query()) {
+        $query->set('post_type', array('post', 'page'));
+    }
+
+    // Allow pages to be included in tag archives
+    if ($query->is_tag() && $query->is_main_query()) {
+        $query->set('post_type', array('post', 'page'));
+    }
+}
+add_action('pre_get_posts', 'allow_category_and_tag_archives_for_pages');
+
+
+//  Add excerpt for pages
+add_action( 'init', 'my_add_excerpts_to_pages' );
+function my_add_excerpts_to_pages() {
+    add_post_type_support( 'page', 'excerpt' );
+}
+
+/**
+ * Force Background Check CPT pages to return Page Not Found
+ * This removes them from Google search on recrawl
+ */
+
+add_action('init', function () {
+    add_rewrite_rule(
+        '^blog/background_check/.*',
+        'index.php?post_type=background_check',
+        'top'
+    );
+});
+
+add_action('template_redirect', function () {
+
+    if (is_singular('background_check')) {
+        global $wp_query;
+        $wp_query->set_404();
+        status_header(410); // change to 410 if you want faster removal
+        nocache_headers();
+        exit;
+    }
+
+});
